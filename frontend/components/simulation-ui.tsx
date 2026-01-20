@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Send, Mic, Loader2, Volume2, Trophy, Flame } from "lucide-react"
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+
 export function SimulationWindow({ tenant, stateCode, scenarioId, userId }: { tenant: any, stateCode: string, scenarioId: string, userId: string }) {
     const [messages, setMessages] = useState<any[]>([])
     const [input, setInput] = useState("")
