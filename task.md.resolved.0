@@ -1,0 +1,8 @@
+# Tasks
+
+- [ ] Create detailed implementation plan for Solar Sales Trainer Agent <!-- id: 0 -->
+    - [ ] Define architecture and tech stack <!-- id: 1 -->
+    - [ ] list necessary tools and APIs <!-- id: 2 -->
+    - [ ] detailed module breakdown (Door-to-door, Phone, Virtual) <!-- id: 3 -->
+- [ ] Design interactive training curriculum <!-- id: 4 -->
+- [ ] Prototype basic agent structure <!-- id: 5 -->

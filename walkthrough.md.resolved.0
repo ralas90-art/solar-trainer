@@ -1,0 +1,30 @@
+# Solar Sales Trainer Agent - Walkthrough
+
+I have created a foundational prototype and curriculum for the Solar Sales Trainer Agent.
+
+## Artifacts Created
+1.  **[implementation_plan.md](file:///C:/Users/12132/.gemini/antigravity/brain/06f87490-d186-440b-bda2-065fd217defc/implementation_plan.md)**: The architectural blueprint and tool selection.
+2.  **[curriculum_design.md](file:///C:/Users/12132/.gemini/antigravity/brain/06f87490-d186-440b-bda2-065fd217defc/curriculum_design.md)**: The detailed scripts, scenarios, and passing criteria for D2D, Phone, and Virtual sales.
+3.  **[prototype_agent.py](file:///C:/Users/12132/.gemini/antigravity/brain/06f87490-d186-440b-bda2-065fd217defc/prototype_agent.py)**: A working Python script demonstrating the roleplay engine logic.
+
+## How to Run the Prototype
+The prototype simulates the "Roleplay Engine" logic where a sales rep interacts with a simulated homeowner.
+
+1.  Open your terminal.
+2.  Navigate to the artifact directory:
+    ```bash
+    cd C:\Users\12132\.gemini\antigravity\brain\06f87490-d186-440b-bda2-065fd217defc
+    ```
+3.  Run the python script:
+    ```bash
+    python prototype_agent.py
+    ```
+4.  Follow the prompts:
+    *   Select **1** for Door-to-Door or **2** for Phone sales.
+    *   Type your response to the angry homeowner (e.g., "I'm just updating neighbors, not selling anything").
+    *   The agent will give you instant feedback based on your keywords.
+
+## Next Steps
+*   **Integrate LLM**: Replace the simple keyword matching in [prototype_agent.py](file:///C:/Users/12132/.gemini/antigravity/brain/06f87490-d186-440b-bda2-065fd217defc/prototype_agent.py) with an actual API call to Gemini/OpenAI to analyze tone and intent dynamically.
+*   **Add Voice**: Integrate ElevenLabs to have the text spoken out loud to the user.
+*   **Frontend**: Build the web dashboard for progress tracking.

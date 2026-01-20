@@ -1,0 +1,40 @@
+# Solar Sales Trainer Agent - Walkthrough
+
+I have created a foundational prototype and curriculum for the Solar Sales Trainer Agent.
+
+## Artifacts Created
+1.  **[implementation_plan.md](file:///C:/Users/12132/.gemini/antigravity/brain/06f87490-d186-440b-bda2-065fd217defc/implementation_plan.md)**: The architectural blueprint and tool selection.
+2.  **[curriculum_design.md](file:///C:/Users/12132/.gemini/antigravity/brain/06f87490-d186-440b-bda2-065fd217defc/curriculum_design.md)**: The detailed scripts, scenarios, and passing criteria for D2D, Phone, and Virtual sales.
+3.  **[prototype_agent.py](file:///C:/Users/12132/.gemini/antigravity/brain/06f87490-d186-440b-bda2-065fd217defc/prototype_agent.py)**: A working Python script demonstrating the roleplay engine logic.
+
+## How to Run the Prototype (v0.2 Multi-Tenant)
+The prototype simulates the "State-Aware Roleplay Engine".
+
+1.  Open your terminal.
+2.  Navigate to the artifact directory:
+    ```bash
+    cd C:\Users\12132\.gemini\antigravity\brain\06f87490-d186-440b-bda2-065fd217defc
+    ```
+3.  Run the python script:
+    ```bash
+    python prototype_agent.py
+    ```
+4.  **White-Label Login**:
+    *   Enter **1** for "Solar Bros Inc" (Aggressive sales tone).
+    *   Enter **2** for "Green Future Solutions" (Educational tone).
+5.  **State Selection**:
+    *   Enter **CA** for California (Triggers NEM 3.0 / Battery logic).
+    *   Enter **NY** for New York (Triggers Tax Credit / Grid Credit logic).
+6.  **Skill Assessment**:
+    *   **Years Experience**: < 1 year triggers "Beginner" path. > 5 years triggers "Advanced".
+    *   **Beginner Path**: You must complete "Module 0: Foundations" (a mindset quiz) before unlocking roleplay.
+    *   **Advanced Path**: Unlocks "Fast-Track" and advanced drills immediately.
+7.  **Roleplay**:
+    *   Respond to the homeowner's objection about price.
+    *   **Tip**: If in CA, mention "batteries" or "storage". If in NY, mention "tax credits".
+    *   The agent will critique you based on the *specific laws* of that state.
+
+## Next Steps
+*   **Integrate LLM**: Replace the simple keyword matching in [prototype_agent.py](file:///C:/Users/12132/.gemini/antigravity/brain/06f87490-d186-440b-bda2-065fd217defc/prototype_agent.py) with an actual API call to Gemini/OpenAI to analyze tone and intent dynamically.
+*   **Add Voice**: Integrate ElevenLabs to have the text spoken out loud to the user.
+*   **Frontend**: Build the web dashboard for progress tracking.
