@@ -6,6 +6,5 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getApiUrl() {
-    const url = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
-    return url.replace(/\/$/, "")
+    return "https://solar-trainer.onrender.com"
 }
