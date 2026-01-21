@@ -1,12 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { getApiUrl } from "@/lib/utils"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Send, Mic, Loader2, Volume2, Trophy, Flame } from "lucide-react"
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+const API_URL = getApiUrl()
 
 export function SimulationWindow({ tenant, stateCode, scenarioId, userId }: { tenant: any, stateCode: string, scenarioId: string, userId: string }) {
     const [messages, setMessages] = useState<any[]>([])

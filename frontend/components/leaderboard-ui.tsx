@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { getApiUrl } from "@/lib/utils"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Trophy, Flame } from "lucide-react"
 
@@ -15,7 +16,7 @@ export function LeaderboardUI() {
     const [leaders, setLeaders] = useState<UserStats[]>([])
 
     useEffect(() => {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+        const API_URL = getApiUrl()
         fetch(`${API_URL}/leaderboard`)
             .then(res => res.json())
             .then(data => setLeaders(data))

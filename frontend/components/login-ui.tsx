@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { getApiUrl } from "@/lib/utils"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -25,7 +26,7 @@ export function AuthForm({ onLogin }: { onLogin: (user: any) => void }) {
         const endpoint = isLogin ? "/login" : "/signup"
 
         try {
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+            const API_URL = getApiUrl()
             const res = await fetch(`${API_URL}${endpoint}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
