@@ -74,3 +74,18 @@ The agent must dynamically adjust training based on the rep's jurisdiction.
 -   **Gamification**: Leaderboards for "fastest objection handling" or "highest closure rate" in sim.
 -   **Real-time Feedback**: Live tips popping up during a practice call (e.g., "Slow down," "You missed the tax credit benefit").
 -   **"Hell Week" Mode**: A high-intensity mode with difficult/angry customer personas to build resilience.
+
+## Phase 8: Enhanced Voice (ElevenLabs)
+Implementation of realistic AI voice generation to replace browser TTS.
+
+### Backend Changes
+*   [ ] Add `elevenlabs` to `requirements.txt`.
+*   [ ] Create `VoiceService` to handle API calls.
+*   [ ] Update `ChatResponse` model to include `audio_base64` (Optional).
+*   [ ] Update `TrainingService` to generate audio for the `agent_message` and attach it to the response.
+
+### Frontend Changes
+*   [ ] Update `SimulationWindow` (`simulation-ui.tsx`) to:
+    *   Accept `audio_base64` from the API response.
+    *   Decode and play the audio using the HTML5 Audio API.
+    *   Retain `speakText` (Browser TTS) as a fallback.
