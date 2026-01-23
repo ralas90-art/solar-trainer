@@ -9,91 +9,51 @@ interface TrainingMapProps {
 const FULL_CURRICULUM = [
     {
         day: 1,
-        title: "The Solar Mindset",
-        description: "Building the Foundation of Success",
-        topics: ["Integrity First", "Reframing Rejection", "Goal Setting"],
+        title: "The Foundation",
+        description: "Mindset, Basics & Qualifying",
+        topics: ["Solar Mindset", "How Solar Works", "The Perfect House"],
         status: "completed",
-        moduleId: "module_1_mindset"
+        moduleId: "day_1_foundation"
     },
     {
         day: 2,
-        title: "The Art of Connection",
-        description: "NEPQ & Dropping the Sales Persona",
-        topics: ["The Anti-Sales Approach", "Bridge of Trust", "Problem Finding"],
+        title: "Prospecting",
+        description: "The Hunt",
+        topics: ["Territory Management", "Door Psychology", "Opening Strategies"],
         status: "active",
-        moduleId: "module_2_connection"
+        moduleId: "day_2_prospecting"
     },
     {
         day: 3,
-        title: "The Perfect Presentation",
-        description: "Education vs. Selling",
-        topics: ["The Bill Swap", "Net Metering Analogy", "Value Stacking"],
+        title: "Connection",
+        description: "Discovery & Psychology",
+        topics: ["In-Home Mastery", "Personality Types", "Sales Vocabulary"],
         status: "locked",
-        moduleId: "module_3_presentation"
+        moduleId: "day_3_discovery"
     },
     {
         day: 4,
-        title: "Mastering Objections",
-        description: "Turning 'No' into 'Yes'",
-        topics: ["The Porcupine Technique", "Objection Judo", "Feel-Felt-Found"],
+        title: "Presentation",
+        description: "Building Value",
+        topics: ["The Bill Swap", "Money Roadmap", "Financing 101"],
         status: "locked",
-        moduleId: "module_4_objections"
+        moduleId: "day_4_presentation"
     },
     {
         day: 5,
-        title: "Closing with Confidence",
-        description: "Leading to the Decision",
-        topics: ["Assumptive Close", "Decision Matrix", "Paperwork Walkthrough"],
+        title: "Closing",
+        description: "Objections & Decisions",
+        topics: ["Objection Judo", "The Decision Matrix", "Paperwork"],
         status: "locked",
-        moduleId: "module_5_closing"
+        moduleId: "day_5_closing"
     },
     {
         day: 6,
-        title: "Technical Mastery",
-        description: "Know Your Product",
-        topics: ["How Solar Works", "Inverters 101", "Decoding the Bill"],
+        title: "Mastery",
+        description: "Certification",
+        topics: ["The Referral Engine", "Virtual Sales", "Final Exam"],
         status: "locked",
-        moduleId: "module_6_technical"
-    },
-    {
-        day: 7,
-        title: "Mastering the Math",
-        description: "Finance & ROI",
-        topics: ["The 30% ITC Coupon", "Cash vs Loan vs PPA", "Calculating ROI"],
-        status: "locked",
-        moduleId: "module_7_math"
-    },
-    {
-        day: 8,
-        title: "The Referral Engine",
-        description: "Farming Your Network",
-        topics: ["Moment of Happiness", "Orphan Owners", "Referral Tree"],
-        status: "locked",
-        moduleId: "module_8_referrals"
-    },
-    {
-        day: 9,
-        title: "Territory Management",
-        description: "Working Smart",
-        topics: ["Cloverleaf Strategy", "Digital Knocking", "Perfect Day Schedule"],
-        status: "locked",
-        moduleId: "module_9_territory"
-    },
-    {
-        day: 10,
-        title: "In-Home Mastery",
-        description: "The Kitchen Table",
-        topics: ["The Power Seat", "Physical Props", "Slide Deck Strategy"],
-        status: "locked",
-        moduleId: "module_10_inhome"
-    },
-    {
-        day: 11,
-        title: "Virtual Sales Mastery",
-        description: "Selling on Zoom",
-        topics: ["Pro Setup", "Digital Handshake", "Screen Share Etiquette"],
-        status: "locked",
-        moduleId: "module_11_virtual"
+        moduleId: "day_6_mastery"
     }
 ]
 
