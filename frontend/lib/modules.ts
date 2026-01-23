@@ -14,10 +14,12 @@ export interface ModuleContent {
     sections: {
         title: string;
         content: string;
-        type: 'text' | 'list' | 'quote' | 'comparison' | 'slides';
+        type: 'text' | 'list' | 'quote' | 'comparison' | 'slides' | 'simulation' | 'image';
         items?: string[];
         comparison?: { rookie: string; pro: string };
         slides?: Slide[];
+        scenarioId?: string; // For simulation
+        imageSrc?: string; // For standalone image
     }[];
 }
 
@@ -42,6 +44,12 @@ export const MODULES: Record<string, ModuleContent> = {
                     rookie: "They said no. They hate me. I failed. This doesn't work.",
                     pro: "They simply requested more information. I haven't found their 'Why' yet. A 'No' is just the starting line."
                 }
+            },
+            {
+                title: "Mindset Architecture",
+                type: "image",
+                content: "Visualizing the components of a top performer's psychology.",
+                imageSrc: "/images/module_1_mindset_infographic.png"
             },
             {
                 title: "How Solar Works: The Physics of Savings",
@@ -130,16 +138,15 @@ export const MODULES: Record<string, ModuleContent> = {
             },
             {
                 title: "Personality Types (BOLT)",
-                type: "slides",
-                content: "Mirror their energy.",
-                slides: [
-                    {
-                        title: "The 4 Types",
-                        content: "Bull (Direct). Owl (Analytical). Lamb (Amiable). Tiger (Expressive).",
-                        image: "/training_materials/personality_types_bolt.png",
-                        imagePlaceholder: "BOLT Icons"
-                    }
-                ]
+                type: "image",
+                content: "Identify the homeowner's type to mirror their energy.",
+                imageSrc: "/training_materials/personality_types_bolt.png"
+            },
+            {
+                title: "Practice Scenario: Deep Discovery",
+                type: "simulation",
+                content: "You are at the kitchen table with 'John', a skeptical analytical type (Owl). Practice finding his pain points without pitching product.",
+                scenarioId: "discovery_1"
             },
             {
                 title: "Sales Vocabulary",
@@ -211,17 +218,16 @@ export const MODULES: Record<string, ModuleContent> = {
             },
             {
                 title: "The Decision Matrix",
-                type: "slides",
-                content: "The Ben Franklin Close.",
-                slides: [
-                    {
-                        title: "Decision Matrix",
-                        content: "Doing Nothing = 100% Risk, 0% Equity. Going Solar = 0% Risk, High Equity.",
-                        image: "/images/module_5_decision_matrix.png",
-                        imagePlaceholder: "Matrix"
-                    }
-                ]
-            }
+                type: "image",
+                content: "Use this visual to help homeowners weigh their options logically.",
+                imageSrc: "/images/module_5_decision_matrix.png"
+            },
+            {
+                title: "Practice Scenario: The Price Objection",
+                type: "simulation",
+                content: "The homeowner says 'It's too expensive'. Use the Feel-Felt-Found technique to overcome this.",
+                scenarioId: "objection_price"
+            },
         ]
     },
 
@@ -237,6 +243,18 @@ export const MODULES: Record<string, ModuleContent> = {
                 title: "The Referral Engine",
                 type: "text",
                 content: "A sale isn't the end. It's the seed for 3 more. Ask for referrals at the 'Moment of Happiness'."
+            },
+            {
+                title: "The Referral Tree",
+                type: "image",
+                content: "How one happy customer branches into three new sales.",
+                imageSrc: "/images/module_8_referral_tree.png"
+            },
+            {
+                title: "Practice Scenario: Asking for Referrals",
+                type: "simulation",
+                content: "You just signed the deal. Now, ask for introductions to their neighbors without being pushy.",
+                scenarioId: "referral_ask"
             },
             {
                 title: "Verification",

@@ -1,4 +1,5 @@
 import { SlideDeck } from "@/components/slide-deck"
+import { SimulationWindow } from "@/components/simulation-ui" // Added import
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import { MODULES } from "@/lib/modules"
@@ -100,10 +101,32 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
                             </div>
                         )}
 
+                        {section.type === 'image' && section.imageSrc && (
+                            <div className="my-8 rounded-xl overflow-hidden shadow-lg border border-slate-200">
+                                <img src={section.imageSrc} alt={section.title} className="w-full h-auto object-contain bg-slate-100" />
+                                <p className="p-3 text-center text-sm text-slate-500 bg-slate-50 border-t border-slate-100 italic">{section.content}</p>
+                            </div>
+                        )}
+
                         {section.type === 'slides' && section.slides && (
                             <div className="my-8">
                                 <SlideDeck slides={section.slides} />
                                 <p className="mt-4 text-sm text-center text-slate-500 italic">{section.content}</p>
+                            </div>
+                        )}
+
+                        {section.type === 'simulation' && section.scenarioId && (
+                            <div className="my-10">
+                                <SimulationWindow
+                                    tenant={{ id: "demo", name: "Antigravity Solar" }}
+                                    stateCode="CA" // Default to CA for training modules
+                                    userId="trainee" // Default user
+                                    scenario={{
+                                        id: section.scenarioId,
+                                        name: "Training Roleplay",
+                                        description: section.content
+                                    }}
+                                />
                             </div>
                         )}
 
