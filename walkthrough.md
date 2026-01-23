@@ -35,6 +35,10 @@ Runs the Next.js Dashboard.
 *   **User Auth**: Sign up and Login to save your progress.
 *   **Printable Certificate**: Once you score > 100 points, unlock a formal "Certificate of Excellence" that allows for PDF export/printing.
 
+### 4. Daily Workbooks & Slides
+*   **PDF Workbooks**: Download comprehensive guides for each of the 6 training modules.
+*   **Presentation Decks**: Access the official In-Home and Virtual presentation slides (PPTX) directly from the dashboard.
+
 ---
 
 ## 🏗️ Architecture
