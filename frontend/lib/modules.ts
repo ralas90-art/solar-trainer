@@ -9,179 +9,203 @@ export interface ModuleContent {
     id: string;
     title: string;
     subtitle: string;
+    pdfDownloadUrl?: string; // NEW: Download link
     sections: {
         title: string;
-        content: string; // Supports basic HTML/JSX
+        content: string;
         type: 'text' | 'list' | 'quote' | 'comparison' | 'slides';
-        items?: string[]; // For lists
-        comparison?: { rookie: string; pro: string }; // For comparison type
-        slides?: Slide[]; // For slides type
+        items?: string[];
+        comparison?: { rookie: string; pro: string };
+        slides?: Slide[];
     }[];
 }
 
 export const MODULES: Record<string, ModuleContent> = {
-    // MODULE 1
-    "module_1_mindset": {
-        id: "module_1_mindset",
-        title: "The Solar Mindset",
-        subtitle: "Module 1",
+    // DAY 1
+    "day_1_foundation": {
+        id: "day_1_foundation",
+        title: "Day 1: The Foundation",
+        subtitle: "Mindset & Basics",
+        pdfDownloadUrl: "/downloads/Day_1_Foundation.pdf",
         sections: [
             {
-                title: "Avatar Intro",
+                title: "Welcome to Solar",
                 type: "text",
-                content: "Welcome to Module 1. Before we talk about watts or kilowatts, we need to talk about *you*. Success in solar isn't just about what you know; it's about who you are. We'll cover how to handle rejection not as a failure, but as a stepping stone."
+                content: "Success in solar isn't just about sales; it's about belief. We start with the Solar Mindset (Zig Ziglar style) and the physics of how energy works."
             },
             {
-                title: "The Foundation of Success",
-                type: "list",
-                content: "The Solar Professional's Creed:",
-                items: [
-                    "Integrity First: I will never sell a system that doesn't benefit the homeowner.",
-                    "Service Mindset: I am here to serve, not to take.",
-                    "Belief: I believe in the power of solar to change lives."
-                ]
-            },
-            {
-                title: "Reframing Rejection",
+                title: "The Solar Mindset",
                 type: "comparison",
-                content: "Reframing is the key to resilience.",
+                content: "Reframing Rejection.",
                 comparison: {
-                    rookie: "They rejected me. I'm annoying them.",
-                    pro: "They rejected the offer *for now*. I have a solution that can save them thousands."
+                    rookie: "They said no. I failed.",
+                    pro: "They simply requested more information. I haven't found their 'Why' yet."
                 }
             },
             {
-                title: "The Stairway to Success",
-                type: "text",
-                content: "Attitude -> Work Ethic -> Skill -> Results. Your attitude determines your altitude. Check your attitude before every door.",
-                // image: "/images/module_1_mindset_infographic.png" (Not supported in text type yet, ideally add image support to text or use slide)
-            },
-            {
-                title: "Visual Summary",
+                title: "How Solar Works",
                 type: "slides",
-                content: "Key Concepts from Module 1",
+                content: "Understanding the System.",
                 slides: [
                     {
-                        title: "The Stairway to Success",
-                        content: "It starts with Attitude. Without the right mindset, skills don't matter.",
-                        image: "/images/module_1_mindset_infographic.png",
-                        imagePlaceholder: "Mindset Staircase"
+                        title: "PV Basics",
+                        content: "Photosons hit the cells (DC). Inverter converts to AC. Home uses it first. Grid stores the rest.",
+                        image: "/images/module_6_how_solar_works.png",
+                        imagePlaceholder: "Solar Diagram"
                     }
                 ]
-            }
-        ]
-    },
-
-    // MODULE 2
-    "module_2_connection": {
-        id: "module_2_connection",
-        title: "The Art of Connection",
-        subtitle: "Module 2",
-        sections: [
-            {
-                title: "Stop Selling",
-                type: "text",
-                content: "The moment you sound like a salesperson, you lose. We use NEPQ (Neuro-Emotional Persuasion Questioning). Be a 'Problem Finder', not a product pusher."
             },
             {
-                title: "The Anti-Sales Approach",
-                type: "comparison",
-                content: "Drop the 'Sales Persona'.",
-                comparison: {
-                    rookie: "Hi! I'm with Solar Bros and we're saving neighbors money!",
-                    pro: "Hi... I'm just looking for the homeowner? ... I wasn't sure if I had the right house..."
-                }
-            },
-            {
-                title: "The Bridge of Trust",
+                title: "Qualifying Homes",
                 type: "slides",
-                content: "Building the Gap.",
+                content: "Is this a 'Solar House'?",
                 slides: [
                     {
-                        title: "The Trust Bridge",
-                        content: "Move them from Current State (Pain) to Objective State (Solution). The gap is the Problem.",
-                        image: "/images/module_2_trust_bridge.png",
-                        imagePlaceholder: "Trust Bridge Diagram"
-                    }
-                ]
-            }
-        ]
-    },
-
-    // MODULE 3
-    "module_3_presentation": {
-        id: "module_3_presentation",
-        title: "The Perfect Presentation",
-        subtitle: "Module 3",
-        sections: [
-            {
-                title: "Education vs Selling",
-                type: "text",
-                content: "The modern homeowner wants to be educated. Explain the 'Bill Swap'. You aren't buying extra; you are swapping a rental payment (Utility) for a mortgage payment (Solar)."
-            },
-            {
-                title: "Visualizing the Swap",
-                type: "slides",
-                content: "Use these visuals to explain the concept.",
-                slides: [
-                    {
-                        title: "Old Way vs New Way",
-                        content: "Utility payments last forever and go up. Solar payments correspond to a fixed asset and end.",
-                        image: "/images/module_3_old_vs_new.png",
-                        imagePlaceholder: "Old vs New Graph"
+                        title: "The Perfect Roof",
+                        content: "South-Facing is Gold. Shading is the enemy. Roof must be in good condition.",
+                        image: "/training_materials/qualifying_roofs.png", // Pointing to local copy for now, ideally moved to public
+                        imagePlaceholder: "Roof Diagram"
                     },
                     {
-                        title: "The Value Stack",
-                        content: "1. Fixed Cost. 2. Home Value (+4%). 3. Tax Incentives (30%). 4. Ownership.",
-                        imagePlaceholder: "Value Stack"
+                        title: "Electrical Panel",
+                        content: "We need a modern 200 Amp panel. Old 'Zinsco' panels are fire hazards and must be swapped.",
+                        image: "/training_materials/electrical_panel_guide.png",
+                        imagePlaceholder: "Panel Diagram"
                     }
                 ]
             }
         ]
     },
 
-    // MODULE 4
-    "module_4_objections": {
-        id: "module_4_objections",
-        title: "Mastering Objections",
-        subtitle: "Module 4",
+    // DAY 2
+    "day_2_prospecting": {
+        id: "day_2_prospecting",
+        title: "Day 2: Prospecting",
+        subtitle: "The Hunt",
+        pdfDownloadUrl: "/downloads/Day_2_Prospecting.pdf",
         sections: [
             {
-                title: "The Psychology of No",
+                title: "Territory Management",
                 type: "text",
-                content: "An objection is not a stop sign. It's a signpost saying 'Help me understand'. Do not fight it. Align with it."
+                content: "Work smart. Use the Cloverleaf pattern. Don't drive across town for one door. Circle your wins."
             },
             {
-                title: "The Porcupine Technique",
-                type: "quote",
-                content: "When they ask 'Does it have a battery?', you ask 'Are you concerned about power outages?' Answer with a question."
-            },
-            {
-                title: "Objection Judo",
+                title: "The Perfect Day",
                 type: "slides",
-                content: "Turn the force of the objection into a close.",
+                content: "Structure leads to freedom.",
                 slides: [
                     {
-                        title: "Objection Judo Flow",
-                        content: "The Attack (Objection) -> The Pivot (Empathy) -> The Throw (Solution).",
-                        image: "/images/module_4_objection_judo.png",
-                        imagePlaceholder: "Judo Flow"
+                        title: "Daily Schedule",
+                        content: "AM: Prep & Admin. PM: Knocking. The Golden Hours are 3pm-7pm.",
+                        image: "/images/module_9_perfect_day.png",
+                        imagePlaceholder: "Schedule"
                     }
+                ]
+            },
+            {
+                title: "Dropping the Persona",
+                type: "comparison",
+                content: "Stop sounding like a salesperson.",
+                comparison: {
+                    rookie: "Hi! I'm with Solar Bros! We are saving money!",
+                    pro: "Hi... I'm just looking for the homeowner? ... I wasn't sure if I had the right house..."
+                }
+            }
+        ]
+    },
+
+    // DAY 3
+    "day_3_discovery": {
+        id: "day_3_discovery",
+        title: "Day 3: Connection",
+        subtitle: "Discovery & Psychology",
+        pdfDownloadUrl: "/downloads/Day_3_Discovery.pdf",
+        sections: [
+            {
+                title: "In-Home Mastery",
+                type: "text",
+                content: "The Kitchen Table is your stage. Sit in the 'Power Seat' (next to them), not across (adversary)."
+            },
+            {
+                title: "Personality Types (BOLT)",
+                type: "slides",
+                content: "Mirror their energy.",
+                slides: [
+                    {
+                        title: "The 4 Types",
+                        content: "Bull (Direct). Owl (Analytical). Lamb (Amiable). Tiger (Expressive).",
+                        image: "/training_materials/personality_types_bolt.png",
+                        imagePlaceholder: "BOLT Icons"
+                    }
+                ]
+            },
+            {
+                title: "Sales Vocabulary",
+                type: "list",
+                content: "Words to Avoid (Fear Triggers):",
+                items: [
+                    "Sign, Contract, Cost, Pitch, Deal, Down Payment"
+                ]
+            },
+            {
+                title: "Sales Vocabulary",
+                type: "list",
+                content: "Words to Use (Confidence Builders):",
+                items: [
+                    "Authorize, Paperwork, Total Investment, Proposal, Agreement, Initial Amount"
                 ]
             }
         ]
     },
 
-    // MODULE 5
-    "module_5_closing": {
-        id: "module_5_closing",
-        title: "Closing with Confidence",
-        subtitle: "Module 5",
+    // DAY 4
+    "day_4_presentation": {
+        id: "day_4_presentation",
+        title: "Day 4: Presentation",
+        subtitle: "Building Value",
+        pdfDownloadUrl: "/downloads/Day_4_Presentation.pdf",
         sections: [
             {
-                title: "The Assumptive Close",
+                title: "The Bill Swap",
                 type: "text",
-                content: "Don't ask *if* they want to buy. Ask *how* or *when*. 'Looking at the calendar, is Tuesday or Wednesday better for the site survey?'"
+                content: "You aren't spending extra money. You are redirecting a liability (Rent) to an asset (Mortgage)."
+            },
+            {
+                title: "The Money Roadmap",
+                type: "slides",
+                content: "Follow the cash flow.",
+                slides: [
+                    {
+                        title: "Money Roadmap",
+                        content: "Stop burning money on the utility. Start building equity.",
+                        image: "/images/module_7_money_roadmap.png",
+                        imagePlaceholder: "Money Flow"
+                    }
+                ]
+            },
+            {
+                title: "Financing 101",
+                type: "comparison",
+                content: "Ownership vs PPA",
+                comparison: {
+                    rookie: "PPA is a lease and it's bad.",
+                    pro: "PPA is 'Pay for Production'. Zero debt, zero maintenance. Good for those without tax liability."
+                }
+            }
+        ]
+    },
+
+    // DAY 5
+    "day_5_closing": {
+        id: "day_5_closing",
+        title: "Day 5: Closing",
+        subtitle: "Objections & Decisions",
+        pdfDownloadUrl: "/downloads/Day_5_Objections.pdf",
+        sections: [
+            {
+                title: "Objection Judo",
+                type: "text",
+                content: "Don't fight the objection. Align with it. Use the Porcupine Technique: Answer a question with a question."
             },
             {
                 title: "The Decision Matrix",
@@ -189,174 +213,32 @@ export const MODULES: Record<string, ModuleContent> = {
                 content: "The Ben Franklin Close.",
                 slides: [
                     {
-                        title: "The Decision Matrix",
-                        content: "Option A (Utility): 100% Interest, Rising Rates. Option B (Solar): Equity, Fixed Rate, Asset.",
+                        title: "Decision Matrix",
+                        content: "Doing Nothing = 100% Risk, 0% Equity. Going Solar = 0% Risk, High Equity.",
                         image: "/images/module_5_decision_matrix.png",
-                        imagePlaceholder: "Decision Matrix"
+                        imagePlaceholder: "Matrix"
                     }
                 ]
             }
         ]
     },
 
-    // MODULE 6
-    "module_6_technical": {
-        id: "module_6_technical",
-        title: "Technical Mastery",
-        subtitle: "Module 6",
+    // DAY 6
+    "day_6_mastery": {
+        id: "day_6_mastery",
+        title: "Day 6: Mastery",
+        subtitle: "Referrals & Certification",
+        pdfDownloadUrl: "/downloads/Day_6_Mastery.pdf",
         sections: [
             {
-                title: "How Solar Works",
-                type: "slides",
-                content: "Explain it to a 5-year old.",
-                slides: [
-                    {
-                        title: "How Solar Works",
-                        content: "1. Sun hits panels (DC). 2. Inverter converts (AC). 3. Home uses it. 4. Grid stores the rest (Net Metering).",
-                        image: "/images/module_6_how_solar_works.png",
-                        imagePlaceholder: "Solar Diagram"
-                    }
-                ]
+                title: "The Referral Engine",
+                type: "text",
+                content: "A sale isn't the end. It's the seed for 3 more. Ask for referrals at the 'Moment of Happiness'."
             },
             {
-                title: "Inverters",
+                title: "Verification",
                 type: "text",
-                content: "String Inverters (Christmas Lights - one goes out, all go out) vs Micro-inverters (Independent, safer, better in shade). We generally prefer micros."
-            }
-        ]
-    },
-
-    // MODULE 7
-    "module_7_math": {
-        id: "module_7_math",
-        title: "Mastering the Math",
-        subtitle: "Module 7",
-        sections: [
-            {
-                title: "The Money Roadmap",
-                type: "slides",
-                content: "Follow the money.",
-                slides: [
-                    {
-                        title: "The Money Roadmap",
-                        content: "Stop wasting money on rent (Red). Start investing in equity (Green).",
-                        image: "/images/module_7_money_roadmap.png",
-                        imagePlaceholder: "Money Flow"
-                    }
-                ]
-            },
-            {
-                title: "ROI",
-                type: "text",
-                content: "If a system costs $30k and saves $3k/year, that is a 10% tax-free return. Safer than stocks, better than the bank."
-            }
-        ]
-    },
-
-    // MODULE 8
-    "module_8_referrals": {
-        id: "module_8_referrals",
-        title: "The Referral Engine",
-        subtitle: "Module 8",
-        sections: [
-            {
-                title: "Farming not Hunting",
-                type: "text",
-                content: "Don't chase leads forever. Build a network. Ask for referrals at the 'Moment of Happiness' - Install Day or First Bill."
-            },
-            {
-                title: "The Referral Tree",
-                type: "slides",
-                content: "One customer becomes three.",
-                slides: [
-                    {
-                        title: "The Referral Tree",
-                        content: "A happy customer branches into Neighbors, Family, and Co-workers. 1 sale = 3 more.",
-                        image: "/images/module_8_referral_tree.png",
-                        imagePlaceholder: "Tree Diagram"
-                    }
-                ]
-            }
-        ]
-    },
-
-    // MODULE 9
-    "module_9_territory": {
-        id: "module_9_territory",
-        title: "Territory Management",
-        subtitle: "Module 9",
-        sections: [
-            {
-                title: "The Cloverleaf Strategy",
-                type: "text",
-                content: "Don't drive aimlessly. Pick an anchor (install) and circle it. Loop 1: Immediate neighbors. Loop 2: Next street."
-            },
-            {
-                title: "The Perfect Day",
-                type: "slides",
-                content: "Structure your time.",
-                slides: [
-                    {
-                        title: "The Perfect Day",
-                        content: "AM: Personal Dev & Admin. 1PM: Prep. 3PM-7:30PM: SHOWTIME (Knocking).",
-                        image: "/images/module_9_perfect_day.png",
-                        imagePlaceholder: "Schedule Timeline"
-                    }
-                ]
-            }
-        ]
-    },
-
-    // MODULE 10
-    "module_10_inhome": {
-        id: "module_10_inhome",
-        title: "In-Home Presentation",
-        subtitle: "Module 10",
-        sections: [
-            {
-                title: "The Power Seat",
-                type: "slides",
-                content: "Where you sit matters.",
-                slides: [
-                    {
-                        title: "The Power Seat",
-                        content: "Never sit across (Adversary). Sit next to or 90-degrees (Advisor).",
-                        image: "/images/module_10_power_seat.png",
-                        imagePlaceholder: "Table Diagram"
-                    }
-                ]
-            },
-            {
-                title: "Showmanship",
-                type: "text",
-                content: "Make it physical. Have them hand you the bill. Put the roof design in their hands. Ownership begins with touch."
-            }
-        ]
-    },
-
-    // MODULE 11
-    "module_11_virtual": {
-        id: "module_11_virtual",
-        title: "Virtual Sales Mastery",
-        subtitle: "Module 11",
-        sections: [
-            {
-                title: "The Zoom Setup",
-                type: "slides",
-                content: "Don't look like a hostage.",
-                slides: [
-                    {
-                        title: "Pro Zoom Setup",
-                        content: "Lighting (Front). Camera (Eye Level). Background (Clean). Energy (+20%).",
-                        image: "/images/module_11_zoom_setup.png",
-                        imagePlaceholder: "Zoom Desk Setup"
-                    }
-                ]
-            },
-            {
-                title: "Digital Handshake",
-                type: "text",
-                content: "Wave at the start. Use the mouse as a laser pointer. Look at the camera lens, not the screen, to make eye contact."
+                content: "You are now ready. Take the Certification Exam to prove you can handle the toughest homeowners."
             }
         ]
     }

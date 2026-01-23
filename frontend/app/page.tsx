@@ -80,10 +80,8 @@ export default function Dashboard() {
 
         // Route all known modules to the Content View first
         const contentModules = [
-            "module_1_mindset", "module_2_connection", "module_3_presentation",
-            "module_4_objections", "module_5_closing", "module_6_technical",
-            "module_7_math", "module_8_referrals", "module_9_territory",
-            "module_10_inhome", "module_11_virtual"
+            "day_1_foundation", "day_2_prospecting", "day_3_discovery",
+            "day_4_presentation", "day_5_closing", "day_6_mastery"
         ]
 
         if (contentModules.includes(moduleId)) {
@@ -93,10 +91,10 @@ export default function Dashboard() {
 
         // Fallback for simulation-only scenarios or mismatched IDs
         const moduleToScenarioMap: Record<string, string> = {
-            "module_2_connection": "d2d_1",
-            "module_4_objections": "lease_1",
-            "module_5_closing": "eng_1",
-            "module_10_inhome": "exam_1"
+            "day_2_prospecting": "d2d_1",
+            "day_4_presentation": "lease_1",
+            "day_5_closing": "eng_1",
+            "day_6_mastery": "exam_1"
         }
 
         const targetScenarioId = moduleToScenarioMap[moduleId]
@@ -146,11 +144,11 @@ export default function Dashboard() {
                             </div>
                             <div className="relative z-10">
                                 <div className="uppercase tracking-wider text-sm font-medium text-blue-200 mb-2">Current Mission</div>
-                                <h2 className="text-3xl font-bold mb-4">Module 1: The Solar Mindset</h2>
+                                <h2 className="text-3xl font-bold mb-4">Day 1: The Foundation</h2>
                                 <p className="text-blue-100 max-w-2xl mb-6 text-lg">
                                     Success isn't just about what you know; it's about who you are. Build the foundation of a 7-figure solar professional.
                                 </p>
-                                <Button onClick={() => handleModuleSelect('module_1_mindset')} size="lg" className="bg-white text-blue-700 hover:bg-blue-50 border-0 font-bold">
+                                <Button onClick={() => handleModuleSelect('day_1_foundation')} size="lg" className="bg-white text-blue-700 hover:bg-blue-50 border-0 font-bold">
                                     Start Training
                                 </Button>
                             </div>
