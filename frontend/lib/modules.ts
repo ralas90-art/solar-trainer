@@ -163,6 +163,21 @@ export const MODULES: Record<string, ModuleContent> = {
                 items: [
                     "Authorize, Paperwork, Total Investment, Proposal, Agreement, Initial Amount"
                 ]
+            },
+            {
+                title: "The 3 Reasons Framework",
+                type: "list",
+                content: "Use this script to frame the conversation early:",
+                items: [
+                    "Reason #1: Savings and Price Protection (Economics)",
+                    "Reason #2: Property Value Increases (Asset)",
+                    "Reason #3: Producing Clean Power (Environment)"
+                ]
+            },
+            {
+                title: "Opening Script",
+                type: "quote",
+                content: "\"The purpose of this call is to help you learn more about solar energy... to see if you can produce your own power instead of renting it.\""
             }
         ]
     },
@@ -243,6 +258,23 @@ export const MODULES: Record<string, ModuleContent> = {
                 title: "The Referral Engine",
                 type: "text",
                 content: "A sale isn't the end. It's the seed for 3 more. Ask for referrals at the 'Moment of Happiness'."
+            },
+            {
+                title: "The 10-Step Solar Lifecycle",
+                type: "list",
+                content: "From 'Hello' to 'Power On' (PTO):",
+                items: [
+                    "1. Proposal Generation & Usage Analysis",
+                    "2. Contract Signed (Closed Won)",
+                    "3. Site Audit (2-3 days post-sign)",
+                    "4. Final Engineering Design",
+                    "5. Permit Submission (AHJ)",
+                    "6. Permit Approval",
+                    "7. Installation (1-2 days)",
+                    "8. Final Inspection",
+                    "9. Permission to Operate (PTO)",
+                    "10. System Activation"
+                ]
             },
             {
                 title: "The Referral Tree",
