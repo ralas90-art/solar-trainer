@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion"
 interface Slide {
     title: string
     content: string
+    image?: string // Path to image
     imagePlaceholder?: string // Text to show in the placeholder box
 }
 
@@ -47,7 +48,16 @@ export function SlideDeck({ slides }: SlideDeckProps) {
                             {slides[currentSlide].title}
                         </h3>
 
-                        {slides[currentSlide].imagePlaceholder && (
+
+                        {slides[currentSlide].image ? (
+                            <div className="relative w-full max-w-2xl h-64 mb-8 rounded-lg overflow-hidden shadow-lg border border-slate-600">
+                                <img
+                                    src={slides[currentSlide].image}
+                                    alt={slides[currentSlide].title}
+                                    className="object-cover w-full h-full hover:scale-105 transition-transform duration-500"
+                                />
+                            </div>
+                        ) : slides[currentSlide].imagePlaceholder && (
                             <div className="w-48 h-48 bg-slate-700 rounded-full flex items-center justify-center mb-8 border-4 border-slate-600 shadow-inner">
                                 <span className="text-slate-400 font-mono text-xs uppercase tracking-widest">{slides[currentSlide].imagePlaceholder}</span>
                             </div>

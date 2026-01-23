@@ -6,46 +6,94 @@ interface TrainingMapProps {
     currentDay: number
 }
 
-const WEEK_CURRICULUM = [
+const FULL_CURRICULUM = [
     {
         day: 1,
-        title: "Solar Fundamentals",
-        description: "PV Basics, Tax Credits, & Net Metering",
-        topics: ["How Solar Works", "Federal ITC (30%)", "Utility Rate Structures"],
-        status: "completed", // mock
-        moduleId: "day_1_basics"
+        title: "The Solar Mindset",
+        description: "Building the Foundation of Success",
+        topics: ["Integrity First", "Reframing Rejection", "Goal Setting"],
+        status: "completed",
+        moduleId: "module_1_mindset"
     },
     {
         day: 2,
-        title: "The Perfect Pitch",
-        description: "Value Proposition & Door Knocking 101",
-        topics: ["The 30-Second Hook", "Building Rapport", "Setting the Appointment"],
+        title: "The Art of Connection",
+        description: "NEPQ & Dropping the Sales Persona",
+        topics: ["The Anti-Sales Approach", "Bridge of Trust", "Problem Finding"],
         status: "active",
-        moduleId: "day_2_pitch"
+        moduleId: "module_2_connection"
     },
     {
         day: 3,
-        title: "Objection Dojo",
-        description: "Handling the 'No' like a Pro",
-        topics: ["'Not Interested'", "'Too Expensive'", "'Need to Talk to Spouse'"],
-        status: "active", // Unlocked for testing
-        moduleId: "day_3_objections"
+        title: "The Perfect Presentation",
+        description: "Education vs. Selling",
+        topics: ["The Bill Swap", "Net Metering Analogy", "Value Stacking"],
+        status: "locked",
+        moduleId: "module_3_presentation"
     },
     {
         day: 4,
-        title: "Closing & Contracts",
-        description: "Finance Options & Signing the Deal",
-        topics: ["PPA vs Loan vs Cash", "Reading the Bill", "The Close"],
-        status: "active", // Unlocked for testing
-        moduleId: "day_4_closing"
+        title: "Mastering Objections",
+        description: "Turning 'No' into 'Yes'",
+        topics: ["The Porcupine Technique", "Objection Judo", "Feel-Felt-Found"],
+        status: "locked",
+        moduleId: "module_4_objections"
     },
     {
         day: 5,
-        title: "Certification Exam",
-        description: "Final Roleplay & Knowledge Check",
-        topics: ["Full Sales Cycle Simulation", "Compliance Exam"],
-        status: "active",
-        moduleId: "day_5_exam"
+        title: "Closing with Confidence",
+        description: "Leading to the Decision",
+        topics: ["Assumptive Close", "Decision Matrix", "Paperwork Walkthrough"],
+        status: "locked",
+        moduleId: "module_5_closing"
+    },
+    {
+        day: 6,
+        title: "Technical Mastery",
+        description: "Know Your Product",
+        topics: ["How Solar Works", "Inverters 101", "Decoding the Bill"],
+        status: "locked",
+        moduleId: "module_6_technical"
+    },
+    {
+        day: 7,
+        title: "Mastering the Math",
+        description: "Finance & ROI",
+        topics: ["The 30% ITC Coupon", "Cash vs Loan vs PPA", "Calculating ROI"],
+        status: "locked",
+        moduleId: "module_7_math"
+    },
+    {
+        day: 8,
+        title: "The Referral Engine",
+        description: "Farming Your Network",
+        topics: ["Moment of Happiness", "Orphan Owners", "Referral Tree"],
+        status: "locked",
+        moduleId: "module_8_referrals"
+    },
+    {
+        day: 9,
+        title: "Territory Management",
+        description: "Working Smart",
+        topics: ["Cloverleaf Strategy", "Digital Knocking", "Perfect Day Schedule"],
+        status: "locked",
+        moduleId: "module_9_territory"
+    },
+    {
+        day: 10,
+        title: "In-Home Mastery",
+        description: "The Kitchen Table",
+        topics: ["The Power Seat", "Physical Props", "Slide Deck Strategy"],
+        status: "locked",
+        moduleId: "module_10_inhome"
+    },
+    {
+        day: 11,
+        title: "Virtual Sales Mastery",
+        description: "Selling on Zoom",
+        topics: ["Pro Setup", "Digital Handshake", "Screen Share Etiquette"],
+        status: "locked",
+        moduleId: "module_11_virtual"
     }
 ]
 
@@ -55,7 +103,7 @@ export function TrainingMap({ onSelectModule, currentDay }: TrainingMapProps) {
             {/* Connecting Line (Desktop) */}
             <div className="hidden md:block absolute left-[50%] top-10 bottom-10 w-1 bg-slate-800/20 -z-10 transform -translate-x-1/2"></div>
 
-            {WEEK_CURRICULUM.map((day, index) => {
+            {FULL_CURRICULUM.map((day, index) => {
                 const isLeft = index % 2 === 0
                 const isActive = day.status === "active"
                 const isLocked = day.status === "locked"

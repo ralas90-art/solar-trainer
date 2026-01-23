@@ -79,7 +79,12 @@ export default function Dashboard() {
         setActiveModuleId(moduleId)
 
         // Route all known modules to the Content View first
-        const contentModules = ["day_1_basics", "day_2_pitch", "day_3_objections", "day_4_closing", "day_5_exam"]
+        const contentModules = [
+            "module_1_mindset", "module_2_connection", "module_3_presentation",
+            "module_4_objections", "module_5_closing", "module_6_technical",
+            "module_7_math", "module_8_referrals", "module_9_territory",
+            "module_10_inhome", "module_11_virtual"
+        ]
 
         if (contentModules.includes(moduleId)) {
             setView('content')
@@ -88,10 +93,10 @@ export default function Dashboard() {
 
         // Fallback for simulation-only scenarios or mismatched IDs
         const moduleToScenarioMap: Record<string, string> = {
-            "day_2_pitch": "d2d_1",
-            "day_3_objections": "lease_1",
-            "day_4_closing": "eng_1",
-            "day_5_exam": "exam_1"
+            "module_2_connection": "d2d_1",
+            "module_4_objections": "lease_1",
+            "module_5_closing": "eng_1",
+            "module_10_inhome": "exam_1"
         }
 
         const targetScenarioId = moduleToScenarioMap[moduleId]
@@ -141,11 +146,11 @@ export default function Dashboard() {
                             </div>
                             <div className="relative z-10">
                                 <div className="uppercase tracking-wider text-sm font-medium text-blue-200 mb-2">Current Mission</div>
-                                <h2 className="text-3xl font-bold mb-4">Day 2: The Perfect Pitch</h2>
+                                <h2 className="text-3xl font-bold mb-4">Module 1: The Solar Mindset</h2>
                                 <p className="text-blue-100 max-w-2xl mb-6 text-lg">
-                                    Master the art of the 30-second hook. Learn how to transition from a stranger at the door to a trusted advisor in less than a minute.
+                                    Success isn't just about what you know; it's about who you are. Build the foundation of a 7-figure solar professional.
                                 </p>
-                                <Button onClick={() => handleModuleSelect('day_2_pitch')} size="lg" className="bg-white text-blue-700 hover:bg-blue-50 border-0 font-bold">
+                                <Button onClick={() => handleModuleSelect('module_1_mindset')} size="lg" className="bg-white text-blue-700 hover:bg-blue-50 border-0 font-bold">
                                     Start Training
                                 </Button>
                             </div>
