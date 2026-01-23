@@ -1,5 +1,3 @@
-from sqlmodel import SQLModel, create_engine, Session
-
 import os
 from sqlmodel import SQLModel, create_engine, Session
 

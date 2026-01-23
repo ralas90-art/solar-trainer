@@ -39,6 +39,19 @@ export default function Dashboard() {
             .catch(err => console.error("Failed to load scenarios", err))
     }, [])
 
+    // Load User from LocalStorage on Mount
+    useEffect(() => {
+        const storedUser = localStorage.getItem("solar_user")
+        if (storedUser) {
+            try {
+                setUser(JSON.parse(storedUser))
+            } catch (e) {
+                console.error("Failed to parse stored user", e)
+                localStorage.removeItem("solar_user")
+            }
+        }
+    }, [])
+
     // Fetch User Stats when user is logged in
     useEffect(() => {
         if (user) {
@@ -59,8 +72,11 @@ export default function Dashboard() {
 
     if (!user) {
         return (
-            <div className="flex items-center justify-center min-h-screen bg-background text-foreground">
-                <AuthForm onLogin={setUser} />
+            <div className="flex items-center justify-center min-h-screen bg-slate-50 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-orange-100 via-slate-50 to-slate-100">
+                <AuthForm onLogin={(u) => {
+                    localStorage.setItem("solar_user", JSON.stringify(u))
+                    setUser(u)
+                }} />
             </div>
         )
     }
@@ -68,6 +84,7 @@ export default function Dashboard() {
     const tenant = user.tenant
 
     const handleLogout = () => {
+        localStorage.removeItem("solar_user")
         setUser(null)
         setStateProfile(null)
         setStats({ total_score: 0 })

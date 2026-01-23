@@ -62,8 +62,36 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
                             {section.title}
                         </h2>
 
+                        {/* Highlighted Workbook Download Section (Only for the first section if URL exists) */}
+                        {index === 0 && (moduleData.pdfDownloadUrl || moduleData.slideDeckUrl) && (
+                            <div className="mb-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-xl flex flex-col md:flex-row items-center justify-between shadow-sm gap-4">
+                                <div>
+                                    <h3 className="text-lg font-bold text-blue-900 mb-1">Module Resources</h3>
+                                    <p className="text-blue-700 text-sm">Download your workbook and presentation materials.</p>
+                                </div>
+                                <div className="flex gap-2">
+                                    {moduleData.pdfDownloadUrl && (
+                                        <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white shadow-md">
+                                            <a href={moduleData.pdfDownloadUrl} download>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></svg>
+                                                Workbook PDF
+                                            </a>
+                                        </Button>
+                                    )}
+                                    {moduleData.slideDeckUrl && (
+                                        <Button asChild variant="secondary" className="bg-white hover:bg-slate-50 text-blue-700 border border-blue-200">
+                                            <a href={moduleData.slideDeckUrl} download>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2" /><line x1="3" x2="21" y1="9" y2="9" /><line x1="9" x2="9" y1="21" y2="9" /></svg>
+                                                Slide Deck (PPTX)
+                                            </a>
+                                        </Button>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
                         {section.type === 'text' && (
-                            <p className="mb-4 text-slate-700">{section.content}</p>
+                            <p className="mb-4 text-slate-700 whitespace-pre-wrap">{section.content}</p>
                         )}
 
                         {section.type === 'quote' && (

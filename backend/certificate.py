@@ -1,11 +1,18 @@
 from io import BytesIO
-from reportlab.lib.pagesizes import letter, landscape
-from reportlab.pdfgen import canvas
-from reportlab.lib.units import inch
-from reportlab.lib import colors
 from datetime import datetime
 
 def generate_certificate_pdf(user_name: str) -> BytesIO:
+    # Lazy import to prevent startup crash if reportlab is missing
+    try:
+        from reportlab.lib.pagesizes import letter, landscape
+        from reportlab.pdfgen import canvas
+        from reportlab.lib.units import inch
+        from reportlab.lib import colors
+    except ImportError:
+        print("Error: reportlab module not found. Certificate generation will fail.")
+        from io import BytesIO
+        return BytesIO(b"Certificate generation unavailable (missing reportlab).")
+
     buffer = BytesIO()
     
     # Create PDF in Landscape

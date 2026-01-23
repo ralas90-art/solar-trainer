@@ -2,11 +2,8 @@ fastapi
 uvicorn
 pydantic
 python-dotenv
-fastapi
-uvicorn
-pydantic
-python-dotenv
 openai
 sqlmodel
 requests
 elevenlabs
+reportlab

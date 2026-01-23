@@ -9,7 +9,8 @@ export interface ModuleContent {
     id: string;
     title: string;
     subtitle: string;
-    pdfDownloadUrl?: string; // NEW: Download link
+    pdfDownloadUrl?: string;
+    slideDeckUrl?: string; // NEW: Slide Deck Link
     sections: {
         title: string;
         content: string;
@@ -29,46 +30,46 @@ export const MODULES: Record<string, ModuleContent> = {
         pdfDownloadUrl: "/downloads/Day_1_Foundation.pdf",
         sections: [
             {
-                title: "Welcome to Solar",
+                title: "Welcome to Solar: The Industry of the Future",
                 type: "text",
-                content: "Success in solar isn't just about sales; it's about belief. We start with the Solar Mindset (Zig Ziglar style) and the physics of how energy works."
+                content: "Welcome to the solar revolution. You are entering an industry that is reshaping the global energy landscape. But success here isn't just about understanding kilowatts and panels; it's about mastering your own psychology. \n\nBefore we ever knock on a door or analyze a utility bill, we must build the 'Solar Mindset'. This industry is lucrative, but it is also demanding. It requires a thick skin, a servant's heart, and an unshakeable belief in what you are selling. \n\nIn this module, we will strip away the 'salesman' persona and rebuild you as a Solar Professional—a consultant who solves expensive problems for homeowners. We will also cover the fundamental physics of how a photovoltaic (PV) system turns sunlight into savings, ensuring you can explain it simply and confidently to any homeowner."
             },
             {
-                title: "The Solar Mindset",
+                title: "The Solar Mindset: Reframing Rejection",
                 type: "comparison",
-                content: "Reframing Rejection.",
+                content: "The biggest killer of new sales reps is not lack of skill, but fear of rejection. We must reframe how we view a 'No'.",
                 comparison: {
-                    rookie: "They said no. I failed.",
-                    pro: "They simply requested more information. I haven't found their 'Why' yet."
+                    rookie: "They said no. They hate me. I failed. This doesn't work.",
+                    pro: "They simply requested more information. I haven't found their 'Why' yet. A 'No' is just the starting line."
                 }
             },
             {
-                title: "How Solar Works",
+                title: "How Solar Works: The Physics of Savings",
                 type: "slides",
-                content: "Understanding the System.",
+                content: "You don't need to be an engineer, but you must be an expert. Here is the simple, 4-step process of how energy flows from the sun to the savings account.",
                 slides: [
                     {
-                        title: "PV Basics",
-                        content: "Photosons hit the cells (DC). Inverter converts to AC. Home uses it first. Grid stores the rest.",
+                        title: "PV Basics: The Energy Journey",
+                        content: "1. Generation: Sunlight (Photons) hits the silicon cells, knocking electrons loose to create Direct Current (DC) electricity.\n2. Conversion: The Inverter converts this raw DC power into usable Alternating Current (AC) for the home.\n3. Consumption: The home uses this solar power first, before pulling from the expensive grid.\n4. Net Metering: Any excess power spins the meter backward, building credits for the night.",
                         image: "/images/module_6_how_solar_works.png",
                         imagePlaceholder: "Solar Diagram"
                     }
                 ]
             },
             {
-                title: "Qualifying Homes",
+                title: "Qualifying Homes: Is This a 'Solar House'?",
                 type: "slides",
-                content: "Is this a 'Solar House'?",
+                content: "Not every home is a good fit for solar. It is your ethical duty to disqualify bad homes early. We look for three main things: Roof, Sun, and Electrical.",
                 slides: [
                     {
                         title: "The Perfect Roof",
-                        content: "South-Facing is Gold. Shading is the enemy. Roof must be in good condition.",
-                        image: "/training_materials/qualifying_roofs.png", // Pointing to local copy for now, ideally moved to public
+                        content: "The ideal roof faces South, maximizing exposure to the sun's path. East and West are also viable, but North is often a deal-breaker (in the Northern Hemisphere). Look for shading from trees or chimneys—shade is the enemy of production. Finally, check the condition: we cannot install on a roof that needs replacing in 5 years.",
+                        image: "/training_materials/qualifying_roofs.png",
                         imagePlaceholder: "Roof Diagram"
                     },
                     {
-                        title: "Electrical Panel",
-                        content: "We need a modern 200 Amp panel. Old 'Zinsco' panels are fire hazards and must be swapped.",
+                        title: "Electrical Panel Integrity",
+                        content: "The Main Service Panel (MSP) is the heart of the home's grid. We typically need a modern 200 Amp panel to handle backfeeding solar power. Watch out for 'Zinsco' or 'Federal Pacific' panels—these are known fire hazards and must be replaced (Main Panel Upgrade or MPU) before we can install, which adds cost to the project.",
                         image: "/training_materials/electrical_panel_guide.png",
                         imagePlaceholder: "Panel Diagram"
                     }
@@ -85,30 +86,30 @@ export const MODULES: Record<string, ModuleContent> = {
         pdfDownloadUrl: "/downloads/Day_2_Prospecting.pdf",
         sections: [
             {
-                title: "Territory Management",
+                title: "Territory Management: The Cloverleaf Strategy",
                 type: "text",
-                content: "Work smart. Use the Cloverleaf pattern. Don't drive across town for one door. Circle your wins."
+                content: "Amateurs knock randomly. Professionals manage their territory like a business. The goal is to minimize drive time and maximize face time. We use the 'Cloverleaf Pattern' to create a web of influence around every positive interaction. \n\nWhen you get a sale, or even a good conversation, don't just leave. Knock the neighbor to the left, the neighbor to the right, and the three homes across the street. 'Jones just went solar' is the most powerful social proof you can use. Don't drive across town for one door; build a fortress in one neighborhood."
             },
             {
-                title: "The Perfect Day",
+                title: "The Perfect Day: Routine Equals Freedom",
                 type: "slides",
-                content: "Structure leads to freedom.",
+                content: "Discipline creates freedom. If you don't control your schedule, your feelings will. Here is the optimized schedule of a Top 1% Performer.",
                 slides: [
                     {
-                        title: "Daily Schedule",
-                        content: "AM: Prep & Admin. PM: Knocking. The Golden Hours are 3pm-7pm.",
+                        title: "The Daily Schedule",
+                        content: "10:00 AM - 12:00 PM: Personal Development & Admin. sharpen your axe.\n1:00 PM - 3:00 PM: Territory scouting and 'Go-Backs' (appointments).\n3:00 PM - 7:00 PM: The Golden Hours. This is when people are home. You should be hitting doors non-stop. No admin, no breaks.\n8:00 PM: Review and plan the next day's route.",
                         image: "/images/module_9_perfect_day.png",
                         imagePlaceholder: "Schedule"
                     }
                 ]
             },
             {
-                title: "Dropping the Persona",
+                title: "Dropping the Persona: The Anti-Sales Approach",
                 type: "comparison",
-                content: "Stop sounding like a salesperson.",
+                content: "Homeowners have 'Salesman Alarms' installed in their brains. If you sound like a salesperson, you trigger the alarm and the door closes. We need to lower resistance by sounding like a confused, helpful neighbor.",
                 comparison: {
-                    rookie: "Hi! I'm with Solar Bros! We are saving money!",
-                    pro: "Hi... I'm just looking for the homeowner? ... I wasn't sure if I had the right house..."
+                    rookie: "Hi! I'm with Solar Bros! We are saving money in the area! Do you want to buy panels?",
+                    pro: "Hi... sorry to bother you. I'm just looking for the homeowner? ... Oh, that's you? Okay, I wasn't sure if I had the right house... I was just stopping by because..."
                 }
             }
         ]
@@ -120,6 +121,7 @@ export const MODULES: Record<string, ModuleContent> = {
         title: "Day 3: Connection",
         subtitle: "Discovery & Psychology",
         pdfDownloadUrl: "/downloads/Day_3_Discovery.pdf",
+        slideDeckUrl: "/downloads/In_Home_Presentation.pptx",
         sections: [
             {
                 title: "In-Home Mastery",
@@ -229,6 +231,7 @@ export const MODULES: Record<string, ModuleContent> = {
         title: "Day 6: Mastery",
         subtitle: "Referrals & Certification",
         pdfDownloadUrl: "/downloads/Day_6_Mastery.pdf",
+        slideDeckUrl: "/downloads/Virtual_Presentation.pptx",
         sections: [
             {
                 title: "The Referral Engine",

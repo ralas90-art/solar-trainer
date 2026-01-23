@@ -50,11 +50,11 @@ export function SlideDeck({ slides }: SlideDeckProps) {
 
 
                         {slides[currentSlide].image ? (
-                            <div className="relative w-full max-w-2xl h-64 mb-8 rounded-lg overflow-hidden shadow-lg border border-slate-600">
+                            <div className="relative w-full max-w-4xl h-80 mb-8 rounded-lg overflow-hidden shadow-lg border border-slate-600 bg-black/50 backdrop-blur-sm flex items-center justify-center">
                                 <img
                                     src={slides[currentSlide].image}
                                     alt={slides[currentSlide].title}
-                                    className="object-cover w-full h-full hover:scale-105 transition-transform duration-500"
+                                    className="object-contain w-full h-full max-h-full hover:scale-[1.02] transition-transform duration-500"
                                 />
                             </div>
                         ) : slides[currentSlide].imagePlaceholder && (

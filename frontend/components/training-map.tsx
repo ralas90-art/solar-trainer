@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { CheckCircle2, Lock, MapPin, PlayCircle } from "lucide-react"
+import { CheckCircle2, Lock, MapPin, PlayCircle, Gamepad2 } from "lucide-react"
 
 interface TrainingMapProps {
     onSelectModule: (moduleId: string) => void
@@ -13,7 +13,8 @@ const FULL_CURRICULUM = [
         description: "Mindset, Basics & Qualifying",
         topics: ["Solar Mindset", "How Solar Works", "The Perfect House"],
         status: "completed",
-        moduleId: "day_1_foundation"
+        moduleId: "day_1_foundation",
+        hasSimulator: false
     },
     {
         day: 2,
@@ -21,39 +22,44 @@ const FULL_CURRICULUM = [
         description: "The Hunt",
         topics: ["Territory Management", "Door Psychology", "Opening Strategies"],
         status: "active",
-        moduleId: "day_2_prospecting"
+        moduleId: "day_2_prospecting",
+        hasSimulator: true
     },
     {
         day: 3,
         title: "Connection",
         description: "Discovery & Psychology",
         topics: ["In-Home Mastery", "Personality Types", "Sales Vocabulary"],
-        status: "locked",
-        moduleId: "day_3_discovery"
+        status: "active",
+        moduleId: "day_3_discovery",
+        hasSimulator: false
     },
     {
         day: 4,
         title: "Presentation",
         description: "Building Value",
         topics: ["The Bill Swap", "Money Roadmap", "Financing 101"],
-        status: "locked",
-        moduleId: "day_4_presentation"
+        status: "active",
+        moduleId: "day_4_presentation",
+        hasSimulator: true
     },
     {
         day: 5,
         title: "Closing",
         description: "Objections & Decisions",
         topics: ["Objection Judo", "The Decision Matrix", "Paperwork"],
-        status: "locked",
-        moduleId: "day_5_closing"
+        status: "active",
+        moduleId: "day_5_closing",
+        hasSimulator: true
     },
     {
         day: 6,
         title: "Mastery",
         description: "Certification",
         topics: ["The Referral Engine", "Virtual Sales", "Final Exam"],
-        status: "locked",
-        moduleId: "day_6_mastery"
+        status: "active",
+        moduleId: "day_6_mastery",
+        hasSimulator: true
     }
 ]
 
@@ -109,6 +115,13 @@ export function TrainingMap({ onSelectModule, currentDay }: TrainingMapProps) {
 
                                     <h3 className="text-xl font-bold text-slate-900 mb-1">{day.title}</h3>
                                     <p className="text-slate-500 text-sm mb-4">{day.description}</p>
+
+                                    {day.hasSimulator && (
+                                        <div className="mb-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-700 text-xs font-semibold border border-indigo-100">
+                                            <Gamepad2 className="w-3.5 h-3.5" />
+                                            <span>Simulator Available</span>
+                                        </div>
+                                    )}
 
                                     <div className="space-y-2">
                                         {day.topics.map((topic, i) => (
