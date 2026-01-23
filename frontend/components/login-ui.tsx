@@ -12,6 +12,7 @@ export function AuthForm({ onLogin }: { onLogin: (user: any) => void }) {
     const [isLogin, setIsLogin] = useState(true)
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [selectedState, setSelectedState] = useState("CA") // Default to CA
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
 
@@ -40,16 +41,15 @@ export function AuthForm({ onLogin }: { onLogin: (user: any) => void }) {
             }
 
             // Auto-login after signup or regular login
-            // For prototype, we'll mock the tenant selection or just assign default
             onLogin({
                 id: data.username,
                 name: data.username,
                 username: data.username,
-                // Mock tenant assignment for now
+                // Mock tenant assignment with SELECTED STATE
                 tenant: {
                     id: "1",
                     name: "Solar Bros Inc",
-                    allowed_states: ["CA", "NY"],
+                    allowed_states: [selectedState, "CA", "NY"], // Add selected state to allowed list
                     brand_color: "bg-orange-500"
                 }
             })
@@ -79,6 +79,23 @@ export function AuthForm({ onLogin }: { onLogin: (user: any) => void }) {
                         <Label htmlFor="password">Password</Label>
                         <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
                     </div>
+
+                    {/* ADDED: State Selection */}
+                    <div className="flex flex-col space-y-1.5">
+                        <Label htmlFor="state">Sales Territory</Label>
+                        <select
+                            id="state"
+                            className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            value={selectedState}
+                            onChange={(e) => setSelectedState(e.target.value)}
+                        >
+                            <option value="CA">California (NEM 3.0)</option>
+                            <option value="NY">New York (Tax Credits)</option>
+                            <option value="TX">Texas (Dereulated)</option>
+                            <option value="FL">Florida (Net Metering)</option>
+                        </select>
+                    </div>
+
                     {error && <p className="text-sm text-red-500">{error}</p>}
                 </div>
             </CardContent>

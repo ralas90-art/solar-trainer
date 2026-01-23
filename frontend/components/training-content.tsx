@@ -1,0 +1,112 @@
+import { SlideDeck } from "@/components/slide-deck"
+import { Button } from "@/components/ui/button"
+import { ArrowLeft } from "lucide-react"
+import { MODULES } from "@/lib/modules"
+
+interface TrainingContentProps {
+    moduleId: string
+    onBack: () => void
+    onComplete: () => void
+}
+
+export function TrainingContent({ moduleId, onBack, onComplete }: TrainingContentProps) {
+    const moduleData = MODULES[moduleId]
+
+    if (!moduleData) {
+        return (
+            <div className="p-8 text-center min-h-screen flex flex-col items-center justify-center bg-slate-50">
+                <h2 className="text-2xl font-bold text-slate-800">Module Not Found</h2>
+                <p className="text-slate-500 mb-4">The content for this module is currently under development.</p>
+                <div className="flex gap-4">
+                    <Button onClick={onBack} variant="outline">Go Back</Button>
+                    <Button onClick={onComplete}>Mock Complete (Dev)</Button>
+                </div>
+            </div>
+        )
+    }
+
+    return (
+        <div className="max-w-4xl mx-auto bg-white min-h-screen shadow-xl">
+            {/* Header */}
+            <div className="bg-slate-900 text-white p-8 sticky top-0 z-10">
+                <Button variant="ghost" onClick={onBack} className="text-slate-300 hover:text-white mb-4 pl-0">
+                    <ArrowLeft className="w-4 h-4 mr-2" /> Back to Map
+                </Button>
+                <div className="flex items-center justify-between">
+                    <div>
+                        <div className="text-yellow-400 font-bold uppercase tracking-wider text-sm mb-2">{moduleData.subtitle}</div>
+                        <h1 className="text-4xl font-bold">{moduleData.title}</h1>
+                    </div>
+                    <div className="bg-white/10 p-4 rounded-xl backdrop-blur-sm">
+                        <div className="text-2xl font-bold text-center">In Progress</div>
+                        <div className="text-xs text-slate-400 uppercase">Status</div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Content Body */}
+            <div className="p-12 space-y-12 text-lg text-slate-800 leading-relaxed">
+
+                {moduleData.sections.map((section, index) => (
+                    <section key={index} className="animate-in fade-in slide-in-from-bottom-4 duration-500" style={{ animationDelay: `${index * 100}ms` }}>
+                        <h2 className="text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                            <span className="w-2 h-8 bg-blue-600 rounded-full"></span>
+                            {section.title}
+                        </h2>
+
+                        {section.type === 'text' && (
+                            <p className="mb-4 text-slate-700">{section.content}</p>
+                        )}
+
+                        {section.type === 'quote' && (
+                            <div className="bg-blue-50 border-l-4 border-blue-600 p-6 my-8 italic text-blue-900 font-medium text-xl">
+                                {section.content}
+                            </div>
+                        )}
+
+                        {section.type === 'slides' && section.slides && (
+                            <div className="my-8">
+                                <SlideDeck slides={section.slides} />
+                                <p className="mt-4 text-sm text-center text-slate-500 italic">{section.content}</p>
+                            </div>
+                        )}
+
+                        {section.type === 'list' && (
+                            <div className="space-y-4">
+                                <p className="mb-4">{section.content}</p>
+                                <ul className="space-y-3">
+                                    {section.items?.map((item, i) => (
+                                        <li key={i} className="flex items-start gap-3 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                            <span className="bg-green-100 text-green-700 font-bold px-2 py-1 rounded text-sm shrink-0">{i + 1}</span>
+                                            <span>{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+
+                        {section.type === 'comparison' && section.comparison && (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                                <div className="bg-red-50 p-6 rounded-xl border border-red-100">
+                                    <h3 className="font-bold text-red-800 mb-2 uppercase tracking-wide text-sm">❌ Rookie Mistake</h3>
+                                    <p className="text-red-700">{section.comparison.rookie}</p>
+                                </div>
+                                <div className="bg-green-50 p-6 rounded-xl border border-green-100 shadow-sm">
+                                    <h3 className="font-bold text-green-800 mb-2 uppercase tracking-wide text-sm">✅ Pro Move</h3>
+                                    <p className="text-green-700 font-medium">{section.comparison.pro}</p>
+                                </div>
+                            </div>
+                        )}
+                    </section>
+                ))}
+
+                {/* Footer Action */}
+                <div className="pt-12 border-t border-slate-200 flex justify-end">
+                    <Button onClick={onComplete} size="lg" className="bg-green-600 hover:bg-green-700 text-white font-bold text-xl px-8 py-6 h-auto shadow-lg shadow-green-200 hover:shadow-green-300 transition-all transform hover:-translate-y-1">
+                        Complete Module & Collect XP →
+                    </Button>
+                </div>
+            </div>
+        </div>
+    )
+}

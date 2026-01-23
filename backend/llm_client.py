@@ -32,12 +32,21 @@ class LLMClient:
         1. Did they mention the local state incentives?
         2. Did they address the specific objection?
         3. Was the tone professional?
-        
-        OUTPUT JSON ONLY:
+
+        CRITERIA:
+        1. Did they mention the local state incentives?
+        2. Did they address the specific objection?
+        3. Was the tone professional?
+
+        IMPORTANT: YOU MUST RETURN VALID JSON.
+        Include a "better_response" field that rewrites the user's answer into a perfect sales script.
+
+        JSON FORMAT:
         {{
             "pass": boolean,
             "score": integer (0-100),
             "critique": "string (< 50 words) in {language}",
+            "better_response": "string (rewritten perfect response) in {language}",
             "agent_message": "string (what the coach says back to the rep) in {language}"
         }}
         """
@@ -52,7 +61,9 @@ class LLMClient:
                 response_format={"type": "json_object"}
             )
             
-            return response.choices[0].message.content
+            content = response.choices[0].message.content
+            print(f"DEBUG LLM RAW OUTPUT: {content}") # Debugging line
+            return content
         except Exception as e:
             print(f"LLM Error: {e}")
             # Fallback for error handling

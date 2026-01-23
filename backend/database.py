@@ -1,9 +1,19 @@
 from sqlmodel import SQLModel, create_engine, Session
 
-sqlite_file_name = "database.db"
-sqlite_url = f"sqlite:///{sqlite_file_name}"
+import os
+from sqlmodel import SQLModel, create_engine, Session
 
-engine = create_engine(sqlite_url, connect_args={"check_same_thread": False})
+# Check for Cloud Database URL
+database_url = os.getenv("DATABASE_URL")
+
+if database_url:
+    # Postgres Connection
+    engine = create_engine(database_url)
+else:
+    # Fallback to Local SQLite
+    sqlite_file_name = "database.db"
+    sqlite_url = f"sqlite:///{sqlite_file_name}"
+    engine = create_engine(sqlite_url, connect_args={"check_same_thread": False})
 
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)

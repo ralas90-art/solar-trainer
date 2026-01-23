@@ -41,6 +41,7 @@ class Scenario(BaseModel):
     description: str
     difficulty: str
     opening_line: str
+    briefing: Optional[str] = None
     valid_responses: List[str]
 
 class ChatRequest(BaseModel):
@@ -54,5 +55,6 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     agent_message: str
     critique: Optional[str] = None
+    better_response: Optional[str] = None
     pass_fail: Optional[bool] = None
     score: int = 0 # 0-100

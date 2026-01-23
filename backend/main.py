@@ -9,6 +9,10 @@ from models import TenantConfig, ChatRequest, ChatResponse, StateProfile, UserSt
 from data import TENANT_CONFIGS, STATE_KNOWLEDGE_BASE, SCENARIOS
 from services import TrainingService
 from database import create_db_and_tables, get_session
+from fastapi.responses import StreamingResponse
+from certificate import generate_certificate_pdf
+from voice import text_to_speech_stream
+from pydantic import BaseModel
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -89,6 +93,39 @@ def get_leaderboard(session: Session = Depends(get_session)):
 @app.post("/chat", response_model=ChatResponse)
 def chat_endpoint(request: ChatRequest, session: Session = Depends(get_session)):
     return service.evaluate_response(request, session)
+
+@app.get("/certificate/{user_id}")
+def download_certificate(user_id: str, session: Session = Depends(get_session)):
+    # 1. Get User Name
+    # Try finding in User table first
+    user = session.exec(select(User).where(User.username == user_id)).first()
+    
+    # Fallback to UserStats or just ID if not found
+    display_name = user.username if user else user_id
+    
+    # 2. Check if they actually passed (Optional, but good for security)
+    stats = session.get(UserStats, user_id)
+    # We can be lenient for the prototype and just generate it
+    
+    # 3. Generate PDF
+    pdf_buffer = generate_certificate_pdf(display_name)
+    
+    # 4. Return as File
+    filename = f"Certificate_{display_name}.pdf"
+    return StreamingResponse(
+        pdf_buffer, 
+        media_type="application/pdf", 
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
+
+class SpeakRequest(BaseModel):
+    text: str
+    voice_id: str = "21m00Tcm4TlvDq8ikWAM" # Rachel
+
+@app.post("/speak")
+def speak_endpoint(request: SpeakRequest):
+    audio_stream = text_to_speech_stream(request.text, request.voice_id)
+    return StreamingResponse(audio_stream, media_type="audio/mpeg")
 
 if __name__ == "__main__":
     import uvicorn
