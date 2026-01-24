@@ -59,7 +59,7 @@ export const MODULES: Record<string, ModuleContent> = {
                 slides: [
                     {
                         title: "PV Basics: The Energy Journey",
-                        content: "1. Generation: Sunlight (Photons) hits the silicon cells, knocking electrons loose to create Direct Current (DC) electricity.\n2. Conversion: The Inverter converts this raw DC power into usable Alternating Current (AC) for the home.\n3. Consumption: The home uses this solar power first, before pulling from the expensive grid.\n4. Net Metering: Any excess power spins the meter backward, building credits for the night.",
+                        content: "1. Generation: Sunlight (Photons) hits the silicon cells, knocking electrons loose to create Direct Current (DC) electricity.\n2. Conversion: The Inverter converts this raw DC power into usable Alternating Current (AC) for the home.\n3. Consumption: The home uses this solar power first, before pulling from the expensive grid.\n4. Net Metering: Think of it like 'Rollover Minutes' on an old cell plan. Excess power you generate during the day isn't lost; it rolls over to cover you at night.",
                         image: "/images/module_6_how_solar_works.png",
                         imagePlaceholder: "Solar Diagram"
                     }
@@ -98,6 +98,16 @@ export const MODULES: Record<string, ModuleContent> = {
                 title: "Territory Management: The Cloverleaf Strategy",
                 type: "text",
                 content: "Amateurs knock randomly. Professionals manage their territory like a business. The goal is to minimize drive time and maximize face time. We use the 'Cloverleaf Pattern' to create a web of influence around every positive interaction. \n\nWhen you get a sale, or even a good conversation, don't just leave. Knock the neighbor to the left, the neighbor to the right, and the three homes across the street. 'Jones just went solar' is the most powerful social proof you can use. Don't drive across town for one door; build a fortress in one neighborhood."
+            },
+            {
+                title: "Digital Door Knocking",
+                type: "list",
+                content: "When it rains or gets dark, the work doesn't stop. Dominate the neighborhood digitally.",
+                items: [
+                    "Nextdoor/FB: 'Hey neighbors, I'm the guy who helped the Smiths on Elm St go solar...'",
+                    "Geofencing: Target ads to the specific street you are canvassing.",
+                    "Goal: Become the 'Mayor' of your assigned territory."
+                ]
             },
             {
                 title: "The Perfect Day: Routine Equals Freedom",
@@ -202,6 +212,15 @@ export const MODULES: Record<string, ModuleContent> = {
                 }
             },
             {
+                title: "Type 6: Consequence Questions (The Fear)",
+                type: "list",
+                content: "Getting them to visualize the pain of doing nothing.",
+                items: [
+                    "What happens in 5 years if rates go up 10% and you're still renting power?",
+                    "Do you think the utility company is going to LOWER rates in the future?"
+                ]
+            },
+            {
                 title: "Practice Scenario: Deep Discovery",
                 type: "simulation",
                 content: "You are at the kitchen table with 'John', a skeptical analytical type (Owl). Practice finding his pain points without pitching product.",
@@ -266,6 +285,11 @@ export const MODULES: Record<string, ModuleContent> = {
                         imagePlaceholder: "Money Flow"
                     }
                 ]
+            },
+            {
+                title: "The ROI Script (Tax-Free Returns)",
+                type: "text",
+                content: "\"Mr. Homeowner, where else can you get a guaranteed 10% return that is tax-free? The stock market? Real estate? This system isn't just an appliance; it's the safest investment in your portfolio. You are moving money from a liability (rent) to an asset (ownership).\""
             },
             {
                 title: "Financing 101",
