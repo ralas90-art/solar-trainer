@@ -29,14 +29,11 @@ class LLMClient:
         Evaluate the Rep's response to the customer's objection: "{scenario.opening_line}"
         
         CRITERIA:
-        1. Did they mention the local state incentives?
-        2. Did they address the specific objection?
-        3. Was the tone professional?
-
-        CRITERIA:
-        1. Did they mention the local state incentives?
-        2. Did they address the specific objection?
-        3. Was the tone professional?
+        1. Did the Rep achieve the specific "Goal" listed in the CONTEXT Briefing?
+        2. Did they include at least one of the "Key Concepts" or "Valid Responses"?
+        3. Was the tone professional and empathetic?
+        
+        (Ignore "State Incentives" unless the Briefing specifically asks for them. Focus primarily on the Scenario's unique Goal.)
 
         IMPORTANT: YOU MUST RETURN VALID JSON.
         Include a "better_response" field that rewrites the user's answer into a perfect sales script.
