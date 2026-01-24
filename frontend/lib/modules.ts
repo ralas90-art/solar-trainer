@@ -73,13 +73,13 @@ export const MODULES: Record<string, ModuleContent> = {
                     {
                         title: "The Perfect Roof",
                         content: "The ideal roof faces South, maximizing exposure to the sun's path. East and West are also viable, but North is often a deal-breaker (in the Northern Hemisphere). Look for shading from trees or chimneys—shade is the enemy of production. Finally, check the condition: we cannot install on a roof that needs replacing in 5 years.",
-                        image: "/training_materials/qualifying_roofs.png",
+                        image: "/images/qualifying_roofs.png",
                         imagePlaceholder: "Roof Diagram"
                     },
                     {
                         title: "Electrical Panel Integrity",
                         content: "The Main Service Panel (MSP) is the heart of the home's grid. We typically need a modern 200 Amp panel to handle backfeeding solar power. Watch out for 'Zinsco' or 'Federal Pacific' panels—these are known fire hazards and must be replaced (Main Panel Upgrade or MPU) before we can install, which adds cost to the project.",
-                        image: "/training_materials/electrical_panel_guide.png",
+                        image: "/images/electrical_panel_guide.png",
                         imagePlaceholder: "Panel Diagram"
                     }
                 ]
@@ -151,7 +151,7 @@ export const MODULES: Record<string, ModuleContent> = {
                 title: "Personality Types (BOLT)",
                 type: "image",
                 content: "Identify the homeowner's type to mirror their energy.",
-                imageSrc: "/training_materials/personality_types_bolt.png"
+                imageSrc: "/images/personality_types_bolt.png"
             },
             {
                 title: "Question Architecture: The Pyramid of Influence",
