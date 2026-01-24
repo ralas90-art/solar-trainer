@@ -70,5 +70,32 @@ SCENARIOS = {
         opening_line="I've talked to 3 other companies, and frankly, I'm not convinced any of you are telling the truth about these 'savings'. It sounds like a scam.",
         briefing="⚠️ CERTIFICATION EXAM ⚠️\n\nThis is your final test. The homeowner is hostile and skeptical.\n\nYou must:\n1. Build Trust (Empathy/Validation).\n2. Address the 'Scam' objection (Social Proof/Stats).\n3. Pivot to Value (ROI/Protection).\n\nTo PASS, you must address ALL three points in your response.",
         valid_responses=["trust", "scam", "neighbors", "ROI", "protection"]
+    ),
+    "discovery_1": Scenario(
+        id="discovery_1",
+        name="Deep Discovery Practice",
+        description="Homeowner is guarding information. Use 'The 3 Reasons' framework.",
+        difficulty="Easy",
+        opening_line="I don't have much time. What are you selling?",
+        briefing="Goal: Switch from 'Selling' to 'Consulting'.\n\nKey Concepts:\n1. Use the '3 Reasons' framework to anchor the conversation.\n2. Ask open-ended questions (Who, What, How).\n3. Do NOT mention product/panels yet.\n\nTip: Say 'I'm not here to sell panels. I'm here to see if your home qualifies for the 3 Reasons...'",
+        valid_responses=["3 reasons", "consulting", "qualify"]
+    ),
+    "objection_price": Scenario(
+        id="objection_price",
+        name="Price Shock",
+        description="Homeowner says 'It's too expensive'.",
+        difficulty="Medium",
+        opening_line="50 thousand dollars?! That is way too expensive. I'm not interested.",
+        briefing="Goal: Reframe Cost vs Investment.\n\nKey Concepts:\n1. Acknowledge and Validate (Feel-Felt-Found).\n2. Show the 'Cost of Doing Nothing' (Utility Bill).\n3. Reframe as 'Asset' vs 'Liability'.\n\nTip: 'I felt the same way until I realized I was already paying $60k to the utility company with nothing to show for it.'",
+        valid_responses=["feel", "felt", "found", "investment", "utility"]
+    ),
+    "referral_ask": Scenario(
+        id="referral_ask",
+        name="The Referral Ask",
+        description="Practice asking for introductions at the moment of happiness.",
+        difficulty="Hard",
+        opening_line="This has been great, I'm really excited about the savings. Thanks for your help.",
+        briefing="Goal: Turn 1 sale into 3.\n\nKey Concepts:\n1. Strike while the iron is hot (Moment of Happiness).\n2. Be specific: Ask for 'neighbors' or 'family', not 'anyone'.\n3. Use the 'Cloverleaf' concept.\n\nTip: 'I'm glad you're happy! Most of my business comes from neighbors... who in the neighborhood should I talk to next?'",
+        valid_responses=["neighbors", "family", "cloverleaf", "review"]
     )
 }
