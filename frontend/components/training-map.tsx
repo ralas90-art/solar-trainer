@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { CheckCircle2, Lock, MapPin, PlayCircle, Gamepad2 } from "lucide-react"
+import { CheckCircle2, Lock, PlayCircle, Gamepad2, Stars, Trophy, Zap } from "lucide-react"
 
 interface TrainingMapProps {
     onSelectModule: (moduleId: string) => void
@@ -32,7 +32,7 @@ const FULL_CURRICULUM = [
         topics: ["In-Home Mastery", "Personality Types", "Sales Vocabulary"],
         status: "active",
         moduleId: "day_3_discovery",
-        hasSimulator: false
+        hasSimulator: true
     },
     {
         day: 4,
@@ -63,112 +63,134 @@ const FULL_CURRICULUM = [
     }
 ]
 
+const container = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1
+        }
+    }
+}
+
+const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 }
+}
+
 export function TrainingMap({ onSelectModule, currentDay }: TrainingMapProps) {
     return (
-        <div className="space-y-8 relative">
-            {/* Connecting Line (Desktop) */}
-            <div className="hidden md:block absolute left-[50%] top-10 bottom-10 w-1 bg-slate-800/20 -z-10 transform -translate-x-1/2"></div>
+        <div className="space-y-12">
+            {/* Hero Section */}
+            <motion.div 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center space-y-4 py-8"
+            >
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium">
+                    <Stars className="w-4 h-4" />
+                    <span>Solar Consultant Certification</span>
+                </div>
+                <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-100 via-white to-blue-100 text-glow">
+                    SpaceForce Training
+                </h1>
+                <p className="text-slate-400 max-w-xl mx-auto text-lg">
+                    Master the art of solar sales through our 6-day intensive curriculum.
+                </p>
+                
+                <div className="flex justify-center gap-8 pt-4">
+                    <div className="text-center">
+                        <div className="text-2xl font-bold text-white flex items-center justify-center gap-2">
+                           <Trophy className="w-5 h-5 text-yellow-500" /> 1
+                        </div>
+                        <div className="text-xs text-slate-500 uppercase tracking-wider mt-1">Modules Done</div>
+                    </div>
+                    <div className="text-center">
+                        <div className="text-2xl font-bold text-white flex items-center justify-center gap-2">
+                            <Zap className="w-5 h-5 text-blue-500" /> 5
+                        </div>
+                        <div className="text-xs text-slate-500 uppercase tracking-wider mt-1">Modules Active</div>
+                    </div>
+                </div>
+            </motion.div>
 
-            {FULL_CURRICULUM.map((day, index) => {
-                const isLeft = index % 2 === 0
-                const isActive = day.status === "active"
-                const isLocked = day.status === "locked"
-                const isCompleted = day.status === "completed"
+            {/* Cinematic Grid */}
+            <motion.div 
+                variants={container}
+                initial="hidden"
+                animate="show"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4"
+            >
+                {FULL_CURRICULUM.map((day) => {
+                    const isActive = day.status === "active"
+                    const isLocked = day.status === "locked"
+                    const isCompleted = day.status === "completed"
 
-                return (
-                    <motion.div
-                        key={day.day}
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                        className={`flex md:justify-center relative group`}
-                    >
-                        {/* Connecting Line (Mobile) - Simple vertical line on left */}
-                        <div className="md:hidden absolute left-8 top-full h-8 w-1 bg-slate-200"></div>
+                    return (
+                        <motion.div variants={item} key={day.day} className="h-full">
+                            <div
+                                onClick={() => !isLocked && onSelectModule(day.moduleId)}
+                                className={`
+                                    glass-card h-full p-6 rounded-2xl transition-all duration-300 relative overflow-hidden group cursor-pointer
+                                    ${isActive ? 'ring-1 ring-blue-500/50 hover:ring-blue-400 hover:shadow-blue-500/20 hover:-translate-y-2' : ''}
+                                    ${isLocked ? 'opacity-50 grayscale cursor-not-allowed' : ''}
+                                    ${isCompleted ? 'border-green-500/30' : ''}
+                                `}
+                            >
+                                {/* Background Glow for Active Cards */}
+                                {isActive && (
+                                    <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                )}
 
-                        <div className={`
-                            flex flex-col md:flex-row items-center w-full max-w-4xl
-                            ${isLeft ? 'md:flex-row-reverse' : ''}
-                        `}>
-                            {/* Card Content side */}
-                            <div className="flex-1 p-4 w-full">
-                                <div
-                                    onClick={() => !isLocked && onSelectModule(day.moduleId)}
-                                    className={`
-                                        bg-white group-hover:bg-slate-50 p-6 rounded-xl border-2 transition-all cursor-pointer shadow-sm hover:shadow-xl
-                                        ${isActive ? 'border-primary ring-4 ring-primary/10 shadow-lg scale-[1.02]' : 'border-slate-200'}
-                                        ${isLocked ? 'opacity-70 grayscale cursor-not-allowed bg-slate-50' : 'hover:-translate-y-1'}
-                                    `}
-                                >
-                                    <div className="flex justify-between items-start mb-4">
+                                <div className="relative z-10 flex flex-col h-full">
+                                    <div className="flex justify-between items-start mb-6">
                                         <div className={`
-                                            px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide
-                                            ${isActive ? 'bg-primary/10 text-primary' : 'bg-slate-100 text-slate-600'}
+                                            w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg
+                                            ${isActive ? 'bg-blue-600/20 text-blue-400 border border-blue-500/30' : 'bg-slate-800 text-slate-500 border border-slate-700'}
+                                            ${isCompleted ? 'bg-green-500/20 text-green-400 border-green-500/30' : ''}
                                         `}>
-                                            Day {day.day}
+                                            {day.day}
                                         </div>
-                                        {isCompleted && <CheckCircle2 className="w-6 h-6 text-green-500" />}
-                                        {isActive && <PlayCircle className="w-6 h-6 text-primary animate-pulse" />}
-                                        {isLocked && <Lock className="w-5 h-5 text-slate-400" />}
+                                        
+                                        {isCompleted && <CheckCircle2 className="w-6 h-6 text-green-400" />}
+                                        {isActive && <PlayCircle className="w-6 h-6 text-blue-400 animate-pulse" />}
+                                        {isLocked && <Lock className="w-5 h-5 text-slate-600" />}
                                     </div>
 
-                                    <h3 className="text-xl font-bold text-slate-900 mb-1">{day.title}</h3>
-                                    <p className="text-slate-500 text-sm mb-4">{day.description}</p>
+                                    <h3 className="text-2xl font-bold text-white mb-2">{day.title}</h3>
+                                    <p className="text-slate-400 text-sm mb-6">{day.description}</p>
 
                                     {day.hasSimulator && (
-                                        <div className="mb-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-700 text-xs font-semibold border border-indigo-100">
+                                        <div className="mb-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold self-start">
                                             <Gamepad2 className="w-3.5 h-3.5" />
-                                            <span>Simulator Available</span>
+                                            <span>AI SIMULATOR</span>
                                         </div>
                                     )}
 
-                                    <div className="space-y-2">
+                                    <div className="space-y-2 mb-6 flex-1">
                                         {day.topics.map((topic, i) => (
-                                            <div key={i} className="flex items-center text-sm text-slate-600">
-                                                <div className={`w-1.5 h-1.5 rounded-full mr-2 ${isActive ? 'bg-amber-400' : 'bg-slate-300'}`}></div>
+                                            <div key={i} className="flex items-center text-sm text-slate-500 group-hover:text-slate-300 transition-colors">
+                                                <div className={`w-1 h-1 rounded-full mr-2 ${isActive ? 'bg-blue-400' : 'bg-slate-600'}`}></div>
                                                 {topic}
                                             </div>
                                         ))}
                                     </div>
 
                                     {!isLocked && (
-                                        <div className="mt-4 pt-4 border-t border-slate-100 flex justify-end">
-                                            <span className="text-primary text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
-                                                {isActive ? "Continue Mission" : "Review Module"} →
+                                        <div className="pt-4 border-t border-white/5 flex items-center justify-between text-sm font-medium">
+                                            <span className="text-slate-400">20 min</span>
+                                            <span className={`${isActive ? 'text-blue-400 group-hover:text-blue-300' : 'text-slate-400'} flex items-center gap-1 transition-all`}>
+                                                {isActive ? "Start Mission" : "Review"} 
+                                                <span className="group-hover:translate-x-1 transition-transform">→</span>
                                             </span>
                                         </div>
                                     )}
                                 </div>
                             </div>
-
-                            {/* Center Marker */}
-                            <div className="relative shrink-0 z-10 px-4 md:px-8">
-                                <div className={`
-                                    w-16 h-16 rounded-full flex items-center justify-center border-4 transition-all duration-500
-                                    ${isActive ? 'bg-primary border-white shadow-xl scale-125' : ''}
-                                    ${isCompleted ? 'bg-green-500 border-white' : ''}
-                                    ${isLocked ? 'bg-slate-200 border-white' : ''}
-                                `}>
-                                    <span className={`text-xl font-bold ${isActive || isCompleted ? 'text-white' : 'text-slate-400'}`}>
-                                        {day.day}
-                                    </span>
-                                </div>
-                            </div>
-
-                            {/* Spacer for alignment on desktop */}
-                            <div className="hidden md:block flex-1"></div>
-                        </div>
-                    </motion.div>
-                )
-            })}
-
-            <div className="flex justify-center pt-8 pb-16">
-                <div className="bg-slate-900 text-white px-6 py-3 rounded-full flex items-center gap-3 shadow-xl transform hover:scale-105 transition-all cursor-pointer">
-                    <MapPin className="text-yellow-400" />
-                    <span className="font-bold">View Full Curriculum Map</span>
-                </div>
-            </div>
+                        </motion.div>
+                    )
+                })}
+            </motion.div>
         </div>
     )
 }
