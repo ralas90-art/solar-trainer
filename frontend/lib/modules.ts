@@ -173,6 +173,35 @@ export const MODULES: Record<string, ModuleContent> = {
                 ]
             },
             {
+                title: "Type 3: Clarifying Questions (The Mirror)",
+                type: "list",
+                content: "When they say something vague, repeat the last 3 words as a question to dig deeper.",
+                items: [
+                    "Homeowner: 'We're thinking about moving soon.'",
+                    "You: 'Moving soon?' (Wait for them to explain: 'Well, maybe in 5 years...')",
+                    "Goal: Uncover the real timeline without interrogating them."
+                ]
+            },
+            {
+                title: "Type 4: Labeling (Emotional Intelligence)",
+                type: "list",
+                content: "Statements framed as observations to build empathy. (From Chris Voss).",
+                items: [
+                    "It sounds like you've had a bad experience with contractors before.",
+                    "It seems like you're worried about the aesthetics of the panels.",
+                    "It looks like you analyze every detail before making a decision."
+                ]
+            },
+            {
+                title: "Type 5: Trial Closes (Temperature Checks)",
+                type: "comparison",
+                content: "Checking the pulse before asking for the sale.",
+                comparison: {
+                    rookie: "Waiting until the end to ask: 'Do you want to buy it?' (High Pressure).",
+                    pro: "Micro-checks along the way: 'If we could eliminate that bill, would that be helpful?'"
+                }
+            },
+            {
                 title: "Practice Scenario: Deep Discovery",
                 type: "simulation",
                 content: "You are at the kitchen table with 'John', a skeptical analytical type (Owl). Practice finding his pain points without pitching product.",
