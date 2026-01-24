@@ -144,6 +144,35 @@ export const MODULES: Record<string, ModuleContent> = {
                 imageSrc: "/training_materials/personality_types_bolt.png"
             },
             {
+                title: "Question Architecture: The Pyramid of Influence",
+                type: "comparison",
+                content: "Mastering the flow of conversation means knowing WHICH type of question to ask and WHEN.",
+                comparison: {
+                    rookie: "Asking Closed Questions too early: 'Do you want to save money?' (Easy 'No').",
+                    pro: "Asking Open-Ended Questions to build value, then Tie-Downs to lock it in."
+                }
+            },
+            {
+                title: "Type 1: Open-Ended Questions (The Discovery)",
+                type: "list",
+                content: "Use these to get them talking. They cannot be answered with 'Yes' or 'No'. Start with: Who, What, Where, When, Why, How.",
+                items: [
+                    "WHAT is your biggest concern with the current utility rates?",
+                    "HOW long have you been thinking about doing something about the bill?",
+                    "WHY is energy independence important to you specifically?"
+                ]
+            },
+            {
+                title: "Type 2: Tie-Downs (The Micro-Commitments)",
+                type: "list",
+                content: "Small questions at the end of statements to build a 'Yes Ladder'.",
+                items: [
+                    "Standard: '...wouldn't you agree?' / '...right?'",
+                    "Inverse: 'It makes sense to stop renting your power, DOESN'T it?'",
+                    "Tag: 'You want to lower that bill, DON'T you?'"
+                ]
+            },
+            {
                 title: "Practice Scenario: Deep Discovery",
                 type: "simulation",
                 content: "You are at the kitchen table with 'John', a skeptical analytical type (Owl). Practice finding his pain points without pitching product.",
