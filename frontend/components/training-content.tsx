@@ -124,12 +124,13 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
                                     <div className="my-12">
                                         <SimulationWindow
                                             tenant={{ id: "demo", name: "Antigravity Solar" }}
-                                            stateCode="CA" // Default to CA for training modules
-                                            userId="trainee" // Default user
+                                            stateCode="CA"
+                                            userId="trainee"
                                             scenario={{
                                                 id: section.scenarioId,
                                                 name: "Training Roleplay",
-                                                description: section.content
+                                                description: section.content,
+                                                opening_line: section.openingLine
                                             }}
                                         />
                                     </div>

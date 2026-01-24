@@ -19,6 +19,7 @@ export interface ModuleContent {
         comparison?: { rookie: string; pro: string };
         slides?: Slide[];
         scenarioId?: string; // For simulation
+        openingLine?: string; // Opening dialogue line
         imageSrc?: string; // For standalone image
     }[];
 }
@@ -146,7 +147,8 @@ export const MODULES: Record<string, ModuleContent> = {
                 title: "Practice Scenario: Deep Discovery",
                 type: "simulation",
                 content: "You are at the kitchen table with 'John', a skeptical analytical type (Owl). Practice finding his pain points without pitching product.",
-                scenarioId: "discovery_1"
+                scenarioId: "discovery_1",
+                openingLine: "I don't have much time. What are you selling?"
             },
             {
                 title: "Sales Vocabulary",
@@ -241,7 +243,8 @@ export const MODULES: Record<string, ModuleContent> = {
                 title: "Practice Scenario: The Price Objection",
                 type: "simulation",
                 content: "The homeowner says 'It's too expensive'. Use the Feel-Felt-Found technique to overcome this.",
-                scenarioId: "objection_price"
+                scenarioId: "objection_price",
+                openingLine: "50 thousand dollars?! That is way too expensive. I'm not interested."
             },
         ]
     },
@@ -286,7 +289,8 @@ export const MODULES: Record<string, ModuleContent> = {
                 title: "Practice Scenario: Asking for Referrals",
                 type: "simulation",
                 content: "You just signed the deal. Now, ask for introductions to their neighbors without being pushy.",
-                scenarioId: "referral_ask"
+                scenarioId: "referral_ask",
+                openingLine: "This has been great, I'm really excited about the savings. Thanks for your help."
             },
             {
                 title: "Verification",
