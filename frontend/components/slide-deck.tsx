@@ -50,7 +50,7 @@ export function SlideDeck({ slides }: SlideDeckProps) {
 
 
                         {slides[currentSlide].image ? (
-                            <div className="relative w-full max-w-4xl h-80 mb-8 rounded-lg overflow-hidden shadow-lg border border-slate-600 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+                            <div className="relative w-full h-[500px] mb-8 rounded-lg overflow-hidden shadow-lg border border-slate-600 bg-black/50 backdrop-blur-sm flex items-center justify-center">
                                 <img
                                     src={slides[currentSlide].image}
                                     alt={slides[currentSlide].title}

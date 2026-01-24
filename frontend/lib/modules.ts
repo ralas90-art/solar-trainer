@@ -100,6 +100,26 @@ export const MODULES: Record<string, ModuleContent> = {
                 content: "Amateurs knock randomly. Professionals manage their territory like a business. The goal is to minimize drive time and maximize face time. We use the 'Cloverleaf Pattern' to create a web of influence around every positive interaction. \n\nWhen you get a sale, or even a good conversation, don't just leave. Knock the neighbor to the left, the neighbor to the right, and the three homes across the street. 'Jones just went solar' is the most powerful social proof you can use. Don't drive across town for one door; build a fortress in one neighborhood."
             },
             {
+                title: "Track 1: Door-to-Door Mastery (The Ground Game)",
+                type: "list",
+                content: "Physical presence is your superpower in D2D. Use the environment.",
+                items: [
+                    "Body Language: Stand back 6 feet (The Trust Zone).",
+                    "Eye Contact: Break it occasionally to look at the house (lowers pressure).",
+                    "Props: Point at the meter or the roof (Visual Anchoring)."
+                ]
+            },
+            {
+                title: "Track 2: Virtual & Phone Pros (The Air Game)",
+                type: "list",
+                content: "Without physical presence, your Voice and Tech setup must be flawless.",
+                items: [
+                    "Tone: You must have 20% more energy than in person (Audio flattens emotion).",
+                    "The 3-Second Rule: You have 3 seconds to sound irrelevant or interesting.",
+                    "Tech: Hardwired internet only. No lagging video."
+                ]
+            },
+            {
                 title: "Digital Door Knocking",
                 type: "list",
                 content: "When it rains or gets dark, the work doesn't stop. Dominate the neighborhood digitally.",
@@ -143,9 +163,23 @@ export const MODULES: Record<string, ModuleContent> = {
         slideDeckUrl: "/downloads/In_Home_Presentation.pptx",
         sections: [
             {
+                title: "Mission Briefing: The Psychology of Trust",
+                type: "text",
+                content: "MISSION OBJECTIVE: In Day 3, we stop being 'Salespeople' and start being 'Trusted Advisors'.\n\nwhy? Because people hate being sold, but they love to buy. If you try to pitch before you connect, you will hit a wall. In this module, you will learn to dismantle that wall brick by brick using curiosity, empathy, and strategic questioning."
+            },
+            {
                 title: "In-Home Mastery",
                 type: "text",
                 content: "The Kitchen Table is your stage. Sit in the 'Power Seat' (next to them), not across (adversary)."
+            },
+            {
+                title: "Virtual Presence (Zoom Etiquette)",
+                type: "comparison",
+                content: "Connecting through a screen requires different rules than the kitchen table.",
+                comparison: {
+                    rookie: "Looking at the customer's face on the screen (Looks like you are looking down).",
+                    pro: "Looking directly at the CAMERA lens (Simulates eye contact). Lighting is in front of you, not behind."
+                }
             },
             {
                 title: "Personality Types (BOLT)",
