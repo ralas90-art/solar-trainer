@@ -33,6 +33,11 @@ export const MODULES: Record<string, ModuleContent> = {
         pdfDownloadUrl: "/downloads/Day_1_Foundation.pdf",
         sections: [
             {
+                title: "Mission Briefing: Building the Solar Professional",
+                type: "text",
+                content: "MISSION OBJECTIVE: Transform from a 'Salesperson' into a 'Consultant'.\n\nBy the end of Day 1, you will understand the physics of solar, the psychology of a top performer, and exactly how to qualify a home. This is the foundation of your career."
+            },
+            {
                 title: "Welcome to Solar: The Industry of the Future",
                 type: "text",
                 content: "Welcome to the solar revolution. You are entering an industry that is reshaping the global energy landscape. But success here isn't just about understanding kilowatts and panels; it's about mastering your own psychology. \n\nBefore we ever knock on a door or analyze a utility bill, we must build the 'Solar Mindset'. This industry is lucrative, but it is also demanding. It requires a thick skin, a servant's heart, and an unshakeable belief in what you are selling. \n\nIn this module, we will strip away the 'salesman' persona and rebuild you as a Solar Professional—a consultant who solves expensive problems for homeowners. We will also cover the fundamental physics of how a photovoltaic (PV) system turns sunlight into savings, ensuring you can explain it simply and confidently to any homeowner."
@@ -94,6 +99,11 @@ export const MODULES: Record<string, ModuleContent> = {
         subtitle: "The Hunt",
         pdfDownloadUrl: "/downloads/Day_2_Prospecting.pdf",
         sections: [
+            {
+                title: "Mission Briefing: The Art of the Hunt",
+                type: "text",
+                content: "MISSION OBJECTIVE: Master the science of finding qualified homeowners.\n\nProspecting is not luck; it is a system. Whether you are knocking doors or dialing phones, Day 2 will teach you how to manage your territory and maximize your 'Face Time' with potential clients."
+            },
             {
                 title: "Territory Management: The Cloverleaf Strategy",
                 type: "text",
@@ -173,12 +183,12 @@ export const MODULES: Record<string, ModuleContent> = {
                 content: "The Kitchen Table is your stage. Sit in the 'Power Seat' (next to them), not across (adversary)."
             },
             {
-                title: "Virtual Presence (Zoom Etiquette)",
+                title: "Remote Connection (Phone & Video)",
                 type: "comparison",
-                content: "Connecting through a screen requires different rules than the kitchen table.",
+                content: "Rules for the 'Air Game' (Virtual & Phone Sales). Connection is harder without physical presence.",
                 comparison: {
-                    rookie: "Looking at the customer's face on the screen (Looks like you are looking down).",
-                    pro: "Looking directly at the CAMERA lens (Simulates eye contact). Lighting is in front of you, not behind."
+                    rookie: "Treating it like a face-to-face chat (Low energy, looking at screen).",
+                    pro: "20% more vocal energy (Phone) & looking at the CAMERA lens (Video). Lighting in front, not behind."
                 }
             },
             {
@@ -303,6 +313,11 @@ export const MODULES: Record<string, ModuleContent> = {
         pdfDownloadUrl: "/downloads/Day_4_Presentation.pdf",
         sections: [
             {
+                title: "Mission Briefing: The Value Stack",
+                type: "text",
+                content: "MISSION OBJECTIVE: Learn to present the solution so clearly that the price becomes irrelevant.\n\nIn Day 4, we stop talking about 'Panels' and start talking about 'Freedom'. You will learn the 'Bill Swap' script and the 'Money Roadmap' to show the undeniable math of solar."
+            },
+            {
                 title: "The Bill Swap",
                 type: "text",
                 content: "You aren't spending extra money. You are redirecting a liability (Rent) to an asset (Mortgage)."
@@ -345,6 +360,11 @@ export const MODULES: Record<string, ModuleContent> = {
         pdfDownloadUrl: "/downloads/Day_5_Objections.pdf",
         sections: [
             {
+                title: "Mission Briefing: The Psychology of Agreement",
+                type: "text",
+                content: "MISSION OBJECTIVE: Navigate objections and guide the homeowner to a decision.\n\nClosing is not something you do TO a person; it is something you do FOR them. Day 5 teaches you to strip away fear using the 'Feel-Felt-Found' method and the 'Porcupine' technique."
+            },
+            {
                 title: "Objection Judo",
                 type: "text",
                 content: "Don't fight the objection. Align with it. Use the Porcupine Technique: Answer a question with a question."
@@ -373,6 +393,11 @@ export const MODULES: Record<string, ModuleContent> = {
         pdfDownloadUrl: "/downloads/Day_6_Mastery.pdf",
         slideDeckUrl: "/downloads/Virtual_Presentation.pptx",
         sections: [
+            {
+                title: "Mission Briefing: The Infinite Loop",
+                type: "text",
+                content: "MISSION OBJECTIVE: Turn one sale into three through the power of Referrals.\n\nThe goal of Day 6 is to ensure you never have to knock a cold door again. By mastering the 'Moment of Happiness', you will build a self-sustaining business based on trust."
+            },
             {
                 title: "The Referral Engine",
                 type: "text",

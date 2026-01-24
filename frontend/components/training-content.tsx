@@ -107,9 +107,9 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
                                 )}
 
                                 {section.type === 'image' && section.imageSrc && (
-                                    <div className="my-8 rounded-2xl overflow-hidden glass-card p-2">
-                                        <img src={section.imageSrc} alt={section.title} className="w-full h-auto rounded-xl" />
-                                        <p className="p-3 text-center text-sm text-slate-500 italic">{section.content}</p>
+                                    <div className="my-8 rounded-2xl overflow-hidden glass-card p-4 flex justify-center bg-black/20">
+                                        <img src={section.imageSrc} alt={section.title} className="w-full h-auto max-w-5xl max-h-[700px] object-contain rounded-xl shadow-lg border border-white/5" />
+                                        <p className="p-3 text-center text-sm text-slate-500 italic hidden">{section.content}</p> {/* Hide caption if redundant */}
                                     </div>
                                 )}
 
