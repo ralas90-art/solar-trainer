@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { SlideDeck } from "@/components/slide-deck"
 import { QuizModule } from "@/components/quiz"
 import { SimulationWindow } from "@/components/simulation-ui"
@@ -14,6 +15,7 @@ interface TrainingContentProps {
 export function TrainingContent({ moduleId, onBack, onComplete }: TrainingContentProps) {
     // Image Zoom State
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
+    const moduleData = MODULES[moduleId]
 
     if (!moduleData) {
         return (
