@@ -1695,7 +1695,7 @@ export const MODULES: Record<string, ModuleContent> = {
         id: "day_6_mastery",
         title: "Day 6: Mastery",
         subtitle: "Referrals & Automation",
-        pdfDownloadUrl: "/downloads/Day_6_Referrals.pdf",
+        pdfDownloadUrl: "/downloads/Day_6_Mastery.pdf",
         quiz: {
             title: "Day 6 Certification Exam",
             questions: [

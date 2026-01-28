@@ -82,7 +82,7 @@ export function TrainingMap({ onSelectModule, currentDay }: TrainingMapProps) {
     return (
         <div className="space-y-12">
             {/* Hero Section */}
-            <motion.div 
+            <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center space-y-4 py-8"
@@ -97,11 +97,11 @@ export function TrainingMap({ onSelectModule, currentDay }: TrainingMapProps) {
                 <p className="text-slate-400 max-w-xl mx-auto text-lg">
                     Master the art of solar sales through our 6-day intensive curriculum.
                 </p>
-                
+
                 <div className="flex justify-center gap-8 pt-4">
                     <div className="text-center">
                         <div className="text-2xl font-bold text-white flex items-center justify-center gap-2">
-                           <Trophy className="w-5 h-5 text-yellow-500" /> 1
+                            <Trophy className="w-5 h-5 text-yellow-500" /> 1
                         </div>
                         <div className="text-xs text-slate-500 uppercase tracking-wider mt-1">Modules Done</div>
                     </div>
@@ -115,7 +115,7 @@ export function TrainingMap({ onSelectModule, currentDay }: TrainingMapProps) {
             </motion.div>
 
             {/* Cinematic Grid */}
-            <motion.div 
+            <motion.div
                 variants={container}
                 initial="hidden"
                 animate="show"
@@ -151,7 +151,7 @@ export function TrainingMap({ onSelectModule, currentDay }: TrainingMapProps) {
                                         `}>
                                             {day.day}
                                         </div>
-                                        
+
                                         {isCompleted && <CheckCircle2 className="w-6 h-6 text-green-400" />}
                                         {isActive && <PlayCircle className="w-6 h-6 text-blue-400 animate-pulse" />}
                                         {isLocked && <Lock className="w-5 h-5 text-slate-600" />}
@@ -178,9 +178,9 @@ export function TrainingMap({ onSelectModule, currentDay }: TrainingMapProps) {
 
                                     {!isLocked && (
                                         <div className="pt-4 border-t border-white/5 flex items-center justify-between text-sm font-medium">
-                                            <span className="text-slate-400">20 min</span>
+                                            <span className="text-slate-400">2 Hours</span>
                                             <span className={`${isActive ? 'text-blue-400 group-hover:text-blue-300' : 'text-slate-400'} flex items-center gap-1 transition-all`}>
-                                                {isActive ? "Start Mission" : "Review"} 
+                                                {isActive ? "Start Mission" : "Review"}
                                                 <span className="group-hover:translate-x-1 transition-transform">→</span>
                                             </span>
                                         </div>

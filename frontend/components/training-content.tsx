@@ -12,7 +12,8 @@ interface TrainingContentProps {
 }
 
 export function TrainingContent({ moduleId, onBack, onComplete }: TrainingContentProps) {
-    const moduleData = MODULES[moduleId]
+    // Image Zoom State
+    const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
     if (!moduleData) {
         return (
@@ -108,9 +109,15 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
                                 )}
 
                                 {section.type === 'image' && section.imageSrc && (
-                                    <div className="my-8 rounded-2xl overflow-hidden glass-card p-4 flex justify-center bg-black/20">
-                                        <img src={section.imageSrc} alt={section.title} className="w-full h-auto max-w-5xl max-h-[700px] object-contain rounded-xl shadow-lg border border-white/5" />
-                                        <p className="p-3 text-center text-sm text-slate-500 italic hidden">{section.content}</p> {/* Hide caption if redundant */}
+                                    <div
+                                        onClick={() => setSelectedImage(section.imageSrc!)}
+                                        className="my-8 rounded-2xl overflow-hidden glass-card p-4 flex justify-center bg-black/20 cursor-zoom-in relative group"
+                                    >
+                                        <img src={section.imageSrc} alt={section.title} className="w-full h-auto max-w-5xl max-h-[700px] object-contain rounded-xl shadow-lg border border-white/5 group-hover:scale-[1.01] transition-transform duration-300" />
+                                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <div className="bg-black/80 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm">Click to Expand</div>
+                                        </div>
+                                        <p className="p-3 text-center text-sm text-slate-500 italic hidden">{section.content}</p>
                                     </div>
                                 )}
 
@@ -209,6 +216,25 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
                             <span className="text-xs font-normal text-blue-200 mt-1 uppercase tracking-widest">Collect XP & Proceed</span>
                         </span>
                     </Button>
+                </div>
+            )}
+
+            {/* Image Zoom Modal */}
+            {selectedImage && (
+                <div
+                    className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+                    onClick={() => setSelectedImage(null)}
+                >
+                    <div className="relative max-w-7xl w-full h-full flex items-center justify-center">
+                        <img
+                            src={selectedImage}
+                            alt="Zoomed Content"
+                            className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                        />
+                        <button className="absolute top-4 right-4 text-white hover:text-blue-400">
+                            <span className="text-sm uppercase tracking-widest font-bold">Close [ESC]</span>
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
