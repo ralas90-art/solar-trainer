@@ -1,4 +1,5 @@
 import { SlideDeck } from "@/components/slide-deck"
+import { QuizModule } from "@/components/quiz"
 import { SimulationWindow } from "@/components/simulation-ui"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Download, BookOpen, Crown, AlertTriangle, CheckCircle } from "lucide-react"
@@ -123,7 +124,7 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
                                 {section.type === 'simulation' && section.scenarioId && (
                                     <div className="my-12">
                                         <SimulationWindow
-                                            tenant={{ id: "demo", name: "Antigravity Solar" }}
+                                            tenant={{ id: "demo", name: "SalesPro Solar" }}
                                             stateCode="CA"
                                             userId="trainee"
                                             scenario={{
@@ -175,6 +176,28 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
                 </div>
 
                 {/* Footer Action */}
+            </div>
+
+            {/* Quiz Section */}
+            {moduleData.quiz && (
+                <div className="mt-24 mb-12">
+                    <div className="flex items-center gap-4 mb-8">
+                        <div className="h-px flex-1 bg-gradient-to-r from-transparent to-blue-500/50"></div>
+                        <h2 className="text-xl font-bold text-blue-400 uppercase tracking-widest">Mission Certification</h2>
+                        <div className="h-px flex-1 bg-gradient-to-l from-transparent to-blue-500/50"></div>
+                    </div>
+                    <QuizModule
+                        quiz={moduleData.quiz}
+                        onComplete={(score) => {
+                            // For now, passing the quiz auto-completes the module
+                            onComplete()
+                        }}
+                    />
+                </div>
+            )}
+
+            {/* Footer Action - Only show if NO quiz (Quiz handles completion) */}
+            {!moduleData.quiz && (
                 <div className="mt-24 pb-12 text-center">
                     <Button
                         onClick={onComplete}
@@ -187,7 +210,7 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
                         </span>
                     </Button>
                 </div>
-            </div>
+            )}
         </div>
     )
 }

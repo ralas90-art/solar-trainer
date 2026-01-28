@@ -12,7 +12,7 @@ from database import create_db_and_tables, get_session
 from fastapi.responses import StreamingResponse
 from certificate import generate_certificate_pdf
 from voice import text_to_speech_stream
-from pydantic import BaseModel
+from routers import vapi # Vapi is the only valid router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -126,6 +126,9 @@ class SpeakRequest(BaseModel):
 def speak_endpoint(request: SpeakRequest):
     audio_stream = text_to_speech_stream(request.text, request.voice_id)
     return StreamingResponse(audio_stream, media_type="audio/mpeg")
+
+# Register Routers
+app.include_router(vapi.router)
 
 if __name__ == "__main__":
     import uvicorn

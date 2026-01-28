@@ -80,15 +80,6 @@ SCENARIOS = {
         briefing="Goal: Switch from 'Selling' to 'Consulting'.\n\nKey Concepts:\n1. Use the '3 Reasons' framework to anchor the conversation.\n2. Ask open-ended questions (Who, What, How).\n3. Do NOT mention product/panels yet.\n\nTip: Say 'I'm not here to sell panels. I'm here to see if your home qualifies for the 3 Reasons...'",
         valid_responses=["3 reasons", "consulting", "qualify"]
     ),
-    "objection_price": Scenario(
-        id="objection_price",
-        name="Price Shock",
-        description="Homeowner says 'It's too expensive'.",
-        difficulty="Medium",
-        opening_line="50 thousand dollars?! That is way too expensive. I'm not interested.",
-        briefing="Goal: Reframe Cost vs Investment.\n\nKey Concepts:\n1. Acknowledge and Validate (Feel-Felt-Found).\n2. Show the 'Cost of Doing Nothing' (Utility Bill).\n3. Reframe as 'Asset' vs 'Liability'.\n\nTip: 'I felt the same way until I realized I was already paying $60k to the utility company with nothing to show for it.'",
-        valid_responses=["feel", "felt", "found", "investment", "utility"]
-    ),
     "referral_ask": Scenario(
         id="referral_ask",
         name="The Referral Ask",
@@ -97,5 +88,78 @@ SCENARIOS = {
         opening_line="This has been great, I'm really excited about the savings. Thanks for your help.",
         briefing="Goal: Turn 1 sale into 3.\n\nKey Concepts:\n1. Strike while the iron is hot (Moment of Happiness).\n2. Be specific: Ask for 'neighbors' or 'family', not 'anyone'.\n3. Use the 'Cloverleaf' concept.\n\nTip: 'I'm glad you're happy! Most of my business comes from neighbors... who in the neighborhood should I talk to next?'",
         valid_responses=["neighbors", "family", "cloverleaf", "review"]
+    ),
+    # --- NEW SCENARIOS ---
+    "not_interested": Scenario(
+        id="not_interested",
+        name="Simulation: Not Interested",
+        description="Quick shut-down at the door.",
+        difficulty="Easy",
+        opening_line="We're not interested, thanks. (Starts closing door)",
+        briefing="You are a busy homeowner who gets knocked on constantly. You are polite but firm.\n\nGoal for User: Use a 'Pattern Interrupt' (e.g., 'That's exactly why I'm here') to stop the door from closing.",
+        valid_responses=["why i'm here", "pattern interrupt", "just stopped by"]
+    ),
+    "busy_objection": Scenario(
+        id="busy_objection",
+        name="Simulation: I'm Busy",
+        description="Homeowner is rushing out.",
+        difficulty="Easy",
+        opening_line="I'm literally walking out the door to pick up my kids. I can't talk.",
+        briefing="You are a frantic parent running late. You physically cannot talk right now.\n\nGoal for User: Do NOT pitch. Pivot immediately to a 'Go-Back' time. 'No problem, I'll be back at 6pm.'",
+        valid_responses=["go back", "come back", "what time", "6pm"]
+    ),
+    "price_shopper": Scenario(
+        id="price_shopper",
+        name="Simulation: The Price Shopper",
+        description="Abrasive 'Bull' personality demanding price.",
+        difficulty="Hard",
+        opening_line="Look, just give me the price using the cheapest panels you have. I don't need a presentation.",
+        briefing="You are a 'Bull' personality. You think salespeople are liars. You want the bottom line immediately.\n\nGoal for User: Deflect. 'I can't give you a price until I know if you qualify.' Do not give a number.",
+        valid_responses=["qualify", "can't give price", "depends", "usage"]
+    ),
+    "debt_fear": Scenario(
+        id="debt_fear",
+        name="Simulation: Debt Fear",
+        description="Fear of long-term loans.",
+        difficulty="Medium",
+        opening_line="I worked hard to be debt-free. I am not taking on a $40,000 loan for 25 years.",
+        briefing="You are financially conservative and hate debt. You see the solar loan as a 'Liablity'.\n\nGoal for User: Reframe. Explain the 'Bill Swap'. You are already in debt to the utility company forever. This replaces a 100% interest debt (Rent) with a 0% down asset.",
+        valid_responses=["bill swap", "rent vs own", "liability", "asset"]
+    ),
+    "bad_experience": Scenario(
+        id="bad_experience",
+        name="Simulation: Bad Experience",
+        description="Neighbor got burned.",
+        difficulty="Medium",
+        opening_line="My neighbor got solar and his roof leaked and he's still paying an electric bill. I don't trust it.",
+        briefing="You are scared because of a horror story. You need trust.\n\nGoal for User: Isolate & Differentiate. 'Who did they go with?' Explain how we are different (Warranties, Guarantees).",
+        valid_responses=["who was it", "warranty", "guarantee", "different"]
+    ),
+    "price_objection": Scenario(
+        id="price_objection",
+        name="Simulation: Price Objection",
+        description="It's too expensive.",
+        difficulty="Medium",
+        opening_line="I just don't think I can afford another bill right now. It seems too expensive.",
+        briefing="You are value-conscious. You think this is an 'Extra' bill.\n\nGoal for User: Feel-Felt-Found. Validate the fear, then show it's a substitution, not an addition.",
+        valid_responses=["feel", "felt", "found", "substitute", "replace"]
+    ),
+    "stalling_objection": Scenario(
+        id="stalling_objection",
+        name="Simulation: Stalling",
+        description="I need to think about it.",
+        difficulty="Medium",
+        opening_line="This sounds good, but I really need to take some time to think about it.",
+        briefing="You are afraid of making a bad decision. You are procrastinating.\n\nGoal for User: Decision Matrix. 'What is the cost of waiting?' (Paying the utility). Create urgency.",
+        valid_responses=["cost of waiting", "decision matrix", "utility rates"]
+    ),
+    "moving_objection": Scenario(
+        id="moving_objection",
+        name="Simulation: Moving Soon",
+        description="I might move in 5 years.",
+        difficulty="Hard",
+        opening_line="We might be moving in 3 or 4 years, so I don't want to be stuck with this long contract.",
+        briefing="You view the contract as an anchor. You don't want to complicate your home sale.\n\nGoal for User: Explain 'Asset Transfer'. Solar increases home value (Zillow: +4%). It sells the home faster.",
+        valid_responses=["asset", "value", "transfer", "zillow", "equity"]
     )
 }

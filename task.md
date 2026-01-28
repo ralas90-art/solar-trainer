@@ -48,4 +48,12 @@
     - [x] Update Frontend to stream Audio <!-- id: 49 -->
 - [x] Final Verification of Deployment <!-- id: 50 -->
 - [x] Integrate Additional Training Content (Discovery Scripts, Lifecycle) <!-- id: 51 -->
-- [ ] Premium UI Redesign (MasterClass Style) <!-- id: 52 -->
+- [x] Premium UI Redesign (MasterClass Style) <!-- id: 52 -->
+- [/] **Simulation Interface Upgrade (Voice 2.0)** <!-- id: 53 -->
+    - [x] Create Architecture Plan (Vapi/Deepgram) <!-- id: 54 -->
+    - [ ] **Phase 1: Real-Time STT** (Implement Deepgram/Vapi) <!-- id: 55 -->
+    - [ ] **Phase 2: Streaming TTS** (Optimize Latency) <!-- id: 56 -->
+    - [ ] **Phase 3: Visual Polish** (Waveforms/Avatars) <!-- id: 57 -->
+
+- [ ] **Content Expansion (2h Deep Dives)** [PAUSED] <!-- id: 58 -->
+    - [ ] Execute `content_expansion_plan.md` <!-- id: 59 -->

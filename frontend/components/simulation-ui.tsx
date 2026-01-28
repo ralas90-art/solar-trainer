@@ -2,11 +2,15 @@
 
 import { useState, useEffect, useRef } from "react"
 import { getApiUrl } from "@/lib/utils"
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
+// @ts-ignore
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+// @ts-ignore
 import { Button } from "@/components/ui/button"
+// @ts-ignore
 import { Input } from "@/components/ui/input"
-import { Send, Mic, Loader2, Volume2, Trophy, Flame, Play, BookOpen, Headphones } from "lucide-react"
+import { Mic, Trophy, Flame, User, Bot, Sparkles, Phone, PhoneOff, BarChart3, Shield } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import vapi from "@/lib/vapi"
 
 const API_URL = getApiUrl()
 
@@ -20,30 +24,23 @@ interface SimulationProps {
 export function SimulationWindow({ tenant, stateCode, scenario, userId }: SimulationProps) {
     const [mode, setMode] = useState<'briefing' | 'roleplay'>('briefing')
 
-    // Chat State
+    // Vapi State
+    const [callStatus, setCallStatus] = useState<"disconnected" | "connecting" | "connected">("disconnected")
+    const [isMuted, setIsMuted] = useState(false)
+    const [volumeLevel, setVolumeLevel] = useState(0)
+
+    // Chat/Transcript State
     const [messages, setMessages] = useState<any[]>([])
-    const [input, setInput] = useState("")
-    const [isLoading, setIsLoading] = useState(false)
-    const [isListening, setIsListening] = useState(false)
-    const [isSpeaking, setIsSpeaking] = useState(false)
-    const [language, setLanguage] = useState("en") // 'en' or 'es'
+    const [partialTranscript, setPartialTranscript] = useState("")
 
     // Gamification State
     const [score, setScore] = useState(0)
     const [streak, setStreak] = useState(0)
 
-    // Auto-scroll ref
+    // Refs
     const messagesEndRef = useRef<HTMLDivElement>(null)
-    const recognitionRef = useRef<any>(null)
 
-    // Reset when scenario changes
-    useEffect(() => {
-        setMode('briefing') // Always start with briefing
-        setMessages([])
-        setInput("")
-    }, [scenario?.id, stateCode])
-
-    // Load User Stats on Mount
+    // 1. Load User Stats on Mount
     useEffect(() => {
         const fetchStats = async () => {
             try {
@@ -61,182 +58,137 @@ export function SimulationWindow({ tenant, stateCode, scenario, userId }: Simula
         fetchStats()
     }, [userId])
 
-    // Auto-scroll to bottom
+    // 2. Vapi Event Listeners
+    useEffect(() => {
+        const onCallStart = () => {
+            console.log("Vapi Call connected")
+            setCallStatus("connected")
+            // System message
+            setMessages(prev => [...prev, { role: "system", content: "Call connected. Speak naturally..." }])
+        }
+
+        const onCallEnd = () => {
+            console.log("Vapi Call ended")
+            setCallStatus("disconnected")
+            setMessages(prev => [...prev, { role: "system", content: "Call ended." }])
+        }
+
+        const onVolumeLevel = (level: number) => {
+            setVolumeLevel(level)
+        }
+
+        const onMessage = (msg: any) => {
+            if (msg.type === "transcript") {
+                if (msg.transcriptType === "partial") {
+                    setPartialTranscript(msg.transcript)
+                } else if (msg.transcriptType === "final") {
+                    setPartialTranscript("")
+                    const role = msg.role === "assistant" ? "agent" : "user"
+                    if (msg.transcript && msg.transcript.length > 0) {
+                        setMessages(prev => [...prev, { role, content: msg.transcript }])
+                    }
+                }
+            }
+        }
+
+        const onError = (err: any) => {
+            console.error("Vapi Error:", err)
+            setCallStatus("disconnected")
+            setMessages(prev => [...prev, { role: "system", content: "Connection Error. Please try again." }])
+        }
+
+        vapi.on("call-start", onCallStart)
+        vapi.on("call-end", onCallEnd)
+        vapi.on("volume-level", onVolumeLevel)
+        vapi.on("message", onMessage)
+        vapi.on("error", onError)
+
+        return () => {
+            vapi.stop()
+            vapi.removeAllListeners()
+        }
+    }, [])
+
+    // 3. Auto-scroll
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-    }, [messages])
+    }, [messages, partialTranscript])
 
-    // Start Roleplay Logic (Click Mic to Start)
-    const handleStartMic = () => {
+
+    // 4. Handlers
+    const handleStartSimulation = async () => {
         setMode('roleplay')
-
-        // 1. Play Opening Line
-        const initialMsg = scenario?.opening_line || "Ready to start?"
-        setMessages([{ role: "agent", content: initialMsg }])
-        speakText(initialMsg)
-
-        // 2. Auto-start listening (user is ready)
-        // We delay listening slightly so it doesn't pick up the AI
+        // Auto-start call after transition
         setTimeout(() => {
-            startListening()
-        }, 1000)
+            toggleCall()
+        }, 800)
     }
 
-    // Text-to-Speech Logic
-    const speakText = async (text: string) => {
-        setIsSpeaking(true)
-        try {
-            const res = await fetch(`${API_URL}/speak`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ text })
-            })
-
-            if (!res.ok) throw new Error("TTS Failed")
-
-            const blob = await res.blob()
-            const audio = new Audio(URL.createObjectURL(blob))
-            audio.onended = () => {
-                setIsSpeaking(false)
-                // Re-enable mic after AI finishes? Optional but good UX
-            }
-            audio.onerror = () => setIsSpeaking(false)
-            audio.play()
-        } catch (e) {
-            console.error(e)
-            const utterance = new SpeechSynthesisUtterance(text)
-            window.speechSynthesis.speak(utterance)
-            setIsSpeaking(false)
-        }
-    }
-
-    // Speech-to-Text Logic
-    const startListening = () => {
-        if (!('webkitSpeechRecognition' in window)) {
-            alert("Browser does not support Speech API. Try Chrome.")
-            return
-        }
-        if (isListening) return
-
-        setIsListening(true)
-        // @ts-ignore
-        const recognition = new window.webkitSpeechRecognition()
-        recognition.continuous = false
-        recognition.interimResults = false
-        recognition.lang = language === "en" ? 'en-US' : 'es-MX'
-
-        recognition.onstart = () => {
-            setIsListening(true)
-        }
-
-        recognition.onresult = (event: any) => {
-            const transcript = event.results[0][0].transcript
-            setInput(transcript)
-            setIsListening(false)
-            // Auto-send if high confidence? For now let user confirm or just fill input
-        }
-        recognition.onerror = (event: any) => {
-            console.error("Speech Error", event)
-            setIsListening(false)
-        }
-        recognition.onend = () => setIsListening(false)
-        recognition.start()
-        recognitionRef.current = recognition
-    }
-
-    const stopListening = () => {
-        if (recognitionRef.current) {
-            recognitionRef.current.stop()
-            setIsListening(false)
-        }
-    }
-
-    const toggleMic = () => {
-        isListening ? stopListening() : startListening()
-    }
-
-    const handleSend = async () => {
-        if (!input.trim() || isLoading) return
-
-        const userMsg = { role: "user", content: input }
-        setMessages(prev => [...prev, userMsg])
-        setInput("")
-        setIsLoading(true)
-
-        try {
-            const res = await fetch(`${API_URL}/chat`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    user_id: userId,
-                    tenant_id: tenant.id || "1",
-                    state_code: stateCode,
-                    scenario_id: scenario?.id,
-                    user_message: userMsg.content,
-                    language: language
+    const toggleCall = async () => {
+        if (callStatus === "connected" || callStatus === "connecting") {
+            vapi.stop()
+        } else {
+            setCallStatus("connecting")
+            try {
+                // 1. Get Ephemeral Assistant Config from Backend
+                const res = await fetch(`${API_URL}/api/v1/vapi/assistant`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        system_prompt: `You are a homeowner in ${stateCode}. Scenario: ${scenario.name}. Briefing: ${scenario.briefing}. Be skeptical but open.`,
+                        voice_id: "21m00Tcm4TlvDq8ikWAM" // Default or from scenario
+                    })
                 })
-            })
 
-            if (!res.ok) throw new Error("API Error")
-            const data = await res.json()
+                if (!res.ok) throw new Error("Failed to configure assistant")
 
-            if (data.score) setScore(prev => prev + data.score)
-            if (data.pass_fail) {
-                setStreak(prev => prev + 1)
-            } else {
-                setStreak(0)
+                const assistantConfig = await res.json()
+
+                // 2. Start Vapi with config
+                await vapi.start(assistantConfig)
+
+            } catch (e) {
+                console.error(e)
+                setCallStatus("disconnected")
+                setMessages(prev => [...prev, { role: "system", content: "Could not start voice simulation." }])
             }
-
-            setMessages(prev => [...prev, {
-                role: "system",
-                content: data.agent_message,
-                isCritique: data.pass_fail !== undefined
-            }])
-
-            speakText(data.agent_message)
-
-            if (data.critique) {
-                const isPass = data.pass_fail === true
-                const badge = isPass ? "✅ PASSED" : "❌ NEEDS IMPROVEMENT"
-                let improvementMsg = `${badge}\n\nTRANSCRIPT REVIEW: ${data.critique}`
-
-                if (data.better_response && !isPass) {
-                    improvementMsg += `\n\n💡 TRY THIS SCRIPT:\n"${data.better_response}"`
-                }
-
-                if (isPass && scenario.id === "exam_1") {
-                    improvementMsg += `\n\n🏆 CONGRATULATIONS! You are officially certified.\n\n[DOWNLOAD CERTIFICATE](${API_URL}/certificate/${userId})`
-                }
-
-                setMessages(prev => [...prev, {
-                    role: "system",
-                    content: improvementMsg,
-                    isCritique: true,
-                    isPass: isPass,
-                    showCertificate: isPass && scenario.id === "exam_1"
-                }])
-            }
-
-        } catch (err) {
-            console.error(err)
-            setMessages(prev => [...prev, { role: "system", content: "Error: Could not reach the AI Coach." }])
-        } finally {
-            setIsLoading(false)
         }
+    }
+
+    const toggleMute = () => {
+        const newMuted = !isMuted
+        setIsMuted(newMuted)
+        vapi.setMuted(newMuted)
     }
 
     return (
-        <Card className="h-[600px] flex flex-col overflow-hidden shadow-2xl border border-white/10 bg-slate-900/60 backdrop-blur-xl">
+        <Card className="h-[650px] flex flex-col overflow-hidden shadow-2xl border border-white/10 bg-slate-950 relative">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-5 pointer-events-none"
+                style={{
+                    backgroundImage: "radial-gradient(#4f46e5 1px, transparent 1px)",
+                    backgroundSize: "20px 20px"
+                }}>
+            </div>
+
             {/* Header */}
-            <CardHeader className="bg-slate-950/50 text-white shadow-lg z-10 border-b border-white/5">
-                <div className="flex justify-between items-center mb-2">
-                    <CardTitle className="text-xl flex items-center gap-2 font-display">
-                        {mode === 'briefing' ? <BookOpen className="w-5 h-5 text-blue-400" /> : <Volume2 className="w-5 h-5 text-green-400" />}
-                        {mode === 'briefing' ? <span className="text-slate-200">Mission Briefing</span> : <span className="text-white">Live Roleplay: {stateCode}</span>}
-                    </CardTitle>
-                    <div className="flex items-center gap-4 text-sm font-bold bg-white/5 p-2 rounded-lg border border-white/10">
-                        <span className="flex items-center gap-1"><Trophy className="w-4 h-4 text-yellow-400" /> {score}</span>
-                        <span className="flex items-center gap-1"><Flame className={`w-4 h-4 ${streak > 2 ? 'text-orange-400 animate-pulse' : 'text-slate-400'}`} /> {streak}</span>
+            <CardHeader className="bg-slate-900/80 backdrop-blur-md text-white shadow-lg z-10 border-b border-white/5 p-4">
+                <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                        <div className={`w-2 h-2 rounded-full ${callStatus === 'connected' ? 'bg-green-400 animate-pulse' : 'bg-slate-600'}`}></div>
+                        <CardTitle className="text-lg flex items-center gap-2 font-display">
+                            {mode === 'briefing' ?
+                                <span className="text-blue-300 tracking-wide font-bold">MISSION BRIEFING</span> :
+                                <span className="text-white tracking-wide font-bold">LIVE SIMULATION</span>
+                            }
+                        </CardTitle>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2 bg-slate-800/80 px-3 py-1.5 rounded-full border border-white/5">
+                            <Trophy className="w-3.5 h-3.5 text-yellow-500" />
+                            <span className="text-xs font-bold text-yellow-100">{score} XP</span>
+                        </div>
                     </div>
                 </div>
             </CardHeader>
@@ -244,110 +196,132 @@ export function SimulationWindow({ tenant, stateCode, scenario, userId }: Simula
             {/* Content Area */}
             {mode === 'briefing' ? (
                 /* BRIEFING MODE UI */
-                <CardContent className="flex-1 overflow-y-auto p-8 flex flex-col items-center justify-center text-center relative">
-                    <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent pointer-events-none"></div>
-
+                <CardContent className="flex-1 overflow-y-auto p-8 flex flex-col items-center justify-center text-center relative z-10">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="max-w-xl space-y-8 relative z-10"
+                        className="max-w-lg w-full space-y-6"
                     >
-                        <div className="w-24 h-24 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-blue-400/30 shadow-[0_0_30px_rgba(59,130,246,0.2)]">
-                            <Headphones className="w-12 h-12 text-blue-400" />
+                        {/* Avatar */}
+                        <div className="relative mx-auto w-32 h-32">
+                            <div className="absolute inset-0 bg-blue-500/20 rounded-full animate-ping opacity-75"></div>
+                            <div className="relative w-32 h-32 bg-slate-800 rounded-full flex items-center justify-center shadow-2xl border-4 border-slate-700 overflow-hidden">
+                                <img src={scenario.avatar || "/images/avatar-placeholder.png"} className="w-full h-full object-cover" />
+                            </div>
                         </div>
 
                         <div className="space-y-2">
-                            <h2 className="text-4xl font-bold text-white tracking-tight">{scenario?.name || "Loading..."}</h2>
-                            <p className="text-slate-400 text-lg">{scenario?.description}</p>
+                            <h2 className="text-3xl font-bold text-white tracking-tight">{scenario?.name}</h2>
+                            <p className="text-slate-400">{scenario?.description}</p>
                         </div>
 
-                        <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-white/10 text-left">
-                            <h3 className="font-bold text-blue-300 text-xs uppercase tracking-widest mb-3">Mission Objectives</h3>
-                            <p className="text-slate-300 leading-relaxed font-medium">{scenario?.briefing?.split('Key Concepts')[0] || scenario?.briefing}</p>
+                        <div className="bg-slate-800/50 p-6 rounded-2xl border border-white/5 text-left shadow-xl relative overflow-hidden">
+                            <h3 className="flex items-center gap-2 font-bold text-blue-300 text-xs uppercase tracking-widest mb-4">
+                                <Shield className="w-3 h-3" /> Mission Objectives
+                            </h3>
+                            <p className="text-slate-300 leading-relaxed font-medium text-sm">{scenario?.briefing || "Convince the homeowner to book an appointment."}</p>
                         </div>
 
-                        <div className="pt-4">
-                            <Button
-                                onClick={handleStartMic}
-                                size="lg"
-                                className="w-full h-16 text-xl font-bold shadow-xl shadow-blue-900/40 hover:shadow-blue-500/20 hover:-translate-y-1 transition-all bg-blue-600 hover:bg-blue-500 rounded-2xl group border border-blue-400/20"
-                            >
-                                <Mic className="w-6 h-6 mr-3 text-white group-hover:scale-110 transition-transform" />
-                                Tap Mic to Start
-                            </Button>
-                            <p className="mt-4 text-xs text-slate-500 uppercase tracking-widest animate-pulse">Ai Agent Standing By...</p>
-                        </div>
+                        <Button
+                            onClick={handleStartSimulation}
+                            className="w-full h-14 text-lg font-bold shadow-lg shadow-blue-500/25 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 rounded-xl"
+                        >
+                            <Phone className="w-5 h-5 mr-2" /> Start Voice Call
+                        </Button>
                     </motion.div>
                 </CardContent>
             ) : (
                 /* ROLEPLAY MODE UI */
                 <>
-                    <CardContent className="flex-1 overflow-y-auto p-4 space-y-6 scroll-smooth bg-slate-900/50">
+                    <CardContent className="flex-1 overflow-y-auto w-full p-4 space-y-6 scroll-smooth z-10">
+                        {/* Visualizer / Avatar Area */}
+                        <div className="flex flex-col items-center justify-center py-6 border-b border-white/5 bg-slate-900/30 -mx-4 -mt-4 mb-4">
+                            <div className={`relative w-24 h-24 rounded-full transition-all duration-300 ${callStatus === 'connected' ? 'scale-110 shadow-[0_0_30px_rgba(79,70,229,0.3)]' : 'grayscale opacity-80'}`}>
+                                <img
+                                    src={scenario.avatar || "/images/avatar-placeholder.png"}
+                                    className="w-full h-full object-cover rounded-full border-2 border-slate-600"
+                                />
+                                {callStatus === 'connected' && (
+                                    <div
+                                        className="absolute inset-0 rounded-full bg-indigo-500 blur-md transition-opacity duration-100 mix-blend-overlay"
+                                        style={{ opacity: Math.min(volumeLevel * 1.5, 0.8) }}
+                                    />
+                                )}
+                            </div>
+                            <p className={`mt-3 text-sm font-medium ${callStatus === 'connected' ? 'text-green-400' : 'text-slate-500'}`}>
+                                {callStatus === 'connected' ? '● Live' : 'Disconnected'}
+                            </p>
+                        </div>
+
+                        {/* Transcript Feed */}
                         <AnimatePresence mode="popLayout">
                             {messages.map((m, i) => (
                                 <motion.div
                                     key={i}
-                                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className={`flex w-full ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
                                 >
                                     <div className={`
-                                        max-w-[85%] p-4 rounded-2xl shadow-lg relative overflow-hidden backdrop-blur-md border
-                                        ${m.role === 'user' ? 'bg-blue-600/90 text-white rounded-br-sm border-blue-500/30' :
-                                            m.role === 'agent' ? 'bg-slate-800/90 text-slate-200 rounded-bl-sm border-white/5' :
-                                                'bg-amber-900/20 border-amber-500/30 text-amber-200'}
+                                        max-w-[85%] px-4 py-2 text-sm leading-relaxed rounded-2xl
+                                        ${m.role === 'user'
+                                            ? 'bg-blue-600/90 text-white rounded-tr-none'
+                                            : m.role === 'agent'
+                                                ? 'bg-slate-800 text-slate-200 rounded-tl-none border border-white/5'
+                                                : 'bg-transparent text-slate-500 w-full text-center text-xs' // System
+                                        }
                                     `}>
-                                        <p className="text-[10px] font-bold mb-1 opacity-50 uppercase tracking-widest">
-                                            {m.role === 'user' ? 'YOU' : m.role === 'system' ? 'COACH' : 'HOMEOWNER (AI)'}
-                                        </p>
-                                        <p className="whitespace-pre-wrap leading-relaxed text-sm md:text-lg font-medium">{m.content}</p>
-
-                                        {m.showCertificate && (
-                                            <div className="mt-4">
-                                                <a
-                                                    href={`${API_URL}/certificate/${userId}`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="inline-flex items-center justify-center rounded-lg text-sm font-bold bg-yellow-500 hover:bg-yellow-400 text-black h-12 px-6 w-full shadow-lg shadow-yellow-900/20 transition-transform hover:scale-105"
-                                                >
-                                                    <Trophy className="mr-2 h-4 w-4" />
-                                                    Download Certificate
-                                                </a>
-                                            </div>
-                                        )}
+                                        {m.content}
                                     </div>
                                 </motion.div>
                             ))}
+                            {/* Partial Transcript */}
+                            {partialTranscript && (
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className="flex w-full justify-end"
+                                >
+                                    <div className="max-w-[85%] px-4 py-2 text-sm leading-relaxed rounded-2xl bg-blue-600/30 text-blue-200/70 rounded-tr-none border border-blue-500/30 italic">
+                                        {partialTranscript}...
+                                    </div>
+                                </motion.div>
+                            )}
                         </AnimatePresence>
-
-                        {isLoading && (
-                            <div className="flex justify-start">
-                                <div className="bg-white/5 p-3 rounded-lg"><Loader2 className="animate-spin h-5 w-5 text-blue-400" /></div>
-                            </div>
-                        )}
                         <div ref={messagesEndRef} />
                     </CardContent>
 
-                    <div className="p-4 border-t border-white/10 bg-slate-950/80 backdrop-blur-md flex gap-3 items-center">
-                        <Button
-                            variant={isListening ? "destructive" : "secondary"}
-                            size="lg"
-                            onClick={toggleMic}
-                            className={`h-12 w-12 rounded-full transition-all duration-300 shadow-lg ${isListening ? 'bg-red-500/20 text-red-500 ring-2 ring-red-500 ring-offset-2 ring-offset-slate-900' : 'bg-slate-800 text-slate-400 hover:text-white'}`}
-                        >
-                            <Mic className={`h-5 w-5 ${isListening ? 'animate-pulse' : ''}`} />
-                        </Button>
-                        <Input
-                            className="bg-slate-800/50 border-white/10 text-white placeholder:text-slate-600 focus:bg-slate-800 h-11 rounded-xl"
-                            placeholder={isListening ? "Listening..." : "Type response..."}
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                            disabled={isLoading}
-                        />
-                        <Button onClick={handleSend} disabled={isLoading} className="bg-blue-600 hover:bg-blue-500 text-white h-11 w-11 rounded-xl shrink-0">
-                            <Send className="h-5 w-5" />
-                        </Button>
+                    {/* Controls */}
+                    <div className="p-4 border-t border-white/10 bg-slate-900/90 backdrop-blur-md flex justify-center gap-6 z-20">
+                        <div className="flex items-center gap-4">
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={toggleMute}
+                                disabled={callStatus !== 'connected'}
+                                className={`rounded-full h-12 w-12 border ${isMuted ? 'bg-red-900/20 border-red-500/50 text-red-500' : 'border-slate-700 hover:bg-slate-800 text-slate-400'}`}
+                            >
+                                <Mic className="w-5 h-5" />
+                            </Button>
+
+                            <Button
+                                onClick={toggleCall}
+                                className={`h-16 w-16 rounded-full shadow-xl transition-all hover:scale-105 ${callStatus === 'connected'
+                                        ? 'bg-red-600 hover:bg-red-700 shadow-red-900/30'
+                                        : 'bg-green-600 hover:bg-green-700 shadow-green-900/30'
+                                    }`}
+                            >
+                                {callStatus === 'connected' ? <PhoneOff className="w-8 h-8 text-white" /> : <Phone className="w-8 h-8 text-white" />}
+                            </Button>
+
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="rounded-full h-12 w-12 border border-slate-700 hover:bg-slate-800 text-slate-400"
+                            >
+                                <BarChart3 className="w-5 h-5" />
+                            </Button>
+                        </div>
                     </div>
                 </>
             )}

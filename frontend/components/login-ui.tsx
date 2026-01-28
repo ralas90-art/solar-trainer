@@ -2,9 +2,13 @@
 
 import { useState } from "react"
 import { getApiUrl } from "@/lib/utils"
+// @ts-ignore
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
+// @ts-ignore
 import { Button } from "@/components/ui/button"
+// @ts-ignore
 import { Input } from "@/components/ui/input"
+// @ts-ignore
 import { Label } from "@/components/ui/label"
 import { Loader2, Sun, Lock, User, MapPin } from "lucide-react"
 
@@ -70,7 +74,7 @@ export function AuthForm({ onLogin }: { onLogin: (user: any) => void }) {
                     <Sun className="h-7 w-7 text-white" />
                 </div>
                 <h1 className="text-3xl font-bold tracking-tight text-slate-900">
-                    Solar<span className="text-orange-500">Trainer</span>
+                    Sales<span className="text-orange-500">Pro</span>
                 </h1>
                 <p className="text-slate-500">Master the Art of Solar Sales</p>
             </div>
@@ -161,8 +165,8 @@ export function AuthForm({ onLogin }: { onLogin: (user: any) => void }) {
                 </CardFooter>
             </Card>
 
-            <div className="mt-8 text-center text-xs text-slate-400">
-                &copy; 2024 Antigravity Solar Sales Trainer
+            <div className="mt-8 text-center text-sm text-slate-400">
+                &copy; 2024 SalesPro Agent
             </div>
         </div>
     )
