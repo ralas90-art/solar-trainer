@@ -117,12 +117,14 @@ export default function Dashboard() {
         const prevDayId = `day_${day - 1}_${getDayName(day - 1)}`
         const prevDayProgress = moduleProgress[prevDayId]
 
-        // Locked if previous day not fully done (Quiz + Sim)
-        // Note: Some days might not have sim, need robust check. 
-        // For MVP, assuming linear dependency.
-        const prevDone = prevDayProgress?.quiz && prevDayProgress?.sim
+        // Locked if previous day not fully done
+        // Hack: Day 1 has no sim, all others do.
+        const prevHasSim = (day - 1) !== 1
 
-        if (!prevDone) return "locked"
+        const quizDone = prevDayProgress?.quiz
+        const simDone = prevHasSim ? prevDayProgress?.sim : true
+
+        if (!quizDone || !simDone) return "locked"
 
         // Active or Completed
         return moduleProgress[moduleId]?.quiz ? "completed" : "active"
