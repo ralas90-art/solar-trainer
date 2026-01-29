@@ -19,9 +19,10 @@ interface SimulationProps {
     stateCode: string
     scenario: any // Full scenario object
     userId: string
+    onComplete?: (score: number) => void
 }
 
-export function SimulationWindow({ tenant, stateCode, scenario, userId }: SimulationProps) {
+export function SimulationWindow({ tenant, stateCode, scenario, userId, onComplete }: SimulationProps) {
     const [mode, setMode] = useState<'briefing' | 'roleplay'>('briefing')
 
     // Vapi State
@@ -307,8 +308,8 @@ export function SimulationWindow({ tenant, stateCode, scenario, userId }: Simula
                             <Button
                                 onClick={toggleCall}
                                 className={`h-16 w-16 rounded-full shadow-xl transition-all hover:scale-105 ${callStatus === 'connected'
-                                        ? 'bg-red-600 hover:bg-red-700 shadow-red-900/30'
-                                        : 'bg-green-600 hover:bg-green-700 shadow-green-900/30'
+                                    ? 'bg-red-600 hover:bg-red-700 shadow-red-900/30'
+                                    : 'bg-green-600 hover:bg-green-700 shadow-green-900/30'
                                     }`}
                             >
                                 {callStatus === 'connected' ? <PhoneOff className="w-8 h-8 text-white" /> : <Phone className="w-8 h-8 text-white" />}
@@ -322,6 +323,20 @@ export function SimulationWindow({ tenant, stateCode, scenario, userId }: Simula
                                 <BarChart3 className="w-5 h-5" />
                             </Button>
                         </div>
+
+                        {/* Finish Mission Button */}
+                        {callStatus === 'disconnected' && messages.length > 2 && (
+                            <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-30 animate-in fade-in slide-in-from-bottom-4">
+                                <Button
+                                    onClick={() => {
+                                        if (onComplete) onComplete(score)
+                                    }}
+                                    className="bg-green-600 hover:bg-green-500 text-white font-bold shadow-lg shadow-green-900/50 rounded-full px-8 py-6 text-lg border-2 border-green-400/20"
+                                >
+                                    Finish Mission & Collect XP
+                                </Button>
+                            </div>
+                        )}
                     </div>
                 </>
             )}

@@ -25,10 +25,14 @@ export default function Dashboard() {
     // Training State
     const [stateProfile, setStateProfile] = useState<any>(null)
     const [userLevel, setUserLevel] = useState<string>("Rookie")
+    const [moduleProgress, setModuleProgress] = useState<any>({})
 
     // Scenarios
     const [scenarios, setScenarios] = useState<any[]>([])
     const [selectedScenario, setSelectedScenario] = useState<string>("d2d_1")
+
+    // Feature Flag for Strict Locking (Option A vs B)
+    const STRICT_LOCKING = false
 
     // Load Scenarios
     useEffect(() => {
@@ -52,7 +56,7 @@ export default function Dashboard() {
         }
     }, [])
 
-    // Fetch User Stats
+    // Fetch User Stats & Progress
     useEffect(() => {
         if (user) {
             const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
@@ -63,8 +67,17 @@ export default function Dashboard() {
                         ...prev,
                         ...data,
                         xp: data.xp || 450,
-                        streak: data.streak || 3
+                        streak: data.streak || 3,
                     }))
+                    // Parse module_progress JSON
+                    try {
+                        const progress = typeof data.module_progress === 'string'
+                            ? JSON.parse(data.module_progress)
+                            : data.module_progress || {}
+                        setModuleProgress(progress)
+                    } catch (e) {
+                        console.error("Failed to parse progress", e)
+                    }
                 })
                 .catch(console.error)
         }
@@ -89,6 +102,35 @@ export default function Dashboard() {
         setStateProfile(null)
         setStats({ total_score: 0 })
         setView('dashboard')
+    }
+
+    // --- Locking Logic ---
+    const getModuleStatus = (day: number, moduleId: string) => {
+        if (!STRICT_LOCKING) return "active" // Option B: Open Access
+
+        // Day 1 always open
+        if (day === 1) {
+            return moduleProgress[moduleId]?.quiz ? "completed" : "active"
+        }
+
+        // Check previous day
+        const prevDayId = `day_${day - 1}_${getDayName(day - 1)}`
+        const prevDayProgress = moduleProgress[prevDayId]
+
+        // Locked if previous day not fully done (Quiz + Sim)
+        // Note: Some days might not have sim, need robust check. 
+        // For MVP, assuming linear dependency.
+        const prevDone = prevDayProgress?.quiz && prevDayProgress?.sim
+
+        if (!prevDone) return "locked"
+
+        // Active or Completed
+        return moduleProgress[moduleId]?.quiz ? "completed" : "active"
+    }
+
+    const getDayName = (d: number) => {
+        const map: any = { 1: "foundation", 2: "prospecting", 3: "discovery", 4: "presentation", 5: "closing", 6: "mastery" }
+        return map[d]
     }
 
     const handleModuleSelect = (moduleId: string) => {
@@ -124,6 +166,24 @@ export default function Dashboard() {
         }
     }
 
+    const updateProgress = async (moduleId: string, type: 'quiz' | 'sim') => {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+        try {
+            await fetch(`${API_URL}/user/${user.username}/progress`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ module_id: moduleId, type, passed: true })
+            })
+            // Optimistic update
+            setModuleProgress((prev: any) => ({
+                ...prev,
+                [moduleId]: { ...prev[moduleId], [type]: true }
+            }))
+        } catch (e) {
+            console.error("Failed to update progress", e)
+        }
+    }
+
     if (view === 'content') {
         return (
             <TrainingContent
@@ -131,6 +191,7 @@ export default function Dashboard() {
                 onBack={() => setView('dashboard')}
                 onComplete={() => {
                     setStats((prev: any) => ({ ...prev, xp: prev.xp + 500 }))
+                    updateProgress(activeModuleId, 'quiz')
                     setView('dashboard')
                 }}
             />
@@ -196,87 +257,102 @@ export default function Dashboard() {
                                     </h3>
                                     <p className="text-slate-400 text-sm">Your journey to certification</p>
                                 </div>
-                                {/* No more white bg wrapper! Direct component */}
-                                <TrainingMap onSelectModule={handleModuleSelect} currentDay={2} />
                             </div>
+                            {/* Calculated Statuses */}
+                            <TrainingMap
+                                onSelectModule={handleModuleSelect}
+                                currentDay={2}
+                                moduleStatuses={{
+                                    "day_1_foundation": getModuleStatus(1, "day_1_foundation"),
+                                    "day_2_prospecting": getModuleStatus(2, "day_2_prospecting"),
+                                    "day_3_discovery": getModuleStatus(3, "day_3_discovery"),
+                                    "day_4_presentation": getModuleStatus(4, "day_4_presentation"),
+                                    "day_5_closing": getModuleStatus(5, "day_5_closing"),
+                                    "day_6_mastery": getModuleStatus(6, "day_6_mastery"),
+                                }}
+                            />
+                        </div>
 
-                            {/* Right: Sidebar Stats */}
-                            <div className="space-y-8">
-                                <LeaderboardUI />
-                                <CertificateUI user={user} score={stats.total_score} tenant={tenant} />
-                            </div>
+                        {/* Right: Sidebar Stats */}
+                        <div className="space-y-8">
+                            <LeaderboardUI />
+                            <CertificateUI user={user} score={stats.total_score} tenant={tenant} />
                         </div>
                     </div>
-                ) : (
-                    /* Simulation View */
-                    <div className="space-y-6">
-                        <Button
-                            variant="ghost"
-                            onClick={() => setView('dashboard')}
-                            className="text-slate-400 hover:text-white hover:bg-white/5 pl-0 mb-4"
+                    </div>
+    ) : (
+        /* Simulation View */
+        <div className="space-y-6">
+            <Button
+                variant="ghost"
+                onClick={() => setView('dashboard')}
+                className="text-slate-400 hover:text-white hover:bg-white/5 pl-0 mb-4"
+            >
+                <ArrowLeft className="w-4 h-4 mr-2" /> Back to Dashboard
+            </Button>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                {/* Config Sidebar in Simulation Mode */}
+                <div className="md:col-span-1 space-y-6">
+                    <div className="glass-card p-4 rounded-xl">
+                        <div className="flex items-center gap-2 mb-4 text-slate-300 font-bold text-sm uppercase tracking-wide">
+                            <Map className="w-4 h-4 text-blue-500" /> Territory
+                        </div>
+                        <select
+                            className="w-full p-2.5 bg-slate-800/50 border border-white/10 rounded-lg text-white outline-none focus:ring-2 focus:ring-blue-500/50"
+                            value={stateProfile?.code || ""}
+                            onChange={(e) => setStateProfile({ code: e.target.value })}
                         >
-                            <ArrowLeft className="w-4 h-4 mr-2" /> Back to Dashboard
-                        </Button>
-
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                            {/* Config Sidebar in Simulation Mode */}
-                            <div className="md:col-span-1 space-y-6">
-                                <div className="glass-card p-4 rounded-xl">
-                                    <div className="flex items-center gap-2 mb-4 text-slate-300 font-bold text-sm uppercase tracking-wide">
-                                        <Map className="w-4 h-4 text-blue-500" /> Territory
-                                    </div>
-                                    <select
-                                        className="w-full p-2.5 bg-slate-800/50 border border-white/10 rounded-lg text-white outline-none focus:ring-2 focus:ring-blue-500/50"
-                                        value={stateProfile?.code || ""}
-                                        onChange={(e) => setStateProfile({ code: e.target.value })}
-                                    >
-                                        <option value="">-- Choose --</option>
-                                        {tenant.allowed_states.map((st: string) => (
-                                            <option key={st} value={st}>{st}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div className="glass-card p-4 rounded-xl">
-                                    <div className="flex items-center gap-2 mb-4 text-slate-300 font-bold text-sm uppercase tracking-wide">
-                                        <Settings className="w-4 h-4 text-purple-500" /> Quick Select
-                                    </div>
-                                    <ul className="space-y-1">
-                                        {scenarios.map((s: any) => (
-                                            <li
-                                                key={s.id}
-                                                onClick={() => setSelectedScenario(s.id)}
-                                                className={`p-2.5 rounded-lg cursor-pointer text-sm transition-all border border-transparent ${selectedScenario === s.id ? 'bg-blue-600/20 text-blue-200 border-blue-500/30' : 'hover:bg-white/5 text-slate-400 hover:text-white'}`}
-                                            >
-                                                <div className="font-medium">{s.name}</div>
-                                                <div className="text-[10px] opacity-60 uppercase mt-0.5">{s.difficulty}</div>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-
-                            {/* Simulation Window */}
-                            <div className="md:col-span-3">
-                                {stateProfile ? (
-                                    <SimulationWindow
-                                        tenant={tenant}
-                                        stateCode={stateProfile.code}
-                                        scenario={scenarios.find(s => s.id === selectedScenario)}
-                                        userId={user.username}
-                                    />
-                                ) : (
-                                    <div className="flex flex-col items-center justify-center h-96 glass-card rounded-2xl border-2 border-dashed border-white/10 text-center p-8">
-                                        <Map className="w-12 h-12 text-slate-600 mb-4" />
-                                        <h3 className="text-xl font-bold text-slate-300">Select a Territory</h3>
-                                        <p className="text-slate-500 mt-2">Choose the state you want to train in to begin the simulation.</p>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                            <option value="">-- Choose --</option>
+                            {tenant.allowed_states.map((st: string) => (
+                                <option key={st} value={st}>{st}</option>
+                            ))}
+                        </select>
                     </div>
-                )}
-            </main>
+
+                    <div className="glass-card p-4 rounded-xl">
+                        <div className="flex items-center gap-2 mb-4 text-slate-300 font-bold text-sm uppercase tracking-wide">
+                            <Settings className="w-4 h-4 text-purple-500" /> Quick Select
+                        </div>
+                        <ul className="space-y-1">
+                            {scenarios.map((s: any) => (
+                                <li
+                                    key={s.id}
+                                    onClick={() => setSelectedScenario(s.id)}
+                                    className={`p-2.5 rounded-lg cursor-pointer text-sm transition-all border border-transparent ${selectedScenario === s.id ? 'bg-blue-600/20 text-blue-200 border-blue-500/30' : 'hover:bg-white/5 text-slate-400 hover:text-white'}`}
+                                >
+                                    <div className="font-medium">{s.name}</div>
+                                    <div className="text-[10px] opacity-60 uppercase mt-0.5">{s.difficulty}</div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+
+                {/* Simulation Window */}
+                <div className="md:col-span-3">
+                    {stateProfile ? (
+                        <SimulationWindow
+                            tenant={tenant}
+                            stateCode={stateProfile.code}
+                            scenario={scenarios.find(s => s.id === selectedScenario)}
+                            userId={user.username}
+                            onComplete={(score) => {
+                                if (activeModuleId) {
+                                    updateProgress(activeModuleId, 'sim')
+                                }
+                            }}
+                        />
+                    ) : (
+                        <div className="flex flex-col items-center justify-center h-96 glass-card rounded-2xl border-2 border-dashed border-white/10 text-center p-8">
+                            <Map className="w-12 h-12 text-slate-600 mb-4" />
+                            <h3 className="text-xl font-bold text-slate-300">Select a Territory</h3>
+                            <p className="text-slate-500 mt-2">Choose the state you want to train in to begin the simulation.</p>
+                        </div>
+                    )}
+                </div>
+            </div>
         </div>
     )
 }
+

@@ -13,6 +13,8 @@ class UserStats(SQLModel, table=True):
     total_score: int = 0
     current_streak: int = 0
     highest_streak: int = 0
+    # JSON string tracking progress: {"day_1": {"quiz": true, "sim": true}, ...}
+    module_progress: str = "{}"
 
 # --- API Models (Pydantic / SQLModel) ---
 

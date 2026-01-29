@@ -84,6 +84,37 @@ def get_user_stats(user_id: str, session: Session = Depends(get_session)):
         return UserStats(user_id=user_id, total_score=0, current_streak=0)
     return stats
 
+class ProgressRequest(BaseModel):
+    module_id: str
+    type: str # 'quiz' or 'sim' or 'unlock'
+    passed: bool
+
+@app.post("/user/{user_id}/progress")
+def update_progress(user_id: str, request: ProgressRequest, session: Session = Depends(get_session)):
+    import json
+    stats = session.get(UserStats, user_id)
+    if not stats:
+        stats = UserStats(user_id=user_id)
+    
+    # Parse existing progress
+    try:
+        progress = json.loads(stats.module_progress)
+    except:
+        progress = {}
+    
+    # Update specific module
+    if request.module_id not in progress:
+        progress[request.module_id] = {}
+    
+    progress[request.module_id][request.type] = request.passed
+    
+    # Save back
+    stats.module_progress = json.dumps(progress)
+    session.add(stats)
+    session.commit()
+    session.refresh(stats)
+    return stats
+
 @app.get("/leaderboard")
 def get_leaderboard(session: Session = Depends(get_session)):
     statement = select(UserStats).order_by(UserStats.total_score.desc()).limit(10)

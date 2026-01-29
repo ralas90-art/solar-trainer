@@ -4,6 +4,7 @@ import { CheckCircle2, Lock, PlayCircle, Gamepad2, Stars, Trophy, Zap } from "lu
 interface TrainingMapProps {
     onSelectModule: (moduleId: string) => void
     currentDay: number
+    moduleStatuses?: Record<string, "locked" | "active" | "completed">
 }
 
 const FULL_CURRICULUM = [
@@ -12,7 +13,6 @@ const FULL_CURRICULUM = [
         title: "The Foundation",
         description: "Mindset, Basics & Qualifying",
         topics: ["Solar Mindset", "How Solar Works", "The Perfect House"],
-        status: "completed",
         moduleId: "day_1_foundation",
         hasSimulator: false
     },
