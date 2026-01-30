@@ -25,25 +25,20 @@ async def create_vapi_assistant(request: VapiAssistantRequest):
     # Construct the ephemeral assistant config
     # Vapi allows passing this entire object to the start() method in the SDK
     assistant_config = {
-        "transcriber": {
-            "provider": "deepgram",
-            "model": "nova-2",
-            "language": "en-US"
-        },
-        "model": {
-            "provider": request.model_provider,
-            "model": request.model,
-            "messages": [
-                {
-                    "role": "system",
-                    "content": request.system_prompt
-                }
-            ]
-        },
         "voice": {
             "provider": "11labs", # ElevenLabs
             "voiceId": request.voice_id,
+            "latencyOptimizationLevel": 3,
         },
+        "transcriber": {
+            "provider": "deepgram",
+            "model": "nova-2",
+            "language": "en-US",
+            "smartFormat": True,
+        },
+        "silenceTimeoutSeconds": 0.5, # Fast turn-taking
+        "responseDelaySeconds": 0.4,  # Artificial delay (minimized)
+        "llmRequestDelaySeconds": 0,
         "name": request.name,
         "firstMessage": "Hello? Who is this?",
         "recordingEnabled": True

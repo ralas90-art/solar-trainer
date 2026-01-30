@@ -630,6 +630,12 @@ export const MODULES: Record<string, ModuleContent> = {
                 ]
             },
             {
+                title: "Deep Dive: The Anatomy of a Perfect Pitch",
+                type: "image",
+                content: "Master the psychology of the pitch using the 4-step framework. Click to expand.",
+                imageSrc: "/images/perfect_pitch.png"
+            },
+            {
                 title: "Toolbox: The 'Door Hanger' Strategy",
                 type: "text",
                 content: "Never leave a door un-knocked, but if they aren't home, leave a 'Breadcrumb'.\n\n**The Rule:** Do NOT use a generic company flyer. It looks like trash.\n**The Strategy:** Use a handwritten sticky note or a specialized door hanger that looks like a 'Delivery Notice' or 'Utility Note'.\n\n**Script on Note:**\n'Hi [Name if known], stopped by about the neighbor's project. Sorry I missed you. - [Your Name]'\n\nCuriosity gets them to call you back. Marketing does not."
@@ -1261,7 +1267,13 @@ export const MODULES: Record<string, ModuleContent> = {
                 content: "PREVIOUSLY: In Day 3, you learned to ask Questions instead of making Statements. You uncovered their 'Why'. Now, you will use that information to tailor a 'Perfect Presentation' that speaks directly to their needs."
             },
             {
-                title: "Deep Dive: Utility Bill Autopsy",
+                title: "Visual Guide: Utility Bill Autopsy",
+                type: "image",
+                content: "Don't just talk about the bill. Show them the hidden fees. Click to expand.",
+                imageSrc: "/images/utility_bill_autopsy.png"
+            },
+            {
+                title: "Deep Dive: Utility Bill Autopsy (Text Breakdown)",
                 type: "list",
                 content: "You must be able to read a bill better than the person who pays it. Here is the line-by-line dissection:",
                 items: [
