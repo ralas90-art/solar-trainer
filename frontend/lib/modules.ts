@@ -284,9 +284,21 @@ export const MODULES: Record<string, ModuleContent> = {
                 ]
             },
             {
+                title: "Visual Guide: The Curve",
+                type: "image",
+                content: "Recognize where you are to avoid the 'Dip'.",
+                imageSrc: "/images/competence_stages.png"
+            },
+            {
                 title: "Deep Dive: The History of the Grid",
                 type: "text",
                 content: "To sell the future, you must understand the past. The grid we use today was designed over 100 years ago.\n\n**The War of Currents:** In the late 1880s, Thomas Edison (DC) and Nikola Tesla (AC) fought for dominance. Tesla won because AC power travels better over long distances. This created the 'Centralized Utility Model': massive power plants burning coal far away, sending power over hundreds of miles of wire to your home.\n\n**The Problem:** This model is inefficient (power loss over wires), fragile (fires, outages), and expensive (monopoly control). Solar represents the shift to 'Decentralized Power'—generating energy right where it is used. You are not just selling panels; you are upgrading the country's infrastructure."
+            },
+            {
+                title: "Visual Guide: The War of Currents",
+                type: "image",
+                content: "Centralized vs Decentralized Power. The shift is inevitable.",
+                imageSrc: "/images/grid_history_war.png"
             },
             {
                 title: "The Solar Mindset: Reframing Rejection",
@@ -330,6 +342,12 @@ export const MODULES: Record<string, ModuleContent> = {
                 }
             },
             {
+                title: "Visual Guide: String vs Micro",
+                type: "image",
+                content: "Why Microinverters win every time. Check the difference.",
+                imageSrc: "/images/inverter_comparison.png"
+            },
+            {
                 title: "Decoding the Bill: kW vs kWh",
                 type: "list",
                 content: "You must speak the language of the utility bill to sell savings.",
@@ -339,6 +357,12 @@ export const MODULES: Record<string, ModuleContent> = {
                     "Tier 1 (Baseline Usage): The cheapest power you buy.",
                     "Tier 2+ (The Penalty Zone): Expensive power charged for high usage. Solar eliminates this first."
                 ]
+            },
+            {
+                title: "Visual Guide: kW vs kWh",
+                type: "image",
+                content: "Speed vs Volume. Understand the difference.",
+                imageSrc: "/images/kw_vs_kwh_analogy.png"
             },
             {
                 title: "Deep Dive: Roof Anatomy 101",
@@ -354,6 +378,12 @@ export const MODULES: Record<string, ModuleContent> = {
                 ]
             },
             {
+                title: "Visual Guide: Roof Anatomy",
+                type: "image",
+                content: "Know your rafters from your flashing.",
+                imageSrc: "/images/roof_anatomy_diagram.png"
+            },
+            {
                 title: "Qualifying Homes: The 'No-Go' List",
                 type: "list",
                 content: "Not every home qualifies. Memorize these disqualifiers to save time:",
@@ -364,12 +394,24 @@ export const MODULES: Record<string, ModuleContent> = {
                 ]
             },
             {
+                title: "Visual Guide: Disqualified Roofs",
+                type: "image",
+                content: "Do not knock these homes. It is a waste of time.",
+                imageSrc: "/images/bad_roof_examples.png"
+            },
+            {
                 title: "War Story: The $50k Denied Deal",
                 type: "quote",
                 content: "\"I once signed a 15kW system. $10,000 commission. I spent 3 hours building rapport, pet the dog, ate dinner with them. I submitted the deal, counted my money, and went home to celebrate. \n\nTwo days later, Site Survey failed it. Why? The rafters were rotted due to termite damage I didn't check. I didn't look in the attic. \n\nLesson: Trust but Verify. Poke the roof (with your eyes). Inspect the electrical. Don't sell a dream that physics can't deliver.\""
             },
             {
                 title: "The Solar Project Lifecycle (A to Z)",
+                type: "image",
+                content: "The roadmap from Signature to Savings. Click to expand.",
+                imageSrc: "/images/solar_project_roadmap.png"
+            },
+            {
+                title: "Deep Dive: Project Lifecycle Steps",
                 type: "text",
                 content: "Selling the deal is just Day 0. You are managing a construction project. Here is the roadmap:\n\n1. The Sale: Agreement signed, soft credit check passing.\n2. Site Survey: Tech comes to measure roof and inspect wiring.\n3. Engineering & Permitting: Plans are drawn and sent to the City (AHJ).\n4. Installation: Panels go on the roof (1-2 days).\n5. Inspection: City verifies safety.\n6. PTO (Permission to Operate): Utility gives the green light to turn it on.\n\nWARNING: The system sits 'off' between Install and PTO. Manage your customer's expectations!"
             },
