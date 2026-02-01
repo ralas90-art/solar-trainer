@@ -62,6 +62,7 @@
     - [x] Day 2: Perfect Pitch Infographic <!-- id: vis_d2 -->
     - [x] Day 4: Utility Bill Autopsy <!-- id: vis_d4 -->
     - [x] Day 1: 7 New Technical Infographics (Grid, Roofs, kW/kWh, etc.) <!-- id: vis_d1 -->
+    - [x] **Day 2-5 Enhancement:** Added 11 new infographics (Cloverleaf, Value Stack, Ethics, etc.) <!-- id: vis_d2345 -->
 
 - [ ] **Content Expansion (2h Deep Dives)** [PAUSED] <!-- id: 58 -->
     - [ ] Execute `content_expansion_plan.md` <!-- id: 59 -->
