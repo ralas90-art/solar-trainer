@@ -638,6 +638,12 @@ export const MODULES: Record<string, ModuleContent> = {
                 content: "Amateurs knock randomly. Professionals manage their territory like a business. The goal is to minimize drive time and maximize face time. We use the 'Cloverleaf Pattern' to create a web of influence around every positive interaction.\n\n• Loop 1: Immediate Neighbors (\"I'm helping Mrs. Jones next door...\")\n• Loop 2: Across the street.\n• Loop 3: The next block over.\n\nResult: You build a fortress of social proof in one area."
             },
             {
+                title: "Visual Guide: The Cloverleaf Map",
+                type: "image",
+                content: "Visualizing the perfect striking pattern.",
+                imageSrc: "/images/cloverleaf_strategy.png"
+            },
+            {
                 title: "The Perfect Day Schedule",
                 type: "slides",
                 content: "Discipline creates freedom. If you don't control your schedule, your feelings will. Here is the schedule of a Top 1% Performer.",
@@ -645,7 +651,7 @@ export const MODULES: Record<string, ModuleContent> = {
                     {
                         title: "The Daily Schedule",
                         content: "9:00 AM - 11:00 AM: Personal Development (Gym, Mindset).\n11:00 AM - 1:00 PM: Admin & Scout (Don't knock empty houses).\n1:00 PM - 3:00 PM: Prep & Lunch.\n3:00 PM - 7:30 PM: THE GOLDEN HOURS. Everyone is home. Knock non-stop.",
-                        image: "/images/module_9_perfect_day.png",
+                        image: "/images/perfect_day_schedule.png",
                         imagePlaceholder: "Schedule"
                     }
                 ]
@@ -661,6 +667,12 @@ export const MODULES: Record<string, ModuleContent> = {
                 ]
             },
             {
+                title: "Visual Guide: D2D Mastery",
+                type: "image",
+                content: "Positioning is everything. See the breakdown.",
+                imageSrc: "/images/d2d_mastery_tips.png"
+            },
+            {
                 title: "Deep Dive: Body Language Library",
                 type: "list",
                 content: "90% of communication is non-verbal. Master these micro-signals to read the homeowner before they speak:",
@@ -670,6 +682,12 @@ export const MODULES: Record<string, ModuleContent> = {
                     "The Feet Pointing: If their feet are pointed at the door/street, they want to leave. You have 10 seconds to hook them.",
                     "The Head Tilt: If they tilt their head, they are curious/confused. This is good. Stop talking and let them ask a question."
                 ]
+            },
+            {
+                title: "Visual Guide: Body Language Cheat Sheet",
+                type: "image",
+                content: "Decode the signals instantly.",
+                imageSrc: "/images/body_language_guide.png"
             },
             {
                 title: "Deep Dive: The Anatomy of a Perfect Pitch",
@@ -954,6 +972,12 @@ export const MODULES: Record<string, ModuleContent> = {
                 content: "The Kitchen Table is your stage. Sit in the 'Power Seat' (next to them), not across (adversary)."
             },
             {
+                title: "Visual Guide: The Power Seat",
+                type: "image",
+                content: "Don't sit across. Sit next to. It changes the psychology.",
+                imageSrc: "/images/power_seat_positioning.png"
+            },
+            {
                 title: "Remote Connection (Phone & Video)",
                 type: "comparison",
                 content: "Rules for the 'Air Game' (Virtual & Phone Sales). Connection is harder without physical presence.",
@@ -1094,9 +1118,21 @@ export const MODULES: Record<string, ModuleContent> = {
                 ]
             },
             {
+                title: "Visual Guide: The 3 Pillars",
+                type: "image",
+                content: "Economics. Asset. Environment. The Triple Threat.",
+                imageSrc: "/images/three_reasons_shield.png"
+            },
+            {
                 title: "Opening Script",
                 type: "quote",
                 content: "\"The purpose of this call is to help you learn more about solar energy... to see if you can produce your own power instead of renting it.\""
+            },
+            {
+                title: "Visual Guide: The Script Flow",
+                type: "image",
+                content: "Purpose -> Goal -> Permission.",
+                imageSrc: "/images/opening_script_flow.png"
             },
             {
                 title: "Bridge to Day 4: Presentation",
@@ -1338,9 +1374,21 @@ export const MODULES: Record<string, ModuleContent> = {
                 ]
             },
             {
+                title: "Visual Guide: The Value Stack",
+                type: "image",
+                content: "Stack the benefits so high the price looks small.",
+                imageSrc: "/images/value_stack_pyramid.png"
+            },
+            {
                 title: "Deep Dive: Inflation Math (The Education Close)",
                 type: "text",
                 content: "Teach them 'Future Value'.\n\n**The Math:**\nCurrent Bill: $200/mo\nUtility Inflation: 6% (Historical Average)\n\n**In 10 Years:**\n$200 * 1.06^10 = **$358/mo**\n\n**In 25 Years:**\n$200 * 1.06^25 = **$858/mo**\n\n**The Solar Payment:**\n$200/mo (Fixed). It never goes up.\n\nThis simple napkin math kills the 'waiting' objection."
+            },
+            {
+                title: "Visual Guide: The Cost of Doing Nothing",
+                type: "image",
+                content: "Show them the curve. Red vs Green.",
+                imageSrc: "/images/inflation_curve.png"
             },
             {
                 title: "Simulation: Bad Experience",
@@ -1720,6 +1768,12 @@ export const MODULES: Record<string, ModuleContent> = {
                 ]
             },
             {
+                title: "Visual Guide: Contract Decoder",
+                type: "image",
+                content: "Translate legalese into human.",
+                imageSrc: "/images/contract_decoder.png"
+            },
+            {
                 title: "Practice Scenario: The Price Objection",
                 type: "simulation",
                 content: "The homeowner says 'It's too expensive'. Use the Feel-Felt-Found technique to overcome this.",
@@ -1735,6 +1789,12 @@ export const MODULES: Record<string, ModuleContent> = {
                     "The 'Free' Rule: Solar is 'Zero Down', not 'Free'. Someone pays for it.",
                     "The Golden Rule: Would you sell this system, at this price, to your own grandmother? If not, walk away."
                 ]
+            },
+            {
+                title: "Visual Guide: The Code of Ethics",
+                type: "image",
+                content: "Integrity is your brand.",
+                imageSrc: "/images/ethics_shield.png"
             },
             {
                 title: "Bridge to Day 6: Mastery",
