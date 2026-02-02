@@ -6,10 +6,14 @@ const path = require('path');
 async function createPresentation() {
     const pptx = new pptxgen();
     pptx.layout = 'LAYOUT_16x9';
-    pptx.author = 'Antigravity Solar Trainer';
+    pptx.author = 'Solar Sales Trainer';
     pptx.title = 'In-Home Presentation';
 
-    const slides = ['slide1.html', 'slide2.html', 'slide3.html', 'slide4.html', 'slide5.html'];
+    const slides = [
+        'slide1.html', 'slide2.html', 'slide3.html', 'slide4.html',
+        'slide5.html', 'slide6.html', 'slide7.html', 'slide8.html',
+        'slide9.html', 'slide10.html', 'slide11.html'
+    ];
 
     console.log('Generating presentation...');
 
@@ -22,14 +26,17 @@ async function createPresentation() {
             // Inject Images into Placeholders
             if (placeholders) {
                 for (const ph of placeholders) {
+                    // Note: inflation_img is now on slide6 (Cost Comparison)
                     if (ph.id === 'inflation_img') {
                         console.log('Adding inflation_curve.png');
                         slide.addImage({ path: path.join(__dirname, 'inflation_curve.png'), x: ph.x, y: ph.y, w: ph.w, h: ph.h });
                     }
+                    // Note: pillars_img is now on slide7 (Benefits)
                     if (ph.id === 'pillars_img') {
                         console.log('Adding three_reasons_shield.png');
                         slide.addImage({ path: path.join(__dirname, 'three_reasons_shield.png'), x: ph.x, y: ph.y, w: ph.w, h: ph.h });
                     }
+                    // Note: valuestack_img is now on slide8 (Value Stack)
                     if (ph.id === 'valuestack_img') {
                         console.log('Adding value_stack_pyramid.png');
                         slide.addImage({ path: path.join(__dirname, 'value_stack_pyramid.png'), x: ph.x, y: ph.y, w: ph.w, h: ph.h });

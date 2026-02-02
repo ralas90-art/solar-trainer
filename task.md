@@ -53,7 +53,7 @@
     - [x] Create Architecture Plan (Vapi/Deepgram) <!-- id: 54 -->
     - [x] **Phase 1: Real-Time STT** (Implement Deepgram/Vapi) <!-- id: 55 -->
     - [x] **Phase 2: Streaming TTS** (Optimize Latency) <!-- id: 56 -->
-    - [ ] **Phase 3: Visual Polish** (Waveforms/Avatars) <!-- id: 57 -->
+    - [x] **Phase 3: Visual Polish** (Waveforms/Avatars) <!-- id: 57 -->
 
 - [x] **Security Audit** <!-- id: security -->
     - [x] Fix Supabase RLS (Script Created) <!-- id: rls -->
@@ -63,6 +63,10 @@
     - [x] Day 4: Utility Bill Autopsy <!-- id: vis_d4 -->
     - [x] Day 1: 7 New Technical Infographics (Grid, Roofs, kW/kWh, etc.) <!-- id: vis_d1 -->
     - [x] **Day 2-5 Enhancement:** Added 11 new infographics (Cloverleaf, Value Stack, Ethics, etc.) <!-- id: vis_d2345 -->
+- [x] **Presentation Gen:** Create "Solar Proposal.pptx" based on user template <!-- id: ppt_gen -->
+    - [x] Analyze template flow (Trust -> Educate -> Qualify -> Close) <!-- id: ppt_analyze -->
+    - [x] Create HTML slides for: Intro, Discovery, Traditional vs Solar, Benefits (Infographics), Next Steps <!-- id: ppt_slides -->
+    - [x] Generate PPTX and deploy to downloads <!-- id: ppt_deploy -->
 
-- [ ] **Content Expansion (2h Deep Dives)** [PAUSED] <!-- id: 58 -->
-    - [ ] Execute `content_expansion_plan.md` <!-- id: 59 -->
+- [x] **Content Expansion (2h Deep Dives)** [COMPLETED] <!-- id: 58 -->
+    - [x] Execute `content_expansion_plan.md` <!-- id: 59 -->

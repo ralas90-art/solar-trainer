@@ -28,43 +28,52 @@
 
         .right {
             width: 50%;
+            background: #2d3748;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #2d3748;
         }
 
         h1 {
-            font-size: 32pt;
-            color: #f6ad55;
+            font-size: 28pt;
+            color: #fc8181;
             margin-bottom: 20pt;
         }
 
-        ul {
-            font-size: 20pt;
-            line-height: 1.8;
+        p {
+            font-size: 18pt;
+            line-height: 1.5;
             color: #cbd5e0;
-            padding-left: 20pt;
+            margin-bottom: 15pt;
         }
 
-        li {
-            margin-bottom: 10pt;
+        .stat {
+            font-size: 48pt;
+            font-weight: bold;
+            color: #f6ad55;
+            margin: 0;
+        }
+
+        .caption {
+            font-size: 14pt;
+            color: #a0aec0;
+            margin: 0;
         }
     </style>
 </head>
 
 <body>
     <div class="left">
-        <h1>The Value Stack</h1>
-        <ul>
-            <li><b>Fixed Cost:</b> Inflation Proof</li>
-            <li><b>Equity:</b> ~4% Home Value Increase</li>
-            <li><b>Incentives:</b> 30% Federal ITC</li>
-            <li><b>Control:</b> Own vs Rent</li>
-        </ul>
+        <h1>The Problem: Traditional Energy</h1>
+        <p>You are in an <b>infinite lease</b>.</p>
+        <p>Utility rates have risen an average of <b>6% per year</b>.</p>
+        <p>You pay for Generation, Transmission, and Distribution.</p>
     </div>
     <div class="right">
-        <div id="valuestack_img" class="placeholder" style="width: 90%; height: 300pt;"></div>
+        <div style="text-align: center;">
+            <p class="stat">+6%</p>
+            <p class="caption">Annual Rate Increase</p>
+        </div>
     </div>
 </body>
 

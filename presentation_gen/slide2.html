@@ -19,7 +19,7 @@
         }
 
         .left {
-            width: 40%;
+            width: 50%;
             padding: 40pt;
             display: flex;
             flex-direction: column;
@@ -27,36 +27,45 @@
         }
 
         .right {
-            width: 60%;
+            width: 50%;
+            background: #2d3748;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #2d3748;
+            font-size: 150pt;
+            color: #4a5568;
         }
 
         h1 {
             font-size: 32pt;
-            color: #fc8181;
+            color: #63b3ed;
             margin-bottom: 20pt;
-            line-height: 1.2;
         }
 
         p {
-            font-size: 18pt;
-            line-height: 1.5;
+            font-size: 20pt;
+            line-height: 1.6;
             color: #cbd5e0;
+            margin-bottom: 20pt;
+        }
+
+        .highlight {
+            color: #f6ad55;
+            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
     <div class="left">
-        <h1>The Cost of Doing Nothing</h1>
-        <p>Utility rates are historically rising at 4-6% per year.</p>
-        <p>Doing nothing isn't free. It's the most expensive option.</p>
+        <h1>Why We Are Here</h1>
+        <p>Our mission is simple: To help homeowners transition from <span class="highlight">renting</span> their power
+            to <span class="highlight">owning</span> it.</p>
+        <p>Every eco-friendly decision starts with a financially smart one.</p>
     </div>
     <div class="right">
-        <div id="inflation_img" class="placeholder" style="width: 90%; height: 300pt;"></div>
+        <!-- Placeholder for a generic solar image/icon if user had one, for now text visual -->
+        <p>☀️</p>
     </div>
 </body>
 

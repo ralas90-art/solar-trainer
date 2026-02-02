@@ -235,23 +235,76 @@ export function SimulationWindow({ tenant, stateCode, scenario, userId, onComple
                 /* ROLEPLAY MODE UI */
                 <>
                     <CardContent className="flex-1 overflow-y-auto w-full p-4 space-y-6 scroll-smooth z-10">
-                        {/* Visualizer / Avatar Area */}
-                        <div className="flex flex-col items-center justify-center py-6 border-b border-white/5 bg-slate-900/30 -mx-4 -mt-4 mb-4">
-                            <div className={`relative w-24 h-24 rounded-full transition-all duration-300 ${callStatus === 'connected' ? 'scale-110 shadow-[0_0_30px_rgba(79,70,229,0.3)]' : 'grayscale opacity-80'}`}>
-                                <img
-                                    src={scenario.avatar || "/images/avatar-placeholder.png"}
-                                    className="w-full h-full object-cover rounded-full border-2 border-slate-600"
-                                />
-                                {callStatus === 'connected' && (
-                                    <div
-                                        className="absolute inset-0 rounded-full bg-indigo-500 blur-md transition-opacity duration-100 mix-blend-overlay"
-                                        style={{ opacity: Math.min(volumeLevel * 1.5, 0.8) }}
-                                    />
-                                )}
+                        {/* Voice 2.0 Visualizer Area */}
+                        <div className="flex flex-col items-center justify-center py-8 border-b border-white/5 bg-slate-900/30 -mx-4 -mt-4 mb-4 relative overflow-hidden">
+                            {/* Ambient Glow */}
+                            <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-indigo-500/10 blur-[60px] rounded-full transition-opacity duration-700 ${callStatus === 'connected' ? 'opacity-100' : 'opacity-0'}`} />
+
+                            <div className="relative z-10 flex flex-col items-center gap-6">
+                                {/* Avatar Container */}
+                                <div className="relative">
+                                    {/* Ripple Effect ring */}
+                                    {callStatus === 'connected' && (
+                                        <>
+                                            <motion.div
+                                                animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0, 0.3] }}
+                                                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                                                className="absolute inset-0 rounded-full border border-indigo-500/30"
+                                            />
+                                            <motion.div
+                                                animate={{ scale: [1, 1.5, 1], opacity: [0.1, 0, 0.1] }}
+                                                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                                                className="absolute inset-0 rounded-full border border-indigo-500/20"
+                                            />
+                                        </>
+                                    )}
+
+                                    <div className={`relative w-28 h-28 rounded-full transition-all duration-500 ${callStatus === 'connected' ? 'shadow-[0_0_40px_rgba(79,70,229,0.4)] ring-4 ring-indigo-500/20' : 'grayscale opacity-60'}`}>
+                                        <img
+                                            src={scenario.avatar || "/images/avatar-placeholder.png"}
+                                            className="w-full h-full object-cover rounded-full border-2 border-slate-700/50"
+                                        />
+
+                                        {/* Speaking Overlay (Pulsing Glow when volume is high) */}
+                                        <motion.div
+                                            animate={{ opacity: volumeLevel > 0.05 ? 0.6 : 0 }}
+                                            className="absolute inset-0 rounded-full bg-indigo-500 mix-blend-overlay"
+                                        />
+                                    </div>
+
+                                    {/* Status Badge */}
+                                    <div className={`absolute -bottom-2 -right-2 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase border shadow-lg ${callStatus === 'connected'
+                                            ? 'bg-emerald-500 border-emerald-400 text-white shadow-emerald-900/20'
+                                            : 'bg-slate-700 border-slate-600 text-slate-400'
+                                        }`}>
+                                        {callStatus === 'connected' ? 'Live' : 'Offline'}
+                                    </div>
+                                </div>
+
+                                {/* Audio Waveform Visualizer */}
+                                <div className="h-12 flex items-center justify-center gap-1.5 w-64">
+                                    {callStatus === 'connected' ? (
+                                        // Generate 12 bars for the waveform
+                                        Array.from({ length: 12 }).map((_, i) => (
+                                            <motion.div
+                                                key={i}
+                                                // Animate height based on volume + pseudo-randomness for "wave" look
+                                                animate={{
+                                                    height: Math.max(4, volumeLevel * 150 * (Math.sin(i) + 1.5) * Math.random()),
+                                                    opacity: Math.max(0.3, volumeLevel * 3)
+                                                }}
+                                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                                className="w-1.5 bg-gradient-to-t from-indigo-500 to-blue-400 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.5)]"
+                                            />
+                                        ))
+                                    ) : (
+                                        // Idle State (Flat line)
+                                        <div className="w-full h-[1px] bg-slate-700/50 flex items-center justify-center gap-2">
+                                            <span className="text-xs text-slate-600 font-mono">WAITING FOR CONNECTION...</span>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                            <p className={`mt-3 text-sm font-medium ${callStatus === 'connected' ? 'text-green-400' : 'text-slate-500'}`}>
-                                {callStatus === 'connected' ? '● Live' : 'Disconnected'}
-                            </p>
                         </div>
 
                         {/* Transcript Feed */}
