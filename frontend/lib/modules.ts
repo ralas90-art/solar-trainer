@@ -292,7 +292,7 @@ export const MODULES: Record<string, ModuleContent> = {
             {
                 title: "Deep Dive: The History of the Grid",
                 type: "text",
-                content: "To sell the future, you must understand the past. The grid we use today was designed over 100 years ago.\n\n**The War of Currents:** In the late 1880s, Thomas Edison (DC) and Nikola Tesla (AC) fought for dominance. Tesla won because AC power travels better over long distances. This created the 'Centralized Utility Model': massive power plants burning coal far away, sending power over hundreds of miles of wire to your home.\n\n**The Problem:** This model is inefficient (power loss over wires), fragile (fires, outages), and expensive (monopoly control). Solar represents the shift to 'Decentralized Power'—generating energy right where it is used. You are not just selling panels; you are upgrading the country's infrastructure."
+                content: "To sell the future, you must understand the past. The grid we use today was designed over 100 years ago.\n\n**The War of Currents:** In the late 1880s, Thomas Edison (DC) and Nikola Tesla (AC) fought for dominance. Tesla won because AC power travels better over long distances. This created the 'Centralized Utility Model': massive power plants burning coal far away, sending power over hundreds of miles of wire to your home.\n\n**The Problem:** This model is inefficient (power loss over wires), fragile (fires, outages), and expensive (monopoly control). Solar represents the shift to 'Decentralized Power'—generating energy right where it is used. You are not just selling panels; you are upgrading the country's infrastructure.\n\n**Why DC Matters:** Solar panels produce DC power (just like your phone/laptop). The grid is AC. Your inverter is the bridge between the future (DC) and the past (AC)."
             },
             {
                 title: "Visual Guide: The War of Currents",
@@ -369,12 +369,12 @@ export const MODULES: Record<string, ModuleContent> = {
                 type: "list",
                 content: "You are putting a 40-year asset on their roof. You need to know if it will hold. Memorize these terms:",
                 items: [
-                    "Rafters: The internal wooden skeleton. We bolt into these.",
-                    "Flashing: The metal sheets used to waterproof penetrations. Bad flashing = Leaks.",
-                    "Azimuth: The compass direction the roof faces (180° South is perfect).",
-                    "Pitch: The steepness of the roof. Too steep requires extra safety gear.",
-                    "Comp Shingle: The most common roof type (Sandpaper texture). Easy to install.",
-                    "Concrete Tile: Requires 'Tile Replacement Mounts' to avoid breaking tiles."
+                    "Rafters: The internal wooden skeleton (usually 2x4 or 2x6). We bolt into these to secure the system. Hitting the center of the rafter is critical.",
+                    "Flashing: The metal sheets used to waterproof penetrations. The #1 cause of leaks is bad flashing. We slide it *under* the shingle.",
+                    "Azimuth: The compass direction the roof faces. 180° (South) is Gold. 270° (West) is Silver (catches expensive evening usage). North is usually dead.",
+                    "Pitch: The steepness. 10-20° is easy walk. 30°+ requires ropes. 45° is a ski slope.",
+                    "Comp Shingle: Standard install. Easy.",
+                    "Concrete Tile: Requires 'Tile Replacements' or 'Hooks'. Never drill through the tile itself (it cracks)."
                 ]
             },
             {
@@ -402,7 +402,7 @@ export const MODULES: Record<string, ModuleContent> = {
             {
                 title: "War Story: The $50k Denied Deal",
                 type: "quote",
-                content: "\"I once signed a 15kW system. $10,000 commission. I spent 3 hours building rapport, pet the dog, ate dinner with them. I submitted the deal, counted my money, and went home to celebrate. \n\nTwo days later, Site Survey failed it. Why? The rafters were rotted due to termite damage I didn't check. I didn't look in the attic. \n\nLesson: Trust but Verify. Poke the roof (with your eyes). Inspect the electrical. Don't sell a dream that physics can't deliver.\""
+                content: "\"I once signed a 15kW system. $10,000 commission. I spent 3 hours building rapport, pet the dog, ate dinner with them. I submitted the deal, counted my money, and went home to celebrate. \n\nTwo days later, Site Survey failed it. Why? The rafters were rotted due to termite damage I didn't check. And I missed the 100 Amp Main Panel that needed a $3,500 upgrade neither of us accounted for. \n\nThe deal died. I wasted 20 hours and lost $0. \n\nLesson: Trust but Verify. Poke the roof (with your eyes). Inspect the electrical. Don't sell a dream that physics can't deliver.\""
             },
             {
                 title: "The Solar Project Lifecycle (A to Z)",
@@ -644,6 +644,11 @@ export const MODULES: Record<string, ModuleContent> = {
                 imageSrc: "/images/cloverleaf_strategy.png"
             },
             {
+                title: "Deep Dive: Door Hangers (The Breadcrumb Strategy)",
+                type: "text",
+                content: "Never leave a door un-knocked, but if they aren't home, leave a 'Breadcrumb'.\n\n**The Rule:** Do NOT use a generic company flyer. It looks like trash.\n**The Strategy:** Use a handwritten sticky note or a specialized door hanger that looks like a 'Delivery Notice' or 'Utility Note'.\n\n**Script on Note:**\n'Hi [Name if known], stopped by about the neighbor's project. Sorry I missed you. - [Your Name]'\n\nCuriosity gets them to call you back. Marketing does not."
+            },
+            {
                 title: "The Perfect Day Schedule",
                 type: "slides",
                 content: "Discipline creates freedom. If you don't control your schedule, your feelings will. Here is the schedule of a Top 1% Performer.",
@@ -680,7 +685,8 @@ export const MODULES: Record<string, ModuleContent> = {
                     "The Lean Away: If they lean back when you speak, you are too close or too aggressive. Step back.",
                     "The Arms Crossed: Defensive. Hand them something (a flyer, your iPad) to force them to 'open' their posture.",
                     "The Feet Pointing: If their feet are pointed at the door/street, they want to leave. You have 10 seconds to hook them.",
-                    "The Head Tilt: If they tilt their head, they are curious/confused. This is good. Stop talking and let them ask a question."
+                    "The Head Tilt: If they tilt their head, they are curious/confused. This is good. Stop talking and let them ask a question.",
+                    "The Eye Block (Rubbing Eyes): They do not like what they are seeing. You showed a high price or bad news. Pivot immediately."
                 ]
             },
             {
@@ -1712,7 +1718,9 @@ export const MODULES: Record<string, ModuleContent> = {
                 items: [
                     "PRICE: 'I understand how you FEEL about the cost. My other client, Bob, FELT the same way initially. But what he FOUND was that by redirecting his bill money, he actually increased his monthly cash flow immediately.'",
                     "SPOUSAL: 'I understand how you FEEL about needing to talk to your wife. Many husbands FELT that pressure. But they FOUND that bringing back a finished proposal with $0 down made the conversation much easier because it wasn't a problem, it was a solution.'",
-                    "UNCERTAINTY: 'I know you FEEL like waiting is safer. Others FELT that way too. But they FOUND that while they waited, utility rates went up 12%, costing them $600 in lost savings.'"
+                    "UNCERTAINTY: 'I know you FEEL like waiting is safer. Others FELT that way too. But they FOUND that while they waited, utility rates went up 12%, costing them $600 in lost savings.'",
+                    "LIEN FEAR: 'I know the word lien is scary. My aunt FELT the same way. What she FOUND was that it's actually a UCC-1 fixture filing—it means the bank owns the panels, not your house. It doesn't stop you from selling.'",
+                    "WAITING FOR RATES: 'I get it. Waiting seems smart. My neighbor FELT that last year. He FOUND that interest rates went up 2% and the panels got more expensive. Waiting actually COST him $4,000.'"
                 ]
             },
             {
@@ -1761,10 +1769,11 @@ export const MODULES: Record<string, ModuleContent> = {
                 type: "list",
                 content: "Reduce anxiety by translating 'Legalize' into 'Human'. Go through the agreement page by page:",
                 items: [
-                    "Page 1 (Scope of Work): 'This just lists the hardware we are installing. 12 panels, 1 inverter.'",
-                    "Page 2 (Payment): 'This confirms the $0 down. You pay nothing until the system is ON.'",
-                    "Page 3 (Warranties): 'This is the Performance Guarantee. If it breaks, we fix it. If it underproduces, we pay you the difference.'",
-                    "Page 4 (Right to Cancel): 'You have 3 days to change your mind. No pressure.'"
+                    "Page 1 (Scope of Work): 'This just lists the hardware we are installing. 12 panels, 1 inverter. Verify the address is correct.'",
+                    "Page 2 (Payment): 'This confirms the $0 down. You pay nothing until the system is ON. The monthly amount is fixed at [Amount].'",
+                    "Page 3 (The Escalator): 'See this 2.9%? That is your cap. The utility goes up 6-10%. You are capped here. It is rent control.'",
+                    "Page 4 (The ITC): 'This line shows the 30% tax credit. The lender floats this money for 18 months. You just catch the check and hand it to them.'",
+                    "Page 5 (Right to Cancel): 'You have 3 days to change your mind. No pressure.'"
                 ]
             },
             {
