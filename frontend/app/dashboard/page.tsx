@@ -259,102 +259,103 @@ export default function Dashboard() {
                                     </h3>
                                     <p className="text-slate-400 text-sm">Your journey to certification</p>
                                 </div>
+                                {/* Calculated Statuses */}
+                                <TrainingMap
+                                    onSelectModule={handleModuleSelect}
+                                    currentDay={2}
+                                    moduleStatuses={{
+                                        "day_1_foundation": getModuleStatus(1, "day_1_foundation"),
+                                        "day_2_prospecting": getModuleStatus(2, "day_2_prospecting"),
+                                        "day_3_discovery": getModuleStatus(3, "day_3_discovery"),
+                                        "day_4_presentation": getModuleStatus(4, "day_4_presentation"),
+                                        "day_5_closing": getModuleStatus(5, "day_5_closing"),
+                                        "day_6_mastery": getModuleStatus(6, "day_6_mastery"),
+                                    }}
+                                />
                             </div>
-                            {/* Calculated Statuses */}
-                            <TrainingMap
-                                onSelectModule={handleModuleSelect}
-                                currentDay={2}
-                                moduleStatuses={{
-                                    "day_1_foundation": getModuleStatus(1, "day_1_foundation"),
-                                    "day_2_prospecting": getModuleStatus(2, "day_2_prospecting"),
-                                    "day_3_discovery": getModuleStatus(3, "day_3_discovery"),
-                                    "day_4_presentation": getModuleStatus(4, "day_4_presentation"),
-                                    "day_5_closing": getModuleStatus(5, "day_5_closing"),
-                                    "day_6_mastery": getModuleStatus(6, "day_6_mastery"),
-                                }}
-                            />
-                        </div>
 
-                        {/* Right: Sidebar Stats */}
-                        <div className="space-y-8">
-                            <LeaderboardUI />
-                            <CertificateUI user={user} score={stats.total_score} tenant={tenant} />
+                            {/* Right: Sidebar Stats */}
+                            <div className="space-y-8">
+                                <LeaderboardUI />
+                                <CertificateUI user={user} score={stats.total_score} tenant={tenant} />
+                            </div>
                         </div>
                     </div>
-                    </div>
-    ) : (
-        /* Simulation View */
-        <div className="space-y-6">
-            <Button
-                variant="ghost"
-                onClick={() => setView('dashboard')}
-                className="text-slate-400 hover:text-white hover:bg-white/5 pl-0 mb-4"
-            >
-                <ArrowLeft className="w-4 h-4 mr-2" /> Back to Dashboard
-            </Button>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                {/* Config Sidebar in Simulation Mode */}
-                <div className="md:col-span-1 space-y-6">
-                    <div className="glass-card p-4 rounded-xl">
-                        <div className="flex items-center gap-2 mb-4 text-slate-300 font-bold text-sm uppercase tracking-wide">
-                            <Map className="w-4 h-4 text-blue-500" /> Territory
-                        </div>
-                        <select
-                            className="w-full p-2.5 bg-slate-800/50 border border-white/10 rounded-lg text-white outline-none focus:ring-2 focus:ring-blue-500/50"
-                            value={stateProfile?.code || ""}
-                            onChange={(e) => setStateProfile({ code: e.target.value })}
+                ) : (
+                    /* Simulation View */
+                    <div className="space-y-6">
+                        <Button
+                            variant="ghost"
+                            onClick={() => setView('dashboard')}
+                            className="text-slate-400 hover:text-white hover:bg-white/5 pl-0 mb-4"
                         >
-                            <option value="">-- Choose --</option>
-                            {tenant.allowed_states.map((st: string) => (
-                                <option key={st} value={st}>{st}</option>
-                            ))}
-                        </select>
-                    </div>
+                            <ArrowLeft className="w-4 h-4 mr-2" /> Back to Dashboard
+                        </Button>
 
-                    <div className="glass-card p-4 rounded-xl">
-                        <div className="flex items-center gap-2 mb-4 text-slate-300 font-bold text-sm uppercase tracking-wide">
-                            <Settings className="w-4 h-4 text-purple-500" /> Quick Select
-                        </div>
-                        <ul className="space-y-1">
-                            {scenarios.map((s: any) => (
-                                <li
-                                    key={s.id}
-                                    onClick={() => setSelectedScenario(s.id)}
-                                    className={`p-2.5 rounded-lg cursor-pointer text-sm transition-all border border-transparent ${selectedScenario === s.id ? 'bg-blue-600/20 text-blue-200 border-blue-500/30' : 'hover:bg-white/5 text-slate-400 hover:text-white'}`}
-                                >
-                                    <div className="font-medium">{s.name}</div>
-                                    <div className="text-[10px] opacity-60 uppercase mt-0.5">{s.difficulty}</div>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            {/* Config Sidebar in Simulation Mode */}
+                            <div className="md:col-span-1 space-y-6">
+                                <div className="glass-card p-4 rounded-xl">
+                                    <div className="flex items-center gap-2 mb-4 text-slate-300 font-bold text-sm uppercase tracking-wide">
+                                        <Map className="w-4 h-4 text-blue-500" /> Territory
+                                    </div>
+                                    <select
+                                        className="w-full p-2.5 bg-slate-800/50 border border-white/10 rounded-lg text-white outline-none focus:ring-2 focus:ring-blue-500/50"
+                                        value={stateProfile?.code || ""}
+                                        onChange={(e) => setStateProfile({ code: e.target.value })}
+                                    >
+                                        <option value="">-- Choose --</option>
+                                        {tenant.allowed_states.map((st: string) => (
+                                            <option key={st} value={st}>{st}</option>
+                                        ))}
+                                    </select>
+                                </div>
 
-                {/* Simulation Window */}
-                <div className="md:col-span-3">
-                    {stateProfile ? (
-                        <SimulationWindow
-                            tenant={tenant}
-                            stateCode={stateProfile.code}
-                            scenario={scenarios.find(s => s.id === selectedScenario)}
-                            userId={user.username}
-                            onComplete={(score) => {
-                                if (activeModuleId) {
-                                    updateProgress(activeModuleId, 'sim')
-                                }
-                            }}
-                        />
-                    ) : (
-                        <div className="flex flex-col items-center justify-center h-96 glass-card rounded-2xl border-2 border-dashed border-white/10 text-center p-8">
-                            <Map className="w-12 h-12 text-slate-600 mb-4" />
-                            <h3 className="text-xl font-bold text-slate-300">Select a Territory</h3>
-                            <p className="text-slate-500 mt-2">Choose the state you want to train in to begin the simulation.</p>
+                                <div className="glass-card p-4 rounded-xl">
+                                    <div className="flex items-center gap-2 mb-4 text-slate-300 font-bold text-sm uppercase tracking-wide">
+                                        <Settings className="w-4 h-4 text-purple-500" /> Quick Select
+                                    </div>
+                                    <ul className="space-y-1">
+                                        {scenarios.map((s: any) => (
+                                            <li
+                                                key={s.id}
+                                                onClick={() => setSelectedScenario(s.id)}
+                                                className={`p-2.5 rounded-lg cursor-pointer text-sm transition-all border border-transparent ${selectedScenario === s.id ? 'bg-blue-600/20 text-blue-200 border-blue-500/30' : 'hover:bg-white/5 text-slate-400 hover:text-white'}`}
+                                            >
+                                                <div className="font-medium">{s.name}</div>
+                                                <div className="text-[10px] opacity-60 uppercase mt-0.5">{s.difficulty}</div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            {/* Simulation Window */}
+                            <div className="md:col-span-3">
+                                {stateProfile ? (
+                                    <SimulationWindow
+                                        tenant={tenant}
+                                        stateCode={stateProfile.code}
+                                        scenario={scenarios.find(s => s.id === selectedScenario)}
+                                        userId={user.username}
+                                        onComplete={(score) => {
+                                            if (activeModuleId) {
+                                                updateProgress(activeModuleId, 'sim')
+                                            }
+                                        }}
+                                    />
+                                ) : (
+                                    <div className="flex flex-col items-center justify-center h-96 glass-card rounded-2xl border-2 border-dashed border-white/10 text-center p-8">
+                                        <Map className="w-12 h-12 text-slate-600 mb-4" />
+                                        <h3 className="text-xl font-bold text-slate-300">Select a Territory</h3>
+                                        <p className="text-slate-500 mt-2">Choose the state you want to train in to begin the simulation.</p>
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                    )}
-                </div>
-            </div>
+                    </div>
+                )}
+            </main>
         </div>
     )
 }
-
