@@ -7,16 +7,17 @@ import { LeaderboardUI } from "@/components/leaderboard-ui"
 import { CertificateUI } from "@/components/certificate-ui"
 import { DashboardHeader } from "@/components/dashboard-header"
 import { TrainingMap } from "@/components/training-map"
+import { SimulatorHub } from "@/components/simulator-hub"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Map, Settings, PlayCircle } from "lucide-react"
+import { ArrowLeft, Map, Settings, PlayCircle, Zap } from "lucide-react"
 
 import { TrainingContent } from "@/components/training-content"
 
 export default function Dashboard() {
     // Current User State (Auth)
     const [user, setUser] = useState<any>(null)
-    const [view, setView] = useState<'dashboard' | 'simulation' | 'content'>('dashboard')
+    const [view, setView] = useState<'dashboard' | 'simulation' | 'content' | 'simulator-hub'>('dashboard')
     const [activeModuleId, setActiveModuleId] = useState<string>("")
 
     // Stats for Certificate & Gamification
@@ -196,6 +197,17 @@ export default function Dashboard() {
                     updateProgress(activeModuleId, 'quiz')
                     setView('dashboard')
                 }}
+            />
+        )
+    }
+
+    if (view === 'simulator-hub') {
+        return (
+            <SimulatorHub
+                userId={user.id}
+                tenant={tenant}
+                stateCode={stateProfile?.code || 'CA'}
+                onBack={() => setView('dashboard')}
             />
         )
     }

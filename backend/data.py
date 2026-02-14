@@ -161,5 +161,97 @@ SCENARIOS = {
         opening_line="We might be moving in 3 or 4 years, so I don't want to be stuck with this long contract.",
         briefing="You view the contract as an anchor. You don't want to complicate your home sale.\n\nGoal for User: Explain 'Asset Transfer'. Solar increases home value (Zillow: +4%). It sells the home faster.",
         valid_responses=["asset", "value", "transfer", "zillow", "equity"]
+    ),
+    
+    # --- ADVANCED SCENARIOS (BONUS CONTENT) ---
+    "misinformed_engineer": Scenario(
+        id="misinformed_engineer",
+        name="The Misinformed Engineer",
+        description="Engineer with outdated technical knowledge and conspiracy theories.",
+        difficulty="Hard",
+        opening_line="Oh, solar? Yeah, I've been looking into that. I actually just read a study that said panels lose 50% efficiency after 5 years. Plus, the grid can't handle the feedback voltage. Are you guys aware of that?",
+        briefing="ADVANCED: Homeowner has consumed misinformation from outdated sources. He's mixing real technical terms with false data.\n\nGoal: Correct without insulting his intelligence. Use data to gently correct (e.g., 'That 50% number was from 1980s panels. Modern panels degrade 0.5% per year'). Transition from technical debate to financial benefit.",
+        valid_responses=["degradation", "0.5%", "modern panels", "spec sheet", "production guarantee", "financial benefit"]
+    ),
+    "rushed_parent": Scenario(
+        id="rushed_parent",
+        name="The Rushed Parent",
+        description="Overwhelmed parent with 60 seconds before chaos erupts.",
+        difficulty="Moderate",
+        opening_line="Hi, sorry, this really isn't a good time. I just got home and I have to get dinner started. What's this about?",
+        briefing="ADVANCED: Homeowner is actually interested but literally has 60 seconds.\n\nGoal: Respect time while planting a seed. Deliver 10-second value hook. Secure permission for follow-up (specific time). Exit gracefully without being pushy.",
+        valid_responses=["bad timing", "follow-up", "specific time", "leave card", "call back", "when works"]
+    ),
+    "skeptical_accountant": Scenario(
+        id="skeptical_accountant",
+        name="The Skeptical Accountant",
+        description="CPA who analyzes numbers for a living, hyper-vigilant for tricks.",
+        difficulty="Advanced",
+        opening_line="Okay, I've got your proposal here. Before we go further, I need to understand the assumptions in this ROI calculation. What's the escalation rate you're using for electricity prices?",
+        briefing="ADVANCED: Homeowner will find flaws in any projection because that's his job. He's genuinely risk-averse and needs bulletproof logic.\n\nGoal: Provide conservative estimates, not best-case. Show multiple financial models (pessimistic, realistic, optimistic). Use third-party data sources. Position solar as risk mitigation.",
+        valid_responses=["conservative", "escalation rate", "IRR", "third-party", "risk mitigation", "multiple models"]
+    ),
+    "grieving_widow": Scenario(
+        id="grieving_widow",
+        name="The Grieving Widow",
+        description="Emotionally fragile homeowner making decisions alone after loss.",
+        difficulty="Advanced",
+        opening_line="Hi... yes, I remember you came by. My husband was really excited about this. He handled all the house stuff. I'm just not sure I can make a decision like this on my own right now.",
+        briefing="ADVANCED: This is NOT a sales objection—it's grief. Requires emotional intelligence.\n\nGoal: Lead with empathy, not urgency. Offer to include a trusted family member. Simplify the process. Give her permission to say 'not yet' without pressure. Position solar as honoring his wishes (if appropriate).",
+        valid_responses=["empathy", "family member", "take your time", "no pressure", "support", "honoring"]
+    ),
+    "hoa_nightmare": Scenario(
+        id="hoa_nightmare",
+        name="The HOA Nightmare",
+        description="Homeowner defeated by strict HOA, previous solar applications denied.",
+        difficulty="Hard",
+        opening_line="Look, I'd love to go solar, but my HOA rejected my neighbor's application last year. They said the panels were 'aesthetically inconsistent with community standards.' I'm not going through that headache.",
+        briefing="ADVANCED: Homeowner has given up before trying. Rep must reframe HOA as solvable, not a dead end.\n\nGoal: Acknowledge frustration without badmouthing HOA. Cite Solar Rights Act (state-specific). Offer to handle HOA application. Show examples of approved systems in similar communities. Position as 'HOA navigator'.",
+        valid_responses=["solar rights", "handle application", "approved systems", "navigator", "state law", "aesthetics"]
+    ),
+    "high_intent_procrastinator": Scenario(
+        id="high_intent_procrastinator",
+        name="The High-Intent Procrastinator",
+        description="Genuinely interested with budget, but endless decision paralysis.",
+        difficulty="Moderate",
+        opening_line="Hey! Yeah, I've been meaning to call you back. I'm still really interested, I just wanted to check one more thing with my brother-in-law. He knows a guy who does solar. I'll get back to you next week for sure.",
+        briefing="ADVANCED: There's no real objection—just decision paralysis. Homeowner is waiting for 'perfect certainty' that will never come.\n\nGoal: Identify the real fear (commitment, FOMO, analysis paralysis). Use assumptive close. Create deadline with real consequence. Make next step smaller (schedule install date, can cancel).",
+        valid_responses=["what's holding", "deadline", "assumptive", "schedule", "certainty", "one more thing"]
+    ),
+    "competitor_loyalist": Scenario(
+        id="competitor_loyalist",
+        name="The Competitor Loyalist",
+        description="Already has quote from major national brand, anchored to their price.",
+        difficulty="Hard",
+        opening_line="Thanks for coming out. So, I've already got a proposal from SunPower. They're offering 25 panels, 10kW system, $28,000 after incentives. What can you do?",
+        briefing="ADVANCED: Homeowner is anchored to competitor's price and brand recognition.\n\nGoal: Differentiate without trashing competition or racing to bottom on price. Acknowledge competitor's strengths. Highlight local advantage (faster service, community ties). Show value beyond equipment. Ask questions competitor didn't.",
+        valid_responses=["acknowledge", "local advantage", "service", "value beyond", "questions", "differentiate"]
+    ),
+    "referral_gatekeeper": Scenario(
+        id="referral_gatekeeper",
+        name="The Referral Gatekeeper",
+        description="Thrilled customer who's protective of friends, fears being pushy.",
+        difficulty="Moderate",
+        opening_line="Oh man, I love it! The crew was great. Referrals? Um... I mean, I could, but I don't want to be that guy who's always pushing stuff on people, you know?",
+        briefing="ADVANCED: Homeowner fears being seen as salesy or annoying friends.\n\nGoal: Reframe referrals as helping, not selling. Reframe as 'who do you care about enough to share this with?' Offer to be the 'bad guy' (rep reaches out). Make it easy (text template). Focus on neighbors (they'll see panels anyway).",
+        valid_responses=["care about", "helping", "neighbors", "text template", "bad guy", "share"]
+    ),
+    "analytical_paralysis": Scenario(
+        id="analytical_paralysis",
+        name="The Analytical Paralysis Couple",
+        description="Researching for 18 months with spreadsheets, afraid of commitment.",
+        difficulty="Advanced",
+        opening_line="Okay, so we've talked to 7 companies now. We have this comparison chart. Can you explain why your inverter efficiency is 96.5% versus the 97.2% from Company B? And what's your position on microinverters versus string inverters for a partially shaded roof?",
+        briefing="ADVANCED: No amount of information will satisfy them—they're afraid of commitment.\n\nGoal: Validate their thoroughness, then redirect. Show cost of waiting (lost savings, incentive changes). Simplify decision to 2-3 key factors. Use social proof (neighbors who decided). Create 'decision deadline' framework.",
+        valid_responses=["cost of waiting", "simplify", "social proof", "decision deadline", "good enough", "key factors"]
+    ),
+    "transition_master": Scenario(
+        id="transition_master",
+        name="The Transition Master Test",
+        description="Distracted homeowner gives 30 seconds, tests rapid rapport building.",
+        difficulty="Hard",
+        opening_line="Yeah, hi. What can I do for you?",
+        briefing="ADVANCED: Homeowner will give 30 seconds. Rep must transition from stranger to trusted advisor in record time.\n\nGoal: Earn permission to continue conversation. Transition from pitch to dialogue. Ask question that makes them think. Create curiosity gap. Secure next step (appointment, not sale).",
+        valid_responses=["permission", "question", "curiosity", "appointment", "dialogue", "earn"]
     )
 }
