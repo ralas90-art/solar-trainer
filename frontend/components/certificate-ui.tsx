@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Award, Printer } from "lucide-react"
 
-export function CertificateUI({ user, score, tenant }: { user: any, score: number, tenant: any }) {
-    if (score < 100) return null
+export function CertificateUI({ user, score, tenant, moduleProgress }: { user: any, score: number, tenant: any, moduleProgress: any }) {
+    const isCertified = moduleProgress?.["day_6_mastery"]?.quiz === true
+    if (!isCertified) return null
 
     const handlePrint = () => {
         window.print()

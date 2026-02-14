@@ -277,7 +277,7 @@ export default function Dashboard() {
                             {/* Right: Sidebar Stats */}
                             <div className="space-y-8">
                                 <LeaderboardUI />
-                                <CertificateUI user={user} score={stats.total_score} tenant={tenant} />
+                                <CertificateUI user={user} score={stats.total_score} tenant={tenant} moduleProgress={moduleProgress} />
                             </div>
                         </div>
                     </div>

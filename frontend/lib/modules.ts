@@ -2043,6 +2043,16 @@ export const MODULES: Record<string, ModuleContent> = {
                 imageSrc: "/images/module_8_referral_tree.png"
             },
             {
+                title: "Referral Script Vault",
+                type: "list",
+                content: "Memorize these lines. They are worth their weight in gold.",
+                items: [
+                    "The 'Who Do You Know?': 'Mrs. Jones, people usually ask me who else I'm working with in the neighborhood. Who should I absolutely NOT talk to? (Laughs) Okay, who should I talk to?'",
+                    "The 'Hero' Script: 'I promised to keep your installers busy. They did a great job for you, right? Who else needs this level of service?'",
+                    "The 'Bill Kill': 'You just zeroed out your bill. Do you have any friends who still pay the utility company? Allow me to save them too.'"
+                ]
+            },
+            {
                 title: "Practice Scenario: Asking for Referrals",
                 type: "simulation",
                 content: "You just signed the deal. Now, ask for introductions to their neighbors without being pushy.",

@@ -71,6 +71,6 @@
 - [x] **Content Expansion (2h Deep Dives)** [COMPLETED] <!-- id: 58 -->
     - [x] Execute `content_expansion_plan.md` <!-- id: 59 -->
 
-- [ ] [/] **Verify Deployment** (Ensure new content appears in production)
-- [ ] [ ] **Build "Final Boss" Exam** (Module 6 Certification)
-- [ ] [ ] **Complete Project & Handover**
+- [x] **Verify Deployment** (Ensure new content appears in production)
+- [x] **Build "Final Boss" Exam** (Module 6 Certification)
+- [ ] [/] **Complete Project & Handover**
