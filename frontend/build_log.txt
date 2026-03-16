@@ -1,0 +1,32 @@
+
+> solar-trainer-frontend@0.1.0 build
+> next build
+
+   ▲ Next.js 14.1.0
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/6) ...
+   Generating static pages (1/6) 
+   Generating static pages (2/6) 
+   Generating static pages (4/6) 
+ ✓ Generating static pages (6/6) 
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    4.96 kB         105 kB
+├ ○ /_not-found                          882 B          85.1 kB
+├ ○ /dashboard                           168 kB          268 kB
+└ ○ /kpis                                7.89 kB         101 kB
++ First Load JS shared by all            84.2 kB
+  ├ chunks/69-4db5ffb58bafe9ee.js        28.9 kB
+  ├ chunks/fd9d1056-b34e90ae3fbd908b.js  53.4 kB
+  └ other shared chunks (total)          1.96 kB
+
+
+○  (Static)  prerendered as static content
+

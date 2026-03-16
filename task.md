@@ -1,0 +1,108 @@
+# Tasks
+
+- [x] Create detailed implementation plan for Solar Sales Trainer Agent <!-- id: 0 -->
+    - [x] Define architecture and tech stack <!-- id: 1 -->
+    - [x] list necessary tools and APIs <!-- id: 2 -->
+    - [x] detailed module breakdown (Door-to-door, Phone, Virtual) <!-- id: 3 -->
+- [x] Design interactive training curriculum <!-- id: 4 -->
+- [x] Prototype basic agent structure <!-- id: 5 -->
+- [x] Design White-Label Architecture <!-- id: 6 -->
+    - [x] Tenant Configuration Schema (Branding, Custom content) <!-- id: 7 -->
+    - [x] Multi-tenant Database strategy <!-- id: 8 -->
+- [x] Design State-Specific Knowledge Engine <!-- id: 9 -->
+    - [x] Database of State Incentives (NEM 3.0, Tax Credits) <!-- id: 10 -->
+    - [x] Logic for Dynamic Script Injection based on State <!-- id: 11 --> 
+- [x] Update Prototype to support State contexts <!-- id: 12 -->
+- [x] Design Skill Assessment Module <!-- id: 13 -->
+    - [x] Define "User Levels" (Beginner/Inter/Adv) & Logic Paths <!-- id: 14 -->
+    - [x] Create content for "Foundations" (Mindset, Time Mgmt) <!-- id: 15 -->
+- [x] Implement Adaptive Curriculum in Prototype <!-- id: 16 -->
+- [x] Phase 1: LLM & Voice Integration <!-- id: 17 -->
+    - [x] Setup Python/FastAPI Backend <!-- id: 18 -->
+    - [x] Integrate OpenAI/Gemini API (The Brain) <!-- id: 19 -->
+- [x] Connect Frontend to Backend (CORS & Fetch) <!-- id: 25 -->
+- [x] Integrate Voice API (The Mouth/Ears) <!-- id: 20 -->
+- [x] Implement Multi-Language Support (Spanish) <!-- id: 26 -->
+    - [x] Update Backend Prompts for Locale <!-- id: 27 -->
+    - [x] Update Frontend Speech Recognition & TTS <!-- id: 28 -->
+- [x] Phase 3: Gamification <!-- id: 29 -->
+    - [x] Update LLM Prompt to return Numeric Score (0-100) <!-- id: 30 -->
+    - [x] Display Sales Score & Streak in Dashboard <!-- id: 31 -->
+- [x] Phase 4: Persistence (Database) <!-- id: 32 -->
+    - [x] Setup SQLite + SQLModel <!-- id: 33 -->
+    - [x] Store User Progress (Score/Streak) <!-- id: 34 -->
+    - [x] Create API Endpoint for Leaderboard/Stats <!-- id: 35 -->
+- [x] Phase 5: Content Refinement <!-- id: 36 -->
+    - [x] Create Advanced Scenarios (Lease vs Buy, Engineering Type) <!-- id: 37 -->
+    - [x] Update Frontend to Select Scenarios <!-- id: 38 -->
+- [x] Phase 6: Leaderboard <!-- id: 39 -->
+    - [x] Create Leaderboard API (GET /leaderboard) <!-- id: 40 -->
+    - [x] Create Leaderboard Page (Frontend) <!-- id: 41 -->
+- [x] Phase 7: Polish & Deploy <!-- id: 42 -->
+    - [x] Implement Real User Auth (Login/Signup) <!-- id: 43 -->
+    - [x] Add PDF Certificate Export <!-- id: 44 -->
+- [x] Prepare for Deployment (Config & Build) <!-- id: 45 -->
+- [x] Phase 8: Enhanced Voice (ElevenLabs) <!-- id: 46 -->
+    - [x] Research ElevenLabs API & Costs <!-- id: 47 -->
+    - [x] Integrate ElevenLabs into Backend <!-- id: 48 -->
+    - [x] Update Frontend to stream Audio <!-- id: 49 -->
+- [x] Final Verification of Deployment <!-- id: 50 -->
+- [x] Integrate Additional Training Content (Discovery Scripts, Lifecycle) <!-- id: 51 -->
+- [x] Premium UI Redesign (MasterClass Style) <!-- id: 52 -->
+- [/] **Simulation Interface Upgrade (Voice 2.0)** <!-- id: 53 -->
+    - [x] Create Architecture Plan (Vapi/Deepgram) <!-- id: 54 -->
+    - [x] **Phase 1: Real-Time STT** (Implement Deepgram/Vapi) <!-- id: 55 -->
+    - [x] **Phase 2: Streaming TTS** (Optimize Latency) <!-- id: 56 -->
+    - [x] **Phase 3: Visual Polish** (Waveforms/Avatars) <!-- id: 57 -->
+    - [x] **Phase 4: Feedback System** (Analysis & UI) <!-- id: 57b -->
+
+- [x] **Security Audit** <!-- id: security -->
+    - [x] Fix Supabase RLS (Script Created) <!-- id: rls -->
+    - [x] **Gamification**: Connect Simulation Progress to XP/Streak DB <!-- id: game_connect -->
+    - [x] **Simulation Timer**: Difficulty-based countdowns (90s, 60s, 45s) <!-- id: sim_timer -->
+    - [x] **Lives System**: 3 Hearts, 2hr Regen, Lockout w/ Visuals <!-- id: sim_lives -->
+
+- [x] **Visual Enhancement Campaign** <!-- id: visuals -->
+    - [x] Day 2: Perfect Pitch Infographic <!-- id: vis_d2 -->
+    - [x] Day 4: Utility Bill Autopsy <!-- id: vis_d4 -->
+    - [x] Day 1: 7 New Technical Infographics (Grid, Roofs, kW/kWh, etc.) <!-- id: vis_d1 -->
+    - [x] **Day 2-5 Enhancement:** Added 11 new infographics (Cloverleaf, Value Stack, Ethics, etc.) <!-- id: vis_d2345 -->
+- [x] **Presentation Gen:** Create "Solar Proposal.pptx" based on user template <!-- id: ppt_gen -->
+    - [x] Analyze template flow (Trust -> Educate -> Qualify -> Close) <!-- id: ppt_analyze -->
+    - [x] Create HTML slides for: Intro, Discovery, Traditional vs Solar, Benefits (Infographics), Next Steps <!-- id: ppt_slides -->
+    - [x] Generate PPTX and deploy to downloads <!-- id: ppt_deploy -->
+
+- [x] **Content Expansion (2h Deep Dives)** [COMPLETED] <!-- id: 58 -->
+    - [x] Execute `content_expansion_plan.md` <!-- id: 59 -->
+
+- [x] **Verify Deployment** (Ensure new content appears in production)
+- [x] **Build "Final Boss" Exam** (Module 6 Certification)
+- [x] **Complete Project & Handover**
+
+- [x] **Auto-Success Detection** <!-- id: 60 -->
+    - [x] Enhanced keyword detection with tiered phrases
+    - [x] Context-aware success detection
+    - [x] Comprehensive testing and documentation
+
+- [x] **KPI Tracker System** <!-- id: 61 -->
+    - [x] Backend: 4 database tables, 12 API endpoints
+    - [x] Frontend: Dashboard, Entry Form, Manager, Analytics
+    - [x] 3 Preset Templates (D2D, Virtual Sales, Hybrid)
+    - [x] Custom KPI creation and management
+    - [x] Daily tracking with progress bars
+    - [x] Analytics with trends and charts <!-- id: 61f -->
+    - [x] **KPI Conversion Analytics** <!-- id: kpi_analytics -->
+        - [x] Backend: Conversion Rate Calculation (Signal -> Lock -> Acquisition) <!-- id: kpi_calc -->
+        - [x] Frontend: Retro Funnel HUD (Radar, Crosshair, Flag) <!-- id: kpi_hud -->
+    - [x] **Refine KPI Tracker UI** <!-- id: kpi_refine -->
+        - [x] Fix duplicate entry display (Client-side deduplication) <!-- id: kpi_dedup -->
+        - [x] Apply Dark Theme to Entry Form & Analytics <!-- id: kpi_theme -->
+        - [x] Apply Dark Theme to KPI Manager <!-- id: kpi_manager_theme -->
+
+- [ ] **Phase 9: Goal Setting & Reporting** <!-- id: phase_9 -->
+    - [ ] **Goal Onboarding Wizard** <!-- id: goal_wizard -->
+        - [ ] Backend: Update KPIDefinition with Period Targets <!-- id: kpi_targets -->
+        - [ ] Frontend: Create Goal Setting Modal/Wizard <!-- id: goal_modal -->
+    - [ ] **Advanced Analytics & Reporting** <!-- id: adv_reports -->
+        - [ ] Update Analytics to track Weekly/Monthly/Quarterly Goals <!-- id: period_tracking -->
+        - [ ] Create "End of Period" Report View <!-- id: period_report -->

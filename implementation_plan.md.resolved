@@ -1,0 +1,76 @@
+# Solar Sales Trainer Agent - Implementation Plan
+
+## Goal Description
+Create an AI-powered sales training agent designed to fast-track the onboarding of solar sales consultants. The agent will provide interactive roleplay and educational content for Door-to-Door (D2D), Telescope/Phone, and Virtual (Video) sales channels.
+
+## User Review Required
+- [ ] Confirm specific solar industry terminology or scripts to use.
+- [ ] Review the proposed tech stack (LLM choice, Voice API, etc.).
+- [ ] Validate the interaction model (Text vs. Voice-first).
+
+## Proposed Architecture & Tools
+
+### Core Components
+1.  **Orchestrator Agent**: Manages the training session state and curriculum progress.
+2.  **Roleplay Engine**: Simulates customer personas (skeptical homeowner, busy professional, eco-enthusiast).
+3.  **Evaluation Module**: Scores user performance based on tone, objection handling, and script adherence.
+4.  **Content Knowledge Base**: Stores sales scripts, objection handlers, and product specs.
+
+### Fast-Track Methodology
+To ensure speed, the agent will use "Micro-Learning" and "Active Recall":
+1.  **Skill Assessment**: Initial diagnostic to categorize rep:
+    *   **Beginner**: Unlocks "Module 0: Foundations" (Mindset, D2D Psychology).
+    *   **Intermediate**: Skips Foundations, focuses on Solar-specifics.
+    *   **Advanced**: "Test-out" option available. Goes straight to "Advanced Closing" & "Objection Drills".
+2.  **Interactive Drills**: 5-minute rapid-fire objection handling sessions.
+3.  **Just-in-Time Knowledge**: Contextual help pops up only when rep struggles.
+
+### White-Labeling & Multi-Tenancy Architecture
+To sell this platform to different solar companies:
+1.  **Tenant Isolation**: Each company (Tenant) has a unique ID, custom branding (Logo, Colors), and private content (Battle Cards, Custom Scripts).
+2.  **Configuration Injection**: The app loads a `config.json` at startup:
+    ```json
+    {
+      "company_name": "SunPower Elite",
+      "primary_color": "#FFD700",
+      "voice_tone": "Professional",
+      "custom_script_overrides": ["path/to/script.md"]
+    }
+    ```
+
+### State-Specific Knowledge Engine
+The agent must dynamically adjust training based on the rep's jurisdiction.
+1.  **Incentive Database**: A lookup table of state regulations.
+    *   *California*: NEM 3.0 (Battery focus, export rates are low).
+    *   *New York*: VDER / Net Metering 1:1 (depending on zone).
+    *   *Texas*: Deregulated market, plan selection is key.
+2.  **Context-Aware Scripting**:
+    *   If `State == CA`, the agent changes the "Savings Pitch" to focus on *Self-Consumption* (Batteries).
+    *   If `State == NY`, the agent changes the "Savings Pitch" to focus on *Grid Credits*.
+3.  **Module 4: Regulatory Quiz**: A mandatory module for each state that tests specific knowledge (e.g., "What is the true-up period in your utility territory?").
+
+### Recommended Tools
+*   **LLM Backend**: Gemini 1.5 Pro or similar for long-context reasoning and roleplay.
+*   **Voice/Audio**: ElevenLabs (for realistic customer voices) + Whisper (for speech-to-text) to allow actual voice practice.
+*   **Frontend**: React/Next.js for a dashboard to track progress and launch training modules.
+*   **Vector Database**: Pinecone or ChromaDB for retrieving specific sales objections and answers.
+*   **Database (SQL)**: PostgreSQL (Supabase) to handle relational data (Tenants, Users, StateInstructions).
+
+## Training Modules
+
+### 1. Door-to-Door (D2D)
+*   **Focus**: rapid rapport building, body language (via video analysis if capable, or descriptive prompts), canvassing scripts.
+*   **Scenarios**: "Not interested" at the door, "Just waiting for spouse", "Solar is a scam".
+
+### 2. Over the Phone
+*   **Focus**: Tone modulation, script pacing, setting appointments.
+*   **Scenarios**: Cold calling leads, confirming appointments, re-engaging old leads.
+
+### 3. Virtual (Zoom/Video)
+*   **Focus**: Screen sharing etiquette, walking through proposals, visual selling.
+*   **Scenarios**: Full sales presentation, handling technical questions, closing the deal remotely.
+
+## Suggestions for "Wow" Features
+-   **Gamification**: Leaderboards for "fastest objection handling" or "highest closure rate" in sim.
+-   **Real-time Feedback**: Live tips popping up during a practice call (e.g., "Slow down," "You missed the tax credit benefit").
+-   **"Hell Week" Mode**: A high-intensity mode with difficult/angry customer personas to build resilience.

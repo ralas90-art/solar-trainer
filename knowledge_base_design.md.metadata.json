@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_OTHER",
+  "summary": "Design schema for the State-Specific Knowledge Engine. It covers how the agent stores and retrieves regulations (NEM 3.0, Tax Credits) and dynamic script variables for different states (CA, NY, TX, FL).",
+  "updatedAt": "2026-01-20T20:19:02.595488900Z"
+}

@@ -1,0 +1,27 @@
+# Tasks
+
+- [x] Create detailed implementation plan for Solar Sales Trainer Agent <!-- id: 0 -->
+    - [x] Define architecture and tech stack <!-- id: 1 -->
+    - [x] list necessary tools and APIs <!-- id: 2 -->
+    - [x] detailed module breakdown (Door-to-door, Phone, Virtual) <!-- id: 3 -->
+- [x] Design interactive training curriculum <!-- id: 4 -->
+- [x] Prototype basic agent structure <!-- id: 5 -->
+- [x] Design White-Label Architecture <!-- id: 6 -->
+    - [x] Tenant Configuration Schema (Branding, Custom content) <!-- id: 7 -->
+    - [x] Multi-tenant Database strategy <!-- id: 8 -->
+- [x] Design State-Specific Knowledge Engine <!-- id: 9 -->
+    - [x] Database of State Incentives (NEM 3.0, Tax Credits) <!-- id: 10 -->
+    - [x] Logic for Dynamic Script Injection based on State <!-- id: 11 --> 
+- [x] Update Prototype to support State contexts <!-- id: 12 -->
+- [x] Design Skill Assessment Module <!-- id: 13 -->
+    - [x] Define "User Levels" (Beginner/Inter/Adv) & Logic Paths <!-- id: 14 -->
+    - [x] Create content for "Foundations" (Mindset, Time Mgmt) <!-- id: 15 -->
+- [x] Implement Adaptive Curriculum in Prototype <!-- id: 16 -->
+- [ ] Phase 1: LLM & Voice Integration <!-- id: 17 -->
+    - [ ] Setup Python/FastAPI Backend <!-- id: 18 -->
+    - [ ] Integrate OpenAI/Gemini API (The Brain) <!-- id: 19 -->
+    - [ ] Integrate Voice API (The Mouth) <!-- id: 20 -->
+- [ ] Phase 2: Web Dashboard <!-- id: 21 -->
+    - [ ] Scaffold Next.js + Shadcn Project <!-- id: 22 -->
+    - [ ] Implement Tenant Login & State State <!-- id: 23 -->
+    - [ ] Build Real-time Sim Interface <!-- id: 24 -->
