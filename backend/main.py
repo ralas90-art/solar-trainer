@@ -33,7 +33,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Solar Sales Trainer API", lifespan=lifespan)
 
 # Enable CORS for Frontend
-cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000")
+cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000,https://solar-trainer.vercel.app")
 allow_origins = [origin.strip() for origin in cors_origins.split(",") if origin.strip()]
 app.add_middleware(
     CORSMiddleware,
