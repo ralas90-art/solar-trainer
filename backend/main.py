@@ -27,20 +27,35 @@ from datetime import datetime, timedelta
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    print("STARTING SERVER AND SEEDING DATABASE...")
     create_db_and_tables()
     yield
 
 app = FastAPI(title="Solar Sales Trainer API", lifespan=lifespan)
 
-# Enable CORS for Frontend
-cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000,https://solar-trainer.vercel.app")
-allow_origins = [origin.strip() for origin in cors_origins.split(",") if origin.strip()]
+# Enable CORS for Frontend - Robust Configuration
+# We allow both the main domain and common variants
+cors_origins = os.getenv("CORS_ORIGINS", "").split(",")
+allow_origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://solar-trainer.vercel.app",
+    "https://solar-trainer.vercel.app/",
+    "https://solar-trainer-git-main-ralas90-arts-projects.vercel.app", # Potential preview URL
+]
+# Merge with env origins
+for o in cors_origins:
+    if o.strip():
+        allow_origins.append(o.strip())
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allow_origins,
+    allow_origin_regex=r"https://.*\.vercel\.app|https://.*\.onrender\.com|http://localhost:.*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 # Mount audio files from project root /audio directory
@@ -52,7 +67,15 @@ service = TrainingService()
 
 @app.get("/")
 def read_root():
-    return {"status": "online", "version": "0.1"}
+    return {
+        "status": "online", 
+        "version": "0.2.3", 
+        "timestamp": datetime.now().isoformat(),
+        "cors_debug": {
+            "allowed_origins": allow_origins,
+            "regex": "https://.*.vercel.app|https://.*.onrender.com|http://localhost:*"
+        }
+    }
 
 @app.get("/tenants/{tenant_id}")
 def get_tenant(tenant_id: str):
