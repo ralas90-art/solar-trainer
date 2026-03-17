@@ -10,3 +10,6 @@ reportlab
 stripe
 psycopg2-binary
 gunicorn
+pandas
+openpyxl
+jinja2

@@ -68,7 +68,7 @@ service = TrainingService()
 def read_root():
     return {
         "status": "online", 
-        "version": "1.0.0-STABLE", 
+        "version": "1.1.0-FIX", 
         "timestamp": datetime.now().isoformat(),
         "cors_debug": {
             "allowed_origins": allow_origins,

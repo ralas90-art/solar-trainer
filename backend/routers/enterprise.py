@@ -6,6 +6,7 @@ from services.filtering import FilteringService
 from pydantic import BaseModel
 from datetime import datetime
 import os
+import tempfile
 
 router = APIRouter(prefix="/enterprise", tags=["enterprise"])
 filter_service = FilteringService()
@@ -78,8 +79,8 @@ def update_ai_results(inquiry_id: int, data: AIUpdate, session: Session = Depend
     ics = filter_service.generate_ics_content(inquiry.name, inquiry.company)
     email_body = filter_service.format_email_body(inquiry)
     
-    # Save ICS to tmp for review
-    ics_path = f"C:/Users/12132/Desktop/Antigravity Solar Sales Trainer Agent/.tmp/invite_{inquiry_id}.ics"
+    # Save ICS to tmp for review - Use cross-platform temp dir
+    ics_path = os.path.join(tempfile.gettempdir(), f"invite_{inquiry_id}.ics")
     with open(ics_path, "w") as f:
         f.write(ics)
         

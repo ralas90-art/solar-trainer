@@ -8,7 +8,8 @@ from database import get_session
 
 class FilteringService:
     def __init__(self):
-        self.excel_path = "C:/Users/12132/Desktop/Antigravity Solar Sales Trainer Agent/solar-trainer/backend/leads.xlsx"
+        # Use relative path for cross-platform compatibility
+        self.excel_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "leads.xlsx")
 
     async def score_lead(self, inquiry: EnterpriseInquiry):
         """
