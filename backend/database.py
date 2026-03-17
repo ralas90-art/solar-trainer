@@ -5,8 +5,18 @@ from sqlmodel import SQLModel, create_engine, Session, select
 database_url = os.getenv("DATABASE_URL")
 
 if database_url:
-    # Postgres Connection
-    engine = create_engine(database_url)
+    # 1. Handle Render's 'postgres://' vs 'postgresql://' requirement
+    if database_url.startswith("postgres://"):
+        database_url = database_url.replace("postgres://", "postgresql://", 1)
+    
+    # 2. Postgres Connection with pooling and timeouts to prevent hangs
+    engine = create_engine(
+        database_url,
+        pool_size=5,
+        max_overflow=10,
+        pool_timeout=30,
+        pool_recycle=1800,
+    )
 else:
     # Fallback to Local SQLite
     DB_DIR = os.path.dirname(os.path.abspath(__file__))

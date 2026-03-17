@@ -8,3 +8,5 @@ requests
 elevenlabs
 reportlab
 stripe
+psycopg2-binary
+gunicorn
