@@ -9,7 +9,8 @@ if database_url:
     engine = create_engine(database_url)
 else:
     # Fallback to Local SQLite
-    sqlite_file_name = "database.db"
+    DB_DIR = os.path.dirname(os.path.abspath(__file__))
+    sqlite_file_name = os.path.join(DB_DIR, "database.db")
     sqlite_url = f"sqlite:///{sqlite_file_name}"
     engine = create_engine(sqlite_url, connect_args={"check_same_thread": False})
 

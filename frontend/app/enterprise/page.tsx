@@ -65,26 +65,22 @@ export default function EnterprisePage() {
     }
   }
 
-  if (isSubmitted) {
-    return (
-      <div className="min-h-screen bg-[#121212] text-white flex items-center justify-center p-6">
-        <div className="max-w-md w-full text-center space-y-6 bg-white/5 border border-[#F59E0B]/30 p-12 rounded-[2.5rem] shadow-[0_0_30px_rgba(249,115,22,0.1)]">
-          <div className="mx-auto w-20 h-20 rounded-full bg-[#F59E0B]/20 flex items-center justify-center border border-[#F59E0B]/40">
-            <CheckCircle2 className="w-10 h-10 text-[#F59E0B]" />
-          </div>
-          <h1 className="text-3xl font-black tracking-tighter uppercase italic">Inquiry Received</h1>
-          <p className="text-[#94A3B8] font-light">
-            Your request has been prioritized based on your profile. A consultant will reach out via email shortly with a calendar invite.
-          </p>
-          <Link href="/pricing" className="inline-flex items-center gap-2 text-[#F97316] font-display text-sm font-black hover:gap-3 transition-all">
-            RETURN TO PRICING <ArrowRight className="w-4 h-4" />
-          </Link>
+  return isSubmitted ? (
+    <div className="min-h-screen bg-[#121212] text-white flex items-center justify-center p-6">
+      <div className="max-w-md w-full text-center space-y-6 bg-white/5 border border-[#F59E0B]/30 p-12 rounded-[2.5rem] shadow-[0_0_30px_rgba(249,115,22,0.1)]">
+        <div className="mx-auto w-20 h-20 rounded-full bg-[#F59E0B]/20 flex items-center justify-center border border-[#F59E0B]/40">
+          <CheckCircle2 className="w-10 h-10 text-[#F59E0B]" />
         </div>
+        <h1 className="text-3xl font-black tracking-tighter uppercase italic">Inquiry Received</h1>
+        <p className="text-[#94A3B8] font-light">
+          Your request has been prioritized based on your profile. A consultant will reach out via email shortly with a calendar invite.
+        </p>
+        <Link href="/pricing" className="inline-flex items-center gap-2 text-[#F97316] font-display text-sm font-black hover:gap-3 transition-all">
+          RETURN TO PRICING <ArrowRight className="w-4 h-4" />
+        </Link>
       </div>
-    )
-  }
-
-  return (
+    </div>
+  ) : (
     <div className="min-h-screen bg-[#121212] text-slate-100 font-body selection:bg-[#F97316]/30">
       {/* Background Grid Pattern */}
       <div className="fixed inset-0 pointer-events-none opacity-20" 
