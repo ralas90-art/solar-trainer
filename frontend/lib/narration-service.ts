@@ -25,6 +25,9 @@ async function tryStaticAsset(moduleId: string, sectionId: string) {
   }
 }
 
+// Tom — American, Confident & Persuasive Trainer (matches backend DEFAULT_VOICE_ID)
+const DEFAULT_VOICE_ID = "QO7Mfy7rwYLdxzo4Q3iD"
+
 async function tryGeneratedNarration(text: string, voiceId?: string) {
   try {
     const response = await fetch(`${API_URL}/speak`, {
@@ -32,7 +35,7 @@ async function tryGeneratedNarration(text: string, voiceId?: string) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         text,
-        voice_id: voiceId ?? "QO7Mfy7rwYLdxzo4Q3iD",
+        voice_id: voiceId ?? DEFAULT_VOICE_ID,
       }),
     })
     if (!response.ok) return null

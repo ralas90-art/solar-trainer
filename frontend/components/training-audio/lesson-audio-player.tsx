@@ -8,7 +8,17 @@ import { AudioLessonSection, ModuleAudioLesson } from "@/lib/training-audio"
 import { resolveNarrationSource } from "@/lib/narration-service"
 import { AudioLessonProgress, loadAudioProgress, saveAudioProgress } from "@/lib/audio-progress-storage"
 import { cn } from "@/lib/utils"
-import { ChevronUp, ChevronDown } from "lucide-react"
+import {
+  ChevronUp,
+  ChevronDown,
+  CheckCircle2,
+  PlayCircle,
+  Lock,
+  BookOpen,
+  ChevronRight,
+  Zap,
+  SkipForward,
+} from "lucide-react"
 
 type SourceMode = "static_asset" | "elevenlabs_generated" | "speech_synthesis"
 type PlayerVariant = "default" | "compact" | "mini_dock"
@@ -21,6 +31,14 @@ type AudioProgressSnapshot = {
   lessonCompleted: boolean
 }
 
+export type ModuleCatalogEntry = {
+  id: string
+  title: string
+  dayLabel: string
+  isCompleted?: boolean
+  isActive?: boolean
+}
+
 export function LessonAudioPlayer({
   moduleId,
   moduleTitle,
@@ -28,8 +46,11 @@ export function LessonAudioPlayer({
   onLessonComplete,
   onSectionChange,
   onProgressChange,
+  onModuleSelect,
+  moduleCatalog,
   variant = "default",
   className,
+  autoAdvance = false,
 }: {
   moduleId: string
   moduleTitle?: string
@@ -37,8 +58,11 @@ export function LessonAudioPlayer({
   onLessonComplete?: () => void
   onSectionChange?: (sectionId: string) => void
   onProgressChange?: (snapshot: AudioProgressSnapshot) => void
+  onModuleSelect?: (moduleId: string) => void
+  moduleCatalog?: ModuleCatalogEntry[]
   variant?: PlayerVariant
   className?: string
+  autoAdvance?: boolean
 }) {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const generatedUrlRef = useRef<string | null>(null)
@@ -58,6 +82,12 @@ export function LessonAudioPlayer({
   const [showSections, setShowSections] = useState(variant !== "compact")
   const [isExpanded, setIsExpanded] = useState(false)
   const [playbackRate, setPlaybackRate] = useState(1)
+  // Seamless = auto-play the next section without pausing
+  const [seamlessMode, setSeamlessMode] = useState(true)
+  // Module switcher tab in expanded dock
+  const [expandedTab, setExpandedTab] = useState<"now_playing" | "curriculum">("now_playing")
+  // Expanded day groups in curriculum tab
+  const [expandedDays, setExpandedDays] = useState<Record<string, boolean>>({})
 
   const sectionIndex = Math.max(0, lesson.sections.findIndex((section) => section.id === activeSectionId))
   const activeSection = lesson.sections[sectionIndex] ?? lesson.sections[0]
@@ -76,6 +106,27 @@ export function LessonAudioPlayer({
     const currentPart = (sectionElapsedSec / Math.max(sectionDurationSec, 1)) * (100 / lesson.sections.length)
     return Math.max(0, Math.min(100, completedPart + currentPart))
   }, [lesson.sections.length, completedCount, sectionElapsedSec, sectionDurationSec])
+
+  // Group moduleCatalog by day for the curriculum tab
+  const groupedCatalog = useMemo(() => {
+    if (!moduleCatalog) return {}
+    const groups: Record<string, ModuleCatalogEntry[]> = {}
+    for (const mod of moduleCatalog) {
+      const day = mod.dayLabel || "General"
+      if (!groups[day]) groups[day] = []
+      groups[day].push(mod)
+    }
+    return groups
+  }, [moduleCatalog])
+
+  // Auto-expand the active module's day in curriculum tab
+  useEffect(() => {
+    if (!moduleCatalog) return
+    const activeMod = moduleCatalog.find((m) => m.isActive)
+    if (activeMod?.dayLabel) {
+      setExpandedDays((prev) => ({ ...prev, [activeMod.dayLabel]: true }))
+    }
+  }, [moduleCatalog])
 
   const persistProgress = (
     partial?: Partial<AudioLessonProgress>,
@@ -124,7 +175,8 @@ export function LessonAudioPlayer({
       setActiveSectionId(nextSection.id)
       setSectionElapsedSec(0)
       setResumeTimeSec(0)
-      void loadSectionAudio(nextSection, 0)
+      // seamlessMode = auto-play after loading
+      void loadSectionAudio(nextSection, 0, seamlessMode)
     } else {
       setIsPlaying(false)
       if (onLessonComplete) onLessonComplete()
@@ -181,7 +233,7 @@ export function LessonAudioPlayer({
     }, 1000)
   }
 
-  const loadSectionAudio = async (section: AudioLessonSection, resumeFromSec = 0) => {
+  const loadSectionAudio = async (section: AudioLessonSection, resumeFromSec = 0, autoPlay = false) => {
     stopAllPlayback()
     setIsLoadingAudio(true)
     setAudioError(null)
@@ -215,6 +267,16 @@ export function LessonAudioPlayer({
     }
 
     setIsLoadingAudio(false)
+
+    // Seamless auto-play: start playing immediately after loading
+    if (autoPlay && source.src && audioRef.current) {
+      audioRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => setAudioError("Audio playback was blocked. Press Play to continue."))
+    } else if (autoPlay && source.mode === "speech_synthesis") {
+      startTtsPlayback()
+    }
   }
 
   const handlePlayPause = () => {
@@ -294,7 +356,6 @@ export function LessonAudioPlayer({
   }
 
   useEffect(() => {
-    // Reset transient layout state when module changes
     setShowSections(variant !== "compact")
     setIsExpanded(false)
     setAudioError(null)
@@ -401,6 +462,92 @@ export function LessonAudioPlayer({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // ─── Curriculum Tab (in expanded dock) ───────────────────────────────────────
+  const renderCurriculumTab = () => {
+    if (!moduleCatalog || moduleCatalog.length === 0) {
+      return (
+        <p className="text-sm text-[#94A3B8] py-4 text-center">
+          No curriculum data available.
+        </p>
+      )
+    }
+
+    return (
+      <div className="space-y-2">
+        {Object.entries(groupedCatalog).map(([dayLabel, mods]) => {
+          const isExpDay = expandedDays[dayLabel]
+          const dayCompleted = mods.every((m) => m.isCompleted)
+
+          return (
+            <div key={dayLabel} className="space-y-0.5">
+              <button
+                type="button"
+                onClick={() => setExpandedDays((prev) => ({ ...prev, [dayLabel]: !prev[dayLabel] }))}
+                className="w-full flex items-center justify-between px-2 py-1.5 rounded-lg hover:bg-white/5 transition-colors text-left"
+              >
+                <div className="flex items-center gap-2">
+                  {isExpDay ? (
+                    <ChevronDown className="w-3.5 h-3.5 text-[#94A3B8]" />
+                  ) : (
+                    <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8]" />
+                  )}
+                  <span className={cn("text-xs font-medium", dayCompleted ? "text-[#94A3B8]" : "text-white")}>
+                    {dayLabel}
+                  </span>
+                </div>
+                {dayCompleted && <CheckCircle2 className="w-3 h-3 text-[#FFB300]" />}
+              </button>
+
+              {isExpDay && (
+                <div className="pl-5 border-l border-white/10 ml-3 space-y-0.5">
+                  {mods.map((mod) => {
+                    const isActive = mod.isActive
+                    const isCompleted = mod.isCompleted
+                    // Modules are never "locked" - always navigable for review
+                    return (
+                      <button
+                        key={mod.id}
+                        type="button"
+                        onClick={() => {
+                          if (onModuleSelect) {
+                            onModuleSelect(mod.id)
+                            setIsExpanded(false)
+                          }
+                        }}
+                        disabled={!onModuleSelect}
+                        className={cn(
+                          "w-full flex items-start gap-2 px-2 py-1.5 rounded-lg text-left text-xs transition-all",
+                          isActive
+                            ? "bg-[rgba(255,87,34,0.12)] border border-[#FF5722]/30 text-white"
+                            : isCompleted
+                            ? "hover:bg-white/5 text-[#94A3B8] hover:text-white"
+                            : "hover:bg-white/5 text-[#64748B] hover:text-[#94A3B8]"
+                        )}
+                      >
+                        <div className="mt-0.5 shrink-0">
+                          {isCompleted ? (
+                            <CheckCircle2 className={cn("w-3 h-3", isActive ? "text-[#FFB300]" : "text-[#FFB300]/60")} />
+                          ) : isActive ? (
+                            <PlayCircle className="w-3 h-3 text-[#FF5722]" />
+                          ) : (
+                            <div className="w-3 h-3 rounded-full border border-[#64748B]/40" />
+                          )}
+                        </div>
+                        <span className={cn("line-clamp-2 leading-snug", isActive && "font-medium")}>
+                          {mod.title.replace(/^Module\s+\d+(\.\d+)?:\s*/i, "")}
+                        </span>
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
+
   const renderMainPlayer = () => (
     <section
       className={cn(
@@ -465,6 +612,20 @@ export function LessonAudioPlayer({
             Retry Audio
           </button>
         ) : null}
+        {/* Seamless toggle */}
+        <button
+          type="button"
+          onClick={() => setSeamlessMode((prev) => !prev)}
+          className={cn(
+            "flex items-center gap-1.5 rounded-xl border px-4 py-2 text-sm transition-colors",
+            seamlessMode
+              ? "border-[#FF5722]/30 bg-[#FF5722]/10 text-[#FFD54F]"
+              : "border-white/10 bg-white/5 text-[#94A3B8]"
+          )}
+        >
+          <Zap className="w-3.5 h-3.5" />
+          {seamlessMode ? "Seamless On" : "Seamless Off"}
+        </button>
       </div>
 
       {showSections ? (
@@ -480,7 +641,7 @@ export function LessonAudioPlayer({
 
   const renderMiniDockPlayer = () => (
     <>
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#FF5722]/20 bg-[rgba(18,18,18,0.95)] px-3 py-2 backdrop-blur-md sm:px-4">
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#FF5722]/20 bg-[rgba(18,18,18,0.97)] px-3 py-2 backdrop-blur-md sm:px-4">
         <div className="mx-auto max-w-5xl space-y-2">
           <div className="flex items-center gap-2 justify-between">
             <div className="flex items-center gap-2">
@@ -492,18 +653,42 @@ export function LessonAudioPlayer({
               >
                 {isPlaying ? "Pause" : "Play"}
               </button>
+              {/* Seamless toggle — compact */}
+              <button
+                type="button"
+                onClick={() => setSeamlessMode((prev) => !prev)}
+                title={seamlessMode ? "Seamless mode on — sections play continuously" : "Seamless mode off — pauses between sections"}
+                className={cn(
+                  "hidden sm:flex items-center gap-1 rounded-lg border px-2.5 py-2 text-xs transition-colors",
+                  seamlessMode
+                    ? "border-[#FF5722]/30 bg-[#FF5722]/10 text-[#FFD54F]"
+                    : "border-white/10 bg-white/5 text-[#94A3B8]"
+                )}
+              >
+                <Zap className="w-3 h-3" />
+                {seamlessMode ? "Seamless" : "Manual"}
+              </button>
             </div>
-            
+
             {/* Centered Module Title */}
-            <div className="hidden sm:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+            <div className="hidden sm:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
               <p className="font-display font-bold text-white tracking-wide truncate max-w-xs">{moduleTitle ?? "Lesson Audio"}</p>
               <p className="text-[10px] text-[#FFD54F] font-hud uppercase tracking-widest">{activeSection?.title ?? "Section"}</p>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <div className="text-right hidden sm:block">
                 <p className="text-xs text-[#94A3B8]">{Math.round(overallProgress)}% complete</p>
               </div>
+              {/* Skip to next section */}
+              <button
+                type="button"
+                onClick={() => stepSection(1)}
+                title="Skip to next section"
+                className="inline-flex min-h-[42px] items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-2.5 text-xs text-[#CBD5E1]"
+              >
+                <SkipForward className="h-3.5 w-3.5" />
+              </button>
               <button
                 type="button"
                 onClick={() => setIsExpanded((prev) => !prev)}
@@ -526,18 +711,35 @@ export function LessonAudioPlayer({
             className="glass-circuit hud-border mx-auto w-full max-w-5xl rounded-t-2xl p-4 sm:p-5 md:max-w-3xl lg:max-w-4xl"
             onClick={(event) => event.stopPropagation()}
           >
+            {/* Header row */}
             <div className="mb-3 flex items-start justify-between gap-3">
               <div>
                 <p className="font-display text-lg font-black text-white">Lesson Audio</p>
                 <p className="text-xs text-[#94A3B8]">{activeSection?.title ?? "Section"}</p>
               </div>
-              <button
-                type="button"
-                onClick={() => setIsExpanded(false)}
-                className="rounded-lg border border-white/10 bg-white/5 px-3 py-1 text-xs text-[#CBD5E1]"
-              >
-                Close
-              </button>
+              <div className="flex items-center gap-2">
+                {/* Seamless toggle */}
+                <button
+                  type="button"
+                  onClick={() => setSeamlessMode((prev) => !prev)}
+                  className={cn(
+                    "flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs transition-colors",
+                    seamlessMode
+                      ? "border-[#FF5722]/30 bg-[#FF5722]/10 text-[#FFD54F]"
+                      : "border-white/10 bg-white/5 text-[#94A3B8]"
+                  )}
+                >
+                  <Zap className="w-3 h-3" />
+                  {seamlessMode ? "Seamless On" : "Seamless Off"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsExpanded(false)}
+                  className="rounded-lg border border-white/10 bg-white/5 px-3 py-1 text-xs text-[#CBD5E1]"
+                >
+                  Close
+                </button>
+              </div>
             </div>
 
             <NarrationStatusCard
@@ -608,13 +810,49 @@ export function LessonAudioPlayer({
               </select>
             </div>
 
-            <div className="mt-3 max-h-[34vh] overflow-y-auto pr-1">
-              <AudioSectionList
-                sections={lesson.sections}
-                activeSectionId={activeSectionId}
-                completedSections={completedSections}
-                onSelectSection={handleSelectSection}
-              />
+            {/* Tabs: Now Playing / Curriculum */}
+            <div className="mt-4 flex gap-2 border-b border-white/10 pb-0">
+              <button
+                type="button"
+                onClick={() => setExpandedTab("now_playing")}
+                className={cn(
+                  "flex items-center gap-1.5 px-3 py-2 text-xs font-medium border-b-2 -mb-px transition-colors",
+                  expandedTab === "now_playing"
+                    ? "border-[#FF5722] text-white"
+                    : "border-transparent text-[#94A3B8] hover:text-white"
+                )}
+              >
+                <PlayCircle className="w-3.5 h-3.5" />
+                Now Playing
+              </button>
+              {moduleCatalog && moduleCatalog.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setExpandedTab("curriculum")}
+                  className={cn(
+                    "flex items-center gap-1.5 px-3 py-2 text-xs font-medium border-b-2 -mb-px transition-colors",
+                    expandedTab === "curriculum"
+                      ? "border-[#FF5722] text-white"
+                      : "border-transparent text-[#94A3B8] hover:text-white"
+                  )}
+                >
+                  <BookOpen className="w-3.5 h-3.5" />
+                  Curriculum
+                </button>
+              )}
+            </div>
+
+            <div className="mt-3 max-h-[30vh] overflow-y-auto pr-1">
+              {expandedTab === "now_playing" ? (
+                <AudioSectionList
+                  sections={lesson.sections}
+                  activeSectionId={activeSectionId}
+                  completedSections={completedSections}
+                  onSelectSection={handleSelectSection}
+                />
+              ) : (
+                renderCurriculumTab()
+              )}
             </div>
           </div>
         </div>

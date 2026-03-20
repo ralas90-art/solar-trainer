@@ -4,7 +4,7 @@ import dynamic from "next/dynamic"
 import Link from "next/link"
 import { useEffect, useMemo, useState } from "react"
 import { StartSimulationButton, TrainingModuleHeader } from "@/components/platform/training-module-components"
-import { LessonAudioPlayer } from "@/components/training-audio/lesson-audio-player"
+import { LessonAudioPlayer, ModuleCatalogEntry } from "@/components/training-audio/lesson-audio-player"
 import { QuizModule } from "@/components/quiz"
 import { WorkbookPromptBlock } from "@/components/workbook-prompt"
 import { AudioLessonProgress, loadAudioProgress } from "@/lib/audio-progress-storage"
@@ -15,6 +15,8 @@ import {
 } from "@/lib/training-module-progress"
 import { buildModuleAudioLesson } from "@/lib/training-audio"
 import { SLIDE_START_PAGES, WHITE_LABEL } from "@/lib/white-label.config"
+import { SkipForward, Zap } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 const PdfSlideViewer = dynamic(
   () => import("@/components/pdf-slide-viewer").then((m) => ({ default: m.PdfSlideViewer })),
@@ -30,9 +32,13 @@ type WorkbookSummary = {
 export function GuidedModuleExperience({
   moduleView,
   simulationHref,
+  moduleCatalog,
+  onModuleSelect,
 }: {
   moduleView: TrainingModuleView
   simulationHref: string
+  moduleCatalog?: ModuleCatalogEntry[]
+  onModuleSelect?: (moduleId: string) => void
 }) {
   const [activeAudioSectionId, setActiveAudioSectionId] = useState("")
   const [audioProgress, setAudioProgress] = useState(0)
@@ -44,6 +50,9 @@ export function GuidedModuleExperience({
   const [coachingNotes, setCoachingNotes] = useState("")
   const [coachingSaved, setCoachingSaved] = useState(false)
   const [simulationComplete, setSimulationComplete] = useState(false)
+  // Auto-advance to next module after audio completes
+  const [autoNextModule, setAutoNextModule] = useState(false)
+  const [autoNextCountdown, setAutoNextCountdown] = useState<number | null>(null)
 
   const lesson = useMemo(() => buildModuleAudioLesson(moduleView), [moduleView])
 
@@ -110,7 +119,28 @@ export function GuidedModuleExperience({
   const handleAudioComplete = () => {
     setAudioComplete(true)
     updateTrainingModuleProgress(moduleView.id, { audioCompleted: true })
+
+    // Auto-next module: start countdown if enabled and next module exists
+    if (autoNextModule && moduleView.nextModuleId && onModuleSelect) {
+      setAutoNextCountdown(5)
+    }
   }
+
+  // Countdown timer for auto-next module
+  useEffect(() => {
+    if (autoNextCountdown === null) return
+    if (autoNextCountdown <= 0) {
+      if (moduleView.nextModuleId && onModuleSelect) {
+        onModuleSelect(moduleView.nextModuleId)
+      }
+      setAutoNextCountdown(null)
+      return
+    }
+    const t = window.setTimeout(() => setAutoNextCountdown((prev) => (prev !== null ? prev - 1 : null)), 1000)
+    return () => window.clearTimeout(t)
+  }, [autoNextCountdown, moduleView.nextModuleId, onModuleSelect])
+
+  const cancelAutoNext = () => setAutoNextCountdown(null)
 
   const handleQuizComplete = () => {
     setQuizComplete(true)
@@ -157,6 +187,52 @@ export function GuidedModuleExperience({
         simulationComplete={simulationComplete}
       />
 
+      {/* Auto-next countdown banner */}
+      {autoNextCountdown !== null && moduleView.nextModuleId && (
+        <div className="flex items-center justify-between gap-3 rounded-2xl border border-[#FF5722]/25 bg-[#FF5722]/10 px-4 py-3">
+          <div className="flex items-center gap-2 text-sm text-[#FFD54F]">
+            <SkipForward className="h-4 w-4 shrink-0" />
+            <span>
+              Advancing to{" "}
+              <span className="font-semibold">{moduleView.nextModuleTitle ?? "next module"}</span>{" "}
+              in <span className="font-bold tabular-nums">{autoNextCountdown}s</span>…
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={cancelAutoNext}
+            className="rounded-lg border border-white/10 bg-white/10 px-3 py-1 text-xs text-[#CBD5E1] hover:bg-white/20 transition-colors"
+          >
+            Cancel
+          </button>
+        </div>
+      )}
+
+      {/* Auto-next toggle */}
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={() => {
+            setAutoNextModule((prev) => !prev)
+            cancelAutoNext()
+          }}
+          className={cn(
+            "flex items-center gap-2 rounded-xl border px-4 py-2 text-sm transition-colors",
+            autoNextModule
+              ? "border-[#FF5722]/30 bg-[#FF5722]/10 text-[#FFD54F]"
+              : "border-white/10 bg-white/5 text-[#94A3B8]"
+          )}
+        >
+          <Zap className="w-3.5 h-3.5" />
+          {autoNextModule ? "Auto-Next Module: On" : "Auto-Next Module: Off"}
+        </button>
+        <p className="hidden sm:block text-xs text-[#64748B]">
+          {autoNextModule
+            ? "Will auto-advance to the next module when audio ends."
+            : "Will pause at end of module audio."}
+        </p>
+      </div>
+
       <LessonAudioPlayer
         moduleId={moduleView.id}
         moduleTitle={moduleView.title}
@@ -165,6 +241,8 @@ export function GuidedModuleExperience({
         onLessonComplete={handleAudioComplete}
         onSectionChange={setActiveAudioSectionId}
         onProgressChange={handleAudioProgressChange}
+        onModuleSelect={onModuleSelect}
+        moduleCatalog={moduleCatalog}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -314,9 +392,13 @@ export function GuidedModuleExperience({
             Lesson, quiz, simulation, and coaching feedback are complete.
           </p>
           {moduleView.nextModuleId ? (
-            <Link href={`/my-training/${moduleView.nextModuleId}`} className="btn-solar inline-flex px-4 py-2 text-sm">
+            <button
+              type="button"
+              onClick={() => onModuleSelect && onModuleSelect(moduleView.nextModuleId!)}
+              className="btn-solar inline-flex px-4 py-2 text-sm"
+            >
               Continue to {moduleView.nextModuleTitle ?? `Module ${moduleView.nextModuleId}`}
-            </Link>
+            </button>
           ) : (
             <p className="text-sm text-[#FFE6B3]">You have completed the final module in the current curriculum order.</p>
           )}
