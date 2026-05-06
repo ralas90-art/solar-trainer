@@ -90,8 +90,11 @@ export const DAY_MODULES: DayInfo[] = [
             { id: "mod_1_3", moduleNumber: "1.3", title: "Company Culture & Expectations", duration: "20 min", type: "content" },
             { id: "mod_1_4", moduleNumber: "1.4", title: "Solar Industry Overview", duration: "20 min", type: "quiz" },
             { id: "mod_1_5", moduleNumber: "1.5", title: "Solar Technology Fundamentals", duration: "25 min", type: "quiz" },
+            { id: "mod_1_5a", moduleNumber: "1.5A", title: "Utility Bills & Net Metering", duration: "45 min", type: "content" },
+            { id: "mod_1_5b", moduleNumber: "1.5B", title: "Solar Financial Structures", duration: "40 min", type: "content" },
             { id: "mod_1_6", moduleNumber: "1.6", title: "Identity Shift — Consultant vs Salesperson", duration: "20 min", type: "activity" },
             { id: "mod_1_7", moduleNumber: "1.7", title: "Utility Bill Mastery", duration: "25 min", type: "quiz" },
+            { id: "mod_1_7a", moduleNumber: "1.7A", title: "Basic Site Engineering Awareness", duration: "45 min", type: "content" },
             { id: "mod_1_8", moduleNumber: "1.8", title: "Day 1 Wrap-Up & Preview", duration: "15 min", type: "content" }
         ],
         deliverables: ["Commitment agreement signed", "All paperwork + CRM login confirmed", "Expectations document signed", "Industry quiz 80%+", "Technology quiz 80%+", "Integrity Pledge signed", "Bill reading quiz 80%+"],
@@ -142,6 +145,8 @@ export const DAY_MODULES: DayInfo[] = [
             { id: "mod_3_5", moduleNumber: "3.5", title: "Spouse & Decision-Maker Dynamics", duration: "20 min", type: "content" },
             { id: "mod_3_6", moduleNumber: "3.6", title: "Roof & Site Assessment", duration: "25 min", type: "activity" },
             { id: "mod_3_7", moduleNumber: "3.7", title: "Disqualification Mastery", duration: "20 min", type: "content" },
+            { id: "mod_3_7a", moduleNumber: "3.7A", title: "Technical Discovery Questions", duration: "45 min", type: "content" },
+            { id: "mod_3_7b", moduleNumber: "3.7B", title: "Site Survey Prep for Reps", duration: "45 min", type: "content" },
             { id: "mod_3_8", moduleNumber: "3.8", title: "Day 3 Full Discovery Simulation", duration: "40 min", type: "simulation", hasSimulation: true }
         ],
         deliverables: ["Seating strategy diagram drawn", "BOLT cheat sheet created", "5 calibrated questions written", "Personal 12-question discovery script", "Spouse dynamics checklist", "Site qualification checklist", "Disqualification criteria written", "Simulation feedback form received"],
@@ -161,9 +166,13 @@ export const DAY_MODULES: DayInfo[] = [
         ],
         modules: [
             { id: "mod_4_1", moduleNumber: "4.1", title: "Utility Bill Deep Dive — Advanced Analysis", duration: "25 min", type: "activity", hasSimulation: true },
+            { id: "mod_4_1a", moduleNumber: "4.1A", title: "Time-of-Use Rates & Utility Tariff Strategy", duration: "30 min", type: "content" },
             { id: "mod_4_2", moduleNumber: "4.2", title: "Financing Deep Dive", duration: "35 min", type: "content" },
+            { id: "mod_4_2a", moduleNumber: "4.2A", title: "Incentive Strategy & Compliance", duration: "30 min", type: "content" },
+            { id: "mod_4_2b", moduleNumber: "4.2B", title: "Cash vs. Loan vs. PPA vs. Lease Economics", duration: "30 min", type: "content" },
             { id: "mod_4_3", moduleNumber: "4.3", title: "The Value Stack — Beyond Money", duration: "20 min", type: "content" },
             { id: "mod_4_4", moduleNumber: "4.4", title: "Net Metering & Battery Reality", duration: "25 min", type: "content" },
+            { id: "mod_4_4a", moduleNumber: "4.4A", title: "NEM 3.0 & Battery Sales Logic", duration: "30 min", type: "content" },
             { id: "mod_4_5", moduleNumber: "4.5", title: "System Design & Production Estimates", duration: "20 min", type: "content" },
             { id: "mod_4_6", moduleNumber: "4.6", title: "The 6-Phase Presentation Flow", duration: "30 min", type: "activity", hasSimulation: true },
             { id: "mod_4_7", moduleNumber: "4.7", title: "Handling Financial Objections", duration: "25 min", type: "activity" },
@@ -190,6 +199,10 @@ export const DAY_MODULES: DayInfo[] = [
             { id: "mod_5_3", moduleNumber: "5.3", title: "Advanced Objection Techniques", duration: "25 min", type: "content" },
             { id: "mod_5_4", moduleNumber: "5.4", title: "Closing Frameworks", duration: "30 min", type: "activity" },
             { id: "mod_5_5", moduleNumber: "5.5", title: "Contract Walk-Through & Transparency", duration: "20 min", type: "content" },
+            { id: "mod_5_5a", moduleNumber: "5.5A", title: "The Post-Sale Project Lifecycle", duration: "30 min", type: "content" },
+            { id: "mod_5_5b", moduleNumber: "5.5B", title: "Common Installation Pipeline Issues", duration: "25 min", type: "content" },
+            { id: "mod_5_5c", moduleNumber: "5.5C", title: "Troubleshooting & Escalation Paths", duration: "25 min", type: "content" },
+            { id: "mod_5_5d", moduleNumber: "5.5D", title: "Save-the-Deal Communication", duration: "25 min", type: "content" },
             { id: "mod_5_6", moduleNumber: "5.6", title: "Cancellation Prevention Strategies", duration: "25 min", type: "content", hasSimulation: true },
             { id: "mod_5_7", moduleNumber: "5.7", title: "Day 5 Full Objection & Close Simulation", duration: "35 min", type: "simulation" },
             { id: "mod_5_8", moduleNumber: "5.8", title: "Day 5 Wrap-Up", duration: "10 min", type: "content" }
@@ -211,9 +224,13 @@ export const DAY_MODULES: DayInfo[] = [
         ],
         modules: [
             { id: "mod_6_1", moduleNumber: "6.1", title: "The Referral Engine — Building Passive Pipeline", duration: "25 min", type: "content", hasSimulation: true },
+            { id: "mod_6_1a", moduleNumber: "6.1A", title: "Referral System Architecture", duration: "30 min", type: "content" },
             { id: "mod_6_2", moduleNumber: "6.2", title: "Review & Social Proof Strategy", duration: "20 min", type: "activity" },
+            { id: "mod_6_2a", moduleNumber: "6.2A", title: "Review Generation & Social Proof Systems", duration: "25 min", type: "content" },
             { id: "mod_6_3", moduleNumber: "6.3", title: "Orphan Owner Strategy", duration: "20 min", type: "activity" },
+            { id: "mod_6_3a", moduleNumber: "6.3A", title: "Orphan Owner Reactivation Playbook", duration: "25 min", type: "content" },
             { id: "mod_6_4", moduleNumber: "6.4", title: "Performance Dashboard & KPI Discipline", duration: "25 min", type: "activity" },
+            { id: "mod_6_4a", moduleNumber: "6.4A", title: "KPI Mastery & Self-Coaching System", duration: "25 min", type: "content" },
             { id: "mod_6_5", moduleNumber: "6.5", title: "Project Lifecycle Management", duration: "25 min", type: "content", hasSimulation: true },
             { id: "mod_6_6", moduleNumber: "6.6", title: "Professional Reputation & Long-Term Ethics", duration: "20 min", type: "content" },
             { id: "mod_6_7", moduleNumber: "6.7", title: "Career Path & Income Scaling", duration: "20 min", type: "activity" },
@@ -2496,6 +2513,1756 @@ export const MODULE_SCENARIOS: Record<string, string[]> = {
     "mod_6_1": ["post_install_patricia"],
     "mod_6_5": ["rodriguez_family"],
 }
+
+
+    // ─── MODULE 1.5A — Utility Bills & Net Metering ─────────────────────────────
+    "mod_1_5a": {
+        id: "mod_1_5a",
+        title: "Module 1.5A: Utility Bills & Net Metering",
+        subtitle: "Understand how homeowners are billed and how solar changes the equation.",
+        sections: [
+            {
+                title: "The Financial Foundation",
+                type: "text",
+                content: "Understanding how homeowners are currently billed — and exactly how solar changes that equation — is the financial foundation of every solar pitch. If a rep cannot confidently explain how a utility bill works, they cannot credibly explain why solar is a better financial alternative."
+            },
+            {
+                title: "Learning Objectives",
+                type: "list",
+                content: "By the end of this module, you will be able to:",
+                items: [
+                    "Fluently identify the key components of a utility bill: rate plan, tiered vs. Time-of-Use structure, delivery vs. supply charges, and total kWh usage.",
+                    "Identify peak and off-peak hours visually and explain their financial impact to a homeowner.",
+                    "Explain the core concept of Net Energy Metering (NEM) in plain, non-jargon language.",
+                    "Differentiate between 1:1 net metering and partial/avoided-cost net metering.",
+                    "Identify when a homeowner's current utility rate makes them an exceptionally good or poor candidate for solar."
+                ]
+            },
+            {
+                title: "Section 1: The Anatomy of a Utility Bill",
+                type: "text",
+                content: "The homeowner's utility bill is the 'before' picture. You cannot sell the 'after' if you don't understand the 'before.'\n\nKey Components to Always Locate:\n1. Total kWh Usage (monthly and annual if available)\n2. The Rate Plan (e.g., Tiered, Time-of-Use)\n3. The Total Amount Due\n4. Delivery vs. Generation/Supply charges (in deregulated markets)\n\nNever ask the homeowner to interpret their own bill. The rep should glance at the bill and quickly identify these four things. Taking a bill and looking confused destroys credibility instantly."
+            },
+            {
+                title: "Section 2: Tiered vs. Time-of-Use (TOU) Rates",
+                type: "text",
+                content: "Tiered Pricing: The more you use, the more you pay per unit.\n- Baseline tier: Cheapest power (e.g., first 500 kWh)\n- Tier 2/3: More expensive power (e.g., 501+ kWh)\n- The pitch: 'Solar shaves off those expensive top tiers first. We're replacing your most expensive power with cheaper solar power.'\n\nTime-of-Use (TOU) Pricing: When you use power matters just as much as how much you use.\n- Peak hours (e.g., 4 PM–9 PM): Most expensive power.\n- Off-peak hours (e.g., 9 PM–4 PM): Cheaper power.\n- The pitch: 'The utility charges you the most when your family is home and needs power the most. Solar — especially with a battery — lets you avoid buying power during those peak hours.'"
+            },
+            {
+                title: "Section 3: Net Energy Metering (NEM) Explained",
+                type: "text",
+                content: "Net metering is the financial mechanism that makes solar viable for grid-tied homes.\n\nThe simple explanation:\n'Think of the utility grid like a bank account for your power. During the day, your panels produce more power than your house uses. That extra power is sent to the grid, and the utility gives you a credit for it. At night, when your panels aren't producing, you pull power back from the grid, using those credits. Net metering is just the math of your deposits minus your withdrawals.'"
+            },
+            {
+                title: "Section 4: The True-Up Bill",
+                type: "list",
+                content: "Key points about annual true-up billing:",
+                items: [
+                    "Annual billing cycle vs. monthly billing cycle.",
+                    "The True-Up is the annual reconciliation of what was produced vs. what was consumed.",
+                    "Setting expectations: A solar bill doesn't usually look like zero every month. There are usually base connection fees ($10–$20/mo) that cannot be offset."
+                ]
+            },
+            {
+                title: "Module 1.5A Slide Deck",
+                type: "slides",
+                content: "Slide deck for Utility Bills & Net Metering",
+                slides: [
+                    { title: "Utility Bills & Net Metering: The Financial Foundation", content: "Introduce the importance of understanding the 'before' picture.", image: "/images/utility_bill_breakdown.png" },
+                    { title: "The Anatomy of a Utility Bill", content: "Highlight the 4 key components: Usage, Rate Plan, Total Due, Delivery vs. Supply." },
+                    { title: "Tiered vs. Time-of-Use (TOU)", content: "Compare the two primary rate structures. Discuss peak vs. off-peak.", image: "/images/tou_rate_chart.png" },
+                    { title: "Net Energy Metering (NEM)", content: "Explain NEM using the bank account analogy: credits and debits.", image: "/images/net_metering_flow.png" },
+                    { title: "1:1 vs. Partial Credit NEM", content: "Explain regional differences in net metering policies." },
+                    { title: "The True-Up Bill", content: "Explain annual reconciliation and non-bypassable base connection charges." }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_1_5a_1",
+                type: "open_response",
+                label: "Review the sample utility bill. Identify the Total kWh usage, the Rate Plan (Tiered or TOU), and the Total base/connection fee.",
+                placeholder: "kWh usage: __ | Rate Plan: __ | Base fee: __",
+                lines: 2
+            },
+            {
+                id: "wb_1_5a_2",
+                type: "open_response",
+                label: "In your own words, summarize Net Energy Metering (NEM) as if explaining it to a homeowner who has never heard the term.",
+                placeholder: "Think of the utility grid like...",
+                lines: 4
+            },
+            {
+                id: "wb_1_5a_3",
+                type: "open_response",
+                label: "A homeowner is on a heavily Tiered plan (Tier 1: 15¢, Tier 2: 28¢, Tier 3: 45¢). How do you explain the financial benefit of solar to them?",
+                placeholder: "Your pitch...",
+                lines: 4
+            }
+        ],
+        quiz: {
+            title: "Module 1.5A Knowledge Check",
+            questions: [
+                {
+                    id: "kc_1_5a_1",
+                    question: "If a homeowner is on a Time-of-Use (TOU) plan, when is their power generally the most expensive?",
+                    options: ["Overnight", "Mid-Day", "Late Afternoon / Evening (e.g., 4 PM to 9 PM)", "Early Morning"],
+                    correctAnswerIndex: 2,
+                    explanation: "Peak hours on TOU plans are typically late afternoon and evening when grid demand is highest."
+                },
+                {
+                    id: "kc_1_5a_2",
+                    question: "What is a True-Up bill?",
+                    options: [
+                        "A monthly fee for being connected to the grid.",
+                        "An annual billing cycle where the utility reconciles total solar production against total grid consumption.",
+                        "A penalty fee for producing too much solar energy.",
+                        "The bill received on the anniversary of the home purchase."
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "The True-Up is the annual reconciliation — the math of all your credits versus all your usage for the year."
+                }
+            ]
+        }
+    },
+
+    // ─── MODULE 1.5B — Solar Financial Structures ────────────────────────────────
+    "mod_1_5b": {
+        id: "mod_1_5b",
+        title: "Module 1.5B: Solar Financial Structures",
+        subtitle: "Match the right financial vehicle to the homeowner's situation and goals.",
+        sections: [
+            {
+                title: "Solar Is Not One-Size-Fits-All",
+                type: "text",
+                content: "Solar is not a one-size-fits-all financial product. This module trains reps on the primary ways a homeowner can pay for solar: Cash, Loan, and Third-Party Ownership (Lease/PPA). The goal is not to bias the rep toward one specific product, but to teach them how to match the right financial vehicle to the homeowner's specific financial situation and goals."
+            },
+            {
+                title: "Learning Objectives",
+                type: "list",
+                content: "By the end of this module, you will be able to:",
+                items: [
+                    "Explain the core mechanics of a Cash purchase, Solar Loan, Solar Lease, and Power Purchase Agreement (PPA).",
+                    "Identify the ideal homeowner profile for each financial product.",
+                    "Explain the Federal Solar Investment Tax Credit (ITC) accurately, without giving illegal tax advice.",
+                    "Understand the difference between dealer fees and the cash price of a system.",
+                    "Position the 'Swap Your Bill' concept effectively."
+                ]
+            },
+            {
+                title: "Section 1: The Swap Your Bill Concept",
+                type: "text",
+                content: "The fundamental premise of most solar financing:\n'Right now, you are renting your power from the utility company. It's an indefinite lease with an escalator built in, and you'll never own it. Solar allows you to swap that unpredictable utility bill for a fixed, predictable payment that actually has an end date.'\n\nIf the solar monthly payment is lower than (or equal to) their average utility bill, they are saving money from day one."
+            },
+            {
+                title: "Section 2: The Federal Investment Tax Credit (ITC)",
+                type: "text",
+                content: "What it is: A federal tax credit (currently 30% under the IRA) for a percentage of the total solar system cost.\n\nCRITICAL COMPLIANCE: Sales reps are NOT CPAs. You cannot guarantee a homeowner will receive the credit or tell them how to file it. You MUST use phrasing like:\n- 'Depending on your tax liability, you may be eligible to claim 30% of the system cost...'\n- 'I always recommend running this past your CPA or tax professional...'\n\nHow it affects loans: Many solar loans are built around an 18-month re-amortization period. If the homeowner applies the full tax credit amount to the loan within 18 months, their monthly payment stays low. If they keep the tax credit cash, their monthly payment adjusts upward."
+            },
+            {
+                title: "Section 3: Product Matchmaking",
+                type: "text",
+                content: "Cash Purchase:\n- Best for: Homeowners with liquidity, looking for maximum long-term ROI. They keep the ITC.\n\nSolar Loan:\n- Best for: Homeowners who want ownership and the ITC, but want to leverage financing to achieve a Day-1 low monthly payment.\n- Keep in mind: Dealer fees mean the financed price is higher than the cash price.\n\nLease/PPA (Third-Party Ownership):\n- Best for: Homeowners on fixed incomes, retirees without tax liability, or those who just want the lowest monthly rate with zero maintenance responsibility.\n- The financing company keeps the ITC and passes the savings down via a lower monthly rate."
+            },
+            {
+                title: "Module 1.5B Slide Deck",
+                type: "slides",
+                content: "Slide deck for Solar Financial Structures",
+                slides: [
+                    { title: "Solar Financial Structures: Options & Implications", content: "Introduce the concept of matching the product to the homeowner.", image: "/images/ownership_vs_lease.png" },
+                    { title: "The Swap Your Bill Concept", content: "Explain replacing a forever utility bill with a fixed payment." },
+                    { title: "Federal ITC Compliance", content: "Crucial compliance boundaries: Never give tax advice.", image: "/images/solar_incentives.png" },
+                    { title: "Option 1: Cash Purchase", content: "Maximum ROI, maximum upfront cost." },
+                    { title: "Option 2: Solar Loans & Dealer Fees", content: "Ownership without the upfront cost. Explain the 18-month re-amortization." },
+                    { title: "Option 3: Third Party (Lease / PPA)", content: "Best for those who cannot utilize the ITC or want zero maintenance liability." }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_1_5b_1",
+                type: "open_response",
+                label: "A retired homeowner on a fixed pension mentions they do not pay income taxes anymore. Which financial product (Cash, Loan, or Lease/PPA) is likely the worst fit for them, and why?",
+                placeholder: "Worst fit: __ | Because...",
+                lines: 3
+            },
+            {
+                id: "wb_1_5b_2",
+                type: "open_response",
+                label: "Write out the exact phrasing you would use to explain the Federal Tax Credit to a homeowner while maintaining strict compliance.",
+                placeholder: "Depending on your tax situation...",
+                lines: 3
+            }
+        ],
+        quiz: {
+            title: "Module 1.5B Knowledge Check",
+            questions: [
+                {
+                    id: "kc_1_5b_1",
+                    question: "Why does a 25-year solar loan often have an 18-month target date built into it?",
+                    options: [
+                        "That is when the equipment warranty expires.",
+                        "That gives the homeowner time to receive their tax return and apply the Tax Credit (ITC) to the loan principal to keep the payment low.",
+                        "The loan must be paid off entirely in 18 months.",
+                        "It takes 18 months for the solar panels to turn on."
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "The 18-month window is designed to let the homeowner apply their ITC refund to the principal, keeping the long-term monthly payment low."
+                },
+                {
+                    id: "kc_1_5b_2",
+                    question: "Which of the following scenarios is ideal for a Third-Party Ownership (Lease or PPA) product?",
+                    options: [
+                        "A high-income earner looking for the absolute best ROI over 25 years.",
+                        "A homeowner wanting to add battery storage and claim all tax incentives.",
+                        "A homeowner who pays zero federal taxes and just wants a lower electric bill with peace of mind regarding maintenance.",
+                        "A homeowner looking to increase the resale value of their home for a sale next year."
+                    ],
+                    correctAnswerIndex: 2,
+                    explanation: "Lease/PPA is ideal when the homeowner cannot use the ITC — retirees on fixed income are the classic example."
+                }
+            ]
+        }
+    },
+
+    // ─── MODULE 1.7A — Basic Site Engineering Awareness ──────────────────────────
+    "mod_1_7a": {
+        id: "mod_1_7a",
+        title: "Module 1.7A: Basic Site Engineering Awareness",
+        subtitle: "See more, promise less, close better.",
+        sections: [
+            {
+                title: "Why Site Awareness Matters",
+                type: "text",
+                content: "The most common source of post-close friction is a site condition discovered at survey that the rep should have seen at the sales visit. This module teaches reps 'Site Engineering Awareness' — not how to be an electrician or structural engineer, but how to observe key indicators on the roof and electrical panel to surface red flags early."
+            },
+            {
+                title: "The Guiding Principle",
+                type: "quote",
+                content: "\"See more, promise less, close better.\""
+            },
+            {
+                title: "Learning Objectives",
+                type: "list",
+                content: "By the end of this module, you will be able to:",
+                items: [
+                    "Identify the optimal roof orientations (azimuth) for solar production and explain why it matters.",
+                    "Visually identify roof shading issues and understand how they impact production estimates.",
+                    "Distinguish visually between a 100A and 200A main electrical panel.",
+                    "Understand the Flag vs. Guess boundary: flagging potential issues for the survey team without diagnosing or quoting costs prematurely.",
+                    "Create a personal pre-survey field observation checklist."
+                ]
+            },
+            {
+                title: "Section 1: Reading the Roof",
+                type: "text",
+                content: "Orientation (Azimuth): South-facing roofs produce the most energy. East/West are viable but produce less. North-facing roofs are typically unacceptable in the Northern Hemisphere.\n\nTilt/Pitch: Very steep roofs or completely flat roofs require special mounting hardware and may have safety implications for the install crew.\n\nCondition & Shading: Are there curling shingles? Heavy moss? Is there a mature oak tree covering the southern roof face in shadow? Shading is the #1 variable that alters the production estimate."
+            },
+            {
+                title: "Section 2: The Electrical Panel",
+                type: "text",
+                content: "100A vs. 200A Service: The most critical observation. A 100-amp panel often requires a Main Panel Upgrade (MPU) to handle the backfeed of a modern solar array.\n\nWhat to look for: The number stamped on the main breaker.\n\nBreaker Space: Even a 200A panel can be a problem if every single slot is completely full — requires a subpanel or line-side tap."
+            },
+            {
+                title: "Section 3: The Flag vs. Guess Boundary",
+                type: "text",
+                content: "The highest-risk mistake a rep can make is guessing how much an upgrade will cost or promising it won't be needed.\n\nCorrect Flagging Language: 'I noticed your main panel is a 100-amp service. Our site survey team will assess it completely, but just so you're aware, that sometimes means we need to upgrade the panel to accommodate the solar safely. We'll cross that bridge if the engineers say it's necessary, but I want to make sure I note it.'\n\nGuessing (WRONG): 'Oh, your panel is 100 amps. That'll be a $2,500 upgrade fee.'"
+            },
+            {
+                title: "Module 1.7A Slide Deck",
+                type: "slides",
+                content: "Slide deck for Basic Site Engineering Awareness",
+                slides: [
+                    { title: "Basic Site Engineering Awareness", content: "See more, promise less, close better.", image: "/images/roof_assessment.png" },
+                    { title: "Reading the Roof", content: "Discuss Azimuth (South = Best), Tilt, and Shading." },
+                    { title: "Electrical Panel Awareness", content: "Focus on identifying 100A vs 200A service." },
+                    { title: "The Flag vs. Guess Boundary", content: "Teach the exact scripting for pointing out an issue without quoting a cost or making a promise." },
+                    { title: "Field Observation Checklist", content: "Review the items every rep should check before leaving the property." }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_1_7a_1",
+                type: "open_response",
+                label: "During a sales visit, you notice the main electrical panel's main breaker is labeled '100A.' What should you say to the homeowner? Write your actual language.",
+                placeholder: "I noticed your main panel is...",
+                lines: 3
+            },
+            {
+                id: "wb_1_7a_2",
+                type: "open_response",
+                label: "A homeowner's south-facing roof has a large oak tree casting shadow across 40% of the plane. They haven't mentioned it. How do you handle this?",
+                placeholder: "I want to be upfront with you about something I noticed...",
+                lines: 4
+            }
+        ],
+        quiz: {
+            title: "Module 1.7A Knowledge Check",
+            questions: [
+                {
+                    id: "kc_1_7a_1",
+                    question: "Which roof orientation produces the most annual solar energy in the northern hemisphere?",
+                    options: ["East-facing", "West-facing", "North-facing", "South-facing"],
+                    correctAnswerIndex: 3,
+                    explanation: "South-facing roofs receive the most direct sunlight throughout the day in the northern hemisphere."
+                },
+                {
+                    id: "kc_1_7a_2",
+                    question: "During a sales visit, a rep notices the main electrical panel's main breaker is labeled '100A.' What is the most appropriate next action?",
+                    options: [
+                        "Tell the homeowner the project cannot proceed without an upgrade.",
+                        "Ignore it — the site survey team will figure it out.",
+                        "Proactively flag it to the homeowner as something the site survey team will assess, explain it may affect project scope or cost, and note it in your visit summary.",
+                        "Quote a specific MPU cost range to the homeowner so they can budget accordingly."
+                    ],
+                    correctAnswerIndex: 2,
+                    explanation: "Flag it professionally, set the expectation, but never guess the cost. That's the survey team's job."
+                }
+            ]
+        }
+    },
+
+    // ─── MODULE 3.7A — Technical Discovery Questions ─────────────────────────────
+    "mod_3_7a": {
+        id: "mod_3_7a",
+        title: "Module 3.7A: Technical Discovery Questions",
+        subtitle: "Surface project risks before they become pipeline surprises.",
+        sections: [
+            {
+                title: "Why Technical Discovery Is Different",
+                type: "text",
+                content: "Most reps discover a homeowner's motivations. Fewer reps discover a homeowner's risks. This module upgrades the discovery process to surface technical and project-level concerns earlier in the conversation — before they become surprises in the pipeline. The goal is not to turn discovery into an interrogation or a technical audit. It is to weave smart questions into natural conversation so that reps arrive at the proposal stage with a clearer picture of what they're actually selling into."
+            },
+            {
+                title: "Learning Objectives",
+                type: "list",
+                content: "By the end of this module, you will be able to:",
+                items: [
+                    "Ask natural, non-intrusive questions about roof age, electrical service, and site conditions that surface potential project risks before the survey.",
+                    "Identify homeowner signals that indicate HOA involvement, contractor history, or permitting sensitivities — and respond appropriately.",
+                    "Discover future load growth (EVs, pool equipment, additions) that may affect system sizing recommendations.",
+                    "Surface outage history and backup priorities in a way that opens the battery conversation naturally.",
+                    "Document technical discovery findings accurately so the survey team and operations have the context they need."
+                ]
+            },
+            {
+                title: "Section 1: The Tone That Makes It Work",
+                type: "text",
+                content: "Technical questions should feel like a rep taking genuine interest in the homeowner's home — not like a checklist being read from a clipboard. The rep who says 'Before I put together your proposal, I want to make sure I'm recommending the right system for your specific home — can I ask a few things about the house?' sounds like a professional."
+            },
+            {
+                title: "Section 2: The Question Banks",
+                type: "list",
+                content: "Key technical discovery questions to weave naturally into conversation:",
+                items: [
+                    "Roof Age & Condition: 'Do you know roughly how old your roof is?' Surfaces viability and ownership timeline.",
+                    "Electrical Panel: 'Do you know if your home has a 100-amp or 200-amp electrical panel?' Surfaces MPU risk.",
+                    "Outage History: 'How often do you lose power in your area?' Opens the battery conversation naturally.",
+                    "Future Load Growth: 'Are you planning to get an electric vehicle in the next few years?' Determines correct sizing.",
+                    "HOA & Permitting: 'Is your home part of an HOA?' Surfaces pipeline friction points.",
+                    "Detached Structures: 'Is that structure in the back a garage, a workshop — is that part of your property?' Surfaces scope complexity."
+                ]
+            },
+            {
+                title: "Section 3: The Documentation Habit",
+                type: "text",
+                content: "After every discovery conversation, reps should document:\n- Roof age/condition signals\n- Electrical panel type (if known)\n- Outage history and backup priority level\n- Future load plans (EV, additions, electrification)\n- HOA involvement\n- Competitive landscape\n- Any red flags for the survey team\n\nThis documentation is what makes the survey handoff effective."
+            },
+            {
+                title: "Module 3.7A Slide Deck",
+                type: "slides",
+                content: "Slide deck for Technical Discovery Questions",
+                slides: [
+                    { title: "Technical Discovery Questions", content: "Surface the risk before it surfaces you.", image: "/images/technical_discovery.png" },
+                    { title: "The Tone That Makes It Work", content: "Curious professional vs. auditor. Focus on natural transition phrases." },
+                    { title: "Roof & Electrical Questions", content: "Discuss the core questions for roof age and panel capacity." },
+                    { title: "Outage History & Future Loads", content: "How to open battery conversations and size systems accurately for future needs." },
+                    { title: "HOA & Site Complexity", content: "Identifying pipeline friction (HOAs) and scope creep (detached structures)." },
+                    { title: "The Documentation Habit", content: "Why written notes protect deals; what specifically to capture." }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_3_7a_1",
+                type: "open_response",
+                label: "The discovery below collects the right info but sounds like an interrogation. Rewrite it so it sounds natural and consultative: 'What's the age of your roof? Do you have 100-amp or 200-amp service? Have you gotten other quotes? Are you in an HOA? Do you plan to get an EV?'",
+                placeholder: "Before I put together your proposal, I want to make sure...",
+                lines: 5
+            },
+            {
+                id: "wb_3_7a_2",
+                type: "open_response",
+                label: "A homeowner says: 'Yes we're in an HOA, they've turned down two of our neighbors for solar already.' What is your follow-up response?",
+                placeholder: "Good to know — a lot of states actually protect homeowners' rights to install solar...",
+                lines: 3
+            }
+        ],
+        quiz: {
+            title: "Module 3.7A Knowledge Check",
+            questions: [
+                {
+                    id: "kc_3_7a_1",
+                    question: "A homeowner says their roof was 'put on when we moved in — that was 1996.' What is the most appropriate rep response?",
+                    options: [
+                        "That roof is too old for solar — we'll need to talk about a replacement first.",
+                        "That's fine — most roofs can support solar regardless of age.",
+                        "Good to know. Our site survey team does a roof assessment as part of the process — I'll make sure they take a close look so we don't run into anything unexpected.",
+                        "I can't move forward with a proposal until we know the roof condition."
+                    ],
+                    correctAnswerIndex: 2,
+                    explanation: "Flag it professionally and let the survey team assess. Never unilaterally disqualify or guarantee without data."
+                },
+                {
+                    id: "kc_3_7a_2",
+                    question: "A homeowner says they're in an HOA that has 'been difficult before.' The best rep response is:",
+                    options: [
+                        "Don't worry — HOAs can't legally block solar in most states.",
+                        "That may be a problem — I'll need to check with our team before we can proceed.",
+                        "Good to know. Most states do protect homeowners' rights to install solar, but there's still an HOA review process our team manages. It usually adds a few weeks to the timeline, and I'll flag this for our operations team.",
+                        "HOA approval isn't part of our process — that's something you'd handle separately."
+                    ],
+                    correctAnswerIndex: 2,
+                    explanation: "Acknowledge, inform, and take ownership. Never dismiss or scare them unnecessarily."
+                }
+            ]
+        }
+    },
+
+    // ─── MODULE 3.7B — Site Survey Prep for Reps ─────────────────────────────────
+    "mod_3_7b": {
+        id: "mod_3_7b",
+        title: "Module 3.7B: Site Survey Prep for Reps",
+        subtitle: "The handoff that makes or breaks the pipeline.",
+        sections: [
+            {
+                title: "Why Survey Prep Is a Rep Responsibility",
+                type: "text",
+                content: "The site survey is one of the most important moments in the solar project pipeline — and one of the most misunderstood by reps. Most reps think their job is done once the contract is signed and the survey is scheduled. This module reframes that entirely: the rep's preparation before the survey is what determines whether the survey runs smoothly, whether the homeowner is ready for it, and whether the project is set up to complete without unnecessary delays or cost surprises."
+            },
+            {
+                title: "Learning Objectives",
+                type: "list",
+                content: "By the end of this module, you will be able to:",
+                items: [
+                    "Explain what the site survey is actually validating — and what that means for the rep's preparation.",
+                    "Know exactly what information to gather from the homeowner before the survey is conducted.",
+                    "Prepare the homeowner for the survey visit in a way that reduces anxiety, prevents no-shows, and sets accurate expectations.",
+                    "Document red flags and discovery findings in a format that is actually useful to the survey team.",
+                    "Understand how poor survey prep creates downstream damage — and how good prep protects deals."
+                ]
+            },
+            {
+                title: "Section 1: What the Site Survey Is Actually Validating",
+                type: "list",
+                content: "The survey team is confirming four things:",
+                items: [
+                    "Roof structural integrity and suitability.",
+                    "Shading analysis (quantifying exact production loss to finalize engineering).",
+                    "Electrical system compatibility (MPU check, inverter location).",
+                    "Site-specific installation planning (conduit routes, access constraints)."
+                ]
+            },
+            {
+                title: "Section 2: Pre-Survey Homeowner Preparation",
+                type: "text",
+                content: "What to tell the homeowner before the survey:\n\nWhat it is: 'The site survey is when our technical team comes to your home to confirm all the details we'll need to finalize your system design.'\n\nWho comes: 'One of our site assessment technicians will come out.'\n\nWhat to have ready: Access to electrical panel, attic access, and secure any pets.\n\nWhat they'll find out: 'After the survey, our engineering team will finalize your design. If they find anything, I'll be your point of contact.'\n\nDO NOT say it's 'just a formality.'"
+            },
+            {
+                title: "Section 3: Documenting Red Flags Correctly",
+                type: "text",
+                content: "The most common rep documentation failure is notes that are vague, incomplete, or filed in a place the survey team never sees.\n\nVague (Bad): 'Roof might be an issue.'\nSpecific (Good): 'Homeowner believes roof was installed around 1998. Original composition shingles. No known repairs but mentioned some curling near the north-facing section.'\n\nVague (Bad): 'Electrical panel could be an issue.'\nSpecific (Good): 'Homeowner confirmed main breaker is labeled 100A. Panel is in the garage, easily accessible. Rep flagged potential MPU requirement and homeowner is aware.'"
+            },
+            {
+                title: "Module 3.7B Slide Deck",
+                type: "slides",
+                content: "Slide deck for Site Survey Prep for Reps",
+                slides: [
+                    { title: "Site Survey Prep for Reps", content: "The handoff that makes or breaks the pipeline.", image: "/images/site_survey_prep.png" },
+                    { title: "What the Survey Is Validating", content: "Roof, shading, electrical, site — the four pillars." },
+                    { title: "The Pre-Survey Information Package", content: "Review what ops needs before the survey tech arrives." },
+                    { title: "Documenting Red Flags", content: "Vague vs. specific documentation examples." },
+                    { title: "How Poor Survey Prep Damages Deals", content: "Review scenarios: The MPU Surprise, The No-Show Survey, The Redesign." },
+                    { title: "The Pre-Survey SOP Checklist", content: "The complete rep workflow from close to post-survey follow-up." }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_3_7b_1",
+                type: "open_response",
+                label: "Rewrite this vague note into a specific, actionable one: 'Panel could be 100 amp — not sure.'",
+                placeholder: "Homeowner confirmed main breaker is labeled...",
+                lines: 2
+            },
+            {
+                id: "wb_3_7b_2",
+                type: "open_response",
+                label: "Write the script for the call or text you would send to a homeowner to prepare them for their upcoming site survey (scheduled for next Thursday at 10 AM, tech named Marcus).",
+                placeholder: "Hey [Name], this is [Your Name] from [Company]...",
+                lines: 5
+            }
+        ],
+        quiz: {
+            title: "Module 3.7B Knowledge Check",
+            questions: [
+                {
+                    id: "kc_3_7b_1",
+                    question: "A rep closes a deal on Monday. The site survey is scheduled for the following Wednesday. What should the rep do within 24–48 hours of the close?",
+                    options: [
+                        "Nothing — the survey is operations' responsibility from here.",
+                        "Confirm the survey date with the homeowner, submit the pre-survey information package to the project coordinator, and document all red flags in the CRM.",
+                        "Call the homeowner to make sure they haven't changed their mind.",
+                        "Email the survey team the homeowner's contact information and nothing else."
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "The rep owns the relationship and the communication. Proactive handoff within 48 hours protects the deal."
+                },
+                {
+                    id: "kc_3_7b_2",
+                    question: "A rep tells the homeowner before the survey: 'The site survey is just a formality — it's really just someone coming to measure the roof and take a few photos.' This is:",
+                    options: [
+                        "Accurate — the survey is mostly visual documentation.",
+                        "A compliance violation.",
+                        "Problematic — it sets the homeowner up to feel misled if the survey reveals any significant findings that affect scope, cost, or design.",
+                        "Fine as long as the survey doesn't actually find anything."
+                    ],
+                    correctAnswerIndex: 2,
+                    explanation: "Never undersell the survey. If it turns up an MPU requirement and you called it a 'formality,' trust is damaged immediately."
+                }
+            ]
+        }
+    },
+
+
+    // ─── MODULE 4.1A — Time-of-Use Rates & Utility Tariff Strategy ───────────────
+    "mod_4_1a": {
+        id: "mod_4_1a",
+        title: "Module 4.1A: Time-of-Use Rates & Utility Tariff Strategy",
+        subtitle: "Understand TOU rates, explain peak hours, and integrate rate knowledge into savings story.",
+        sections: [
+            {
+                title: "The Electricity Bill Isn't What Most People Think It Is",
+                type: "text",
+                content: "Most homeowners think their electricity bill is just 'how much power I used × a price.' In reality, many utilities charge differently based on when you use electricity — not just how much. This is called Time-of-Use pricing (TOU), and it changes the value of solar fundamentally. The bill is more like a hotel room rate than a flat product price. The same room costs more on a Friday night than a Tuesday."
+            },
+            {
+                title: "Flat Rate vs. TOU Rate: Know the Difference",
+                type: "text",
+                content: "Flat rate: You pay the same price per kilowatt-hour (kWh) regardless of when you use it. Straightforward to explain savings. Less common in progressive utility markets.\n\nTime-of-Use (TOU): You pay a higher price during 'peak' hours (typically afternoon and evening) and a lower price during 'off-peak' hours (nights, early mornings, sometimes weekends).\n\nWhy this matters for solar: Solar panels produce the most power during the middle of the day. In flat-rate areas, that daytime production directly offsets bill usage. In TOU areas, midday solar production may earn less credit than what the homeowner uses in the evening peak window."
+            },
+            {
+                title: "What Peak Hours Actually Mean",
+                type: "text",
+                content: "Peak hours are when demand on the utility grid is highest — typically 4 PM–9 PM in most markets. Electricity during peak hours costs significantly more than off-peak electricity. Solar panels produce power from roughly 8 AM–5 PM. There's a mismatch between peak production (noon) and peak cost (evening). This gap is the exact reason battery storage has become a stronger financial tool — not just an emergency backup play."
+            },
+            {
+                title: "Net Metering and How Rate Structures Affect It",
+                type: "list",
+                content: "Net metering allows homeowners to send excess solar power back to the grid and receive a credit on their bill. The value of that credit depends entirely on the utility's program rules — and varies by market.",
+                items: [
+                    "In flat-rate markets: excess solar may get credited at close to retail rate.",
+                    "In TOU markets with newer net metering programs: excess solar exported to the grid during off-peak hours may get credited at a lower rate than what the homeowner pays during evening peak.",
+                    "The rep should never assume what the homeowner's net metering credit rate is. Always verify with current program language."
+                ]
+            },
+            {
+                title: "How to Use This in the Presentation",
+                type: "text",
+                content: "Reps do NOT need to recreate a utility rate schedule on the homeowner's kitchen table. The goal is to use rate awareness to deepen trust and explain the 'why' — not to teach a class.\n\nSimple rep language examples:\n'Your utility uses time-of-use rates, which means the electricity you use at night costs more than what solar produces during the day. That's actually part of why a battery can make a real financial difference for you.'\n'With a flat-rate utility like yours, every kilowatt-hour your panels produce offsets your bill at the same rate — which simplifies the math and keeps the payback cleaner.'"
+            },
+            {
+                title: "Rate Structures Vary by Market",
+                type: "text",
+                content: "Every utility is different. Every state is different. Rate programs change. This module teaches the concept — your specific market training will cover the exact programs your homeowners are on. Key compliance note: Never quote a homeowner's specific rate per kWh unless you have verified their current bill. Utility rates change. Programs change. Always use their actual bill as the reference document."
+            },
+            {
+                title: "Presentation Slides",
+                type: "slides",
+                content: "Slide deck for Time-of-Use Rates & Utility Tariff Strategy",
+                slides: [
+                    { title: "Understanding Time-of-Use Rates", content: "What Smart Reps Know about TOU rates and utility tariffs.", image: "/images/utility_bill_autopsy.png" },
+                    { title: "The Electricity Bill Isn't Simple", content: "What most homeowners think vs. what's really happening on the grid.", image: "/images/utility_bill_autopsy.png" },
+                    { title: "Flat Rate vs. Time-of-Use", content: "Two types of rate plans: paying the same flat rate everywhere vs varying by time of day.", image: "/images/tou_rate_chart.png" },
+                    { title: "Solar Production vs Utility Cost Peaks", content: "Solar produces most midday, while utility costs peak in the evening when people are home.", image: "/images/production_demand_curve.png" },
+                    { title: "What This Means For Your Savings", content: "Rate structures change the conversation. You must match the system to the homeowner's actual curve.", image: "/images/savings_graph.png" },
+                    { title: "Net Metering Reality Check", content: "What it is, what it isn't, and why current-program language framing builds trust.", image: "/images/ethics_shield.png" },
+                    { title: "The Battery Connection", content: "Why Time-Of-Use makes storage financially relevant and fundamentally changes the ROI.", image: "/images/solar_battery_setup.png" }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_4_1a_1",
+                type: "open_response",
+                label: "Think of a recent bill you analyzed. Was it flat rate or TOU? How did that affect your pitch?",
+                placeholder: "Rate type & impact on pitch...",
+                lines: 3
+            },
+            {
+                id: "wb_4_1a_2",
+                type: "open_response",
+                label: "Write completely safe language for explaining TOU to an analytical engineer.",
+                placeholder: "Your response...",
+                lines: 4
+            }
+        ],
+        quiz: {
+            title: "Module 4.1A Knowledge Check",
+            questions: [
+                {
+                    id: "kc_4_1a_1",
+                    question: "A homeowner is on a TOU rate plan with peak hours from 4 PM to 9 PM. Their solar panels produce the most power from 10 AM to 2 PM. What is the primary financial implication of this mismatch?",
+                    options: [
+                        "The homeowner won't produce enough power for their needs",
+                        "The solar production occurs during lower-cost hours, meaning peak-hour usage may not be fully offset by solar credits",
+                        "Solar panels don't work well in TOU markets",
+                        "The homeowner's system is sized incorrectly"
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "Peak production is midday; peak cost is evening. When you produce cheap power and consume expensive power, offsets won't cancel dollar for dollar."
+                },
+                {
+                    id: "kc_4_1a_2",
+                    question: "When a homeowner asks you what their net metering credit rate is, the best response is:",
+                    options: [
+                        "It's the same as your retail rate — you get full credit",
+                        "It varies by program, and I want to verify the current terms for your utility before I tell you something inaccurate",
+                        "Net metering always pays you retail rate for everything you export",
+                        "I'm not sure — I'll have to check"
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "Confidence comes from knowing you need to verify, not making a guess that becomes a liability."
+                }
+            ]
+        }
+    },
+
+    // ─── MODULE 4.2A — Incentive Strategy & Compliance ───────────────────────────
+    "mod_4_2a": {
+        id: "mod_4_2a",
+        title: "Module 4.2A: Incentive Strategy & Compliance",
+        subtitle: "Navigate tax credits and rebates using verification-first language.",
+        sections: [
+            {
+                title: "The Incentive Landscape Has Changed",
+                type: "text",
+                content: "For many years, reps relied heavily on a well-known federal residential solar tax credit to anchor their financial presentations. The federal incentive landscape has shifted. Reps should not assume the old credit structures apply to today's homeowners without verification. Key principle: Never assume. Always verify. Always use current-program language."
+            },
+            {
+                title: "Four Types of Solar Incentives",
+                type: "list",
+                content: "Know the difference between the 4 major incentive categories:",
+                items: [
+                    "Federal incentives: Programs authorized at the national level. Verify current eligibility and terms.",
+                    "State incentives: Vary dramatically by state (e.g. tax credits, sales tax exemptions).",
+                    "Utility incentives: Rebates per watt installed, demand-response credits. Very time-sensitive.",
+                    "Local incentives: City or county programs. Highly variable."
+                ]
+            },
+            {
+                title: "Tax Credit vs. Rebate",
+                type: "text",
+                content: "Tax credit: Reduces the amount of tax you owe to the government. Does not produce a refund if you don't have sufficient tax liability. Depends on individual tax situation.\n\nRebate: A direct payment or bill credit — does not depend on your tax liability. If the program offers $500, you get $500 off, period."
+            },
+            {
+                title: "Verification-First Language",
+                type: "text",
+                content: "Verification-first language means the rep always acknowledges that incentive programs can change and that the homeowner should verify eligibility before making decisions based on them.\n\nExample: 'A tax credit reduces what you owe the IRS — but the amount you benefit depends on your specific tax situation, and I'd always encourage you to verify that with your tax advisor.'"
+            },
+            {
+                title: "What Reps Can and Cannot Say",
+                type: "list",
+                content: "Compliance posture is non-negotiable.",
+                items: [
+                    "CAN SAY: 'There are state, utility, and local incentive programs that may be available to you.'",
+                    "CAN SAY: 'A tax credit could reduce what you owe in taxes — your tax advisor would know how that applies.'",
+                    "CANNOT SAY: 'You'll get a big check back from the government.'",
+                    "CANNOT SAY: 'This basically pays for itself with the incentives.'"
+                ]
+            },
+            {
+                title: "Presentation Slides",
+                type: "slides",
+                content: "Slide deck for Incentive Strategy & Compliance",
+                slides: [
+                    { title: "Incentive Strategy & Compliance", content: "Winning with honesty in a shifting incentive landscape.", image: "/images/ethics_shield.png" },
+                    { title: "Four Types of Incentives", content: "Federal, State, Utility, and Local. Know what's available in your market.", image: "/images/solar_incentives.png" },
+                    { title: "Tax Credit vs. Rebate: The Distinction", content: "Tax credits reduce what you owe. Rebates come straight off the top regardless of tax liability.", image: "/images/module_7_money_roadmap.png" },
+                    { title: "Verification-First Language", content: "Saying 'Let me verify the current programs' builds more trust than making an unverified guarantee.", image: "/images/ethics_shield.png" }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_4_2a_1",
+                type: "open_response",
+                label: "Write a simple explanation differentiating a tax credit from a rebate.",
+                placeholder: "A tax credit is...",
+                lines: 3
+            },
+            {
+                id: "wb_4_2a_2",
+                type: "open_response",
+                label: "Rewrite this non-compliant phrase: 'You'll get 30% back from the government when you file taxes.'",
+                placeholder: "Revised safe response...",
+                lines: 2
+            }
+        ],
+        quiz: {
+            title: "Module 4.2A Knowledge Check",
+            questions: [
+                {
+                    id: "kc_4_2a_1",
+                    question: "A homeowner asks, 'Will I get money back from the government for this?' What is the most accurate response?",
+                    options: [
+                        "Yes — you'll get 30% back when you file your taxes.",
+                        "There's a federal tax credit that reduces what you owe in taxes — how much that benefits you depends on your specific tax situation, and your accountant would be the right person to confirm that.",
+                        "I'm not sure — I'll have to ask my manager.",
+                        "No, that program ended."
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "Using verification-first language puts the liability on their tax specialist and builds trust through transparency."
+                },
+                {
+                    id: "kc_4_2a_2",
+                    question: "A rep tells a homeowner, 'You'll definitely get the full federal tax credit — everyone does.' This is:",
+                    options: [
+                        "A strong close",
+                        "A compliance violation that creates legal and reputational risk",
+                        "Fine as long as the homeowner agrees",
+                        "Standard industry practice"
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "Not everyone has tax liability. Promising a tax outcome is a compliance violation."
+                }
+            ]
+        }
+    },
+
+    // ─── MODULE 4.2B — Cash vs. Loan vs. PPA vs. Lease Economics ─────────────────
+    "mod_4_2b": {
+        id: "mod_4_2b",
+        title: "Module 4.2B: Cash vs. Loan vs. PPA vs. Lease Economics",
+        subtitle: "Develop the financial intuition to guide homeowners toward the right fit.",
+        sections: [
+            {
+                title: "Two Buckets: Ownership vs. Third-Party",
+                type: "text",
+                content: "Ownership structures: The homeowner owns the solar system. They take on the cost and receive all of the benefits (cash purchase, solar loan).\n\nThird-party structures: A company owns the solar system. The homeowner agrees to either buy the power the system produces (PPA) or rent the hardware (lease).\n\nTeaching point: Ownership = more financial upside, more responsibility. Third-party = simpler, lower barrier to entry, fewer benefits long-term."
+            },
+            {
+                title: "Cash Purchase and Solar Loan",
+                type: "text",
+                content: "Cash: Highest upfront cost but best long-term financial outcome. No interest, homeowner captures all incentives. Best for homeowners with capital.\n\nSolar Loan: Finance through a third-party lender. Little/no money down, monthly payment. Homeowner owns system and is eligible for incentives. Total cost is higher due to interest and dealer fees (fee lending companies charge the solar company)."
+            },
+            {
+                title: "Power Purchase Agreement (PPA) and Solar Lease",
+                type: "text",
+                content: "PPA: A third-party company installs the system at no upfront cost. Homeowner buys the power at a contracted rate (often lower than utility rate). Usually has an annual escalation clause. No incentive eligibility.\n\nLease: Similar to PPA but homeowner pays a fixed monthly amount to 'rent' the equipment instead of paying per kWh produced. Also does not qualify for tax incentives directly."
+            },
+            {
+                title: "How to Guide Without Overwhelming",
+                type: "text",
+                content: "Don't present all four options at once. Guide the homeowner using simple questions:\n- 'Do you want to own it?' → Ownership path\n- 'Do you have cash available, or would you prefer payments?' → Cash vs. loan\n- 'Is ownership important, or reducing your bill the main goal?' → Opens PPA/lease dialogue\n- 'Do you plan to be in this home long term?'"
+            },
+            {
+                title: "Presentation Slides",
+                type: "slides",
+                content: "Slide deck for Financing Economics",
+                slides: [
+                    { title: "Cash, Loan, PPA, Lease", content: "Knowing what fits the homeowner's financial goals.", image: "/images/module_7_money_roadmap.png" },
+                    { title: "Two Buckets: Ownership vs. Third-Party", content: "Owning the hardware vs. buying the power/renting the hardware.", image: "/images/ownership_vs_lease.png" },
+                    { title: "The Ownership Path", content: "Cash (no interest, fast payback) and Loans (building equity, applying incentives).", image: "/images/solar_house.png" },
+                    { title: "The Third-Party Path", content: "PPAs and Leases provide simpler entry, immediate bill relief, but no direct incentives.", image: "/images/module_4_objection_judo.png" },
+                    { title: "Guiding the Conversation", content: "Ask 'Do you want to own it?' and 'How long are you staying in this home?'", image: "/images/three_reasons_shield.png" }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_4_2b_1",
+                type: "open_response",
+                label: "Analyze Profile A: Retired couple, significant savings, want to 'pay it off and forget it.'",
+                placeholder: "Best fit and why...",
+                lines: 3
+            },
+            {
+                id: "wb_4_2b_2",
+                type: "open_response",
+                label: "How would you honestly explain 'dealer fees' inside a solar loan?",
+                placeholder: "Your response...",
+                lines: 4
+            }
+        ],
+        quiz: {
+            title: "Module 4.2B Knowledge Check",
+            questions: [
+                {
+                    id: "kc_4_2b_1",
+                    question: "Which of the following is a key difference between a PPA and a solar lease?",
+                    options: [
+                        "In a PPA, the homeowner owns the system; in a lease, they do not",
+                        "In a PPA, the homeowner pays per kilowatt-hour produced; in a lease, they pay a flat monthly amount for the equipment",
+                        "A lease always has a lower rate than a PPA",
+                        "There is no meaningful difference"
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "PPA is buying power, Lease is renting hardware."
+                },
+                {
+                    id: "kc_4_2b_2",
+                    question: "A dealer fee in solar financing refers to:",
+                    options: [
+                        "A fee the homeowner pays the dealer when buying the system",
+                        "A fee the lending company charges the solar company to offer their loan product — which is often built into the system price",
+                        "A government surcharge on financed solar systems",
+                        "A fee charged to the rep by their employer"
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "Dealer fees are the cost of borrowing built into the total financed cost. It's not a scam, just the economics of lending."
+                }
+            ]
+        }
+    },
+
+    // ─── MODULE 4.4A — NEM 3.0 & Battery Sales Logic ─────────────────────────────
+    "mod_4_4a": {
+        id: "mod_4_4a",
+        title: "Module 4.4A: NEM 3.0 & Battery Sales Logic",
+        subtitle: "Understand the NEM 3.0 shift and build the battery conversation correctly.",
+        sections: [
+            {
+                title: "Why NEM 3.0 Changes the Conversation",
+                type: "text",
+                content: "Net metering has evolved significantly in major solar markets. In California and other progressive states, the shift from NEM 2.0 to NEM 3.0 dramatically reduced the credit homeowners receive for exporting excess solar power to the grid. This changes the financial equation: under NEM 3.0, a solar-only system without battery storage may underperform older projections. The rep who understands this builds credibility. The rep who ignores it gets burned when the homeowner does their own research."
+            },
+            {
+                title: "NEM 2.0 vs. NEM 3.0: The Core Difference",
+                type: "list",
+                content: "Understanding the shift is essential for accurate savings conversations:",
+                items: [
+                    "NEM 2.0: Homeowners received near-retail rate credits for all excess power exported to the grid. Simple math, strong savings story.",
+                    "NEM 3.0 (where applicable): Export credits are based on 'avoided cost' — the utility's cost to generate power, not the retail rate homeowners pay. Export credits drop by as much as 75% compared to NEM 2.0.",
+                    "The implication: Under NEM 3.0, it is financially smarter to store excess power in a battery and use it at night than to export it at a low credit rate.",
+                    "Battery + solar under NEM 3.0 can outperform solar-only under NEM 2.0 in total bill reduction."
+                ]
+            },
+            {
+                title: "The Battery Conversation: How to Open It",
+                type: "text",
+                content: "Do not lead with 'backup power.' Lead with economics.\n\n'With the way net metering works in your area, the power your panels produce at noon is worth the most to you when you're actually using it at home — not when you're sending it back to the grid for a fraction of the credit. A battery lets you store that midday production and use it when your utility charges you the most: evenings. That's where the real savings are stacked.'"
+            },
+            {
+                title: "Battery Objections and Responses",
+                type: "list",
+                content: "Common objections and how to address them:",
+                items: [
+                    "'It's too expensive': 'The battery pays for itself faster under current net metering than it used to — and it's often the difference between a good system and a great financial decision.'",
+                    "'I don't need backup power': 'That's actually a separate benefit. The primary reason most of my clients add storage now is financial — to capture their own power instead of giving it back at a discount.'",
+                    "'Will prices come down?': 'Incentives for storage are strong right now and program rules are tightening. Waiting typically means less favorable terms, not better ones.'"
+                ]
+            },
+            {
+                title: "Compliance Note",
+                type: "text",
+                content: "NEM programs vary significantly by utility and state. Do not present NEM 3.0 specifics to homeowners in markets still on NEM 2.0 or legacy programs. Always verify the current net metering program for the homeowner's specific utility before building savings projections. Use current program language, not assumptions from a previous market or training."
+            },
+            {
+                title: "Module 4.4A Slide Deck",
+                type: "slides",
+                content: "Slide deck for NEM 3.0 & Battery Sales Logic",
+                slides: [
+                    { title: "NEM 3.0 & Battery Sales Logic", content: "The net metering shift that changed the solar financial story.", image: "/images/net_metering_flow.png" },
+                    { title: "NEM 2.0 vs. NEM 3.0", content: "From near-retail credits to avoided cost. The math changed. Your pitch must too.", image: "/images/net_metering_flow.png" },
+                    { title: "Why Battery Storage Is Now a Financial Tool", content: "Store it, use it at peak. Don't export it at a discount.", image: "/images/solar_battery_setup.png" },
+                    { title: "Opening the Battery Conversation", content: "Lead with economics, not backup. The savings story is stronger.", image: "/images/savings_graph.png" },
+                    { title: "Handling Battery Objections", content: "Too expensive? Timing? Backup power? Address each with the financial frame.", image: "/images/module_4_objection_judo.png" }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_4_4a_1",
+                type: "open_response",
+                label: "Explain the difference between NEM 2.0 and NEM 3.0 in plain language a homeowner would understand.",
+                placeholder: "Under the older net metering program...",
+                lines: 4
+            },
+            {
+                id: "wb_4_4a_2",
+                type: "open_response",
+                label: "Write your battery conversation opener — leading with economics, not backup power.",
+                placeholder: "With the way net metering works in your area...",
+                lines: 4
+            }
+        ],
+        quiz: {
+            title: "Module 4.4A Knowledge Check",
+            questions: [
+                {
+                    id: "kc_4_4a_1",
+                    question: "Under NEM 3.0, what is the primary financial argument for adding battery storage to a solar system?",
+                    options: [
+                        "Batteries provide backup power during outages",
+                        "Storing excess solar production and using it during peak-cost evening hours is more financially beneficial than exporting it to the grid at reduced credit rates",
+                        "Batteries extend the life of the solar panels",
+                        "Batteries are required by law under NEM 3.0"
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "Under NEM 3.0, export credits drop significantly. Using stored power at home during peak hours delivers more financial value than exporting."
+                },
+                {
+                    id: "kc_4_4a_2",
+                    question: "A homeowner in a NEM 3.0 market says 'I don't need backup power, so I don't need a battery.' The best response is:",
+                    options: [
+                        "You're right — backup power is the only reason to add a battery.",
+                        "Backup is actually the secondary benefit. The primary reason most clients add storage is financial — to capture their own solar at full value instead of exporting it at a reduced credit rate.",
+                        "Let me check if your utility requires a battery.",
+                        "Batteries are optional and you'll save plenty without one."
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "Reframe battery from backup device to financial optimization tool. That's the NEM 3.0 conversation."
+                }
+            ]
+        }
+    },
+
+
+    // ─── MODULE 5.5A — The Post-Sale Project Lifecycle ───────────────────────────
+    "mod_5_5a": {
+        id: "mod_5_5a",
+        title: "Module 5.5A: The Post-Sale Project Lifecycle",
+        subtitle: "Navigate the journey from contract signature to Permission to Operate.",
+        sections: [
+            {
+                title: "The Project Lifecycle: A Rep's Map",
+                type: "text",
+                content: "Every solar project goes through the same general sequence of stages from contract to live system. The exact timing varies by market, utility, and jurisdiction — but the stages themselves are consistent.\n\nThere are 7 key stages: Contract Signed, Site Survey, System Design, Permitting, Installation, Inspection, and Permission to Operate (PTO)."
+            },
+            {
+                title: "The Seven Stages",
+                type: "list",
+                content: "Here is the breakdown of the post-sale pipeline:",
+                items: [
+                    "Stage 1 - Contract Signed: Homeowner signs the agreement. The deal is live.",
+                    "Stage 2 - Site Survey: A technician assesses the roof, electrical panel, and site conditions (1–3 weeks post-contract).",
+                    "Stage 3 - System Design: Engineering finalizes the design based on survey data (1–4 weeks).",
+                    "Stage 4 - Permitting: The design is submitted to local jurisdiction for approval (highly variable, 1 week to several months).",
+                    "Stage 5 - Installation: The crew installs panels, inverters, and wiring (1–2 days).",
+                    "Stage 6 - Inspection: Local inspector verifies system against approved permit (1–3 weeks post-install).",
+                    "Stage 7 - PTO: Utility company authorizes the homeowner to turn on the system. This is the true finish line."
+                ]
+            },
+            {
+                title: "Total Timeline Expectations",
+                type: "text",
+                content: "From contract signing to PTO, timeline is typically 3 to 6 months in most markets. Some markets are faster, some are significantly slower. Never promise a specific timeline you cannot guarantee. Use ranges and use localized data."
+            },
+            {
+                title: "Where Trust Is Most Commonly Lost",
+                type: "list",
+                content: "Reps who proactively manage post-sale expectations preserve their deals. Trust is commonly lost in 3 moments:",
+                items: [
+                    "Moment 1 — The Silence After Signing: Anxiety builds if they hear nothing for weeks. Check in within 48 hours.",
+                    "Moment 2 — The Permit Surprise: No one warned them permits can take 6–10 weeks. Set this expectation explicitly at signing.",
+                    "Moment 3 — The PTO Confusion: The system is on the roof, but they can't turn it on. Explain PTO clearly before and after installation."
+                ]
+            },
+            {
+                title: "The Rep's Role After the Close",
+                type: "list",
+                content: "Understanding boundaries is essential. Reps who try to do too much create confusion; those who do too little lose deals.",
+                items: [
+                    "Rep Owns: Homeowner relationship, expectation management, early problem escalation, referral relationship cultivation.",
+                    "Operations Owns: Scheduling, design decisions, permit submission, installation scheduling, and inspection."
+                ]
+            },
+            {
+                title: "The 7-Touchpoint Model",
+                type: "list",
+                content: "Use the lifecycle as a proactive, offensive play to build referrals:",
+                items: [
+                    "1. Day of signing: Here's exactly what happens next.",
+                    "2. Site survey confirmation: Your site survey is confirmed.",
+                    "3. Post-site survey: Survey went well, design is being finalized.",
+                    "4. Permit submitted: Your permit is in.",
+                    "5. Install date confirmed: Great news — your install is scheduled!",
+                    "6. Day of/after install: Panels are up! Here's the last step.",
+                    "7. PTO received: You're officially live. Congratulations."
+                ]
+            },
+            {
+                title: "Module 5.5A Slide Deck",
+                type: "slides",
+                content: "",
+                slides: [
+                    { title: "The Post-Sale Project Lifecycle", content: "Your Map from Contract to Live. The #1 cause of solar cancellations is not buyer's remorse — it's broken trust.", image: "/images/solar_project_pipeline.png" },
+                    { title: "The Seven Stages", content: "Contract → Survey → Design → Permit → Install → Inspection → PTO.\nPTO is the finish line, not installation.", image: "/images/solar_project_pipeline.png" },
+                    { title: "Where Trust Is Most Commonly Lost", content: "1. The Silence After Signing\n2. The Permit Surprise\n3. The PTO Confusion", image: "/images/trust_breaking_moments.png" },
+                    { title: "The 7-Touchpoint Model", content: "Proactively check in at all 7 milestones: Signing, Survey, Design, Permit, Install, Inspection, PTO.", image: "/images/trust_breaking_moments.png" }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_5_5a_1",
+                type: "checklist",
+                label: "Order the Project Lifecycle Stages:",
+                items: [
+                    "1. Contract Signed",
+                    "2. Site Survey",
+                    "3. System Design",
+                    "4. Permitting",
+                    "5. Installation",
+                    "6. Inspection",
+                    "7. Permission to Operate (PTO)"
+                ]
+            },
+            {
+                id: "wb_5_5a_2",
+                type: "open_response",
+                label: "Write your at-the-table timeline setting script (under 2 minutes):",
+                placeholder: "Before you sign, I want to walk you through exactly what happens next...",
+                lines: 4
+            }
+        ],
+        quiz: {
+            title: "Module 5.5A Knowledge Check",
+            questions: [
+                {
+                    id: "kc_5_5a_1",
+                    question: "What does PTO stand for, and when does it occur in the project lifecycle?",
+                    options: [
+                        "Power Transfer Operation — it occurs at installation",
+                        "Permission to Operate — it occurs after inspection, when the utility authorizes turning on the system",
+                        "Project Timeline Optimization — it occurs during permitting",
+                        "Panel Transfer Order — it occurs when equipment ships"
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "PTO stands for Permission to Operate, meaning the utility company has formally granted you the right to connect to the grid."
+                },
+                {
+                    id: "kc_5_5a_2",
+                    question: "A rep closes a deal on a Tuesday. The best next action is:",
+                    options: [
+                        "Wait for the homeowner to contact them with questions",
+                        "Contact the homeowner within 48 hours to confirm the site survey is scheduled and review what comes next",
+                        "Send a generic thank you email and move on",
+                        "Call the homeowner only if there's a problem"
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "Avoiding the 'Silence After Signing' protects your deal and reassures the homeowner."
+                }
+            ]
+        }
+    },
+
+    // ─── MODULE 5.5B — Common Installation Pipeline Issues ───────────────────────
+    "mod_5_5b": {
+        id: "mod_5_5b",
+        title: "Module 5.5B: Common Installation Pipeline Issues",
+        subtitle: "Issues are normal. Silence is not.",
+        sections: [
+            {
+                title: "The Mindset: Issues Are Normal",
+                type: "text",
+                content: "Most pipeline issues are normal and happen on a significant percentage of deals. The issue itself rarely kills a deal — poor communication around the issue does. An informed homeowner is dramatically less likely to cancel than a surprised one."
+            },
+            {
+                title: "Issues by Stage",
+                type: "list",
+                content: "Awareness of potential issues at each stage helps you communicate effectively:",
+                items: [
+                    "Survey (Roof Condition): Roof has structural issues or lacks lifespan. (Repair/replace needed).",
+                    "Survey (Shade): Shade analysis reduces production potential. Set honest expectations.",
+                    "Design (Main Panel Upgrade - MPU): Electrical service panel cannot safely support solar. Significant surprise cost ($1,500–$5k).",
+                    "Permitting: Rejections require resubmission. HOAs may enforce separate aesthetic reviews.",
+                    "Financing: Lender stipulations like income verification must be cleared for funds.",
+                    "Installation & Inspection: Supply chain delays on panels/batteries. Inspection failures add weeks.",
+                    "PTO: Utility delays interconnect approval."
+                ]
+            },
+            {
+                title: "Competitor Re-Entry",
+                type: "quote",
+                content: "\"While a homeowner's project is delayed, a competitor approaches them with promises of faster timelines or lower prices. Deal cancellation is high. Prevent this through consistent rep communication. A homeowner who trusts their rep is not a prospect for a competitor.\""
+            },
+            {
+                title: "Escalation vs. Normal Issues",
+                type: "list",
+                content: "Develop a sense for what requires internal escalation versus what just needs communication.",
+                items: [
+                    "Normal: Permit corrections, HOA review, PTO wait, minor design adjustments.",
+                    "Escalation-Level: MPU discovered with no prior disclosure, failed inspection with no resolution path, explicit cancellation threats, competitor involvement."
+                ]
+            },
+            {
+                title: "Module 5.5B Slide Deck",
+                type: "slides",
+                content: "",
+                slides: [
+                    { title: "Common Installation Pipeline Issues", content: "Issues are normal. Silence is not.\nKnow how to frame bad news correctly.", image: "/images/solar_pipeline_issues.png" },
+                    { title: "The Main Panel Upgrade (MPU)", content: "Upgrading a 100-amp panel to safely support solar.\nCost: $1,500–$5,000.\nFrame it as protecting the home, not a hidden fee.", image: "/images/solar_pipeline_issues.png" },
+                    { title: "Competitor Re-Entry During Delays", content: "Competitors prey on delayed projects.\nPrevention: Build unshakeable trust.\nResponse: Don't panic. Compare the reset.", image: "/images/competitor_reentry.png" }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_5_5b_1",
+                type: "open_response",
+                label: "Rewrite this bad news delivery: \"Your electrical panel is only 100-amp. You need a panel upgrade. It'll cost extra.\"",
+                placeholder: "Our team identified something that actually protects your home...",
+                lines: 3
+            },
+            {
+                id: "wb_5_5b_2",
+                type: "open_response",
+                label: "A competitor offered $4,000 less and a 30-day timeline during your 3-month permit wait. Write your response:",
+                placeholder: "Don't disparage. Help them think clearly about starting over...",
+                lines: 4
+            }
+        ],
+        quiz: {
+            title: "Module 5.5B Knowledge Check",
+            questions: [
+                {
+                    id: "kc_5_5b_1",
+                    question: "A homeowner's site survey reveals their electrical panel is 100-amp service. Why does this matter?",
+                    options: [
+                        "It has no impact.",
+                        "It may need to be upgraded to 200-amp to safely support the solar system, adding cost and time.",
+                        "100-amp panels always need to be replaced, and the homeowner knew this.",
+                        "This only matters if the homeowner is adding a battery."
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "An MPU (Main Panel Upgrade) is a common pipeline surprise cost that reps must learn to frame properly."
+                },
+                {
+                    id: "kc_5_5b_2",
+                    question: "A competitor approaches a homeowner whose project has been delayed for 8 weeks. The most effective rep response is to:",
+                    options: [
+                        "Tell the homeowner the competitor is lying.",
+                        "Tell the homeowner to ignore them.",
+                        "Help the homeowner understand what starting over actually means without disparaging the competitor.",
+                        "Offer to reduce the price to match."
+                    ],
+                    correctAnswerIndex: 2,
+                    explanation: "Help them understand the timeline reset without being petty."
+                }
+            ]
+        }
+    },
+
+    // ─── MODULE 5.5C — Troubleshooting & Escalation Paths ────────────────────────
+    "mod_5_5c": {
+        id: "mod_5_5c",
+        title: "Module 5.5C: Troubleshooting & Escalation Paths",
+        subtitle: "Structured approach to internal escalations when deals run into trouble.",
+        sections: [
+            {
+                title: "Issue Identification: What Kind of Problem Is This?",
+                type: "text",
+                content: "Before escalating, correctly categorize what's happening.\n\nCategory A: Design/Technical (Engineering owns it).\nCategory B: Permit/Jurisdiction (Permitting team owns it).\nCategory C: Financing (Finance team owns it).\nCategory D: Install/Inspection (Operations owns it).\nCategory E: Customer Relationship/Cancellation Risk (Rep/Manager owns it)."
+            },
+            {
+                title: "The Pre-Escalation Checklist",
+                type: "list",
+                content: "Before escalating, gather this info so you are taken seriously:",
+                items: [
+                    "Homeowner name and deal/project ID",
+                    "Current project stage",
+                    "Specific factual issue description",
+                    "What the homeowner knows so far",
+                    "Homeowner's emotional state / cancellation risk",
+                    "What resolution the rep believes is needed",
+                    "Deadline constraint"
+                ]
+            },
+            {
+                title: "What to NOT Say",
+                type: "list",
+                content: "Reps who blame operations to homeowners create permanent trust damage.",
+                items: [
+                    "NOT: 'Operations is dropping the ball.' (Assigns blame internally)",
+                    "NOT: 'I'm not sure what's going on.' (Creates doubt)",
+                    "NOT: 'I'll see what I can do.' (Vague)",
+                    "SAY: 'I'm working on getting you a specific answer by [time].'",
+                    "SAY: 'I understand this isn't what you expected. I'm taking ownership of this right now.'"
+                ]
+            },
+            {
+                title: "The Four-Part Escalation Message",
+                type: "text",
+                content: "When escalating to a manager, give them a clear package:\n\n1. Who: Homeowner name, deal ID, stage\n2. What: Specific issue — factual\n3. State: Cancellation risk level\n4. Ask: Specific action required, by when"
+            },
+            {
+                title: "Module 5.5C Slide Deck",
+                type: "slides",
+                content: "",
+                slides: [
+                    { title: "Troubleshooting & Escalation Paths", content: "Moving Fast When Deals Are at Risk", image: "/images/troubleshooting_escalation.png" },
+                    { title: "The Pre-Escalation Checklist", content: "- Name / ID\n- Current Phase\n- The Factual Issue\n- Emotional State\n- What is the specific Ask?", image: "/images/troubleshooting_escalation.png" },
+                    { title: "The Four-Part Escalation Message", content: "1. Who\n2. What\n3. State\n4. Ask", image: "/images/troubleshooting_escalation.png" }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_5_5c_1",
+                type: "open_response",
+                label: "Rewrite this: \"Operations is really behind right now. It's not my fault.\"",
+                placeholder: "I want to make sure I get you the right information — let me loop in the right person...",
+                lines: 3
+            },
+            {
+                id: "wb_5_5c_2",
+                type: "open_response",
+                label: "Write a four-part escalation message for Maria Santos (Week 9 permit wait, frustrated):",
+                placeholder: "I need to flag a cancellation risk — Maria Santos, Deal 4022. They're at week 9...",
+                lines: 4
+            }
+        ],
+        quiz: {
+            title: "Module 5.5C Knowledge Check",
+            questions: [
+                {
+                    id: "kc_5_5c_1",
+                    question: "A homeowner's loan has been flagged for additional income verification. Which team do you contact?",
+                    options: [
+                        "Engineering",
+                        "Permitting",
+                        "Finance / contract administration",
+                        "Installation"
+                    ],
+                    correctAnswerIndex: 2,
+                    explanation: "This is a Category C financial issue owned by the finance department."
+                },
+                {
+                    id: "kc_5_5c_2",
+                    question: "A homeowner is frustrated and the rep says: 'I'm not sure what's going on — I'm trying to find out.' This statement:",
+                    options: [
+                        "Is honest and appropriate",
+                        "Creates doubt without providing comfort",
+                        "Builds trust",
+                        "Is fine if the homeowner is calm"
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "It creates doubt. Replace with a specific action and a callback timeframe."
+                }
+            ]
+        }
+    },
+
+    // ─── MODULE 5.5D — Save-the-Deal Communication ───────────────────────────────
+    "mod_5_5d": {
+        id: "mod_5_5d",
+        title: "Module 5.5D: Save-the-Deal Communication",
+        subtitle: "Face the homeowner when friction strikes and bring the deal back.",
+        sections: [
+            {
+                title: "Own the Communication, Not the Problem",
+                type: "text",
+                content: "The rep does not own the operational problem (permits, utility queues, roof conditions). The rep DOES own the communication around the problem. When reps conflate these, they make promises they can't keep, or they avoid the homeowner entirely out of guilt."
+            },
+            {
+                title: "Communicating Delays Clearly",
+                type: "list",
+                content: "The five-step proactive delay call framework:",
+                items: [
+                    "Step 1: Lead with acknowledgment, not defense.",
+                    "Step 2: State what happened factually.",
+                    "Step 3: Validate the impact.",
+                    "Step 4: Provide the next concrete step.",
+                    "Step 5: Reaffirm the relationship."
+                ]
+            },
+            {
+                title: "Handling Homeowner Ghosting",
+                type: "text",
+                content: "Ghosting is almost always emotional, not logistical. The 3-strike check-in system:\n\nAttempt 1: Warm, no-pressure check-in call.\nAttempt 2: Value-add project update 5 days later.\nAttempt 3: Honest, direct outreach 5 days later to address concerns directly."
+            },
+            {
+                title: "Spouse or Family Pushback Post-Close",
+                type: "text",
+                content: "When a family member creates doubt: Do not get defensive. Do not attempt a full re-close re-presentation. Find out the specific concern, offer a focused direct conversation to answer questions, address it honestly, and give them space while keeping the door open."
+            },
+            {
+                title: "Protecting Trust Without Blaming Operations",
+                type: "list",
+                content: "Blaming operations destroys confidence in the whole company.",
+                items: [
+                    "Bad: 'I'm trying to figure out why they haven't done this.'",
+                    "Good: 'We're working on this and I'm taking personal ownership of getting the answer.'"
+                ]
+            },
+            {
+                title: "Module 5.5D Slide Deck",
+                type: "slides",
+                content: "",
+                slides: [
+                    { title: "Save-the-Deal Communication", content: "Protecting revenue when projects hit friction.\nOwn the communication, not the problem.", image: "/images/ghosting_homeowner.png" },
+                    { title: "Handling Homeowner Ghosting", content: "Ghosting is emotional, not logistical.\nUse the 3-attempt framework: Warm, Value-Add, Direct.", image: "/images/ghosting_homeowner.png" },
+                    { title: "Spouse & Family Pushback", content: "Don't re-close.\nOffer a focused conversation to address specific concerns.\nDo not get defensive if they consulted an 'expert.'", image: "/images/trust_breaking_moments.png" }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_5_5d_1",
+                type: "open_response",
+                label: "Write the first step of a proactive delay call (acknowledgment):",
+                placeholder: "I'm calling because I have an update on your project...",
+                lines: 2
+            },
+            {
+                id: "wb_5_5d_2",
+                type: "open_response",
+                label: "Write the 3rd attempt (honest/direct) outreach for a ghosted lead:",
+                placeholder: "I want to make sure I'm serving you well...",
+                lines: 3
+            }
+        ],
+        quiz: {
+            title: "Module 5.5D Knowledge Check",
+            questions: [
+                {
+                    id: "kc_5_5d_1",
+                    question: "A homeowner hasn't responded to two calls and a text in 10 days. Best next action?",
+                    options: [
+                        "Call every day",
+                        "Send a warm, low-pressure 3rd outreach acknowledging the disconnect",
+                        "Mark as lost",
+                        "Escalate immediately to the manager"
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "The third outreach is the final, direct but compassionate attempt."
+                },
+                {
+                    id: "kc_5_5d_2",
+                    question: "A homeowner's spouse is resistant after signing. The best approach is:",
+                    options: [
+                        "Re-present the full pitch",
+                        "Reduce the price",
+                        "Ask to understand the specific concern and offer a focused low-pressure conversation",
+                        "Tell the signed homeowner to handle it"
+                    ],
+                    correctAnswerIndex: 2,
+                    explanation: "Never 're-close'. It's overwhelming. Just address their exact lingering doubts objectively."
+                }
+            ]
+        }
+    },
+
+
+    // ─── MODULE 6.1A — Referral System Architecture ──────────────────────────────
+    "mod_6_1a": {
+        id: "mod_6_1a",
+        title: "Module 6.1A: Referral System Architecture",
+        subtitle: "Build a systematic referral engine — not a one-time ask.",
+        sections: [
+            {
+                title: "Why Most Referral Attempts Fail",
+                type: "text",
+                content: "Most reps treat referrals as a reaction — they ask when they remember, or when the homeowner seems happy. A referral system treats referrals as a proactive, repeatable process built into every stage of the client relationship. The difference between a rep who gets 1 referral per 10 deals and a rep who gets 3–5 is not personality. It's structure."
+            },
+            {
+                title: "The Three Referral Trigger Moments",
+                type: "list",
+                content: "There are three moments in the client lifecycle where referral requests convert at the highest rate:",
+                items: [
+                    "Trigger 1 — At the Close: The homeowner is most excited and committed immediately after signing. Ask: 'Who in your neighborhood do you think would also benefit from this?' Keep it casual and unthreatening.",
+                    "Trigger 2 — Post-Install: Panels are on the roof. Neighbors can see them. Homeowner pride is at its peak. Call to celebrate — and ask who's been asking about the panels.",
+                    "Trigger 3 — First Bill: The homeowner sees their first reduced bill or credits. Emotion is real. This is the best time for a specific, name-based referral request."
+                ]
+            },
+            {
+                title: "The Referral Architecture: From Request to Close",
+                type: "text",
+                content: "A referral system has four components:\n\n1. The Ask (at each trigger moment) — specific, warm, and non-pressured\n2. The Capture (who exactly did they mention?) — get a name and ideally a phone number\n3. The Warm Intro (text/email to the referral with homeowner copying) — social proof built in\n4. The Follow-Through (CRM log, outreach within 24 hours) — speed is conversion"
+            },
+            {
+                title: "Referral Ask Scripts",
+                type: "list",
+                content: "Copy-paste ready referral language for each trigger moment:",
+                items: [
+                    "At Close: 'Before I head out — is there anyone in your neighborhood or circle you think would appreciate knowing about this? I only work with people who are genuinely good fits, so I'd love a warm intro.'",
+                    "Post-Install: 'Your system looks great out there! I've had a few reps ask me about neighborhoods like yours — has anyone asked you about the panels yet? I'd love to connect with them.'",
+                    "First Bill: 'That's a real result — congratulations. You know what's funny? The people who benefit most from solar are usually the people around you who have similar bills. Is there anyone specific you'd want to pass my number to?'"
+                ]
+            },
+            {
+                title: "Building Referral Habits Into the CRM",
+                type: "text",
+                content: "Every client record should have:\n- Referral ask logged (date, trigger moment, response)\n- Names captured (even if not converted)\n- Warm intro status\n- Follow-up date set\n\nReps who log referral activity close 40–60% more referral deals than those who don't — not because they ask more, but because they follow through."
+            },
+            {
+                title: "Module 6.1A Slide Deck",
+                type: "slides",
+                content: "Slide deck for Referral System Architecture",
+                slides: [
+                    { title: "Referral System Architecture", content: "From reactive ask to systematic pipeline.", image: "/images/referral_engine.png" },
+                    { title: "The Three Trigger Moments", content: "1. At the Close\n2. Post-Install\n3. First Bill\nEach has a different emotional hook.", image: "/images/referral_engine.png" },
+                    { title: "The Referral Architecture", content: "Ask → Capture → Warm Intro → Follow-Through.\nThe system beats the ask.", image: "/images/referral_engine.png" },
+                    { title: "Referral Ask Scripts", content: "Specific, warm, non-pressured language for each trigger.", image: "/images/referral_engine.png" }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_6_1a_1",
+                type: "open_response",
+                label: "Write your post-install referral ask script in your own voice:",
+                placeholder: "Your panels look great out there...",
+                lines: 3
+            },
+            {
+                id: "wb_6_1a_2",
+                type: "open_response",
+                label: "Describe how you will log referral activity in your CRM after every appointment:",
+                placeholder: "After every signed deal, I will...",
+                lines: 3
+            }
+        ],
+        quiz: {
+            title: "Module 6.1A Knowledge Check",
+            questions: [
+                {
+                    id: "kc_6_1a_1",
+                    question: "Which of the three referral trigger moments typically converts at the highest rate?",
+                    options: [
+                        "At the close — homeowner is committed and excited",
+                        "Post-install — panels are visible and neighbors ask questions",
+                        "First bill — homeowner sees real financial results and emotion is highest",
+                        "All three convert equally"
+                    ],
+                    correctAnswerIndex: 2,
+                    explanation: "The first bill moment produces the strongest emotional response tied to real financial proof — the highest-converting referral trigger."
+                },
+                {
+                    id: "kc_6_1a_2",
+                    question: "What is the most important step reps skip that kills referral conversion?",
+                    options: [
+                        "Asking for the referral",
+                        "Following through with outreach within 24 hours of getting a name",
+                        "Sending a thank you card",
+                        "Asking for a Google review at the same time"
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "Speed is conversion. A name given and not followed up within 24 hours loses more than 50% of its conversion potential."
+                }
+            ]
+        }
+    },
+
+    // ─── MODULE 6.2A — Review Generation & Social Proof Systems ──────────────────
+    "mod_6_2a": {
+        id: "mod_6_2a",
+        title: "Module 6.2A: Review Generation & Social Proof Systems",
+        subtitle: "Turn happy clients into a visible, searchable reputation that generates leads.",
+        sections: [
+            {
+                title: "Why Reviews Are Revenue",
+                type: "text",
+                content: "A rep with 50 five-star Google reviews generates inbound interest without additional prospecting. A rep with zero reviews loses deals to competitors with 200. Reviews are not a marketing team problem — they are a rep's responsibility. Every satisfied homeowner who doesn't leave a review is a missed lead generation opportunity."
+            },
+            {
+                title: "When to Ask for a Review",
+                type: "list",
+                content: "Timing determines the quality and likelihood of a review:",
+                items: [
+                    "Best time: Within 48 hours of PTO — the homeowner is officially live, the emotional peak is real, and the experience is fresh.",
+                    "Good time: Post-install, when panels are visible and the homeowner is proud.",
+                    "Avoid: During pipeline issues, delays, or any moment of friction. A forced review during a bad experience creates a bad review."
+                ]
+            },
+            {
+                title: "The Review Ask Script",
+                type: "text",
+                content: "'Hey [Name], your system is officially live — that's a big day! I have a small favor to ask. Reviews are really how families like yours find out if solar is worth it. If you had a good experience, it would mean a lot to me if you'd share it on Google. I'll send you a direct link — it takes about 2 minutes. Would that be okay?'\n\nAlways send the link. Never make them search for it. Friction kills completion."
+            },
+            {
+                title: "Platforms to Prioritize",
+                type: "list",
+                content: "Not all review platforms are equal in solar:",
+                items: [
+                    "Google Business Profile: Highest priority. Drives local search visibility and shows in Maps results.",
+                    "EnergySage: Industry-specific solar comparison site. High-intent prospects research here.",
+                    "Yelp: Secondary. Relevant in some markets.",
+                    "Facebook: Useful for local community groups where solar decisions are discussed."
+                ]
+            },
+            {
+                title: "Social Proof Beyond Reviews",
+                type: "list",
+                content: "Reviews are one form of social proof. Build a full social proof stack:",
+                items: [
+                    "Before/after bill photos (with homeowner permission) — real numbers convert skeptics.",
+                    "Video testimonials — 30 seconds at PTO asking 'what was the experience like?' is gold.",
+                    "Neighborhood installs map — showing homeowners that their neighbors have already gone solar accelerates decisions.",
+                    "Photo of install day — a crew on a roof is powerful visual proof."
+                ]
+            },
+            {
+                title: "Module 6.2A Slide Deck",
+                type: "slides",
+                content: "Slide deck for Review Generation & Social Proof Systems",
+                slides: [
+                    { title: "Review Generation & Social Proof Systems", content: "Every happy homeowner who doesn't leave a review is a missed lead.", image: "/images/social_proof.png" },
+                    { title: "When to Ask", content: "PTO is the peak moment. Timing is everything.", image: "/images/social_proof.png" },
+                    { title: "The Review Ask Script", content: "Ask → Send the link → Follow up once.", image: "/images/social_proof.png" },
+                    { title: "Building the Full Social Proof Stack", content: "Reviews + Bills + Video Testimonials + Neighborhood Map", image: "/images/social_proof.png" }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_6_2a_1",
+                type: "open_response",
+                label: "Write your review ask script in your own voice — at the PTO milestone:",
+                placeholder: "Hey [Name], your system is officially live...",
+                lines: 3
+            },
+            {
+                id: "wb_6_2a_2",
+                type: "open_response",
+                label: "List 3 forms of social proof you will actively collect beyond Google reviews:",
+                placeholder: "1. Before/after bill photos... 2... 3...",
+                lines: 3
+            }
+        ],
+        quiz: {
+            title: "Module 6.2A Knowledge Check",
+            questions: [
+                {
+                    id: "kc_6_2a_1",
+                    question: "What is the single highest-priority review platform for a solar rep to focus on?",
+                    options: [
+                        "Yelp",
+                        "Facebook",
+                        "Google Business Profile",
+                        "EnergySage"
+                    ],
+                    correctAnswerIndex: 2,
+                    explanation: "Google Business Profile drives local search visibility and Maps results — the highest-traffic discovery point for local solar prospects."
+                },
+                {
+                    id: "kc_6_2a_2",
+                    question: "What is the biggest mistake reps make when asking for reviews?",
+                    options: [
+                        "Asking too early",
+                        "Not sending a direct link — making the homeowner search for it themselves",
+                        "Asking too often",
+                        "Asking at PTO instead of at the close"
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "Friction kills completion. A direct link removes every barrier between intent and action."
+                }
+            ]
+        }
+    },
+
+    // ─── MODULE 6.3A — Orphan Owner Reactivation Playbook ────────────────────────
+    "mod_6_3a": {
+        id: "mod_6_3a",
+        title: "Module 6.3A: Orphan Owner Reactivation Playbook",
+        subtitle: "Convert existing solar customers abandoned by previous reps into referrals, upgrades, and loyalty.",
+        sections: [
+            {
+                title: "What Is an Orphan Owner?",
+                type: "text",
+                content: "An orphan owner is a homeowner who purchased solar through your company but whose original rep is no longer with the organization. They have a live solar system but no active rep relationship. They receive bills, monitoring alerts, and questions — with no assigned point of contact. This is both a service failure and a revenue opportunity."
+            },
+            {
+                title: "Why Orphan Owners Matter",
+                type: "list",
+                content: "Orphan owners represent one of the highest-ROI activities for an experienced rep:",
+                items: [
+                    "They already trust the company enough to have purchased.",
+                    "They are likely to refer neighbors if their experience has been positive.",
+                    "They are upgrade candidates (battery, EV charger, system expansion).",
+                    "They are cancellation risks if they feel ignored — especially during issues.",
+                    "Reactivating 5 orphan owners can generate 10–15 referral conversations."
+                ]
+            },
+            {
+                title: "The Reactivation Call Framework",
+                type: "text",
+                content: "Step 1 — Introduce yourself: 'Hi [Name], this is [Your Name] from [Company]. I've been assigned as your new point of contact — I just wanted to reach out and introduce myself.'\n\nStep 2 — Acknowledge the gap: 'I know you may not have heard from us in a while, and I want to make sure that changes. You're a customer, and you deserve consistent support.'\n\nStep 3 — Check on the system: 'How has your system been performing? Have you had any questions or concerns I can help with?'\n\nStep 4 — Open the door: 'I'd also love to keep you in the loop on anything new that might benefit you — like battery options or any programs you might qualify for.'"
+            },
+            {
+                title: "Identifying Upgrade Opportunities",
+                type: "list",
+                content: "During the reactivation call, listen for these upgrade signals:",
+                items: [
+                    "Electric vehicle purchase or interest — battery + EV charger conversation",
+                    "High bills despite solar — system underperformance or new loads",
+                    "Power outage concerns — battery backup opportunity",
+                    "Home addition or pool planned — additional load requiring system expansion",
+                    "'My neighbor is interested' — immediate referral pipeline signal"
+                ]
+            },
+            {
+                title: "Module 6.3A Slide Deck",
+                type: "slides",
+                content: "Slide deck for Orphan Owner Reactivation Playbook",
+                slides: [
+                    { title: "Orphan Owner Reactivation Playbook", content: "Existing customers are your highest-ROI prospect pool.", image: "/images/orphan_owner.png" },
+                    { title: "Why Orphan Owners Matter", content: "Trust already exists. The relationship just needs a rep.", image: "/images/orphan_owner.png" },
+                    { title: "The Reactivation Call Framework", content: "Introduce → Acknowledge → Check-In → Open the Door", image: "/images/orphan_owner.png" },
+                    { title: "Upgrade Signals to Listen For", content: "EVs, High Bills, Outages, Additions, Neighbor Interest", image: "/images/orphan_owner.png" }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_6_3a_1",
+                type: "open_response",
+                label: "Write your orphan owner reactivation opening script — introduce yourself and acknowledge the gap:",
+                placeholder: "Hi [Name], this is [Your Name] from [Company]...",
+                lines: 4
+            },
+            {
+                id: "wb_6_3a_2",
+                type: "open_response",
+                label: "List 3 upgrade signals you will specifically listen for during a reactivation call:",
+                placeholder: "1. EV interest... 2... 3...",
+                lines: 3
+            }
+        ],
+        quiz: {
+            title: "Module 6.3A Knowledge Check",
+            questions: [
+                {
+                    id: "kc_6_3a_1",
+                    question: "What is the primary reason orphan owners are a high-ROI opportunity?",
+                    options: [
+                        "They are easy to upsell without relationship building",
+                        "They already trust the company enough to have purchased — the relationship just needs a rep",
+                        "They always want battery storage",
+                        "They are unlikely to cancel so they don't need attention"
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "The trust threshold is already crossed. You're not selling solar — you're reactivating a relationship."
+                },
+                {
+                    id: "kc_6_3a_2",
+                    question: "During a reactivation call, a homeowner mentions they just bought an electric vehicle. This is:",
+                    options: [
+                        "Irrelevant to the solar conversation",
+                        "A battery and EV charger upgrade signal — open that conversation",
+                        "A reason the homeowner may want to cancel solar",
+                        "Something to note but not pursue on this call"
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "An EV purchase means increased energy load, grid dependence, and strong battery/EV charger upgrade opportunity."
+                }
+            ]
+        }
+    },
+
+    // ─── MODULE 6.4A — KPI Mastery & Self-Coaching System ────────────────────────
+    "mod_6_4a": {
+        id: "mod_6_4a",
+        title: "Module 6.4A: KPI Mastery & Self-Coaching System",
+        subtitle: "Track the numbers that drive income and diagnose your own performance bottlenecks.",
+        sections: [
+            {
+                title: "Why Self-Coaching Is the Highest-Leverage Skill",
+                type: "text",
+                content: "The reps who build long-term careers in solar are not always the most talented — they are the most self-aware. They know their close rate, their set rate, their show rate, and they know exactly where their deals are dying. A rep who can identify their own bottleneck is a rep who can fix it without waiting for a manager to tell them."
+            },
+            {
+                title: "The Six Core Solar KPIs",
+                type: "list",
+                content: "Every rep should track these six metrics weekly:",
+                items: [
+                    "Doors Knocked (or Leads Contacted): Total activity volume. The base of the funnel.",
+                    "Appointments Set (Set Rate): Doors knocked ÷ appointments set. Industry benchmark: 1 set per 20–30 doors.",
+                    "Appointments Shown (Show Rate): Appointments set ÷ appointments that actually occurred. Target: 70%+.",
+                    "Proposals Presented (Pitch Rate): Appointments shown ÷ full proposals delivered.",
+                    "Deals Closed (Close Rate): Proposals presented ÷ contracts signed. Industry range: 20–40%.",
+                    "Average Contract Value (ACV): Total revenue ÷ deals closed. Tracks deal quality, not just volume."
+                ]
+            },
+            {
+                title: "Diagnosing Your Bottleneck",
+                type: "text",
+                content: "Look at your funnel from the top down:\n\n- Low set rate → Problem is at the door. Scripts, positioning, neighborhood targeting.\n- Low show rate → Problem is pre-appointment communication. Confirmation process, rapport, value framing.\n- Low pitch rate → Problem is in-home positioning. Discovery, trust, environment control.\n- Low close rate → Problem is presentation, objection handling, or financing confidence.\n- Low ACV → Problem is qualification or product matching.\n\nFix the biggest leak first. Don't spray everywhere."
+            },
+            {
+                title: "The Weekly Self-Review Process",
+                type: "list",
+                content: "A 15-minute weekly review that top performers run every Sunday or Monday morning:",
+                items: [
+                    "Step 1: Pull last week's numbers — doors, sets, shows, pitches, closes.",
+                    "Step 2: Calculate each conversion rate.",
+                    "Step 3: Compare to your personal baseline and industry benchmark.",
+                    "Step 4: Identify the one metric furthest from benchmark.",
+                    "Step 5: Set one specific behavioral goal for the coming week to improve that metric.",
+                    "Step 6: Share with your manager or accountability partner."
+                ]
+            },
+            {
+                title: "Module 6.4A Slide Deck",
+                type: "slides",
+                content: "Slide deck for KPI Mastery & Self-Coaching System",
+                slides: [
+                    { title: "KPI Mastery & Self-Coaching System", content: "Track the numbers. Own the outcomes.", image: "/images/kpi_dashboard.png" },
+                    { title: "The Six Core Solar KPIs", content: "Doors → Sets → Shows → Pitches → Closes → ACV", image: "/images/kpi_dashboard.png" },
+                    { title: "Diagnosing Your Bottleneck", content: "Low set rate = door problem.\nLow show rate = confirmation problem.\nLow close rate = pitch/objection problem.", image: "/images/kpi_dashboard.png" },
+                    { title: "The Weekly Self-Review Process", content: "15 minutes. Pull numbers. Find the leak. Set one behavioral goal.", image: "/images/kpi_dashboard.png" }
+                ]
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_6_4a_1",
+                type: "open_response",
+                label: "Using last week's numbers, calculate your set rate, show rate, and close rate. Where is your biggest gap?",
+                placeholder: "Set rate: __ | Show rate: __ | Close rate: __ | Biggest gap: ...",
+                lines: 3
+            },
+            {
+                id: "wb_6_4a_2",
+                type: "open_response",
+                label: "Write one specific behavioral goal for this week based on your bottleneck diagnosis:",
+                placeholder: "This week I will specifically...",
+                lines: 2
+            }
+        ],
+        quiz: {
+            title: "Module 6.4A Knowledge Check",
+            questions: [
+                {
+                    id: "kc_6_4a_1",
+                    question: "A rep's close rate is 35% but their show rate is only 45%. Where should they focus first?",
+                    options: [
+                        "Improving their close rate — it's below 40%",
+                        "Improving their show rate — appointments not happening means closes are impossible regardless of skill",
+                        "Knocking more doors to compensate",
+                        "Increasing their average contract value"
+                    ],
+                    correctAnswerIndex: 1,
+                    explanation: "Fix the biggest leak first. A 45% show rate means more than half of set appointments never happen — no close rate fixes that."
+                },
+                {
+                    id: "kc_6_4a_2",
+                    question: "What does a consistently low 'set rate' (appointments set per door knocked) most likely indicate?",
+                    options: [
+                        "The rep is closing too aggressively",
+                        "The rep's in-home presentation needs work",
+                        "The rep has a problem at the door — opener, positioning, or targeting",
+                        "The rep is working the wrong neighborhoods"
+                    ],
+                    correctAnswerIndex: 2,
+                    explanation: "Set rate is the door-to-appointment conversion. Low set rate = door script, opener, or trust-building problem at first contact."
+                }
+            ]
+        }
+    },
 
 // Map scenarios back to their primary module for "Resume Training" logic
 export const SCENARIO_TO_MODULE: Record<string, string> = {}
