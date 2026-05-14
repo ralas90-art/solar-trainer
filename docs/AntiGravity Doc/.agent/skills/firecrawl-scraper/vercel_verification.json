@@ -1,0 +1,173 @@
+{
+  "success": true,
+  "data": {
+    "markdown": "### Welcome Back\n\nEnter your credentials to access the simulator.\n\nUsername\n\nPassword\n\nSales TerritoryCalifornia (NEM 3.0)New York (Tax Credits)Texas (Dereulated)Florida (Net Metering)\n\nSign InDon't have an account? Sign Up",
+    "html": null,
+    "raw_html": null,
+    "json": null,
+    "summary": null,
+    "metadata": {
+      "title": "Solar Sales Trainer",
+      "description": "AI-Powered Solar Sales Roleplay Agent",
+      "url": "https://solar-trainer.vercel.app/",
+      "language": "en",
+      "keywords": null,
+      "robots": null,
+      "og_title": null,
+      "og_description": null,
+      "og_url": null,
+      "og_image": null,
+      "og_audio": null,
+      "og_determiner": null,
+      "og_locale": null,
+      "og_locale_alternate": null,
+      "og_site_name": null,
+      "og_video": null,
+      "favicon": null,
+      "dc_terms_created": null,
+      "dc_date_created": null,
+      "dc_date": null,
+      "dc_terms_type": null,
+      "dc_type": null,
+      "dc_terms_audience": null,
+      "dc_terms_subject": null,
+      "dc_subject": null,
+      "dc_description": null,
+      "dc_terms_keywords": null,
+      "modified_time": null,
+      "published_time": null,
+      "article_tag": null,
+      "article_section": null,
+      "source_url": "https://solar-trainer.vercel.app/",
+      "status_code": 200,
+      "scrape_id": "019bec21-7bfb-7751-9416-9e95ac3062bf",
+      "num_pages": null,
+      "content_type": "text/html; charset=utf-8",
+      "proxy_used": "basic",
+      "timezone": "America/New_York",
+      "cache_state": null,
+      "cached_at": null,
+      "credits_used": 1,
+      "concurrency_limited": false,
+      "concurrency_queue_duration_ms": null,
+      "error": null,
+      "viewport": "width=device-width, initial-scale=1",
+      "indexId": "476e32b0-86fd-403e-8600-9613cab12792"
+    },
+    "links": [],
+    "images": null,
+    "screenshot": "https://storage.googleapis.com/firecrawl-scrape-media/screenshot-1df384c6-b472-4415-9aaa-d6e5096cea33.png?GoogleAccessId=scrape-bucket-accessor%40firecrawl.iam.gserviceaccount.com&Expires=1769797979&Signature=LSlyrGC2nlk%2Bnxn%2FIyEOUhR5dyZcUmM5JU7RbPU7IWL%2BKM0L4BP4XUvzV%2FHCCrvuMqhFISHctt41oNGVtH%2B42WSeO4Fo%2BFuFsEc%2B8JKfZ8%2BlI7XF4TbXlpDpV2pR1qs330hFzX2MxvKwMcsYMw2FUHEYwsjvGeNJZPd5NgwLM6Q2G5EcX0NldlTXhXK%2BBAJ1SCmTSS8t4cfAFzVSr4yxEYFwhmJEPloPVntBKxtsItbqL3YtPJabyuD969MMi98T7z7Um8XhsPZmuTaNmmxpEVl0v6HfhR41YMaAEelbptkJQyGwgXX0R7FZexwRI8DOzQ6QMXwaG6ofFpZAB2XEhA%3D%3D",
+    "actions": null,
+    "warning": null,
+    "change_tracking": null,
+    "branding": {
+      "color_scheme": "light",
+      "logo": null,
+      "fonts": [
+        {
+          "family": "sans-serif",
+          "count": 10
+        },
+        {
+          "family": "__Space_Grotesk_dd5b2f",
+          "count": 9
+        },
+        {
+          "family": "__Space_Grotesk_Fallback_dd5b2f",
+          "count": 9
+        },
+        {
+          "family": "__Outfit_ed3508",
+          "count": 1
+        },
+        {
+          "family": "__Outfit_Fallback_ed3508",
+          "count": 1
+        }
+      ],
+      "colors": {
+        "primary": "#020617",
+        "accent": "#020817",
+        "background": "#FFFFFF",
+        "textPrimary": "#020817",
+        "link": "#020817"
+      },
+      "typography": {
+        "fontFamilies": {
+          "primary": "__Space_Grotesk_dd5b2f",
+          "heading": "__Space_Grotesk_dd5b2f"
+        },
+        "fontStacks": {
+          "body": [
+            "__Space_Grotesk_dd5b2f",
+            "__Space_Grotesk_Fallback_dd5b2f",
+            "sans-serif"
+          ],
+          "heading": [
+            "__Space_Grotesk_dd5b2f",
+            "__Space_Grotesk_Fallback_dd5b2f",
+            "sans-serif"
+          ],
+          "paragraph": [
+            "__Space_Grotesk_dd5b2f",
+            "__Space_Grotesk_Fallback_dd5b2f",
+            "sans-serif"
+          ]
+        },
+        "fontSizes": {
+          "h1": "16px",
+          "h2": "16px",
+          "body": "14px"
+        }
+      },
+      "spacing": {
+        "baseUnit": 4,
+        "borderRadius": "12px"
+      },
+      "components": {
+        "input": {
+          "background": "#FFFFFF",
+          "textColor": "#020617",
+          "borderColor": "#E2E8F0",
+          "borderRadius": "0px",
+          "borderRadiusCorners": {
+            "topLeft": "0px",
+            "topRight": "0px",
+            "bottomRight": "0px",
+            "bottomLeft": "0px"
+          },
+          "shadow": "none"
+        }
+      },
+      "icons": null,
+      "images": {
+        "logo": null,
+        "favicon": null,
+        "ogImage": null
+      },
+      "animations": null,
+      "layout": null,
+      "tone": null,
+      "personality": null,
+      "__framework_hints": [],
+      "__llm_button_reasoning": {
+        "primary": {
+          "index": -1,
+          "text": "N/A",
+          "reasoning": "LLM failed"
+        },
+        "secondary": {
+          "index": -1,
+          "text": "N/A",
+          "reasoning": "LLM failed"
+        },
+        "confidence": 0
+      },
+      "confidence": {
+        "buttons": 0,
+        "colors": 0,
+        "overall": 0
+      }
+    }
+  }
+}

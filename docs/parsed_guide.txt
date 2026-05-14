@@ -1,0 +1,331 @@
+Solar Sales Training – Day 2
+AI Image Placeholder Guide  ·  Imagen Prompt Reference
+
+This document identifies every slide in the 47-slide Day 2 deck where an AI-generated image can replace or supplement placeholder content. For each candidate slide it specifies: (1) exactly where the image drops into the layout, (2) the precise Imagen / Imagen 3 / Nano prompt to generate it, and (3) style and compositing notes so the result matches the platform's visual language.
+
+Global Style Seed (append to every prompt)
+
+📌  Usage: paste the prompt from each slide entry, then append the global style seed above before sending to Imagen.
+
+Module 2.1 — Homeowner Psychology
+
+
+
+
+
+
+Module 2.2 — Territory Strategy & Planning
+
+
+
+Module 2.3 — Daily Efficiency Math
+
+
+
+Module 2.4 — The Solar Conversation Framework
+
+
+Module 2.5 — Door Knocking Mastery
+
+
+
+Module 2.6 — Micro Objection Handling
+
+
+Module 2.7 — Phone & Virtual Appointment Setting
+
+
+Module 2.8 — Anti-Sales Framing
+
+
+Module 2.9 — Prospecting Workflow
+
+
+Module 2.10 — Roleplay Certification
+
+
+Module 2.11 — Day 2 Wrap-Up
+
+
+
+Title Slide & Cover
+
+
+
+Appendix: Slides with No Image Opportunity
+The following slides are dense data/table layouts where an image would compete with the core content. These are intentionally excluded from the image placement plan:
+
+Photorealistic editorial photograph. Aspect ratio 16:9 unless otherwise noted. Color palette aligned with the Solar Sales Training learning platform: warm orange (#F4821F) and gold (#F5C842) accents are acceptable but image should NOT feel artificially tinted. Deep navy (#0D1F3C) backgrounds acceptable for scenario-type shots. Clean, modern, professional — no stock-photo cheese. No text, logos, or watermarks inside the image. Lighting: bright natural daylight preferred; avoid harsh flash. Diversity: represent a range of ethnicities, ages, genders. Always output 1792 × 1024 px (16:9) unless the slot is explicitly labeled "square" or "portrait."
+Slide 3  ·  Module 2.1 Section Divider   [2.1]
+Slide 3  ·  Module 2.1 Section Divider   [2.1]
+Placement
+Full-bleed right-half background image (occupies x:5.0→10.0, full height). Current slide is text-only on dark navy. Image sits behind text as a dark-overlaid right panel.
+Image Zone
+Right half of slide, full bleed  ·  960 × 540 px at final slide resolution (or generate 1792×1024 and crop to right half)  ·  960px × 540px
+Imagen Prompt
+A solar energy field at golden hour. Rows of photovoltaic panels stretch into the distance under a wide sky painted amber and deep blue. Cinematic wide-angle shot. No people. No text. Warm orange and gold tones bloom along the horizon. Slightly darkened exposure to allow white text overlay on right side.
+Style Notes
+Blend mode: multiply or darken overlay at 60% opacity over the image so navy text remains legible. Image should feel aspirational, not technical.
+Slide 5  ·  Reality Check: You Are an Interruption   [2.1]
+Slide 5  ·  Reality Check: You Are an Interruption   [2.1]
+Placement
+Replace the plain dark-navy headline banner with a half-width image panel on the RIGHT side of the slide (x:5.2→9.7, y:2.0→4.5). Text cards stay on the left. Image provides visual context for the 'homeowner protection mode' concept.
+Image Zone
+Right column image panel, inset  ·  430 × 230 px in slide coords  ·  860px × 460px
+Imagen Prompt
+A suburban homeowner — a woman in her 40s, casual home clothes — stands behind a slightly opened front door, peering out with a guarded, cautious expression. She is mid-conversation, hand on the door edge ready to close it. Warm interior light behind her, daylight on the porch. Shallow depth of field. No salesperson visible.
+Style Notes
+This image should feel genuine and relatable, not theatrical. Avoid over-dramatic expressions. The emotion is mild wariness, not hostility.
+Slide 7  ·  Decision Avoidance & Delay   [2.1]
+Slide 7  ·  Decision Avoidance & Delay   [2.1]
+Placement
+Small square icon image in top-right of slide (x:8.8→9.7, y:0.75→1.5) as a visual anchor. OR replace the 'Rep strategy' dark bar with a full-width thin cinematic strip image at bottom.
+Image Zone
+Bottom strip image, full width  ·  940 × 110 px in slide coords  ·  1880px × 220px
+Imagen Prompt
+Ultra-wide cinematic crop of a person sitting comfortably on a couch watching TV in a warmly lit living room, completely relaxed and unbothered. Seen from the side. No solar panels, no salesperson. Represents 'status quo comfort.' Warm, cozy tones — ochre, amber, deep brown.
+Style Notes
+Strip format. Crop tightly to roughly 8:1 aspect ratio. Apply a subtle gradient fade on left and right edges so it bleeds into the slide layout cleanly.
+Slide 8  ·  The Contractor Trust Barrier   [2.1]
+Slide 8  ·  The Contractor Trust Barrier   [2.1]
+Placement
+Replace the plain navy right column with an image panel (x:6.1→9.7, y:0.9→4.5). Currently this is the navy 'Remember' box. Image goes behind that text with a dark overlay, or the text box is removed and replaced by a standalone image.
+Image Zone
+Right column inset panel  ·  360 × 350 px in slide coords  ·  720px × 700px
+Imagen Prompt
+A homeowner — a man, mid-50s, arms crossed, standing at a front door — looking skeptically at someone off-camera. Expression is guarded but not hostile. Wearing a casual button-down shirt. Background: suburban front porch, daytime. Portrait orientation crop.
+Style Notes
+Portrait crop (roughly 1:1). Face should convey skepticism and mild distrust naturally. Real, unstaged look. No exaggerated acting.
+Slide 9  ·  Addressing Skepticism Directly   [2.1]
+Slide 9  ·  Addressing Skepticism Directly   [2.1]
+Placement
+The large dark-navy quote banner at top (y:0.85→2.1) can have a very subtle background texture image to add visual depth while keeping white text readable.
+Image Zone
+Full-width background texture behind quote banner  ·  940 × 110 px  ·  1880px × 220px
+Imagen Prompt
+Close-up of two people engaged in a genuine handshake on a front porch — warm afternoon sun. Focus on hands and forearms only. No faces. Conveys trust and agreement. Shallow depth of field, warm light.
+Style Notes
+Darken to 25% opacity — this is purely a texture/atmosphere layer. The quote text must remain fully legible over it.
+Slide 12  ·  AI Simulation: Guarded Gloria   [2.1]
+Slide 12  ·  AI Simulation: Guarded Gloria   [2.1]
+Placement
+Replace or supplement the scenario banner text area with a split image on the left showing 'Gloria.' The image occupies x:0.3→4.8, y:0.85→2.55 (the dark scenario banner zone).
+Image Zone
+Left-side scenario panel image  ·  450 × 170 px in slide coords  ·  900px × 340px
+Imagen Prompt
+A woman in her 60s — 'Gloria' — opening her front door with a politely dismissive expression. She's wearing casual daywear, hair slightly disheveled from housework. Expression: heard-it-before fatigue, not anger. She's holding the door open just enough to speak through. Suburban porch background.
+Style Notes
+Wide cinematic crop to fit the banner. The expression must read as realistic dismissal, not theatrical disdain. Use warm porch lighting.
+Slide 13  ·  Module 2.2 Section Divider   [2.2]
+Slide 13  ·  Module 2.2 Section Divider   [2.2]
+Placement
+Same treatment as Module 2.1 divider — full-bleed right-half background image behind the section title.
+Image Zone
+Right half of slide, full bleed  ·  960 × 540 px  ·  960px × 540px
+Imagen Prompt
+Aerial drone shot of a quiet American suburban neighborhood at mid-morning. Rows of single-family homes with lawns, driveways, some with solar panels already installed. Clean, blue sky. Slightly warm color grade. No people visible from this altitude.
+Style Notes
+Slightly darken the right half for text contrast. The aerial perspective reinforces the 'territory mapping' concept.
+Slide 16  ·  Prospecting Tools & Deliverable   [2.2]
+Slide 16  ·  Prospecting Tools & Deliverable   [2.2]
+Placement
+The two top cards (Digital Tools / Social Proof Tools) each have room for a small icon image. OR a single image strip can be added at the very bottom above the navy deliverable bar.
+Image Zone
+Bottom strip above navy bar  ·  940 × 80 px  ·  1880px × 160px
+Imagen Prompt
+Street-level view of a residential neighborhood — a smiling solar rep in a polo shirt knocking on a door, seen from behind. Sunny afternoon. Solar panels visible on the neighboring house roof in the background. Natural, candid energy.
+Style Notes
+Strip crop. The silhouette of the rep from behind + visible solar panels on a neighbor's roof tells the whole story in a glance.
+Slide 19  ·  Revenue Per Hour & The $78 Door   [2.3]
+Slide 19  ·  Revenue Per Hour & The $78 Door   [2.3]
+Placement
+The large light-gray box 'Reframe Every No' section (x:0.4→9.6, y:2.55→5.05) can incorporate a small image panel on the right side of that box — roughly x:6.8→9.4, y:2.65→4.95.
+Image Zone
+Right inset within the Reframe box  ·  260 × 230 px  ·  520px × 460px
+Imagen Prompt
+A solar sales rep in a polo shirt cheerfully pressing a doorbell on a sunny suburban street. He is smiling, confident, relaxed. Camera angle: slightly low, looking up at him. Door in the foreground. Warm afternoon light. Conveys a $78 opportunity at each door.
+Style Notes
+The rep should project genuine positivity, not forced enthusiasm. Natural smile. Polo shirt with a small company badge. No brand logos.
+Slide 20  ·  Golden Hours & Daily Non-Negotiables   [2.3]
+Slide 20  ·  Golden Hours & Daily Non-Negotiables   [2.3]
+Placement
+The left 'Golden Hours' box (x:0.3→4.9, y:0.85→3.65) currently shows text on gold background. A background image of an afternoon sun / golden-hour street scene would reinforce the concept visually.
+Image Zone
+Left panel background image  ·  460 × 280 px  ·  920px × 560px
+Imagen Prompt
+Looking down a sunny residential street at 3pm, golden afternoon light streaming between houses. Long shadows, warm amber tones saturating the pavement. No people. Slightly overexposed highlights to convey 'golden hours.' Suburban single-family homes on both sides.
+Style Notes
+Apply gold (#F5C842) tint overlay at 35% so the image harmonizes with the existing gold box color while remaining recognizable.
+Slide 24  ·  Step 1: The Pattern Interrupt   [2.4]
+Slide 24  ·  Step 1: The Pattern Interrupt   [2.4]
+Placement
+The large navy bottom bar (x:0.3→9.7, y:4.15→5.25) can include a small right-aligned icon image showing the concept visually — a record scratching, or a homeowner's expression shifting from bored to curious.
+Image Zone
+Right side of navy bottom bar  ·  120 × 100 px (square)  ·  240px × 200px
+Imagen Prompt
+Extreme close-up of a vinyl record needle lifting off a spinning record mid-groove. Macro photography. Sharp needle, blurred spinning record background. Black and chrome tones. Square crop. Represents 'pattern interrupt' — stopping the auto-pilot.
+Style Notes
+Square format. This is an icon-scale image (120×100 px slot). Keep it graphically strong at small size — high contrast, simple subject.
+Slide 26  ·  Mindset, Preparation & Approach   [2.5]
+Slide 26  ·  Mindset, Preparation & Approach   [2.5]
+Placement
+The entire lower half of the slide (below the two cards, the 'The Approach' section) currently has 4 text bullets with no visual. An image panel can occupy the right half of the approach section — x:5.5→9.7, y:3.05→5.4.
+Image Zone
+Right half of bottom section  ·  420 × 235 px  ·  840px × 470px
+Imagen Prompt
+A solar sales rep — woman, late 20s, professional polo shirt with small badge — standing 6 feet back from a front door, posture open and relaxed, hands at her sides (visible, no pockets), genuine smile directed at the door before it opens. Suburban porch, daytime. Wide shot showing her full body and the door.
+Style Notes
+Capture the '6 feet back, open hands, smile before door opens' technique described in the slide. This is the visual demonstration of the approach rules.
+Slide 27  ·  30-Second Pitch Structure   [2.5]
+Slide 27  ·  30-Second Pitch Structure   [2.5]
+Placement
+The right half of the slide is completely empty (steps 1–4 occupy only the left column). An image panel can occupy x:5.2→9.7, y:0.88→5.3 — a tall right-column image showing the doorstep interaction.
+Image Zone
+Full right column, tall  ·  450 × 445 px  ·  900px × 890px
+Imagen Prompt
+A solar rep (man, 30s, professional casual attire) standing at a homeowner's front door mid-conversation. The homeowner (woman, 50s) has the door open and is engaged — not defensive, slightly curious. Rep is leaning forward slightly, gesturing with one hand. Porch setting, afternoon light, solar panels visible on a neighbor's roof in the background.
+Style Notes
+This is the signature 'door pitch' image for the module — invest prompt detail here. The homeowner's body language should show receptivity (door open wide, facing the rep). Natural, warm light.
+Slide 30  ·  The Golden Rule of Objections   [2.6]
+Slide 30  ·  The Golden Rule of Objections   [2.6]
+Placement
+The large orange header block (y:0.85→2.15) is text-only. A very subtle background image — perhaps hands in a non-aggressive open gesture — can sit behind the text at low opacity.
+Image Zone
+Full-width header background  ·  940 × 130 px strip  ·  1880px × 260px
+Imagen Prompt
+Close-up of two pairs of hands in a conversation — both sets open, palms facing up, neither aggressive nor submissive. One person gesturing expressively while the other listens. Warm natural light. No faces. Blurred background. Conveys open dialogue and curiosity.
+Style Notes
+Apply orange overlay at 40% opacity. The image reinforces 'get curious' visually while keeping the bold white/gold text dominant.
+Slide 33  ·  Speed to Lead & Phone Framework   [2.7]
+Slide 33  ·  Speed to Lead & Phone Framework   [2.7]
+Placement
+The right side of the slide is empty below the orange 'Contact within 5 minutes' banner. An image can occupy x:6.2→9.7, y:1.75→5.1.
+Image Zone
+Right column image panel  ·  350 × 335 px  ·  700px × 670px
+Imagen Prompt
+A solar sales rep (woman, 30s) sitting at a bright desk, smiling while on a phone call — not a headset, a hand-held phone pressed to her ear. She's holding a pen, looking at a laptop screen, visibly engaged and confident. Clean, modern home-office setting. Warm natural light from a window. Conveys 'speed to lead' energy.
+Style Notes
+The smile while on the phone is intentional — it should be visible and genuine. Avoid overly corporate 'stock call center' aesthetics.
+Slide 36  ·  The Anti-Pitch Strategy   [2.8]
+Slide 36  ·  The Anti-Pitch Strategy   [2.8]
+Placement
+The large navy quote banner (y:0.85→1.85) can carry a right-side image inset. The left two-thirds stays text; right one-third shows a visual of the 'consultant' interaction.
+Image Zone
+Right inset within navy banner  ·  280 × 100 px  ·  560px × 200px
+Imagen Prompt
+A sales consultant (man, 40s) sitting at a kitchen table across from a homeowner couple, showing them something on a tablet — calm, low-pressure posture, leaning back slightly. No pitch materials visible. Warm kitchen interior, afternoon light. Conveys 'advisor' not 'salesperson.'
+Style Notes
+Ultra-wide crop to fit the banner strip format. Faces should be partially visible, enough to read body language. Calm, consultative energy.
+Slide 39  ·  Accountability Systems   [2.9]
+Slide 39  ·  Accountability Systems   [2.9]
+Placement
+The four cards (CRM, Manager Check-Ins, Leaderboards, Weekly Reviews) currently have no images. A single connecting background image can sit behind the entire card grid at very low opacity.
+Image Zone
+Full slide background, very subtle  ·  940 × 470 px  ·  1880px × 940px
+Imagen Prompt
+Abstract overhead view of a clean, modern workspace — a desk with a laptop, a notebook, a phone, and a coffee mug. Flat lay style. No text visible on screens or pages. Navy blue and warm wood tones. Very clean and minimal. Represents a disciplined, organized daily workflow.
+Style Notes
+Apply at 8–12% opacity as a background texture. The image should be virtually invisible on its own — only noticeable as a subtle depth layer. No specific objects should compete with the card text.
+Slide 41  ·  Certification: What You're Being Tested On   [2.10]
+Slide 41  ·  Certification: What You're Being Tested On   [2.10]
+Placement
+The right half of the slide (x:5.2→9.7) is empty below the intro text. A tall image can anchor that column.
+Image Zone
+Right column, tall  ·  450 × 380 px  ·  900px × 760px
+Imagen Prompt
+A small group training scenario — a trainer (woman, 40s) observing two young solar sales reps doing a door-knock roleplay in a bright conference room. One rep is 'at the door,' the other is playing the homeowner. The trainer has a clipboard and is watching attentively. Natural light, modern training room.
+Style Notes
+Capture the roleplay dynamic: one person as rep, one as homeowner. The observer/trainer adds coaching context. Energetic, professional learning environment.
+Slide 44  ·  Module 2.11 Section Divider   [2.11]
+Slide 44  ·  Module 2.11 Section Divider   [2.11]
+Placement
+Same treatment as other section dividers — full-bleed right-half background image.
+Image Zone
+Right half of slide, full bleed  ·  960 × 540 px  ·  960px × 540px
+Imagen Prompt
+A solar sales rep walking down a sunny residential street in the late afternoon — seen from behind, confident stride, polo shirt, clipboard or tablet under one arm. Rows of suburban homes on both sides, one with solar panels visible on the roof. Long golden-hour shadows. Motivational, forward-moving energy.
+Style Notes
+The 'rep walking away into the neighborhood' is an iconic training-module closing image. The solar panels on the distant roof should be clearly visible. Warm, golden-hour light.
+Slide 46  ·  Homework: The 20/20 Challenge   [2.11]
+Slide 46  ·  Homework: The 20/20 Challenge   [2.11]
+Placement
+The right 'Day 3 Preview' navy panel (x:5.1→9.7, y:0.85→4.25) currently has only text. A background image behind the preview text would add visual depth.
+Image Zone
+Day 3 Preview panel background  ·  460 × 340 px  ·  920px × 680px
+Imagen Prompt
+A solar sales consultant sitting at a kitchen table with a homeowner family — couple and one adult child — looking at a laptop together. The rep is pointing at the screen, everyone leaning in with genuine interest. Warm kitchen setting, evening lighting, solar system design software visible on screen. Conveys 'in-home mastery' / kitchen table workflow.
+Style Notes
+Apply navy overlay at 50% opacity so the white bullet-point text of the Day 3 preview remains fully readable. This image is a preview of what Day 3 covers.
+Slide 1  ·  Solar Sales Training Day 2 — Title Slide   [TITLE]
+Slide 1  ·  Solar Sales Training Day 2 — Title Slide   [TITLE]
+Placement
+Currently uses abstract orange/gold circular glow shapes in the top-right corner. Replacing or augmenting with a photorealistic background image on the right half would elevate the production value significantly.
+Image Zone
+Right half background, full bleed  ·  960 × 540 px  ·  960px × 540px
+Imagen Prompt
+Wide-angle photograph of a solar technician on a rooftop installing a photovoltaic panel at golden hour — warm amber and orange sky behind him. Man, 30s, hardhat, safety harness. He's looking toward the horizon, not at the camera. Heroic, aspirational composition. Deep navy shadow in the foreground, brilliant orange-gold sky filling the upper half.
+Style Notes
+This is the hero image of the entire deck — give it the most cinematic treatment. The color palette (deep navy + orange gold) exactly mirrors the deck's theme. Darken the right side by 30% for white text legibility.
+Slide
+Title
+Reason excluded
+Slide 2
+Day 2 Agenda
+11-module table — full content grid, no whitespace
+Slide 6
+Status Quo Bias
+Two-column text + quote — layout is text-critical
+Slide 10
+Loss Aversion Comparison
+Two comparison boxes + key statement — text is the visual
+Slide 11
+Psychological Factors Quick Reference
+Full-width 6-row data table — no whitespace
+Slide 14
+The Cloverleaf Strategy
+Diagram slide — circles are the visual, no image zone
+Slide 15
+Identifying High-Probability Pockets
+6-card data grid — fully packed
+Slide 17
+Daily Rhythm & KPI Targets
+Full-width schedule table — no whitespace
+Slide 18
+Solar Prospecting Math
+3-block funnel diagram — diagram IS the visual
+Slide 21
+The 7-Step Framework
+7-step process chart — layout is fully occupied
+Slide 22–23
+Framework in Action / Scripts
+4-card script grid — no whitespace
+Slide 28
+Role Play Exercise & Deliverable
+Exercise brief — text + deliverable box
+Slide 31
+Handling Brush-Offs: Scripts
+4-card objection grid — fully packed
+Slide 34–35
+Tonality Rules / Phone
+Card grids — fully packed
+Slide 37
+Consultant vs. Salesperson Table
+Comparison table — data is the visual
+Slide 38
+Daily Rhythm & KPI
+Schedule rows — fully packed
+Slide 40
+Pass Criteria & Manager Eval
+Checklist layout — no whitespace
+Slide 42–43
+Certification Rounds / Pass Criteria
+Process tables — dense
+Slide 45
+Day 2 Achievements
+4-card summary — compact but serviceable
+Slide 47
+Compliance Requirements
+3-rule compliance block — legal clarity required
+All Section Dividers (3,13,17,21,25,29,33,37,41,44)
+Already addressed above OR are dark full-bleed layouts
+See entries above for dividers with image plans

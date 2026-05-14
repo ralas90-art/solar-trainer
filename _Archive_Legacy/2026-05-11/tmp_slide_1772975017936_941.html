@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+* { box-sizing: border-box; }
+html { background: #faf9f5; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #faf9f5; font-family: Georgia, serif;
+  display: flex; color: #141413; flex-direction: column;
+}
+.slide-container {
+    width: 100%; height: 100%; display: flex; flex-direction: column;
+}
+.title-bar {
+    background: #d97757; color: #faf9f5; padding: 15pt 40pt;
+}
+.title-bar-blue {
+    background: #6a9bcc; color: #faf9f5; padding: 15pt 40pt;
+}
+.title-bar-green {
+    background: #788c5d; color: #faf9f5; padding: 15pt 40pt;
+}
+h1 { font-family: Arial, sans-serif; font-size: 30pt; margin: 0; color: inherit; }
+h2 { font-family: Arial, sans-serif; font-size: 22pt; margin: 0 0 5pt 0; color: #6a9bcc; }
+h3 { font-family: Arial, sans-serif; font-size: 18pt; color: #788c5d; margin: 0 0 5pt 0; }
+.content-area {
+    padding: 10pt 40pt; flex: 1; display: flex; flex-direction: column; justify-content: flex-start;
+}
+p { font-size: 18pt; line-height: 1.3; margin: 3pt 0; }
+ul, ol { font-size: 18pt; line-height: 1.3; margin: 3pt 0 3pt 20pt; }
+li { margin-bottom: 3pt; }
+.two-col {
+    display: flex; flex-direction: row; gap: 30pt; flex: 1;
+}
+.col { flex: 1; display: flex; flex-direction: column; }
+.box-highlight {
+    background: #e8e6dc; padding: 10pt 15pt; border-left: 8pt solid #d97757; border-radius: 8pt; margin-top: 10pt;
+}
+.box-blue {
+    background: #e8e6dc; padding: 10pt 15pt; border-left: 8pt solid #6a9bcc; border-radius: 8pt; margin-top: 10pt;
+}
+.box-green {
+    background: #e8e6dc; padding: 10pt 15pt; border-left: 8pt solid #788c5d; border-radius: 8pt; margin-top: 10pt;
+}
+.image-placeholder {
+    background: #b0aea5; border-radius: 12pt; display: flex; align-items: center; justify-content: center;
+    color: #141413; font-family: Arial, sans-serif; height: 140pt; flex: 1; margin-top: 10pt;
+}
+.title-slide {
+    background: #141413; color: #faf9f5; align-items: center; justify-content: center; text-align: center;
+    width: 100%; height: 100%; display: flex; flex-direction: column; padding: 40pt;
+}
+.title-slide h1 { color: #d97757; font-size: 40pt; margin-bottom: 15pt; }
+.title-slide h2 { color: #e8e6dc; font-size: 26pt; }
+.bottom-bar {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 10pt; background: #788c5d;
+}
+.center { text-align: center; align-items: center; }
+.large-text { font-size: 22pt; line-height: 1.4; }
+.xl-text { font-size: 28pt; line-height: 1.4; color: #d97757; font-weight: bold; }
+</style>
+</head>
+<body>
+
+        <div class="title-slide" style="background: #141413;">
+            <h1 style="color: #d97757">Day 3 Preview: In-Home Mastery</h1>
+            <div class="two-col" style="width: 100%; margin-top: 30pt;">
+                <div class="col" style="justify-content: center; flex: 1.5; padding-right: 20pt;">
+                    <ul style="font-size: 20pt; line-height: 1.5; text-align: left; background: #e8e6dc; color: #141413; padding: 20pt 30pt; border-radius: 12pt;">
+                        <li>The "Kitchen Table" workflow</li>
+                        <li>Designing the system in real-time</li>
+                        <li>The Closing Roadmap</li>
+                    </ul>
+                </div>
+                <div class="col" style="flex: 1">
+                    <div class="image-placeholder" style="height: 100%; min-height: 180pt; background: #b0aea5; border: 4px solid #d97757; margin-top: 0">
+                        <p style="text-align: center;">[Photo: Family with sales rep<br>at kitchen table]</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-bar" style="background: #788c5d"></div>
+        </div>
+    
+</body>
+</html>

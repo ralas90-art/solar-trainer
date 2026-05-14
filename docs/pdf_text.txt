@@ -1,0 +1,301 @@
+MASTER SOP
+Digital Transformation Services for El Salvador Businesses
+Guía Completa para Representantes Comerciales
+"Empowering El Salvador's growing tourism economy by bringing accessible,
+AI-powered digital tools to local businesses, property owners, and
+entrepreneurs."
+TABLE OF CONTENTS
+SECTION 1: YOUR PORTFOLIO - THREE SOLUTIONS, ONE MISSION
+SECTION 2: THE EL SALVADOR OPPORTUNITY
+SECTION 3: QUESTION-BASED SELLING SYSTEM
+SECTION 4: THE DECISION TREE - MATCHING PROSPECT TO SOLUTION
+SECTION 5: THE UNIVERSAL 6-STEP SALES PROCESS
+SECTION 6: DETAILED PRODUCT SCRIPTS
+SECTION 7: STACK SELLING - MAXIMIZING DEAL VALUE
+SECTION 8: AI AS YOUR DIFFERENTIATOR
+SECTION 9: OBJECTION HANDLING GUIDE
+SECTION 10: COMMISSION STRUCTURE - YOUR EARNINGS
+SECTION 11: SALES TOOLS & RESOURCES
+SECTION 12: FIELD GUIDE - DAILY WORKFLOW
+SECTION 13: QUICK REFERENCE CARD
+
+SECTION 1: YOUR PORTFOLIO - THREE SOLUTIONS, ONE
+MISSION
+Our mission is simple: to digitize the Salvadoran economy. We offer three distinct solutions
+tailored to specific business needs, all under one umbrella.
+1. AlToque App
+A web application designed for local businesses (restaurants, shops, vendors) that rely on
+Facebook Marketplace or WhatsApp to sell. It organizes their catalog and orders professionally.
+2. PR Vacation Rentals
+A specialized platform for property owners (beach houses, city condos, rural cabins) offering a
+more profitable, local alternative to Airbnb's high fees.
+3. Web/App Development (WaaS)
+Custom Website-as-a-Service solutions for service businesses that need a professional Google
+presence, booking systems, and digital credibility.
+Product Starting
+Who It's For Problem It Solves
+Name Price
+Restaurants, Shops, FB Lost orders in WhatsApp chats;
+AlToque App Free / $14.99 mo
+Marketplace Sellers manual order chaos
+PR Vacation High Airbnb commissions (15%+);
+Property Owners (Beach/City) $250 Setup
+Rentals lack of local support
+Web Service Businesses (Barbers, Invisible on Google; no professional
+$99 Setup
+Development Clinics, Car Rentals) booking system
+SECTION 2: THE EL SALVADOR OPPORTUNITY
+The Tourism Boom
+El Salvador is experiencing unprecedented tourism growth, with over 3.9 million visitors
+annually. Every one of these tourists needs services: they need to rent cars, book haircuts, order
+food, and find places to stay.
+Target Businesses
+Car Rentals: Need booking systems for international tourists.
+
+Barber Shops & Salons: Need appointment management.
+Flower Shops & Gift Stores: Need online catalogs.
+Restaurants: Need digital menus and order management.
+Property Owners: Need better income from their real estate.
+The Facebook Marketplace Problem
+Most local businesses operate solely on social media. This works when they are small, but as
+soon as they grow, it becomes a trap. They lose orders in buried chats, can't track inventory, and
+look unprofessional to international tourists. This is the "Digital Gap" we bridge.
+Why AI Matters
+We don't just build websites; we provide AI-powered tools. In a market where labor is manual,
+offering a business owner an "AI employee" that works 24/7 is a massive competitive advantage.
+
+SECTION 3: QUESTION-BASED SELLING SYSTEM
+We do not "push" products. We diagnose problems. We use a consultative approach based on
+SPIN selling to help the business owner realize they have a problem before we offer the solution.
+The 5 Discovery Questions
+1. Situation Question
+"How do you currently manage orders/bookings/customer inquiries?"
+Goal: Understand their current manual process.
+2. Problem Question
+"How many customers do you lose in a week because you're too busy to respond quickly?"
+Goal: Identify the pain of lost revenue.
+3. Implication Question
+"If you could recover even 5 lost sales per week, how much extra revenue would that generate
+per month?"
+Goal: Make the pain financial and real.
+4. Need-Payoff Question
+"What would it mean for your business if customers could place orders or book appointments
+24/7, even when you're closed?"
+Goal: Get them to visualize the solution.
+5. Qualification Question
+(Varies by business type - see decision tree below)
+SECTION 4: THE DECISION TREE
+Use this logic flow to determine exactly which product to pitch.
+STEP 1: Identify Business Type ├─ Property Owner (beach house, condo,
+cabin) → Go to Vacation Rentals ├─
+Product/Food Seller (restaurant, shop, online seller) → Go to AlToque └─
+Service Business (barber, car rental,
+clinic) → Go to Web Development STEP 2: Ask Qualifying Questions FOR
+PROPERTY OWNERS: Q: "Is this property
+currently on Airbnb or listed anywhere?" Q: "Do you live near the
+property or do you need full management?" →
+Lives nearby/wants control = Model A (Direct Booking Edge) → Lives
+
+abroad/wants passive income = Model B (Full
+Management) FOR PRODUCT/FOOD SELLERS: Q: "How many products/menu items do
+you sell?" Q: "Do you currently take
+orders through Facebook/WhatsApp?" → Less than 20 products, just
+starting = AlToque Chivo (Free) → Established
+business, 20+ products = AlToque Pro ($14.99/mo) → Multiple
+locations/staff = AlToque Premium ($29.99/mo) FOR
+SERVICE BUSINESSES: Q: "Do you take appointments/bookings?" Q: "Do
+customers search for you on Google? Do you have
+a website?" → No website, just need presence = Plan Chivo ($99 setup/$25
+mo) → Need booking system = Plan Pro
+($149 setup/$49 mo) → Want to sell products online too = Plan Premium
+($299 setup/$89 mo) STEP 3: Check for STACK
+Opportunities If restaurant/shop = AlToque + Website If property rental =
+Website + Vacation Platform
+
+SECTION 5: THE UNIVERSAL 6-STEP SALES PROCESS
+STEP 1: COLD APPROACH / OPENING
+For Storefronts:
+"Buenos días, ¿es usted el dueño/la dueña? [wait for yes] Perfecto. Soy [name],
+represento a [Company]. Ayudamos a negocios como el suyo a no perder
+clientes por estar muy ocupados. ¿Tiene un minuto?"
+For Property Owners:
+"Hola, vi que tiene esta propiedad en Airbnb. ¿Sabía que podría estar ganando
+un 10% más por noche usando una plataforma local sin las comisiones altas de
+Airbnb?"
+STEP 2: DISCOVERY
+Use the 5 Discovery Questions. Listen specifically for these pain points:
+"We lose orders on weekends"
+"I can't keep up with WhatsApp messages"
+"Airbnb takes 15% commission"
+"People can't find us on Google"
+STEP 3: PRODUCT MATCH
+Based on their answers, mentally route them to the correct solution using the Decision Tree in
+Section 4.
+STEP 4: DEMO
+For AlToque: Show live demo on your phone, place a test order.
+For Web Development: Show example websites on tablet.
+For Vacation Rentals: Show the platform dashboard, explain booking flow.
+Always emphasize AI features: "This system uses AI to automatically respond to customers,
+even when you're asleep."
+STEP 5: QUOTE & CLOSE
+Pull up the Excel Quoter tool.
+Show them the total investment.
+
+Annual Discount: "If you pay for the year today, I give you 2 months free."
+Urgency: "I can have this live for you by next week."
+ROI: "If you recover just 3 lost sales per week, this pays for itself."
+STEP 6: ONBOARDING HANDOFF
+Collect the setup fee (Cash, Transfer, Chivo Wallet).
+Fill out the client information form.
+Set expectations for the go-live timeline.
+
+SECTION 6: DETAILED PRODUCT SCRIPTS
+PRODUCT A: AlToque App
+Who it's for: Restaurants, food vendors, shops, FB Marketplace sellers.
+"Mira, sé que estás recibiendo pedidos por Facebook y WhatsApp todo el día. El
+problema es que cuando estás atendiendo un cliente, pierdes otros 3 que te
+escribieron. AlToque te crea un catálogo digital donde tus clientes pueden hacer
+pedidos ellos mismos, 24/7. El pedido te llega organizado a WhatsApp, con
+nombre, dirección y todo listo. Ya no tienes que estar preguntando '¿qué
+querías? ¿a dónde te lo mando?'"
+AI Features to highlight:
+AI-powered smart catalog
+Auto-responses to common questions
+Analytics showing which products sell best
+Packages:
+AlToque Chivo (Free): Up to 20 products, basic catalog.
+AlToque Pro ($14.99/mo): Unlimited products, payment integration, no watermark.
+AlToque Premium ($29.99/mo): Multiple staff users, reporting, custom domain.
+PRODUCT B: Web/App Development (WaaS)
+Who it's for: Service businesses (barbers, car rentals, clinics).
+"Cuando alguien busca 'barbería en [ciudad]' en Google, ¿aparece tu negocio? Si
+no tienes sitio web, es como si no existieras para el turista que acaba de llegar a
+El Salvador. Te creamos tu página web profesional con sistema de reservas
+24/7. Tus clientes reservan solos, el sistema les manda recordatorio
+automático, y tú solo llegas a atenderlos."
+AI Features to highlight:
+AI chatbot for answering FAQs
+Smart booking system preventing double-bookings
+AI-powered analytics
+Packages:
+
+Plan Chivo ($99 setup / $25/mo): Landing page, contact form, mobile-friendly.
+Plan Pro ($149 setup / $49/mo): Everything + booking system, SMS reminders.
+Plan Premium ($299 setup / $89/mo): Everything + e-commerce, VIP support.
+PRODUCT C: PR Vacation Rentals
+Who it's for: Beach house owners, condo owners, cabin owners.
+"Airbnb te cobra 15% de comisión por cada reserva, ¿verdad? Nosotros te
+creamos tu propia plataforma de reservas directas donde solo pagas 8-10% de
+comisión. Además, nuestro marketing está enfocado 100% en El Salvador.
+Atraemos turistas que buscan específicamente playas salvadoreñas, no
+competencia mundial."
+Packages:
+Model A: Direct Booking Edge ($250-350 setup / 8-10% comm): For owners who live nearby.
+Platform access only.
+Model B: Premium Sin Preocupaciones ($400-600 setup / 18-20% comm): For absentee
+owners. Full management.
+
+SECTION 7: STACK SELLING - MAXIMIZING DEAL VALUE
+Many businesses need MULTIPLE solutions. Always explore stack opportunities to maximize
+your commission.
+Common Stacks
+Stack 1: Restaurant/Food Business
+= AlToque App + Website
+Why: Website for Google presence + AlToque for order management.
+Your commission: $59.60 (web setup) + $22.49 (AlToque) = $82.09 + residual
+Stack 2: Property Owner
+= Vacation Rental Platform + Property Website
+Why: Website showcases property, platform manages bookings.
+Your commission: $300-600 (rental) + $39.60 (website) = $339.60 - $639.60
+"Mira, con solo la app de pedidos vas a crecer bastante. Pero si además tienes
+tu sitio web, los turistas que buscan en Google también te van a encontrar. Es
+como tener dos puertas de entrada en vez de una. Y te lo puedo hacer todo hoy
+a un precio especial."
+SECTION 8: AI AS YOUR DIFFERENTIATOR
+Most competitors in El Salvador don't offer AI-powered tools. This is your advantage. Here's
+how to explain AI to non-technical business owners:
+"La Inteligencia Artificial es como tener un empleado virtual que trabaja 24/7 sin
+vacaciones. Responde preguntas, organiza pedidos, y aprende de tus clientes."
+AI Features by Product
+AlToque App: AI Smart Catalog (suggests products), AI Analytics.
+Web Development: AI Chatbot (answers FAQs), Smart Booking (optimizes slots).
+Vacation Rentals: Dynamic Pricing AI (adjusts rates based on demand).
+SECTION 9: OBJECTION HANDLING GUIDE
+"I need to think about it"
+Response: "Claro, entiendo. ¿Qué parte específicamente quiere pensar? ¿Es el precio, la
+
+funcionalidad, o algo más?"
+"I don't have money right now"
+Response: "Entiendo. Por eso justamente necesita esto - para GANAR más dinero. Si esperamos
+dos meses más, ¿cuántos clientes va a perder en ese tiempo? Este sistema se paga solo en la
+primera semana."
+"I already have a website / Facebook"
+Response: "Perfecto, ¿y le está trayendo clientes nuevos cada semana? El problema no es tener
+un sitio web, es tener un sistema completo que trabaja para usted."
+"My customers don't use technology"
+Response: "Pero sus hijos sí. Y los turistas definitivamente sí. Si no está en línea, solo está visible
+para el 20% del mercado."
+
+SECTION 10: COMMISSION STRUCTURE - YOUR EARNINGS
+You are a 100% commission-based sales representative. You earn money in two ways:
+1. Upfront Commissions: Immediate cash when you close a deal.
+2. Residual Income: Ongoing monthly payments as long as the client stays active.
+WEB/APP DEVELOPMENT (WaaS)
+Package Setup Fee Your Upfront (40%) Your Residual (10%)
+Plan Chivo $99 $39.60 $2.50/mo
+Plan Pro $149 $59.60 $4.90/mo
+Plan Premium $299 $119.60 $8.90/mo
+ALTOQUE APP
+Package Monthly Fee Your Upfront Annual Plan (Upfront)
+Chivo (Free) $0 $0 -
+Pro $14.99 $22.49 $37.50
+Premium $29.99 $44.98 $75.00
+PR VACATION RENTALS
+Model Setup Fee Your Commission
+Model A (Direct) $250-350 $300 flat
+Model B (Full Mgmt) $400-600 $600 flat
+VOLUME BONUSES
+Weekly Bonus: Close 5 deals/week = $50 Bonus
+Monthly Bonus: Close 20 deals/month = $200 Bonus
+Quarterly Bonus: Close 60 deals/3 months = $500 Bonus
+SECTION 11: SALES TOOLS & RESOURCES
+
+Your Sales Kit
+1. Excel Quoter: Dynamic pricing calculator
+2. Pitch Deck: PDF presentations for each product
+3. Demo Accounts: AlToque demo store, Sample websites, Rental dashboard
+4. Contract Templates: Client agreement forms
+5. This SOP Document: Keep on your phone
+SECTION 12: FIELD GUIDE - DAILY WORKFLOW
+Territory Planning
+Mon-Tue (Tourism Corridor): Beach towns (El Tunco, El Zonte). Target surf shops, hostels.
+Wed-Thu (Urban): San Salvador. Target barbers, flower shops, car rentals.
+Fri (Rural): Mountain areas. Target cabins, eco-lodges.
+Sat (Market): Entrepreneurs at local mercados.
+
+FIELD QUICK REFERENCE
+🎯 THE 5 DISCOVERY QUESTIONS
+1. "¿Cómo maneja pedidos/reservas actualmente?"
+2. "¿Cuántos clientes pierde por semana por estar ocupado?"
+3. "Si recuperara 5 ventas por semana, ¿cuánto ganaría al mes?"
+4. "¿Qué significaría para su negocio si clientes pudieran comprar 24/7?"
+5. [Qualifying question - see decision tree]
+🌳 DECISION TREE
+Property Owner? → Vacation Rentals
+Lives nearby = Model A ($300 comm)
+Lives abroad = Model B ($600 comm)
+Sells Products/Food? → AlToque
+Just starting = Free
+Established = Pro ($37.50 annual comm)
+Service Business? → Web Development
+No website = Chivo ($39.60 comm)
+Need bookings = Pro ($59.60 comm + residual)
+🚀 CLOSING LINES
+"Si paga anual, le regalo 2 meses."
+"¿Cuándo quiere que esté listo? ¿La próxima semana?"
+"Si recupera solo 3 ventas perdidas por semana, esto se paga solo."
+📞 OBJECTION KILLERS
+"No tengo dinero" → "Por eso necesita esto - para GANAR más."
+"Necesito pensarlo" → "¿Qué parte específicamente? ¿Precio o funcionalidad?"
+"Ya tengo web" → "¿Le trae clientes nuevos cada semana?"
+

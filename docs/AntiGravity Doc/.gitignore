@@ -1,0 +1,10 @@
+# Intermediate files
+.tmp/
+
+# Secrets and credentials
+.env
+credentials.json
+token.json
+
+# Agent memory
+.gemini/

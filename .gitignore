@@ -1,0 +1,16 @@
+node_modules
+.next
+out
+build
+dist
+.env
+.env.local
+.tmp
+.antigravity
+.venv
+__pycache__
+*.mp3
+audio/
+public/audio/
+*.log
+.DS_Store

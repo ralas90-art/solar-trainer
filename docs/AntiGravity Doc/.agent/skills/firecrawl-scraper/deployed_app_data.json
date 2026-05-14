@@ -1,0 +1,193 @@
+{
+  "success": true,
+  "data": {
+    "markdown": "### Welcome Back\n\nEnter your credentials to access the simulator.\n\nUsername\n\nPassword\n\nSign InDon't have an account? Sign Up",
+    "html": null,
+    "raw_html": null,
+    "json": null,
+    "summary": null,
+    "metadata": {
+      "title": "Solar Sales Trainer",
+      "description": "AI-Powered Solar Sales Roleplay Agent",
+      "url": "https://solar-trainer.vercel.app/",
+      "language": "en",
+      "keywords": null,
+      "robots": null,
+      "og_title": null,
+      "og_description": null,
+      "og_url": null,
+      "og_image": null,
+      "og_audio": null,
+      "og_determiner": null,
+      "og_locale": null,
+      "og_locale_alternate": null,
+      "og_site_name": null,
+      "og_video": null,
+      "favicon": null,
+      "dc_terms_created": null,
+      "dc_date_created": null,
+      "dc_date": null,
+      "dc_terms_type": null,
+      "dc_type": null,
+      "dc_terms_audience": null,
+      "dc_terms_subject": null,
+      "dc_subject": null,
+      "dc_description": null,
+      "dc_terms_keywords": null,
+      "modified_time": null,
+      "published_time": null,
+      "article_tag": null,
+      "article_section": null,
+      "source_url": "https://solar-trainer.vercel.app/",
+      "status_code": 200,
+      "scrape_id": "019bec0c-822a-7555-86e3-3e465b05595b",
+      "num_pages": null,
+      "content_type": "text/html; charset=utf-8",
+      "proxy_used": "basic",
+      "timezone": "America/New_York",
+      "cache_state": null,
+      "cached_at": null,
+      "credits_used": 1,
+      "concurrency_limited": false,
+      "concurrency_queue_duration_ms": null,
+      "error": null,
+      "viewport": "width=device-width, initial-scale=1",
+      "indexId": "15d031d6-1ba7-4758-a524-d224526652a4"
+    },
+    "links": [],
+    "images": null,
+    "screenshot": "https://storage.googleapis.com/firecrawl-scrape-media/screenshot-a354756d-b56b-4e1a-9656-9c6d96523ac1.png?GoogleAccessId=scrape-bucket-accessor%40firecrawl.iam.gserviceaccount.com&Expires=1769796604&Signature=qcgg7rOHqC4MQUGKACL17jomnQf2783%2FEmoUTYK4SNByBslespsZnDLTctk17dzVUGZYn8kakwhBbc7GeQ47758LL%2BCNww9JFSthv9os%2B0qPrkWAtoP2nb36dsczAlDXPzakPTPWQbt84iVggjwLb3SgUteK6FViFdXq4H%2Bt2xCWktX0ef36odzA%2F0vJQ8DTMzNY4sE5GSXBCM8lIvK864kyScxjGQwqBRpTJYD7hFTDzXAGgs5OH7Drp8w00gif5I0ZmmTHQ75Avi9gQpnWfG65E81Cxb7F1ZuOAFK5vazwl9rCxBA2%2B9nBMIwoE5fRpbnE%2B4oRXyRXBLURcZVUzA%3D%3D",
+    "actions": null,
+    "warning": null,
+    "change_tracking": null,
+    "branding": {
+      "color_scheme": "light",
+      "logo": null,
+      "fonts": [
+        {
+          "family": "ui-sans-serif",
+          "count": 9
+        },
+        {
+          "family": "system-ui",
+          "count": 9
+        },
+        {
+          "family": "sans-serif",
+          "count": 9
+        },
+        {
+          "family": "Apple Color Emoji",
+          "count": 9
+        },
+        {
+          "family": "Segoe UI Emoji",
+          "count": 9
+        },
+        {
+          "family": "Segoe UI Symbol",
+          "count": 9
+        },
+        {
+          "family": "Noto Color Emoji",
+          "count": 9
+        }
+      ],
+      "colors": {
+        "primary": "#020617",
+        "accent": "#0F172A",
+        "background": "#F8FAFC",
+        "textPrimary": "#0F172A",
+        "link": "#0F172A"
+      },
+      "typography": {
+        "fontFamilies": {
+          "primary": "ui-sans-serif",
+          "heading": "ui-sans-serif"
+        },
+        "fontStacks": {
+          "body": [
+            "ui-sans-serif",
+            "system-ui",
+            "sans-serif",
+            "Apple Color Emoji",
+            "Segoe UI Emoji",
+            "Segoe UI Symbol",
+            "Noto Color Emoji"
+          ],
+          "heading": [
+            "ui-sans-serif",
+            "system-ui",
+            "sans-serif",
+            "Apple Color Emoji",
+            "Segoe UI Emoji",
+            "Segoe UI Symbol",
+            "Noto Color Emoji"
+          ],
+          "paragraph": [
+            "ui-sans-serif",
+            "system-ui",
+            "sans-serif",
+            "Apple Color Emoji",
+            "Segoe UI Emoji",
+            "Segoe UI Symbol",
+            "Noto Color Emoji"
+          ]
+        },
+        "fontSizes": {
+          "h1": "16px",
+          "h2": "16px",
+          "body": "14px"
+        }
+      },
+      "spacing": {
+        "baseUnit": 4,
+        "borderRadius": "8px"
+      },
+      "components": {
+        "input": {
+          "background": "#FFFFFF",
+          "textColor": "#020617",
+          "borderColor": "#E2E8F0",
+          "borderRadius": "6px",
+          "borderRadiusCorners": {
+            "topLeft": "6px",
+            "topRight": "6px",
+            "bottomRight": "6px",
+            "bottomLeft": "6px"
+          },
+          "shadow": "none"
+        }
+      },
+      "icons": null,
+      "images": {
+        "logo": null,
+        "favicon": null,
+        "ogImage": null
+      },
+      "animations": null,
+      "layout": null,
+      "tone": null,
+      "personality": null,
+      "__framework_hints": [],
+      "__llm_button_reasoning": {
+        "primary": {
+          "index": -1,
+          "text": "N/A",
+          "reasoning": "LLM failed"
+        },
+        "secondary": {
+          "index": -1,
+          "text": "N/A",
+          "reasoning": "LLM failed"
+        },
+        "confidence": 0
+      },
+      "confidence": {
+        "buttons": 0,
+        "colors": 0,
+        "overall": 0
+      }
+    }
+  }
+}

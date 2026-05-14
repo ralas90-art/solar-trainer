@@ -1,0 +1,600 @@
+import json
+
+def words_to_seconds(text):
+    return round((len(text.split()) / 130) * 60)
+
+PART2 = {
+    "program_title": "SeptiVolt Solar Sales Rep Accelerator",
+    "narration_part": 2,
+    "days_covered": "Days 4–7",
+    "days": [
+
+        # ─────────────────────────────────────────
+        # DAY 4
+        # ─────────────────────────────────────────
+        {
+            "day_number": 4,
+            "day_title": "Presentation Mastery & Financing",
+            "modules": [
+                {
+                    "module_id": "4.1",
+                    "module_title": "Utility Bill Deep Dive — Advanced Analysis",
+                    "lesson_objective": "Perform surgical bill analysis in front of the homeowner and build credibility.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "The Bill Autopsy Process",
+                            "concept": "Live, narrated bill analysis",
+                            "narration": "When you analyze a utility bill in front of a homeowner, narrate everything you're doing. Let me show you exactly where your money's going. This transparency builds trust. You're not hiding behind a proposal — you're showing them their own data in real time. Start with the twelve-month usage history. Add up the total kilowatt-hours. Calculate the daily average. Then say: so you're using about thirty-three kilowatt-hours per day — that's typical for a home this size in this area. You've immediately shown expertise without selling anything.",
+                            "quiz_flag": False
+                        },
+                        {
+                            "slide_number": 2,
+                            "slide_title": "Rate Structure Identification",
+                            "concept": "Tiered, flat, and time-of-use rates",
+                            "narration": "The rate structure determines how much solar actually saves. A flat rate is the simplest — same cents per kilowatt-hour all month. A tiered rate gets more expensive as usage increases, which means solar saves more per kilowatt-hour because it eliminates the most expensive usage tiers first. Time-of-use rates charge different amounts by time of day — morning off-peak is cheap, afternoon on-peak is expensive. For time-of-use customers, solar production during peak hours is most valuable, and a battery can maximize those savings even further.",
+                            "quiz_flag": False
+                        },
+                        {
+                            "slide_number": 3,
+                            "slide_title": "Inflation Projection",
+                            "concept": "25-year utility cost modeling",
+                            "narration": "Here is the most powerful number in your presentation. Look up your utility's historical rate increase — typically five to six percent per year. Then show the compounding effect. A current bill of one hundred eighty dollars per month becomes two hundred forty dollars in five years, three hundred twenty in ten, and over four hundred dollars in fifteen. Over twenty-five years, the homeowner will pay the utility over one hundred thousand dollars — and own nothing. Solar locks their rate. The contrast between those two futures is where decisions get made.",
+                            "quiz_flag": False
+                        },
+                        {
+                            "slide_number": 4,
+                            "slide_title": "True-Up Logic & Offset Explained",
+                            "concept": "Net metering mechanics",
+                            "narration": "For homeowners on net metering, true-up is the annual settlement. During the year, credits accumulate when the system overproduces. At year-end, the utility settles the account. If you overproduced, they pay you — typically at wholesale rates. If you underproduced, you pay the difference at retail. That's why we size systems at one hundred five to one hundred ten percent of annual usage — to build in a production cushion for degradation and future increases. And they'll still have a small monthly bill — usually ten to twenty dollars — for connection fees. That's the honest expectation to set.",
+                            "quiz_flag": True
+                        }
+                    ]
+                },
+                {
+                    "module_id": "4.2",
+                    "module_title": "Financing Deep Dive",
+                    "lesson_objective": "Explain loan, lease, and PPA clearly and match financing to homeowner goals.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Option 1 — Solar Loan",
+                            "concept": "Ownership and tax credit",
+                            "narration": "The solar loan is the most common and most beneficial financing structure for qualified homeowners. The homeowner borrows money to purchase the system outright, owns it completely, and receives the thirty percent federal tax credit — typically nine thousand dollars on a thirty-thousand-dollar system. Monthly payments are often lower than their current utility bill from day one. The trade-off is good credit is required — generally six hundred fifty or higher. The long-term savings are the highest of any financing option because the homeowner owns a depreciating-zero asset that eliminates their biggest recurring utility expense.",
+                            "quiz_flag": False
+                        },
+                        {
+                            "slide_number": 2,
+                            "slide_title": "The 18-Month Tax Credit Strategy",
+                            "concept": "Loan payment optimization",
+                            "narration": "Many solar loans offer an eighteen-month same-as-cash window. Here is how to explain it. In the first eighteen months, the payment is slightly higher. But in year two, when the homeowner files their taxes and receives the thirty percent tax credit, they apply that lump sum directly to the loan principal. This significantly drops their monthly payment for the remaining life of the loan. The script is simple: you'll have a higher payment for eighteen months, then you apply your tax credit and your payment drops — permanently. Walk through that math with them clearly.",
+                            "quiz_flag": False
+                        },
+                        {
+                            "slide_number": 3,
+                            "slide_title": "Option 2 & 3 — Lease and PPA",
+                            "concept": "Zero-down alternatives",
+                            "narration": "The solar lease and Power Purchase Agreement are both zero-down options where the solar company owns the system. With a lease, the homeowner pays a fixed monthly amount. With a PPA, they pay per kilowatt-hour produced. Both options transfer maintenance responsibility to the company. The trade-off: the homeowner does not receive the federal tax credit, and both have escalator clauses that increase payments annually. Recommend these for homeowners with lower credit scores, no meaningful tax liability, or those who simply want simplicity over maximum savings.",
+                            "quiz_flag": True
+                        }
+                    ]
+                },
+                {
+                    "module_id": "4.3",
+                    "module_title": "The Value Stack — Beyond Money",
+                    "lesson_objective": "Present the four pillars of solar value with emotional anchors.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "The 4 Pillars of Solar Value",
+                            "concept": "Financial, independence, equity, environment",
+                            "narration": "The financial case for solar is strong — but the decision to go solar is rarely made by math alone. It's made by the combination of financial safety, emotional security, and identity. The four pillars are: financial protection from rate inflation, energy independence from the utility monopoly, home value increase from the asset added, and environmental impact from clean energy generation. Use all four pillars every time. But lead with the one that resonates most for that specific homeowner's BOLT type and lifestyle.",
+                            "quiz_flag": False
+                        },
+                        {
+                            "slide_number": 2,
+                            "slide_title": "The 60-Second Value Stack Script",
+                            "concept": "Summary close setup",
+                            "narration": "Here is how you deliver all four pillars in sixty seconds. Financial protection — you are locking your rate while your neighbors' bills keep climbing. Energy independence — you are no longer at the mercy of the utility's pricing decisions. Home equity — you are adding fifteen to twenty thousand dollars in home value. And peace of mind — ten years from now, when your neighbors are paying four hundred dollars a month, you'll be so glad you did this. This isn't just about saving fifty dollars a month. It's about protecting your family from the next twenty-five years of rate increases.",
+                            "quiz_flag": False
+                        }
+                    ]
+                },
+                {
+                    "module_id": "4.4",
+                    "module_title": "Net Metering & Battery Storage",
+                    "lesson_objective": "Explain net metering mechanics and advise on battery appropriately.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Net Metering Explained Simply",
+                            "concept": "Grid as a battery analogy",
+                            "narration": "The simplest way to explain net metering is this: think of the grid as your battery. When your panels produce more than your home uses during the day, that extra power goes onto the grid and your meter runs backward — you're banking credits. At night, when your panels aren't producing, you draw from the grid and spend those credits. The utility acts like a large storage account for your energy. At the end of the year, you settle up. If you banked more than you spent, the utility owes you. If you spent more than you banked, you pay the difference.",
+                            "quiz_flag": False
+                        },
+                        {
+                            "slide_number": 2,
+                            "slide_title": "When Batteries Make Sense",
+                            "concept": "Battery storage advisory",
+                            "narration": "Battery storage makes sense in four situations. One — frequent power outages, where backup power has real value. Two — time-of-use rates, where you can charge the battery during off-peak hours and discharge during expensive on-peak hours. Three — states with NEM 3.0, where solar-to-grid credits are reduced and self-consumption becomes more financially beneficial. Four — homeowners with strong energy independence goals who want to minimize their grid dependence. When none of these apply, batteries add cost without proportional benefit — and it's your job to say so.",
+                            "quiz_flag": False
+                        }
+                    ]
+                },
+                {
+                    "module_id": "4.5",
+                    "module_title": "System Design & Production Estimates",
+                    "lesson_objective": "Run design software and present production estimates compliantly.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Live Design Walkthrough",
+                            "concept": "Design software transparency",
+                            "narration": "When you pull up the homeowner's roof in the design software, walk them through what you're doing. Here's your home from satellite. Here are where we'd place the panels — south and west-facing planes for maximum production. This twenty-four-panel system at four hundred watts each gives us nine point six kilowatts of capacity. The software estimates about twelve thousand five hundred kilowatt-hours of production per year, based on twenty-five years of weather data for this exact location. That's a hundred four percent of your current usage — a small production cushion built in.",
+                            "quiz_flag": False
+                        },
+                        {
+                            "slide_number": 2,
+                            "slide_title": "Compliance Language for Estimates",
+                            "concept": "What you can and cannot say",
+                            "narration": "This is a compliance checkpoint that protects you and your company. What you can say: this is an estimate based on historical weather data — actual production may vary. What you cannot say: you will definitely produce this much, or your bill will be zero. Every estimate includes natural variation due to weather, shading changes, and degradation over time. Using compliant language signals you're a professional. It also prevents cancellations caused by unmet expectations. Accuracy in your promises is the foundation of a cancellation-free pipeline.",
+                            "quiz_flag": True
+                        }
+                    ]
+                },
+                {
+                    "module_id": "4.6",
+                    "module_title": "The Full Presentation Flow",
+                    "lesson_objective": "Deliver a compelling 20-minute presentation from memory.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "The 6-Phase Presentation Structure",
+                            "concept": "20-minute flow with micro-closes",
+                            "narration": "The full presentation runs twenty minutes and has six phases. Phase one: bill analysis — five minutes showing them exactly where their money is going. Phase two: system design — five minutes showing their specific roof and production model. Phase three: financial comparison — seven minutes showing the twenty-five-year cost of doing nothing versus going solar. Phase four: value stack — two minutes covering the four pillars. Phase five: incentives and timeline — one minute covering the federal tax credit and install process. Phase six: transition to close. End every phase with a micro-close — a short check-in question that confirms alignment before moving forward.",
+                            "quiz_flag": False
+                        },
+                        {
+                            "slide_number": 2,
+                            "slide_title": "Controlling Interruptions & Buying Signals",
+                            "concept": "Pacing the presentation",
+                            "narration": "During your presentation, two things will happen: interruptions and buying signals. For interruptions, acknowledge them and redirect: great question — let me finish this slide and I'll come right back to that. This keeps momentum without dismissing their concern. For buying signals — leaning forward, nodding, asking about install dates, asking when can we get started — these are your indicators to accelerate to the close. Don't keep presenting when someone is ready to buy. Transition immediately: the system makes sense, the numbers work, and you're qualified. The only question is — when do you want to get started?",
+                            "quiz_flag": True
+                        }
+                    ]
+                },
+                {
+                    "module_id": "4.7",
+                    "module_title": "Day 4 Wrap-Up & Homework",
+                    "lesson_objective": "Consolidate presentation skills and prepare for objection training.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Tonight's Assignment",
+                            "concept": "Presentation practice",
+                            "narration": "Tonight's homework is to deliver the full twenty-minute presentation to a family member and record it. Watch it back and note: did you use micro-closes after each phase? Did you narrate your bill analysis clearly? Did you explain financing confidently? Also practice the payment calculations for three hypothetical homeowners — different usage levels and credit scores. Tomorrow is Day Five — objection handling and closing. It's one of the most skill-intensive days in the program. Come in with your presentation memorized.",
+                            "quiz_flag": False
+                        }
+                    ]
+                }
+            ]
+        },
+
+        # ─────────────────────────────────────────
+        # DAY 5
+        # ─────────────────────────────────────────
+        {
+            "day_number": 5,
+            "day_title": "Objection Handling, Closing & Contracts",
+            "modules": [
+                {
+                    "module_id": "5.1",
+                    "module_title": "Objection Handling Psychology",
+                    "lesson_objective": "Reframe objections as engagement signals and respond without defensiveness.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "What an Objection Really Is",
+                            "concept": "Objection as request for reassurance",
+                            "narration": "An objection is not a no. An objection is a request for reassurance. If someone were completely uninterested, they'd simply stop engaging — they wouldn't bother objecting. Every objection tells you they're still in the conversation. The problem is how most reps respond: they get defensive, throw more information, or cave immediately. None of those work. The framework that does work is called A.C.A. — Acknowledge, Clarify, Answer. Follow this sequence on every objection, in every conversation, and your close rate will climb.",
+                            "quiz_flag": False
+                        },
+                        {
+                            "slide_number": 2,
+                            "slide_title": "The A.C.A. Framework",
+                            "concept": "Structured objection response",
+                            "narration": "Acknowledge — validate the concern without agreeing with it. Something like: that makes total sense. Or: I hear you. Clarify — ask a question to understand what's really underneath the stated concern. Most homeowners surface an objection that hides a deeper one. Answer — once you understand what they actually need, provide that specific information. Not a general defense of solar. Not a sales pitch. The exact answer to the exact concern. Short. Clear. Confident. Then check in: does that help?",
+                            "quiz_flag": True
+                        }
+                    ]
+                },
+                {
+                    "module_id": "5.2",
+                    "module_title": "The Top 10 Closing Objections & Responses",
+                    "lesson_objective": "Handle every major objection with a scripted, confident response.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "I Need to Think About It & Too Expensive",
+                            "concept": "The two most common closers",
+                            "narration": "I need to think about it — clarify immediately. Of course — what specifically do you want to think through? If they're vague, offer three likely categories: the timing, the money, or something that doesn't fully make sense yet. Ask which is closest. That level of specificity always surfaces the real objection. Too expensive — ask whether it's the monthly payment or the total cost that feels off. If it's monthly, show the solar payment versus their current utility bill side by side. If it's the total, reframe it: this isn't an expense — it's a twenty-five-year investment that pays for itself.",
+                            "quiz_flag": False
+                        },
+                        {
+                            "slide_number": 2,
+                            "slide_title": "Getting Other Quotes & Not Ready Right Now",
+                            "concept": "Competition and timing objections",
+                            "narration": "Getting other quotes — encourage it. Genuinely. Tell them exactly what to ask competitors: about warranties, installer experience, monitoring, and cancellation policy. Most reps won't answer those questions clearly — and that contrast makes you look excellent. Then offer to prepare a preliminary design for comparison purposes — no obligation. Not ready right now — ask what would need to change for the timing to be right. If they name a specific trigger, set a follow-up for after that event and log it in your CRM immediately. If they name nothing specific, gently use the ITC timeline and current rate increases to frame the cost of waiting.",
+                            "quiz_flag": False
+                        },
+                        {
+                            "slide_number": 3,
+                            "slide_title": "Trust Issues, Home Sale, Roof Warranty, Technology",
+                            "concept": "Four more key objections",
+                            "narration": "Don't trust solar companies — acknowledge the concern, ask what specifically they've heard, then show credentials: licenses, reviews, BBB rating, and warranty terms in writing. What if I sell my house — solar adds home value beyond the remaining loan balance; buyers often pay more for solar homes. Roof warranty — your workmanship warranty covers the installation for ten years; existing roof warranties can be reviewed before signing. Technology will be better next year — true, and it's been true for forty years. Every month you wait is a month you're paying the utility. What specifically are you hoping improves?",
+                            "quiz_flag": True
+                        }
+                    ]
+                },
+                {
+                    "module_id": "5.3",
+                    "module_title": "Closing Techniques",
+                    "lesson_objective": "Ask for the sale confidently using proven closing techniques.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "The 5 Closing Techniques",
+                            "concept": "Situational closing toolkit",
+                            "narration": "You have five closing techniques to deploy based on the homeowner's personality and readiness. The Assumptive Close — proceed to logistics as if the decision has been made: let's get your application started. What day works for your site survey? The Summary Close — recap the entire value proposition and ask a simple yes or no question. The Decision Matrix — draw a T-chart showing the cost of going solar versus the cost of waiting. The Silence Close — ask for the sale once, clearly, then stop talking. Whoever speaks first loses. And the Last Objection — is there anything else holding you back, or are you ready to move forward?",
+                            "quiz_flag": True
+                        }
+                    ]
+                },
+                {
+                    "module_id": "5.4",
+                    "module_title": "Contract Walk-Through & Compliance",
+                    "lesson_objective": "Walk through the contract clearly and meet all compliance obligations.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "The 5-Section Contract Walk-Through",
+                            "concept": "Transparent contract presentation",
+                            "narration": "Never say just sign here. Walk through the contract section by section. System description — here are your exact panels, inverter, and system size. Exactly what's going on your roof. Pricing and financing — here's your total cost, your tax credit, and your monthly payment. Warranties — twenty-five year panel warranty, ten year workmanship, twelve year inverter. Cancellation policy — you have a three-day right of rescission. No penalty within seventy-two hours — just email us. Installation timeline — sixty to ninety days post-permit. Then say: this isn't the scary part. This is the starting line. From here, we do all the work.",
+                            "quiz_flag": True
+                        }
+                    ]
+                },
+                {
+                    "module_id": "5.5",
+                    "module_title": "Cancellation Prevention & Buyer's Remorse",
+                    "lesson_objective": "Lock in commitment and protect deals from post-close cancellations.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Why Homeowners Cancel",
+                            "concept": "Root causes of cancellation",
+                            "narration": "Cancellations happen for five predictable reasons. A skeptical family member talked them out of it after you left. They found a competing quote and panicked. They felt rushed or pressured during the sale. They didn't fully understand what they signed. Or time passed and the urgency faded. Every one of these is preventable. Rushing the close causes the first and third. Skipping contract walk-through causes the fourth. Failing to lock in next-step excitement causes the fifth. Prevention starts during the sale, not after.",
+                            "quiz_flag": False
+                        },
+                        {
+                            "slide_number": 2,
+                            "slide_title": "Post-Close Protocol",
+                            "concept": "Protecting the deal after signature",
+                            "narration": "At the moment of close, before you leave: congratulate them and inoculate them. Say: congrats! Here's what's going to happen next — you'll probably get a call from a competitor and a family member who questions the decision. That's completely normal. The math we looked at together doesn't change. Call me anytime with questions. Then send a text within one hour recapping next steps and expressing excitement. Schedule a check-in call at forty-eight hours. And if they do call to cancel — don't panic, don't argue. Ask what changed since you spoke, listen fully, and address the actual concern.",
+                            "quiz_flag": True
+                        }
+                    ]
+                },
+                {
+                    "module_id": "5.6",
+                    "module_title": "Day 5 Wrap-Up & Homework",
+                    "lesson_objective": "Lock in objection and closing skills ahead of advanced growth training.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Study and Practice Tonight",
+                            "concept": "Day 5 reinforcement",
+                            "narration": "Tonight: study all ten objection responses until you can deliver each one fluently without notes. Then run a full appointment simulation — door knock, discovery, presentation, close — with a friend or partner playing a difficult homeowner. Finally, review the Day Six preview. Tomorrow you'll build your referral system, track your performance like a pro, and take your certification exam. By the end of Day Six, you'll be ready for the field. Come in tomorrow fully rested and focused.",
+                            "quiz_flag": False
+                        }
+                    ]
+                }
+            ]
+        },
+
+        # ─────────────────────────────────────────
+        # DAY 6
+        # ─────────────────────────────────────────
+        {
+            "day_number": 6,
+            "day_title": "Referrals, Performance & Long-Term Success",
+            "modules": [
+                {
+                    "module_id": "6.1",
+                    "module_title": "The Referral System",
+                    "lesson_objective": "Generate referrals consistently through a repeatable three-step process.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Why Referrals Are Worth More",
+                            "concept": "Referral economics",
+                            "narration": "Referrals close at forty to sixty percent — compared to twenty to thirty percent for cold leads. The trust is already established before you say a word. And the customer acquisition cost is zero. A single referral pipeline can eventually replace cold prospecting entirely. The consultants who build six-figure incomes treat referral generation as a system — not an afterthought. You are going to leave today with a repeatable three-step referral process that runs every time you close a deal.",
+                            "quiz_flag": False
+                        },
+                        {
+                            "slide_number": 2,
+                            "slide_title": "The 3-Step Referral System",
+                            "concept": "Plant, activate, follow up",
+                            "narration": "Step one: plant the seed at the close. Before you leave: the biggest thank-you is a referral. If anyone you know has been complaining about their electric bill, I'd love an introduction. Step two: activate post-install. When their system goes live, send an excited message and ask: who's the first person you'd want to tell about this? Step three: personalized follow-up. Reach out to each referral by name, mentioning the mutual connection. A referral outreach that says your neighbor mentioned you've been thinking about solar opens at a completely different level than a cold call.",
+                            "quiz_flag": True
+                        }
+                    ]
+                },
+                {
+                    "module_id": "6.2",
+                    "module_title": "Reputation Building & Online Presence",
+                    "lesson_objective": "Build a digital reputation that generates inbound leads.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Google Reviews & Neighborhood Authority",
+                            "concept": "Social proof systems",
+                            "narration": "Ask every closed customer for a Google review and send the direct link — make it as frictionless as possible. Reviews compound over time. When a homeowner in your territory searches for solar companies and sees forty-seven five-star reviews including names they recognize from the neighborhood, the trust is already established before you knock. Pair that with yard signs on completed installs and you've created passive social proof at scale. Neighborhood authority is built rep by rep and install by install — it's one of the most powerful long-term assets you can build in this career.",
+                            "quiz_flag": False
+                        }
+                    ]
+                },
+                {
+                    "module_id": "6.3",
+                    "module_title": "KPI Tracking & Self-Coaching",
+                    "lesson_objective": "Track meaningful metrics and self-diagnose funnel leaks.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "The Performance Funnel",
+                            "concept": "Activity tracking to income",
+                            "narration": "Every rep's results start with one metric at the top: doors knocked. From there the funnel flows down — conversations, appointments set, appointments sat, proposals presented, deals closed. Your job is to know your conversion rate at each step. If you're knocking a hundred doors and only having five conversations, your opener needs work. If conversations convert to appointments at a low rate, your transition needs work. If appointments show at low rates, your pre-appointment communication needs work. If your close rate is low, objection handling needs work. Know your numbers and you'll always know exactly what to practice.",
+                            "quiz_flag": True
+                        }
+                    ]
+                },
+                {
+                    "module_id": "6.4",
+                    "module_title": "Long-Term Mindset — Career vs. Job",
+                    "lesson_objective": "Operate with long-term integrity and build a true book of business.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "The Reputation Compound Effect",
+                            "concept": "Integrity as a business strategy",
+                            "narration": "Every interaction you have either builds or erodes your reputation. Every honest conversation is a deposit. Every exaggeration is a withdrawal. Reps who think short-term chase any deal, overpromise, and burn bridges. Reps who think long-term qualify aggressively, build relationships, and generate referrals for years. Twenty-five closed deals means twenty-five potential referral sources. One hundred closed deals means enough inbound business to rarely cold knock. Treat every customer like a five-year relationship — because the best ones become exactly that.",
+                            "quiz_flag": False
+                        }
+                    ]
+                },
+                {
+                    "module_id": "6.5",
+                    "module_title": "Advanced Scenario Practice",
+                    "lesson_objective": "Integrate all program skills under complex, pressure-tested scenarios.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Scenario A — The Researcher",
+                            "concept": "Technical credibility under scrutiny",
+                            "narration": "This homeowner has researched NEM 3.0, dealer fees, and degradation curves before you arrived. They're testing your expertise. Don't repeat basics — ask what they've already learned and where their gaps are. Use technical language. Admit when you need to confirm exact figures rather than bluffing. Then ask: based on everything you've researched, what's the one thing still holding you back? That question almost always surfaces the real blocker — which is usually not technical at all.",
+                            "quiz_flag": False
+                        },
+                        {
+                            "slide_number": 2,
+                            "slide_title": "Scenario B — Married Couple Standoff",
+                            "concept": "Dual-spouse conflict management",
+                            "narration": "Husband wants solar. Wife is skeptical from a prior contractor experience. And there's a hidden issue — they're planning to sell in four years. Your job is to balance enthusiasm for the husband with trust-building for the wife, address the four-year timeline honestly — which may mean a partial disqualification or an honest conversation about shorter payback structures — and never take sides. Validate both perspectives. Make the wife feel heard before she feels sold. Her trust is the key to the deal.",
+                            "quiz_flag": False
+                        },
+                        {
+                            "slide_number": 3,
+                            "slide_title": "Scenario C — Competing Quote",
+                            "concept": "Price differentiation",
+                            "narration": "A warm referral lead — already motivated and mostly educated. But they got a competing quote eight thousand dollars cheaper. Your response is never to panic or drop your price reflexively. Walk them through the right comparison questions: what panels, what inverter, what warranty, who does the install, what's the monitoring system, and what's the cancellation policy? Eight thousand dollars in savings means nothing if the cheaper company uses inferior components, subcontracts the install, or doesn't exist in five years when a warranty claim comes in. Make the case for value, not price.",
+                            "quiz_flag": True
+                        }
+                    ]
+                },
+                {
+                    "module_id": "6.6",
+                    "module_title": "Certification Exam",
+                    "lesson_objective": "Validate full program knowledge across all competency areas.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Exam Overview",
+                            "concept": "Certification structure",
+                            "narration": "The certification exam is fifty questions covering five areas. Solar technology and system components — twenty percent. Utility bill analysis and financing — twenty percent. Homeowner psychology and the BOLT framework — twenty percent. Objection handling and closing — twenty-five percent. Compliance and ethics — fifteen percent. You need an eighty percent or higher to pass. This isn't a test you pass by studying hard the night before — it's a test you pass by being fully present through Days One through Six. If you've done the work, you're ready.",
+                            "quiz_flag": True
+                        }
+                    ]
+                },
+                {
+                    "module_id": "6.7",
+                    "module_title": "Day 6 Wrap-Up & Day 7 Preview",
+                    "lesson_objective": "Final prep before field certification.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "You're Ready for Day 7",
+                            "concept": "Confidence building and preview",
+                            "narration": "You have learned more in six days than most solar reps learn in three months. Tomorrow is different — it's not a classroom day. You'll spend the morning shadowing your manager through three live appointments, watching how every skill in this program plays out in a real home with real homeowners. After lunch, you run one full appointment yourself, with your manager observing quietly. Then you debrief, receive your field assessment, and get cleared for solo selling. Get a good night's sleep. You are ready.",
+                            "quiz_flag": False
+                        }
+                    ]
+                }
+            ]
+        },
+
+        # ─────────────────────────────────────────
+        # DAY 7
+        # ─────────────────────────────────────────
+        {
+            "day_number": 7,
+            "day_title": "Field Certification & Launch",
+            "modules": [
+                {
+                    "module_id": "7.1",
+                    "module_title": "Pre-Field Briefing",
+                    "lesson_objective": "Align with manager on Day 7 structure before going into the field.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Shadow Mode — What to Watch For",
+                            "concept": "Observation framework",
+                            "narration": "This morning you are in shadow mode. Your job is to observe and take notes — not to participate unless your manager invites you to. As you watch each appointment, focus on five things: how your manager positions themselves physically in the home, how they handle unexpected interruptions, how they identify and adapt to personality types in real time, how they phrase objection responses differently from how they were scripted, and when and how they make the close. After each appointment, you'll debrief in the car. Ask every question that came up.",
+                            "quiz_flag": False
+                        }
+                    ]
+                },
+                {
+                    "module_id": "7.2",
+                    "module_title": "Appointment Shadow 1",
+                    "lesson_objective": "Observe full appointment and debrief.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Debrief After Appointment 1",
+                            "concept": "Active learning from observation",
+                            "narration": "After each shadow appointment, the debrief in the car is as important as the appointment itself. Your manager will ask what you noticed. Bring specific observations — not general thoughts. Then your manager will walk you through what they were thinking at key moments. Why they slowed down when the wife got quiet. Why they chose the summary close instead of the assumptive close. Why they asked about the electric vehicle at that specific point in the discovery. These context moments turn observation into insight.",
+                            "quiz_flag": False
+                        }
+                    ]
+                },
+                {
+                    "module_id": "7.3",
+                    "module_title": "Appointment Shadow 2",
+                    "lesson_objective": "Observe second appointment with critical analysis lens.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Constructive Critique",
+                            "concept": "Moving from observer to analyst",
+                            "narration": "After the second appointment, your manager will ask: what would you have done differently? This is not a test — it's a reflection exercise. Think about moments where the conversation could have gone another direction. When did the homeowner give a buying signal that wasn't immediately recognized? What objection could have been handled with a different technique? This kind of constructive critique — whether on your manager's appointment or your own — is how elite reps develop faster than average ones.",
+                            "quiz_flag": False
+                        }
+                    ]
+                },
+                {
+                    "module_id": "7.4",
+                    "module_title": "Appointment Shadow 3",
+                    "lesson_objective": "Build game plan for your own afternoon appointment.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Preparing Your Game Plan",
+                            "concept": "Pre-appointment strategy",
+                            "narration": "After the third shadow appointment, before lunch, your manager will ask: you're up next after lunch — what's your game plan? Walk through your approach out loud. How will you open? What discovery questions will you lead with? What personality type do you expect based on the lead info? What objections might come up? How do you plan to close? Articulating this out loud is a form of mental rehearsal that significantly improves execution. Your manager will coach any adjustments before you go in.",
+                            "quiz_flag": False
+                        }
+                    ]
+                },
+                {
+                    "module_id": "7.5",
+                    "module_title": "Pre-Appointment Prep",
+                    "lesson_objective": "Finalize readiness before solo appointment.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Last-Minute Coaching",
+                            "concept": "Mental preparation",
+                            "narration": "In the fifteen minutes before your appointment, your manager will ask you five questions. What do you know about this homeowner? What's your opener? What objections do you expect? Which homeowner type does this feel like? And how will you close? Answer all five out loud. Don't guess — draw on your training. Then take a breath. You've practiced this for six days. You know the framework. You know the objections. You know how to read a room. Trust your preparation and go execute.",
+                            "quiz_flag": False
+                        }
+                    ]
+                },
+                {
+                    "module_id": "7.6",
+                    "module_title": "Rep Runs Full Appointment",
+                    "lesson_objective": "Execute a full appointment independently with manager observing.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Running the Appointment",
+                            "concept": "Full solo execution",
+                            "narration": "This is your moment. Your manager will sit quietly and observe — they will not intervene unless you freeze or the homeowner asks them a direct question. Your job is to run the full appointment from discovery through close as if no one else is in the room. Use everything from Day One through Six. Control the environment. Read the personality. Ask all twelve discovery questions. Deliver the value stack. Handle every objection with A.C.A. Ask for the sale. And if they close — ask for a referral before you leave. This is real. Do your job.",
+                            "quiz_flag": True
+                        }
+                    ]
+                },
+                {
+                    "module_id": "7.7",
+                    "module_title": "Post-Appointment Debrief",
+                    "lesson_objective": "Receive structured feedback and assessment outcome.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Manager Feedback Framework",
+                            "concept": "Strengths, improvements, outcome",
+                            "narration": "Your manager will debrief using a three-part structure. First, what went well — specific things you did well, with examples from the appointment. Second, what to improve — one or two specific, actionable adjustments for your next appointment. Third, your overall assessment: field-ready means you start setting appointments immediately. Almost there means one more shadowing day. Needs more training means continued role-play before solo selling. Regardless of the outcome — you ran a real appointment today. That puts you ahead of where you started seven days ago.",
+                            "quiz_flag": False
+                        }
+                    ]
+                },
+                {
+                    "module_id": "7.8",
+                    "module_title": "Certification Sign-Off",
+                    "lesson_objective": "Receive field certification and territory assignment.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "You Are Certified",
+                            "concept": "Field clearance and launch",
+                            "narration": "If you've passed, your manager will sign your field certification form and submit it to operations. What happens next: your CRM is activated with your territory assignments, inbound leads begin routing to you, and you receive your business cards, yard signs, and marketing materials. You are now an active solar consultant. The certificate is not the end — it's the beginning. Every appointment from here builds your skill, your pipeline, and your reputation. Go earn it.",
+                            "quiz_flag": False
+                        }
+                    ]
+                },
+                {
+                    "module_id": "7.9",
+                    "module_title": "Solo Prospecting — First Field Session",
+                    "lesson_objective": "Apply Day 2 prospecting skills on first solo territory run.",
+                    "slides": [
+                        {
+                            "slide_number": 1,
+                            "slide_title": "Your First Solo Doors",
+                            "concept": "Launching independently",
+                            "narration": "Tonight you'll knock twenty doors on your own. Use your thirty-second opener, handle every brush-off with the micro objection techniques from Day Two, and try to set at least one appointment for next week. Text your manager your results when you're done — how many doors, how many conversations, and how many appointments set. Then get some rest. Tomorrow you do it again. And the day after. This is the work that builds income. Welcome to your career in solar.",
+                            "quiz_flag": False
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+
+# Add timing to every slide
+total_slides = 0
+total_modules = 0
+for day in PART2["days"]:
+    for mod in day["modules"]:
+        total_modules += 1
+        mod_total = 0
+        for slide in mod["slides"]:
+            secs = words_to_seconds(slide["narration"])
+            slide["estimated_seconds"] = secs
+            slide["estimated_time_display"] = f"~{secs}s ({round(secs/60,1)} min)"
+            mod_total += secs
+            total_slides += 1
+        mod["total_module_duration_seconds"] = mod_total
+        mod["total_module_duration_display"] = f"~{round(mod_total/60,1)} min"
+
+PART2["summary"] = {
+    "total_days": len(PART2["days"]),
+    "total_modules": total_modules,
+    "total_slides": total_slides,
+    "output_part": "Part 2 of 2 (Days 4–7)"
+}
+
+import os
+output_path = os.path.join(os.path.dirname(__file__), "..", "narration_transcripts_part2.json")
+with open(output_path, "w", encoding="utf-8") as f:
+    json.dump(PART2, f, indent=2, ensure_ascii=False)
+
+print(f"Part 2 complete — {total_modules} modules, {total_slides} slides")

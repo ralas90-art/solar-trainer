@@ -1,0 +1,990 @@
+{
+  "program_title": "SeptiVolt Solar Sales Rep Accelerator",
+  "narration_part": 1,
+  "days_covered": "Days 1–3",
+  "days": [
+    {
+      "day_number": 1,
+      "day_title": "Onboarding & Foundation",
+      "modules": [
+        {
+          "module_id": "1.1",
+          "module_title": "Welcome & Vision Casting",
+          "lesson_objective": "Set expectations, show earnings potential, introduce the solar mission.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Welcome to the SeptiVolt Accelerator",
+              "concept": "Program overview and purpose",
+              "narration": "Welcome to the SeptiVolt Solar Sales Rep Accelerator. Over the next seven days, you are going to build the skills, mindset, and tools to become a professional solar consultant. This isn't a theory course — every lesson is built around real conversations, real objections, and real closings. By Day Seven, you will be field-certified and ready to generate income. Let's get started.",
+              "quiz_flag": false,
+              "estimated_seconds": 29,
+              "estimated_time_display": "~29s (0.5 min)",
+              "audio_url": "/audio/day-1/module-1.1/slide-1.mp3"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Your Income Potential in Solar",
+              "concept": "Realistic income progression",
+              "narration": "Let's talk about what's actually possible here. In your first month, most new reps earn between three and five thousand dollars. That's the learning curve phase. By month three, reps who are consistent are earning eight to twelve thousand per month. By month six and beyond, top performers are hitting fifteen to twenty-five thousand dollars per month. These are real numbers from real reps. The key is showing up every day, especially in the early weeks when it feels slow.",
+              "quiz_flag": false,
+              "estimated_seconds": 37,
+              "estimated_time_display": "~37s (0.6 min)",
+              "audio_url": "/audio/day-1/module-1.1/slide-2.mp3"
+            },
+            {
+              "slide_number": 3,
+              "slide_title": "The 7-Day Structure",
+              "concept": "Program roadmap",
+              "narration": "Here is how the next seven days are structured. Day One is onboarding and foundation — today. Days Two through Six are intensive training, each day building on the last. Day Seven is your field certification — you'll run a real appointment with your manager observing. Every day has role-plays built in, because the only way to get good at this is to practice. Daily micro-assessments will catch any gaps before Day Seven.",
+              "quiz_flag": false,
+              "estimated_seconds": 34,
+              "estimated_time_display": "~34s (0.6 min)",
+              "audio_url": "/audio/day-1/module-1.1/slide-3.mp3"
+            },
+            {
+              "slide_number": 4,
+              "slide_title": "The 4 Stages of Competence",
+              "concept": "Normalizing the learning dip",
+              "narration": "Every skill you learn follows four stages. First, you don't know what you don't know — that's unconscious incompetence. Then you start training and realize how much there is to learn — that's conscious incompetence, and it can feel uncomfortable. After practice, you become consciously competent — you can do it but you have to think about it. Finally, with enough reps, it becomes automatic. Your job in this program is to move through these stages as fast as possible. The dip is normal. Push through it.",
+              "quiz_flag": false,
+              "estimated_seconds": 40,
+              "estimated_time_display": "~40s (0.7 min)",
+              "audio_url": "/audio/day-1/module-1.1/slide-4.mp3"
+            },
+            {
+              "slide_number": 5,
+              "slide_title": "Your Signed Commitment",
+              "concept": "Personal accountability",
+              "narration": "Before we move on, you're going to sign a commitment agreement. This is not a legal document — it's a personal contract with yourself. You're committing to showing up fully for the next seven days, completing your daily assignments, and holding yourself accountable to the standards of a professional solar consultant. Sign it and mean it.",
+              "quiz_flag": false,
+              "estimated_seconds": 26,
+              "estimated_time_display": "~26s (0.4 min)",
+              "audio_url": "/audio/day-1/module-1.1/slide-5.mp3"
+            }
+          ],
+          "total_module_duration_seconds": 166,
+          "total_module_duration_display": "~2.8 min"
+        },
+        {
+          "module_id": "1.2",
+          "module_title": "Administrative Onboarding",
+          "lesson_objective": "Complete all paperwork and system setup efficiently.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Onboarding Checklist",
+              "concept": "System readiness",
+              "narration": "Administrative onboarding sounds boring, but getting this wrong costs you money. If your CRM isn't set up, you can't log leads. If your design software isn't working, you can't pull proposals. We're going to move through the checklist quickly and completely. Your documents include your contractor agreement, tax paperwork, compliance forms, and if applicable your non-compete. Get them signed and submitted today.",
+              "quiz_flag": false,
+              "estimated_seconds": 29,
+              "estimated_time_display": "~29s (0.5 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Tools & Systems Setup",
+              "concept": "CRM and software access",
+              "narration": "After paperwork, you'll set up your tools. This means your CRM account — log in and confirm it works. Your design software like Aurora or HelioScope — install it and test it. Your company communication tools, calendar links, and mobile apps for route planning. Do not leave today without testing every login. One credential failing on your first real appointment will cost you a deal.",
+              "quiz_flag": false,
+              "estimated_seconds": 30,
+              "estimated_time_display": "~30s (0.5 min)"
+            }
+          ],
+          "total_module_duration_seconds": 59,
+          "total_module_duration_display": "~1.0 min"
+        },
+        {
+          "module_id": "1.3",
+          "module_title": "Company Culture & Expectations",
+          "lesson_objective": "Clarify behavioral standards, KPIs, and support systems.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Daily Schedule Expectations",
+              "concept": "Time discipline",
+              "narration": "Your most valuable asset is your golden hours. That's two pm to seven pm — the window when homeowners are home and receptive. During golden hours, you knock doors or make calls. Nothing else. Admin happens in the morning between eight and ten. Team calls and training run from ten to noon. This structure exists because it works. Top reps protect their golden hours like they protect their income — because those hours ARE their income.",
+              "quiz_flag": false,
+              "estimated_seconds": 35,
+              "estimated_time_display": "~35s (0.6 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Weekly KPIs",
+              "concept": "Performance benchmarks",
+              "narration": "Here are the numbers you're aiming for every week. One hundred to one hundred fifty doors knocked, or an equivalent number of outbound calls. Ten to fifteen appointments set. Five to eight appointment sits. And by week three, one to three closed deals per week. These aren't arbitrary targets — they're the activity levels that produce consistent income. If your numbers are off, we'll use these benchmarks to diagnose where the leak is.",
+              "quiz_flag": false,
+              "estimated_seconds": 34,
+              "estimated_time_display": "~34s (0.6 min)"
+            },
+            {
+              "slide_number": 3,
+              "slide_title": "Manager Support Structure",
+              "concept": "Available coaching resources",
+              "narration": "You are not doing this alone. Your manager will check in with you daily for the first two weeks. Ride-alongs are available whenever you need a live model to follow. The team channel is open for real-time questions. Use these resources aggressively in your first weeks. The reps who grow fastest are the ones who ask the most questions, not the ones who try to figure it all out themselves.",
+              "quiz_flag": false,
+              "estimated_seconds": 32,
+              "estimated_time_display": "~32s (0.5 min)"
+            },
+            {
+              "slide_number": 4,
+              "slide_title": "Compensation Deep Dive",
+              "concept": "Commission structure and payment",
+              "narration": "Understanding how you get paid removes anxiety and replaces it with focus. Commission is typically paid per kilowatt installed, or as a flat rate per deal — depending on your company's structure. There are bonuses and accelerators for hitting volume. There is also a chargeback policy for cancellations, which is why we qualify hard and prevent buyer's remorse from day one. Ask your manager for the exact figures for your market today.",
+              "quiz_flag": false,
+              "estimated_seconds": 33,
+              "estimated_time_display": "~33s (0.6 min)"
+            }
+          ],
+          "total_module_duration_seconds": 134,
+          "total_module_duration_display": "~2.2 min"
+        },
+        {
+          "module_id": "1.4",
+          "module_title": "Solar Industry Overview",
+          "lesson_objective": "Understand the solar landscape, competition, and urgency drivers.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Why Solar, Why Now",
+              "concept": "Market urgency",
+              "narration": "The residential solar market in the United States is one of the fastest-growing industries in the country. The three primary reasons homeowners go solar are utility bill inflation, energy independence, and home value increase. Utility rates have gone up six to eight percent annually for the last two decades with no sign of stopping. That is the foundation of every conversation you'll have. You are offering homeowners a hedge against something that is guaranteed to keep rising.",
+              "quiz_flag": false,
+              "estimated_seconds": 36,
+              "estimated_time_display": "~36s (0.6 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "The Federal Tax Credit",
+              "concept": "ITC incentive urgency",
+              "narration": "The federal Investment Tax Credit — the ITC — gives homeowners a thirty percent credit on the total system cost. On a thirty-thousand-dollar system, that's nine thousand dollars back in their first tax filing. This credit is locked in through 2032. That's not forever. Every year a homeowner waits is a year of paying full utility rates AND a year closer to the credit potentially changing. The ITC creates real, legitimate urgency in your conversations.",
+              "quiz_flag": false,
+              "estimated_seconds": 35,
+              "estimated_time_display": "~35s (0.6 min)"
+            },
+            {
+              "slide_number": 3,
+              "slide_title": "Common Solar Myths",
+              "concept": "Objection prevention through education",
+              "narration": "You will hear these three myths constantly, and you need to be ready. First — solar doesn't work in cloudy states. False. Germany is one of the cloudiest countries in the world and leads in solar adoption. Panels produce electricity from daylight, not direct sunlight. Second — panels are too expensive. With financing, most homeowners pay less per month than their current utility bill from day one. Third — the technology will be better next year. The technology has improved every year for forty years. Waiting always costs more than it saves.",
+              "quiz_flag": true,
+              "estimated_seconds": 42,
+              "estimated_time_display": "~42s (0.7 min)"
+            }
+          ],
+          "total_module_duration_seconds": 113,
+          "total_module_duration_display": "~1.9 min"
+        },
+        {
+          "module_id": "1.5",
+          "module_title": "Solar Technology Fundamentals",
+          "lesson_objective": "Speak with technical authority and answer homeowner questions confidently.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "How Solar Works — The Simple Flow",
+              "concept": "Basic solar energy flow",
+              "narration": "Here is how a solar system works in plain language. Sunlight hits the panels. The panels generate DC electricity — direct current. The inverter converts that DC power into AC — alternating current — which is what your home actually uses. Any excess power you produce flows back to the utility grid, and you receive credits for it through a program called net metering. At night, or on cloudy days, you draw from the grid and use those credits. It's a closed loop that works in your favor.",
+              "quiz_flag": false,
+              "estimated_seconds": 41,
+              "estimated_time_display": "~41s (0.7 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "System Components",
+              "concept": "Hardware literacy",
+              "narration": "A typical solar system has five main components. The panels themselves — monocrystalline panels are the most efficient and most common in residential installs. The inverter, which converts power — string inverters are standard, microinverters are premium and monitor each panel individually. The racking system that mounts panels to the roof. The monitoring system, which lets homeowners track production via an app. And the meter, which measures what you consume versus what you produce.",
+              "quiz_flag": false,
+              "estimated_seconds": 34,
+              "estimated_time_display": "~34s (0.6 min)"
+            },
+            {
+              "slide_number": 3,
+              "slide_title": "Warranties You Must Know",
+              "concept": "Homeowner confidence building",
+              "narration": "Warranties are not a detail — they're a closing tool. The panel performance warranty guarantees eighty percent output for twenty-five years. The inverter warranty runs ten to twenty-five years depending on the brand. The workmanship warranty covers the installation itself for ten years. When a homeowner asks what happens if something breaks, your answer is immediate and confident — here's what's covered, here's for how long, and here's who handles it. That confidence builds trust.",
+              "quiz_flag": false,
+              "estimated_seconds": 35,
+              "estimated_time_display": "~35s (0.6 min)"
+            },
+            {
+              "slide_number": 4,
+              "slide_title": "What Solar Does NOT Do",
+              "concept": "Setting realistic expectations",
+              "narration": "Being honest about limitations is what separates consultants from salespeople. Solar will not eliminate your utility bill one hundred percent — connection fees and local charges remain, typically ten to twenty dollars per month. Solar will not power your home during a grid outage unless you have a battery. And solar does not pay you money directly, unless you're in a state with SREC programs. Setting these expectations upfront prevents cancellations and builds long-term trust.",
+              "quiz_flag": true,
+              "estimated_seconds": 35,
+              "estimated_time_display": "~35s (0.6 min)"
+            }
+          ],
+          "total_module_duration_seconds": 145,
+          "total_module_duration_display": "~2.4 min"
+        },
+        {
+          "module_id": "1.6",
+          "module_title": "Identity Shift — Consultant vs. Salesperson",
+          "lesson_objective": "Build an integrity-first mindset and reframe rejection.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Salesperson vs. Consultant",
+              "concept": "Identity reframe",
+              "narration": "There's a fundamental difference between a salesperson and a consultant. A salesperson pushes a product and chases a commission. A consultant diagnoses a problem and prescribes the right solution — even if that solution is walking away. In solar, this distinction matters because homeowners can feel which one you are within sixty seconds of opening the door. Your job is to enter every interaction as a consultant. You are restructuring someone's utility spending and protecting their family from inflation. Act accordingly.",
+              "quiz_flag": false,
+              "estimated_seconds": 37,
+              "estimated_time_display": "~37s (0.6 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "The Integrity Creed",
+              "concept": "Ethical standards",
+              "narration": "The integrity creed is not optional — it's the foundation of a sustainable career. Never promise savings you can't guarantee. Never exaggerate return on investment. Disqualify aggressively — a bad fit today is a cancellation tomorrow, and cancellations hurt your income. And always remember that your long-term reputation is worth more than any single commission check. The reps who build six-figure incomes are the ones homeowners refer to their neighbors because they were treated with respect.",
+              "quiz_flag": false,
+              "estimated_seconds": 35,
+              "estimated_time_display": "~35s (0.6 min)"
+            },
+            {
+              "slide_number": 3,
+              "slide_title": "Reframing Rejection",
+              "concept": "Resilience mindset",
+              "narration": "In solar sales, you will hear the word no more than any other word. Every single top performer in this industry hears no over a hundred times per week. The shift you need to make is this — no does not mean I reject you. It means not right now, or this isn't a fit. Both of those are useful information. Track your no's because they're the path to your yes's. A rep knocking forty-five doors statistically closes one deal. That means every door — including every no — is worth about seventy-eight dollars.",
+              "quiz_flag": false,
+              "estimated_seconds": 43,
+              "estimated_time_display": "~43s (0.7 min)"
+            },
+            {
+              "slide_number": 4,
+              "slide_title": "Energy Management",
+              "concept": "Emotional sustainability",
+              "narration": "This career requires emotional energy, and you have to manage it intentionally. Don't take rejection personally — the homeowner doesn't know you, and they're not rejecting you. They're protecting their time and their home. Celebrate small wins: an appointment set is a win, even if no deal follows. A meaningful conversation is a win. Reset between every door. The rep who treats door forty-five with the same energy as door one becomes the rep closing at a rate that changes everything.",
+              "quiz_flag": false,
+              "estimated_seconds": 37,
+              "estimated_time_display": "~37s (0.6 min)"
+            }
+          ],
+          "total_module_duration_seconds": 152,
+          "total_module_duration_display": "~2.5 min"
+        },
+        {
+          "module_id": "1.7",
+          "module_title": "Utility Bill Mastery — Introduction",
+          "lesson_objective": "Read and interpret a utility bill and identify qualified homeowners.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Anatomy of a Utility Bill",
+              "concept": "Bill literacy",
+              "narration": "The utility bill is your most powerful qualifying tool. Here's what to look for. The total monthly kilowatt-hour usage — this tells you how much power the home consumes. The total charges, broken into supply, delivery, and fees. The rate structure — is it tiered, flat, or time-of-use? And the twelve-month usage history, which tells you whether this is a seasonal household or a consistent consumer. You should be able to read a utility bill fluently in under two minutes.",
+              "quiz_flag": false,
+              "estimated_seconds": 37,
+              "estimated_time_display": "~37s (0.6 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Qualification Thresholds",
+              "concept": "Minimum viable lead criteria",
+              "narration": "Not every homeowner is a solar candidate. The minimum thresholds you're looking for are six hundred kilowatt-hours of monthly usage, a monthly bill of at least one hundred dollars, and annual usage above eight thousand kilowatt-hours. Below these numbers, the system size becomes too small to justify the cost and financing. Qualifying hard early saves you hours of wasted presentations and protects your close rate.",
+              "quiz_flag": false,
+              "estimated_seconds": 30,
+              "estimated_time_display": "~30s (0.5 min)"
+            },
+            {
+              "slide_number": 3,
+              "slide_title": "Red Flags on a Bill",
+              "concept": "Disqualification signals",
+              "narration": "Some things on a utility bill should make you pause. A past-due balance can signal credit issues that will affect financing. Budget billing hides the homeowner's true usage by averaging it out — always ask for the actual usage breakdown. And if the usage seems very low for the size of the home, dig deeper. It could mean they rent part of the home, they're planning to move, or another party controls the usage. Look for these before investing two hours in a presentation.",
+              "quiz_flag": false,
+              "estimated_seconds": 39,
+              "estimated_time_display": "~39s (0.7 min)"
+            },
+            {
+              "slide_number": 4,
+              "slide_title": "Understanding Offset Percentage",
+              "concept": "System sizing fundamentals",
+              "narration": "Offset percentage is how much of a homeowner's energy usage the solar system will produce annually. A one hundred percent offset means the system produces exactly what the home uses in a year. Most consultants recommend sizing at one hundred five to one hundred ten percent to account for panel degradation and future usage increases. If you size at eighty percent offset, the homeowner still has a meaningful utility bill. You'll use offset percentage in every proposal conversation from Day Four forward.",
+              "quiz_flag": true,
+              "estimated_seconds": 38,
+              "estimated_time_display": "~38s (0.6 min)"
+            }
+          ],
+          "total_module_duration_seconds": 144,
+          "total_module_duration_display": "~2.4 min"
+        },
+        {
+          "module_id": "1.8",
+          "module_title": "Day 1 Wrap-Up & Preview",
+          "lesson_objective": "Consolidate learning and prepare for Day 2.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Day 1 Key Takeaways",
+              "concept": "Day summary",
+              "narration": "Let's lock in what you covered today. You are administratively onboarded and system-ready. You understand how solar works at a technical level that builds confidence. You can read a utility bill and identify a qualified lead. And you've adopted the mindset of a consultant, not a salesperson. These are not small things. Most reps start their first week without this foundation. You're already ahead.",
+              "quiz_flag": false,
+              "estimated_seconds": 30,
+              "estimated_time_display": "~30s (0.5 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Tonight's Homework",
+              "concept": "Reinforcement assignment",
+              "narration": "Before tomorrow, complete three assignments. Watch two short videos on net metering — links are in your training portal. Read the top objection handling guide your company has provided — it's five pages, read it fully. And practice explaining how solar works to someone at home. Record yourself on your phone. Listen back. You'll hear what needs tightening. This kind of self-review is one of the fastest ways to improve.",
+              "quiz_flag": false,
+              "estimated_seconds": 32,
+              "estimated_time_display": "~32s (0.5 min)"
+            },
+            {
+              "slide_number": 3,
+              "slide_title": "Tomorrow's Preview",
+              "concept": "Day 2 roadmap",
+              "narration": "Tomorrow is one of the most important days in the program. You'll learn homeowner psychology — why people resist solar, and what to do about it. You'll build your territory strategy. You'll learn the Solar Conversation Framework, which is the backbone of every interaction you'll ever have. And you'll practice micro objection handling — the skill that separates reps who get appointments from those who get doors closed in their face. Come ready to work.",
+              "quiz_flag": false,
+              "estimated_seconds": 35,
+              "estimated_time_display": "~35s (0.6 min)"
+            }
+          ],
+          "total_module_duration_seconds": 97,
+          "total_module_duration_display": "~1.6 min"
+        }
+      ]
+    },
+    {
+      "day_number": 2,
+      "day_title": "Psychology, Prospecting & Territory Domination",
+      "modules": [
+        {
+          "module_id": "2.1",
+          "module_title": "Homeowner Psychology — Why People Resist Solar",
+          "lesson_objective": "Understand psychological barriers and use that knowledge to build trust.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Why Understanding Psychology Matters",
+              "concept": "Foundation for all persuasion",
+              "narration": "Before you can persuade anyone of anything, you need to understand how they think. The most common mistake in solar sales is treating every homeowner like they simply need more information. They don't. They need trust, time, and the right framing. This module will change how you walk up to every door. Reps who understand why homeowners resist close twice as many deals as those who only know what to say.",
+              "quiz_flag": false,
+              "estimated_seconds": 33,
+              "estimated_time_display": "~33s (0.6 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Status Quo Bias",
+              "concept": "Why inaction feels safe",
+              "narration": "Homeowners are not actively looking for a solar salesperson. When you show up at their door, their brain's default mode is to preserve the status quo. Change feels risky. Inaction feels safe — even when the current situation is objectively worse. This is called status quo bias. Your job isn't to push homeowners toward a decision. It's to guide them toward understanding, and let the decision emerge naturally from the numbers.",
+              "quiz_flag": false,
+              "estimated_seconds": 33,
+              "estimated_time_display": "~33s (0.6 min)"
+            },
+            {
+              "slide_number": 3,
+              "slide_title": "Contractor Trust Barriers",
+              "concept": "Past pain shapes present skepticism",
+              "narration": "Most homeowners have been let down by a contractor before. A roofer who disappeared after the deposit. An HVAC company that overcharged. A home warranty that covered nothing. That history lives in the background of every conversation you have. The homeowner isn't just evaluating solar — they're evaluating you as a person and whether you'll be different. Slow down. Don't push for information or commitment before you've earned it. Every genuine moment of rapport is a deposit in their trust account.",
+              "quiz_flag": false,
+              "estimated_seconds": 37,
+              "estimated_time_display": "~37s (0.6 min)"
+            },
+            {
+              "slide_number": 4,
+              "slide_title": "Solar Industry Skepticism",
+              "concept": "Owning the industry's reputation",
+              "narration": "The solar industry has earned some of its bad reputation. Aggressive door-to-door tactics, misleading savings promises, and companies that went bankrupt mid-install have made some homeowners deeply skeptical of any solar rep — regardless of how you present yourself. The solution is to acknowledge this proactively. Name the elephant in the room. Reps who say — I know solar reps have a certain reputation, and here's why I do things differently — build trust faster than those who pretend the skepticism doesn't exist.",
+              "quiz_flag": false,
+              "estimated_seconds": 38,
+              "estimated_time_display": "~38s (0.6 min)"
+            },
+            {
+              "slide_number": 5,
+              "slide_title": "Loss Aversion",
+              "concept": "Pain of loss vs. joy of gain",
+              "narration": "Nobel Prize-winning research shows that people feel the pain of a loss about twice as intensely as the pleasure of an equivalent gain. In practice this means: framing solar as preventing a loss is more powerful than framing it as gaining a benefit. A homeowner who could save two hundred dollars per month isn't moved by gaining two hundred dollars — they're moved by not losing two hundred dollars every month to a utility that doesn't deserve it. Use this framing. It works.",
+              "quiz_flag": false,
+              "estimated_seconds": 38,
+              "estimated_time_display": "~38s (0.6 min)"
+            },
+            {
+              "slide_number": 6,
+              "slide_title": "Decision Fatigue",
+              "concept": "Why timing and simplicity matter",
+              "narration": "By the time you knock on a door at five pm, that homeowner may have made thousands of decisions that day. Decision fatigue makes people default to no — not because they don't want solar, but because saying no requires less mental effort than evaluating a proposal. Your response to this is to make every next step easy and low-risk. Keep your door pitch under sixty seconds. Don't ask for a big decision at the door — ask for a small one. An appointment. That's it.",
+              "quiz_flag": true,
+              "estimated_seconds": 40,
+              "estimated_time_display": "~40s (0.7 min)"
+            }
+          ],
+          "total_module_duration_seconds": 219,
+          "total_module_duration_display": "~3.6 min"
+        },
+        {
+          "module_id": "2.2",
+          "module_title": "Territory Strategy & Planning",
+          "lesson_objective": "Choose high-probability neighborhoods and build geographic authority.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "The Cloverleaf Strategy",
+              "concept": "Install proximity leverage",
+              "narration": "The cloverleaf strategy is simple and powerful. You start from a recent solar install in a neighborhood and work outward in concentric circles. When you knock on the next door and say — your neighbor on the corner just went solar and I'm following up in the area — you immediately have social proof. The homeowner's first thought is: someone I know already did this. That transforms the conversation from cold to warm before you've said another word.",
+              "quiz_flag": false,
+              "estimated_seconds": 36,
+              "estimated_time_display": "~36s (0.6 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Territory Selection Criteria",
+              "concept": "High-probability neighborhoods",
+              "narration": "Not all neighborhoods are created equal. The sweet spot for solar is homes valued at two hundred fifty thousand dollars or more, with roofs between five and fifteen years old, served by a utility with strong net metering policies, and in HOA-friendly areas. Avoid co-op utilities if your area has poor net metering agreements. Use Zillow, county records, and your company's install database to pre-qualify neighborhoods before you spend a single golden hour in them.",
+              "quiz_flag": false,
+              "estimated_seconds": 35,
+              "estimated_time_display": "~35s (0.6 min)"
+            },
+            {
+              "slide_number": 3,
+              "slide_title": "Building Neighborhood Authority",
+              "concept": "Becoming the local solar expert",
+              "narration": "The goal is to saturate one area before moving to another. Become the solar rep in that zip code. When multiple neighbors have seen you, talked about you, or seen your yard signs — the next conversation opens at a much higher trust level. Some advanced reps host neighborhood info sessions once they have three or more installs on a block. That kind of neighborhood authority is what eliminates the need for cold prospecting over time.",
+              "quiz_flag": false,
+              "estimated_seconds": 35,
+              "estimated_time_display": "~35s (0.6 min)"
+            }
+          ],
+          "total_module_duration_seconds": 106,
+          "total_module_duration_display": "~1.8 min"
+        },
+        {
+          "module_id": "2.3",
+          "module_title": "Daily Efficiency Math & Time Management",
+          "lesson_objective": "Understand revenue per hour and eliminate time waste.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "The Math Behind the Door",
+              "concept": "Activity-to-income ratio",
+              "narration": "Let's run the math on a typical door-knocking day. Industry averages show one conversation per three doors knocked, one appointment per five conversations, and one close per three appointments. That means forty-five doors equals one close on average. At an average commission of thirty-five hundred dollars, and five golden hours per day, that's roughly three hundred eighty-nine dollars per hour worked. Every door you knock — whether they answer or not — is worth about seventy-eight dollars. That reframe makes rejection a lot easier to process.",
+              "quiz_flag": false,
+              "estimated_seconds": 40,
+              "estimated_time_display": "~40s (0.7 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Daily Non-Negotiables",
+              "concept": "Field discipline",
+              "narration": "Your golden hours — two pm to seven pm — are for one thing only: prospecting. No admin. No errands. No long phone calls. During these five hours, your only job is to knock doors or dial numbers, set appointments, and advance conversations. The reps who protect this window build income. The reps who let it get eaten by distractions wonder why they're not closing. Set a minimum of two appointments per golden-hour session. Anything less and your pipeline will run dry within two weeks.",
+              "quiz_flag": false,
+              "estimated_seconds": 39,
+              "estimated_time_display": "~39s (0.7 min)"
+            }
+          ],
+          "total_module_duration_seconds": 79,
+          "total_module_duration_display": "~1.3 min"
+        },
+        {
+          "module_id": "2.4",
+          "module_title": "The Solar Conversation Framework",
+          "lesson_objective": "Introduce the 7-step framework that guides every solar conversation.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "The 7-Step Framework Overview",
+              "concept": "The GPS for every solar conversation",
+              "narration": "Every solar conversation you'll ever have — at the door, on the phone, or inside a home — follows the same seven-step arc. Step one: Pattern Interrupt. Step two: Rapport. Step three: Curiosity Question. Step four: Problem Awareness. Step five: Utility Bill Discovery. Step six: Qualification. Step seven: Appointment or next step. You may move through some steps faster than others depending on the homeowner, but you never skip a step. This framework is your GPS. Use it every single time.",
+              "quiz_flag": false,
+              "estimated_seconds": 37,
+              "estimated_time_display": "~37s (0.6 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Framework at the Door — 60 Seconds",
+              "concept": "Compressed door-level application",
+              "narration": "At the door, you compress the full framework into sixty to ninety seconds. Break their autopilot with a neighbor reference or something unexpected — that's your Pattern Interrupt. One human moment before business — that's Rapport. Ask a simple curiosity question about their energy situation. Help them see a problem they've been tolerating. Ask about their monthly electric bill — that's your Discovery. Confirm they own the home and how long they've lived there — that's Qualification. Then close on a specific appointment time. Sixty seconds. Seven steps. Done.",
+              "quiz_flag": true,
+              "estimated_seconds": 41,
+              "estimated_time_display": "~41s (0.7 min)"
+            }
+          ],
+          "total_module_duration_seconds": 78,
+          "total_module_duration_display": "~1.3 min"
+        },
+        {
+          "module_id": "2.5",
+          "module_title": "Door Knocking Mastery",
+          "lesson_objective": "Overcome door anxiety, master the 30-second pitch, set appointments efficiently.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Pre-Knock Preparation",
+              "concept": "Setup for success",
+              "narration": "What happens before you knock matters as much as what you say at the door. Appearance: clean, professional, name badge visible. Materials: your tablet charged, business cards in your pocket, and any one-pager you use. And mindset: before you ever raise your hand to knock, reset. Expect that most people won't be interested. Celebrate the conversations, not just the appointments. The rep who walks to each door with calm confidence closes more than the rep who walks up hoping for a yes.",
+              "quiz_flag": false,
+              "estimated_seconds": 38,
+              "estimated_time_display": "~38s (0.6 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "The 30-Second Opener — 3 Variations",
+              "concept": "Pitch scripts",
+              "narration": "You have three proven openers. The Neighbor Reference opener leverages a nearby install to create social proof immediately. The Utility Bill Audit opener positions you as someone doing free energy assessments in the area — low threat, high curiosity. The Install Proximity opener works when you have active job sites nearby — you're introducing yourself as part of a crew already on the street. Memorize all three. Use whichever fits the neighborhood and the moment.",
+              "quiz_flag": false,
+              "estimated_seconds": 35,
+              "estimated_time_display": "~35s (0.6 min)"
+            },
+            {
+              "slide_number": 3,
+              "slide_title": "Appointment Setting Close",
+              "concept": "Assumptive binary close",
+              "narration": "When you're ready to close on an appointment, don't ask if they want one. Give them a choice between two times. I have Thursday at six or Saturday at ten — which works better for you? This is called an assumptive binary close. You're not asking if they want an appointment. You're assuming they do and asking which time works. This small language shift increases appointment conversion dramatically. Practice it until it feels natural.",
+              "quiz_flag": true,
+              "estimated_seconds": 34,
+              "estimated_time_display": "~34s (0.6 min)"
+            }
+          ],
+          "total_module_duration_seconds": 107,
+          "total_module_duration_display": "~1.8 min"
+        },
+        {
+          "module_id": "2.6",
+          "module_title": "Micro Objection Handling — Getting Past the Brush-Off",
+          "lesson_objective": "Handle reflexive door objections without arguing or defending.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "What Micro Objections Really Are",
+              "concept": "Reflexive responses vs. real objections",
+              "narration": "Most objections at the door are not real objections. They are automatic, reflexive responses designed to end the interaction as quickly as possible. The homeowner isn't thinking deeply about solar — they're trying to get back to their life. Your response should never be to argue or defend. The golden rule of micro objections is this: don't argue, don't defend — ask one curious question and invite them back into the conversation.",
+              "quiz_flag": false,
+              "estimated_seconds": 33,
+              "estimated_time_display": "~33s (0.6 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Not Interested — The Response",
+              "concept": "Most common brush-off handled",
+              "narration": "When someone says not interested, respond with curiosity, not defense. Try: Totally fair — quick question, have you already looked into solar, or just haven't gotten around to it yet? If they haven't looked, that opens the door to explain why most people in the area qualify. If they already looked, ask what stopped them from moving forward. That one question reopens the entire conversation. Never argue with not interested. Make it a question.",
+              "quiz_flag": false,
+              "estimated_seconds": 34,
+              "estimated_time_display": "~34s (0.6 min)"
+            },
+            {
+              "slide_number": 3,
+              "slide_title": "I'm Busy, Leave Info, Already Have Solar",
+              "concept": "Three common brush-offs handled",
+              "narration": "Three more common ones. I'm busy right now — tell them you're not pitching today, you're just booking free consultations. Two minutes to pick a time, then you do all the prep work. Just leave me some info — the info won't mean anything without their specific numbers. Redirect to booking. Already have solar — lead with curiosity, ask how it's working out, and pivot to battery storage upgrades or referrals. Every brush-off has a response. Know yours before you knock.",
+              "quiz_flag": false,
+              "estimated_seconds": 37,
+              "estimated_time_display": "~37s (0.6 min)"
+            },
+            {
+              "slide_number": 4,
+              "slide_title": "Spouse, Renting, and Bad Experience",
+              "concept": "Three more brush-offs handled",
+              "narration": "Need to talk to my spouse — validate it immediately and ask if the spouse is home now. If not, find a time when both are available. I don't like presenting to one spouse because it just doesn't make sense any other way. We're renting — solar is for homeowners, but pivot to referrals. Do they know neighbors who own? Bad experience — lead with full empathy. Ask what happened. Listen completely. Then ask if they'd be open to fifteen minutes just to see if things have changed.",
+              "quiz_flag": true,
+              "estimated_seconds": 41,
+              "estimated_time_display": "~41s (0.7 min)"
+            }
+          ],
+          "total_module_duration_seconds": 145,
+          "total_module_duration_display": "~2.4 min"
+        },
+        {
+          "module_id": "2.7",
+          "module_title": "Phone & Virtual Appointment Setting",
+          "lesson_objective": "Convert inbound leads to appointments and handle phone objections.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Speed to Lead",
+              "concept": "Inbound lead response urgency",
+              "narration": "When an inbound lead comes in, your response time is everything. Call within five minutes. If they don't answer, leave a voicemail and send a text simultaneously — multi-touch. Research shows lead conversion drops dramatically after the first thirty minutes. The homeowner submitted a form while they were curious and motivated. Your job is to reach them while that energy is still there. Every minute you wait, the window closes.",
+              "quiz_flag": false,
+              "estimated_seconds": 32,
+              "estimated_time_display": "~32s (0.5 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Phone Discovery & Appointment Set",
+              "concept": "Phone conversion script",
+              "narration": "When you reach them, open with energy and reference their inquiry. Then move into three to five discovery questions: What's your average electric bill? How long have you been in the home? Have you looked into solar before? Is your spouse involved in decisions? From there, transition directly to booking. Tell them you'll pull their utility data and roof layout before you meet, so the call is fully customized. Then give two specific time options and lock them in.",
+              "quiz_flag": true,
+              "estimated_seconds": 36,
+              "estimated_time_display": "~36s (0.6 min)"
+            }
+          ],
+          "total_module_duration_seconds": 68,
+          "total_module_duration_display": "~1.1 min"
+        },
+        {
+          "module_id": "2.8",
+          "module_title": "Anti-Sales Framing & Trust Building",
+          "lesson_objective": "Use disarming language to position as a consultant.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "The Anti-Pitch Opener",
+              "concept": "Lowering guard instantly",
+              "narration": "The fastest way to lower a homeowner's guard is to say something they didn't expect from a solar rep. Try: I'm not here to sell you anything today. I'm just here to see if it makes sense. That one sentence removes the pressure they were bracing for. It shifts the dynamic from adversarial to collaborative. Follow it immediately with permission-based questions: Is it okay if I ask you a few things first? Mind if I pull up your roof real quick? You're building micro-agreements before you've asked for anything significant.",
+              "quiz_flag": false,
+              "estimated_seconds": 42,
+              "estimated_time_display": "~42s (0.7 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Disqualification Framing",
+              "concept": "Reverse psychology that creates desire",
+              "narration": "One of the most powerful things you can say early in a conversation is: Honestly, solar doesn't make sense for everyone. Let me first figure out if you're even a fit. This is disqualification framing, and it works through reverse psychology. By suggesting they might not qualify, you activate the homeowner's desire to qualify. You've created a challenge they now want to pass. You've also pre-positioned yourself as selective — and selective consultants are trusted more than desperate salespeople.",
+              "quiz_flag": false,
+              "estimated_seconds": 36,
+              "estimated_time_display": "~36s (0.6 min)"
+            }
+          ],
+          "total_module_duration_seconds": 78,
+          "total_module_duration_display": "~1.3 min"
+        },
+        {
+          "module_id": "2.9",
+          "module_title": "Daily Prospecting Workflow & Accountability",
+          "lesson_objective": "Establish a consistent daily rhythm and tracking system.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "The Daily Prospecting Rhythm",
+              "concept": "Structured daily schedule",
+              "narration": "Your day has four blocks. Morning from eight to ten is for admin, CRM updates, and route planning. Midday from ten to two is for training, team calls, and proposal prep. Two to seven pm — golden hours — is for prospecting only. And from seven to eight pm, you log your activity, complete follow-ups, and plan tomorrow's route. This structure removes decision fatigue about what to do next. You always know what time it is and what your job is.",
+              "quiz_flag": false,
+              "estimated_seconds": 37,
+              "estimated_time_display": "~37s (0.6 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "KPI Tracking & Accountability",
+              "concept": "Daily metrics",
+              "narration": "Every night, report four numbers to your manager: doors knocked, conversations had, appointments set, and follow-ups completed. These numbers tell the whole story. If you're knocking doors but not having conversations, the opener needs work. If you're having conversations but not setting appointments, the transition needs work. If you're setting appointments but they're not showing, the confirmation process needs work. Track your numbers and you always know exactly where to improve.",
+              "quiz_flag": false,
+              "estimated_seconds": 33,
+              "estimated_time_display": "~33s (0.6 min)"
+            }
+          ],
+          "total_module_duration_seconds": 70,
+          "total_module_duration_display": "~1.2 min"
+        },
+        {
+          "module_id": "2.10",
+          "module_title": "Day 2 Role-Play Certification",
+          "lesson_objective": "Validate all Day 2 skills through live simulation.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Certification Format",
+              "concept": "Applied skill validation",
+              "narration": "Today's role-play certification has four rounds. Round one: you knock a door and your manager plays a skeptical homeowner who opens with not interested. Round two: you take a phone call from a rushed lead. Round three: you handle three micro objections back to back in rapid fire. Round four: you run the full seven-step Conversation Framework at the door from start to finish. You need to demonstrate all four competencies before leaving today. This is your first real test.",
+              "quiz_flag": true,
+              "estimated_seconds": 37,
+              "estimated_time_display": "~37s (0.6 min)"
+            }
+          ],
+          "total_module_duration_seconds": 37,
+          "total_module_duration_display": "~0.6 min"
+        },
+        {
+          "module_id": "2.11",
+          "module_title": "Day 2 Wrap-Up & Field Assignment",
+          "lesson_objective": "Lock in Day 2 learnings and assign first field practice.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Tonight's Field Assignment",
+              "concept": "First real-world practice",
+              "narration": "Tonight you have a field assignment. Knock twenty doors. This is practice — no pressure to close anything. But knock them like they're real, because they are real. Record yourself at three of those doors with your phone. Watch the playback tonight and notice your body language, your opener, your energy. Then review your homeowner empathy map from earlier and note which types you encountered. Bring your observations to tomorrow's session. Day Three starts where Day Two left off.",
+              "quiz_flag": false,
+              "estimated_seconds": 36,
+              "estimated_time_display": "~36s (0.6 min)"
+            }
+          ],
+          "total_module_duration_seconds": 36,
+          "total_module_duration_display": "~0.6 min"
+        }
+      ]
+    },
+    {
+      "day_number": 3,
+      "day_title": "Discovery, Psychology & In-Home Mastery",
+      "modules": [
+        {
+          "module_id": "3.1",
+          "module_title": "In-Home Positioning & Environmental Control",
+          "lesson_objective": "Control the appointment setting and eliminate distractions.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Pre-Arrival Checklist",
+              "concept": "Appointment preparation",
+              "narration": "Before you walk in the door, do three things. Confirm the appointment two hours before by text and call. Arrive five minutes early and park in front of the home. From your car, assess the roof — look for shading, pitch, and condition before you ever ring the doorbell. This recon saves you time inside and lets you ask smarter questions. Walking in prepared is not optional — it's the standard of a professional consultant.",
+              "quiz_flag": false,
+              "estimated_seconds": 35,
+              "estimated_time_display": "~35s (0.6 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "The Power Seat Strategy",
+              "concept": "Seating for authority and collaboration",
+              "narration": "Where you sit in the home matters more than most reps realize. Your goal is the kitchen or dining table — not the couch. At the table, position yourself at the head or corner. Homeowners sit to your side, which creates a collaborative dynamic instead of an adversarial face-off. Ask them to face away from the TV. Request that pets are settled and kids are occupied. These aren't rude requests — they're professional ones. Your opening frame should be: I'm going to ask a lot of questions first, then show you numbers. If it makes sense, great. If not, I'll tell you.",
+              "quiz_flag": false,
+              "estimated_seconds": 47,
+              "estimated_time_display": "~47s (0.8 min)"
+            }
+          ],
+          "total_module_duration_seconds": 82,
+          "total_module_duration_display": "~1.4 min"
+        },
+        {
+          "module_id": "3.2",
+          "module_title": "Personality Profiling — BOLT Framework",
+          "lesson_objective": "Identify personality type in two minutes and adapt communication.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "The BOLT Personality Types",
+              "concept": "Four homeowner archetypes",
+              "narration": "The BOLT framework gives you four personality types to quickly identify and adapt to. Bull — dominant, direct, fast. They want the bottom line immediately. Owl — analytical, detail-oriented, skeptical. They want data, warranties, and specs. Lion — enthusiastic, social, emotional. They want to connect personally and feel good about the decision. Turtle — steady, risk-averse, hesitant. They need social proof, safety, and zero pressure. You'll typically know which type someone is within two minutes of entering their home.",
+              "quiz_flag": false,
+              "estimated_seconds": 36,
+              "estimated_time_display": "~36s (0.6 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Adapting to Each Type",
+              "concept": "Communication strategy by personality",
+              "narration": "For the Bull — skip the small talk, show the ROI fast, get to the close. For the Owl — bring data, show the degradation curve, quote specific warranties and engineering reports. For the Lion — ask about their family, make the conversation personal, celebrate the environmental and legacy impact. For the Turtle — move slowly, emphasize how many neighbors have done this, remove any feeling of pressure, and let them feel they're in control of the pace. Most couples are a mix — adapt to both, starting with whoever is more resistant.",
+              "quiz_flag": true,
+              "estimated_seconds": 43,
+              "estimated_time_display": "~43s (0.7 min)"
+            }
+          ],
+          "total_module_duration_seconds": 79,
+          "total_module_duration_display": "~1.3 min"
+        },
+        {
+          "module_id": "3.3",
+          "module_title": "Real-World Homeowner Scenario Library",
+          "lesson_objective": "Prepare for the six most challenging homeowner types encountered in the field.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Scenario 1 — The Burned Homeowner",
+              "concept": "Trust rebuilding after contractor betrayal",
+              "narration": "The burned homeowner has been let down by a contractor before. Their trust has been violated and they are looking for evidence that you're the same. Your job is to not defend the industry or minimize their experience. Validate completely. Ask what specifically went wrong — that shows you genuinely care. Move slower than you normally would. Offer social proof in writing: reviews, references, license numbers, warranty documents. Never rush to close with this homeowner. Let them set the pace.",
+              "quiz_flag": false,
+              "estimated_seconds": 37,
+              "estimated_time_display": "~37s (0.6 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Scenario 2 — The Researcher",
+              "concept": "Credibility under scrutiny",
+              "narration": "This homeowner has done extensive research and their ego is invested in that research. They are testing you. Don't talk down to them or repeat basics they already know. Ask what they've learned and what questions remain. Use specific technical language — NEM, degradation curves, DC-to-AC ratio, dealer fees. If you don't know something, say so honestly: great question — let me get you the exact figures from our engineer. Then ask them: based on your research, what's the one thing that's been holding you back? That usually reveals the real objection.",
+              "quiz_flag": false,
+              "estimated_seconds": 42,
+              "estimated_time_display": "~42s (0.7 min)"
+            },
+            {
+              "slide_number": 3,
+              "slide_title": "Scenario 3 — The Busy Homeowner",
+              "concept": "High-value hook under time pressure",
+              "narration": "This homeowner is time-constrained, or uses busyness as a shield. Accept the time constraint immediately — I respect that, I'll be quick. Lead right away with the most compelling hook: your bill is over X, right? In fifteen minutes I can show you whether you're leaving money on the table. Skip rapport-building and get to curiosity questions fast. If they truly can't sit now, secure a specific appointment: what if I came back Thursday at six — twenty minutes, I'll have everything prepared.",
+              "quiz_flag": false,
+              "estimated_seconds": 38,
+              "estimated_time_display": "~38s (0.6 min)"
+            },
+            {
+              "slide_number": 4,
+              "slide_title": "Scenario 4 — The Friendly Non-Committer",
+              "concept": "Converting likability into commitment",
+              "narration": "This homeowner likes you and enjoys the conversation — but likability is not decision readiness. They're conflict-avoidant. They'll agree with everything and then say let me think about it at the end. Enjoy the rapport, but use micro-closes throughout: make sense so far? If the numbers worked, would anything stop you from moving forward? When they say they'll think about it, ask specifically what they want to think through. Then use assumptive language to advance: let's get you scheduled.",
+              "quiz_flag": false,
+              "estimated_seconds": 36,
+              "estimated_time_display": "~36s (0.6 min)"
+            },
+            {
+              "slide_number": 5,
+              "slide_title": "Scenario 5 — Already Has Solar / Trusts the Utility",
+              "concept": "Pivots for non-standard conversations",
+              "narration": "Already has solar — lead with genuine curiosity: how's it working out? Look for dissatisfaction, upgrade opportunities, or battery storage needs. If they're happy, pivot to referrals. Trusts the utility — don't attack the utility company. Instead, educate gently: do you know how much they've raised rates over the last ten years? Show historical data as a factual conversation, not an accusation. Reframe solar as a hedge: you'd still be connected to the utility, you'd just be less dependent on their pricing decisions.",
+              "quiz_flag": true,
+              "estimated_seconds": 38,
+              "estimated_time_display": "~38s (0.6 min)"
+            }
+          ],
+          "total_module_duration_seconds": 191,
+          "total_module_duration_display": "~3.2 min"
+        },
+        {
+          "module_id": "3.4",
+          "module_title": "Tactical Empathy & Mirroring",
+          "lesson_objective": "Build rapport through mirroring, labeling, and tactical silence.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Mirroring — Repeat the Last Three Words",
+              "concept": "Conversational depth technique",
+              "narration": "Mirroring is one of the most powerful rapport-building tools that exists. When a homeowner says something — worried about the cost — you simply repeat their last two or three words as a question. Worried about the cost? They'll naturally elaborate. You haven't said anything — you've just opened a door. This technique forces them to say more than they planned to, and in doing so they often reveal the real concern underneath the surface one.",
+              "quiz_flag": false,
+              "estimated_seconds": 35,
+              "estimated_time_display": "~35s (0.6 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Labeling & Calibrated Questions",
+              "concept": "Emotion naming and open-ended discovery",
+              "narration": "Labeling means naming the emotion you're observing. It sounds like you're frustrated with your utility company. It seems like you're concerned about the commitment. When you name emotions accurately, homeowners feel heard — and when people feel heard, they trust. Pair labeling with calibrated questions — open-ended questions that start with what or how. What would saving a hundred dollars a month allow you to do? What's making you consider this now? These questions build motivation instead of putting homeowners on the defensive.",
+              "quiz_flag": true,
+              "estimated_seconds": 38,
+              "estimated_time_display": "~38s (0.6 min)"
+            }
+          ],
+          "total_module_duration_seconds": 73,
+          "total_module_duration_display": "~1.2 min"
+        },
+        {
+          "module_id": "3.5",
+          "module_title": "Question Architecture — The Discovery Sequence",
+          "lesson_objective": "Uncover pain, build urgency, and qualify financial readiness.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Questions About Current State",
+              "concept": "Uncovering pain",
+              "narration": "The first four discovery questions focus on the homeowner's current situation. What is your average electric bill? Has it been going up the last few years — they almost always say yes. What is the most you've ever paid in a single month — this anchors a high number in their mind. And what do you hate most about your utility company — this is an emotional trigger that surfaces frustration they've been carrying for years. These questions don't just qualify the lead — they build the emotional foundation for your presentation.",
+              "quiz_flag": false,
+              "estimated_seconds": 42,
+              "estimated_time_display": "~42s (0.7 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Questions About Future State & Decision-Making",
+              "concept": "Urgency and qualification",
+              "narration": "The next set of questions looks forward and qualifies the decision. What happens if rates go up another six percent next year? How long are you planning to stay in this home? Are you thinking about an electric vehicle? These build urgency and future-proof the conversation. Then move to decision-making questions. Who else needs to be part of this decision — identify blockers early. If the numbers make sense, is there any reason you wouldn't move forward — smoke out hidden objections before you've built the proposal. And confirm credit range and timeline. These twelve questions are your entire pre-presentation checklist.",
+              "quiz_flag": true,
+              "estimated_seconds": 47,
+              "estimated_time_display": "~47s (0.8 min)"
+            }
+          ],
+          "total_module_duration_seconds": 89,
+          "total_module_duration_display": "~1.5 min"
+        },
+        {
+          "module_id": "3.6",
+          "module_title": "Spouse & Decision-Maker Dynamics",
+          "lesson_objective": "Ensure both decision-makers are aligned and prevent late objections.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "The Golden Rule — Never Present to One Spouse",
+              "concept": "Dual decision-maker management",
+              "narration": "This rule has one exception: a confirmed single decision-maker. If a spouse is not home, do not present. Reschedule. Presenting to one spouse and closing without the other is the number one cause of next-day cancellations. The logic is simple: the absent spouse hears a summary with missing information, gets concerned, and kills the deal. The rep who insisted on presenting to one spouse caused that cancellation. When in doubt, say: I don't like to move forward unless both of you are there — when's a good time for both?",
+              "quiz_flag": false,
+              "estimated_seconds": 42,
+              "estimated_time_display": "~42s (0.7 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Equalizing Both Spouses",
+              "concept": "Inclusive presentation technique",
+              "narration": "Throughout the presentation, make eye contact with both homeowners equally. Ask both for input — and specifically direct questions to the quieter spouse. Does that make sense? — look at both. Sound good so far? — wait for both to nod. Any concerns? — let both voice objections. If one spouse is clearly skeptical, address them directly and early: I can tell you're the careful one — that's a good thing. What's your biggest concern? Handling skepticism head-on in front of their partner builds credibility with both of them.",
+              "quiz_flag": true,
+              "estimated_seconds": 41,
+              "estimated_time_display": "~41s (0.7 min)"
+            }
+          ],
+          "total_module_duration_seconds": 83,
+          "total_module_duration_display": "~1.4 min"
+        },
+        {
+          "module_id": "3.7",
+          "module_title": "Roof & Site Assessment",
+          "lesson_objective": "Identify deal-killers early and set realistic expectations.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Roof Inspection Basics",
+              "concept": "Field qualification",
+              "narration": "During or before every appointment, walk the property and assess the roof. The four things you're evaluating are shading, condition, pitch, and material. Heavy shade from trees is a serious production killer — if it covers more than forty percent of the usable roof area, the system may not economically justify itself. A roof needing replacement within five years should be addressed before install — panels have to come off during a re-roof and that costs extra. And the ideal roof is south-facing between fifteen and forty degrees of pitch on asphalt shingles.",
+              "quiz_flag": false,
+              "estimated_seconds": 43,
+              "estimated_time_display": "~43s (0.7 min)"
+            },
+            {
+              "slide_number": 2,
+              "slide_title": "Electrical Panel & HOA Considerations",
+              "concept": "Additional site disqualifiers",
+              "narration": "Ask to see the electrical panel — usually in the garage or basement. Two hundred amp service is ideal. One hundred amp may require a main panel upgrade costing two to five thousand dollars — that affects your proposal. Red flag brands like Zinsco or Federal Pacific need replacement before solar and should be disclosed. For HOA properties, confirm solar is permitted and ask about any aesthetics restrictions. Most HOAs legally cannot deny solar under state laws, but they may control placement. Get this information before you finalize the design.",
+              "quiz_flag": false,
+              "estimated_seconds": 42,
+              "estimated_time_display": "~42s (0.7 min)"
+            }
+          ],
+          "total_module_duration_seconds": 85,
+          "total_module_duration_display": "~1.4 min"
+        },
+        {
+          "module_id": "3.8",
+          "module_title": "Disqualification Mastery — When to Walk Away",
+          "lesson_objective": "Protect time and build trust through honest disqualification.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "The Top Disqualification Scenarios",
+              "concept": "Why walking away builds trust",
+              "narration": "Walking away from a bad deal is one of the highest-integrity moves a consultant can make — and it's also good business. The top scenarios where you disqualify: homeowner is moving within three years, credit score is below six hundred, the roof needs replacement first, heavy shading makes production unviable, usage is below four hundred kilowatt-hours per month, or the homeowner has unrealistic expectations like eliminating their bill to zero. In every case, be direct. Say the honest thing. Recommend the right path. Then ask to follow up when conditions change.",
+              "quiz_flag": true,
+              "estimated_seconds": 42,
+              "estimated_time_display": "~42s (0.7 min)"
+            }
+          ],
+          "total_module_duration_seconds": 42,
+          "total_module_duration_display": "~0.7 min"
+        },
+        {
+          "module_id": "3.9",
+          "module_title": "Day 3 Full Discovery Simulation",
+          "lesson_objective": "Validate all Day 3 skills in one realistic apartment simulation.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Simulation Setup",
+              "concept": "Full-scenario evaluation",
+              "narration": "In today's full discovery simulation you will run a complete in-home discovery with a challenging scenario. A married couple: one personality type who's eager and one who's skeptical. A monthly electric bill of two hundred forty dollars. A recently repaired roof. And a hidden objection from the skeptical spouse. Your job is to control the environment, identify both personality types, ask all twelve discovery questions, use mirroring and labeling to uncover the hidden objection, and qualify their financial readiness — all while maintaining calm consultant energy.",
+              "quiz_flag": true,
+              "estimated_seconds": 40,
+              "estimated_time_display": "~40s (0.7 min)"
+            }
+          ],
+          "total_module_duration_seconds": 40,
+          "total_module_duration_display": "~0.7 min"
+        },
+        {
+          "module_id": "3.10",
+          "module_title": "Day 3 Wrap-Up & Homework",
+          "lesson_objective": "Lock in Day 3 learning and prepare for presentation training.",
+          "slides": [
+            {
+              "slide_number": 1,
+              "slide_title": "Day 3 Homework",
+              "concept": "Reinforcement and preparation",
+              "narration": "Tonight: set one real appointment. It can be a friend or family member if needed, but run the full discovery when you get there. Use all twelve questions. Record yourself and submit the recording by nine pm. Tomorrow is Day Four — presentation mastery. You'll learn how to show the numbers in a way that makes the decision obvious, master all three financing structures, and run a full twenty-minute presentation role-play. Come in tomorrow with your discovery recording reviewed and notes taken.",
+              "quiz_flag": false,
+              "estimated_seconds": 38,
+              "estimated_time_display": "~38s (0.6 min)"
+            }
+          ],
+          "total_module_duration_seconds": 38,
+          "total_module_duration_display": "~0.6 min"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total_days": 3,
+    "total_modules": 29,
+    "total_slides": 77,
+    "output_part": "Part 1 of 2 (Days 1–3)"
+  }
+}
