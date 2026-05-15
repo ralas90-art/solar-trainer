@@ -5,8 +5,38 @@ import { Montserrat, Roboto, JetBrains_Mono } from 'next/font/google'
 import { WHITE_LABEL } from '@/lib/white-label.config'
 
 export const metadata: Metadata = {
-    title: `${WHITE_LABEL.companyName} — ${WHITE_LABEL.industry} Sales Training Platform`,
-    description: `Elite AI-powered training for the next generation of ${WHITE_LABEL.industry.toLowerCase()} sales professionals.`,
+    metadataBase: new URL('https://solar-trainer.vercel.app'),
+    title: {
+        default: `${WHITE_LABEL.companyName} — ${WHITE_LABEL.industry} Sales Training Platform`,
+        template: `%s | ${WHITE_LABEL.companyName}`
+    },
+    description: `Elite AI-powered training for the next generation of ${WHITE_LABEL.industry.toLowerCase()} sales professionals. Built for solar teams, individuals, and bilingual consultants.`,
+    keywords: [`${WHITE_LABEL.industry} sales training`, 'AI sales simulation', 'solar sales mastery', 'bilingual sales training', 'sales coaching AI'],
+    authors: [{ name: WHITE_LABEL.companyName }],
+    creator: WHITE_LABEL.companyName,
+    publisher: WHITE_LABEL.companyName,
+    formatDetection: {
+        email: false,
+        address: false,
+        telephone: false,
+    },
+    openGraph: {
+        title: `${WHITE_LABEL.companyName} — ${WHITE_LABEL.industry} Sales Training Platform`,
+        description: `Elite AI-powered training for the next generation of ${WHITE_LABEL.industry.toLowerCase()} sales professionals.`,
+        url: 'https://solar-trainer.vercel.app',
+        siteName: WHITE_LABEL.companyName,
+        locale: 'en_US',
+        type: 'website',
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: `${WHITE_LABEL.companyName} — ${WHITE_LABEL.industry} Sales Training Platform`,
+        description: `Elite AI-powered training for the next generation of ${WHITE_LABEL.industry.toLowerCase()} sales professionals.`,
+    },
+    icons: {
+        icon: '/favicon.ico',
+        apple: '/apple-touch-icon.png',
+    },
 }
 
 // ... font configs ...

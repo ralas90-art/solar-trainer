@@ -20,14 +20,14 @@ export function CTASection() {
                     Join the top {WHITE_LABEL.industry.toLowerCase()} teams using AI simulation to certify their reps and close more deals.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <Link href="/enterprise">
+                    <Link href="/solar-sales-training-assessment">
                         <Button size="lg" className="btn-primary h-14 px-10 text-lg rounded-full">
-                            Get a Demo
+                            Take Free Audit
                         </Button>
                     </Link>
-                    <Link href="/pricing">
+                    <Link href="/enterprise">
                         <Button size="lg" className="btn-outline-solar h-14 px-10 text-lg rounded-full">
-                            View Pricing <ArrowRight className="ml-2 w-5 h-5" />
+                            Enterprise Demo <ArrowRight className="ml-2 w-5 h-5" />
                         </Button>
                     </Link>
                 </div>

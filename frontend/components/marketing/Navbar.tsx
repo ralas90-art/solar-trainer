@@ -28,8 +28,8 @@ export function Navbar() {
                     <div className="hidden md:flex items-center gap-10">
                         <Link href="/#process" className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display">How it Works</Link>
                         <Link href="/curriculum-preview" className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display">Curriculum</Link>
+                        <Link href="/solar-sales-training-assessment" className="text-[10px] font-black uppercase tracking-[0.2em] text-white hover:text-[#F97316] transition-colors font-display">Free Audit</Link>
                         <Link href="/pricing" className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display">Pricing</Link>
-                        <Link href="/#about" className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display">About</Link>
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -52,8 +52,8 @@ export function Navbar() {
                 <div className="md:hidden bg-[#121212] border-b border-white/5 px-4 pt-2 pb-6 space-y-4">
                     <Link href="/#process" className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2" onClick={() => setIsMenuOpen(false)}>How it Works</Link>
                     <Link href="/curriculum-preview" className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2" onClick={() => setIsMenuOpen(false)}>Curriculum</Link>
+                    <Link href="/solar-sales-training-assessment" className="block text-[10px] font-black uppercase tracking-[0.2em] text-white hover:text-[#F97316] transition-colors font-display py-2" onClick={() => setIsMenuOpen(false)}>Free Audit</Link>
                     <Link href="/pricing" className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2" onClick={() => setIsMenuOpen(false)}>Pricing</Link>
-                    <Link href="/#about" className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2" onClick={() => setIsMenuOpen(false)}>About</Link>
                     <div className="pt-4 border-t border-white/5 flex flex-col gap-4">
                         <Link href="/login" className="text-[10px] font-black uppercase tracking-[0.2em] text-white hover:text-[#F97316] transition-colors font-display py-2" onClick={() => setIsMenuOpen(false)}>Log In</Link>
                         <Link href="/pricing" onClick={() => setIsMenuOpen(false)}>
