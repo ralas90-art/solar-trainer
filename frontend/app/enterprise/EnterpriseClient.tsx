@@ -285,6 +285,43 @@ export default function EnterpriseClient() {
         </div>
       </main>
 
+      {/* FAQ Section */}
+      <section className="relative max-w-4xl mx-auto px-6 py-24 border-t border-white/5">
+        <div className="text-center mb-16 space-y-4">
+          <h2 className="text-4xl font-black tracking-tighter uppercase italic font-display">Enterprise FAQ</h2>
+          <p className="text-[#94A3B8] font-light">Everything you need to know about scaling your training infrastructure.</p>
+        </div>
+        
+        <div className="space-y-6">
+          {[
+            {
+              q: `How does ${WHITE_LABEL.companyName} handle white-labeling?`,
+              a: `We provide a fully custom-branded platform instance where your logos, colors, and specific sales frameworks are integrated into the AI simulation environment.`
+            },
+            {
+              q: "Can we integrate our own curriculum?",
+              a: "Yes. Our enterprise tier includes custom module engineering where your existing training materials are transformed into interactive, AI-scored simulations."
+            },
+            {
+              q: "What kind of analytics do managers receive?",
+              a: "Managers get access to a real-time dashboard tracking team proficiency, speed-to-certification, and specific behavioral scoring across all training modules."
+            },
+            {
+              q: "Is there an API for CRM integration?",
+              a: "Absolutely. We support deep integrations with major CRMs to sync agent certification status and performance data directly into your existing workflow."
+            }
+          ].map((faq, i) => (
+            <div key={i} className="bg-white/5 border border-white/10 p-8 rounded-3xl">
+              <h3 className="text-lg font-bold mb-3 flex items-center gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#F97316]" />
+                {faq.q}
+              </h3>
+              <p className="text-[#94A3B8] font-light leading-relaxed pl-6 border-l border-white/10 ml-0.75">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Footer Branding */}
       <footer className="max-w-7xl mx-auto px-6 py-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 opacity-40">
         <h1 className="font-display text-xl font-black tracking-tight flex items-center gap-2 uppercase italic">

@@ -33,12 +33,12 @@ export function HeroSection() {
 
                 {/* CTAs */}
                 <div className="flex flex-wrap gap-6 justify-center">
-                    <Link href="/pricing">
+                    <Link href="/solar-sales-training-assessment">
                         <Button 
                             size="lg" 
                             className="btn-primary h-16 px-10 text-xl flex items-center gap-3 border-none group"
                         >
-                            Join the Mastery 
+                            Take Free Audit
                             <TrendingUp className="w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                         </Button>
                     </Link>

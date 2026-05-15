@@ -1,0 +1,13 @@
+.venv
+audio
+backend
+SeptiVolt_Delivery
+_Archive_Legacy
+public
+docs
+manus-mcp-server
+.tmp
+.antigravity
+*.bak
+*.pptx
+node_modules
