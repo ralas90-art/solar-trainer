@@ -1,9 +1,8 @@
-.venv
-audio
-backend
-SeptiVolt_Delivery
-_Archive_Legacy
-public
+/.venv
+/audio
+/backend
+/SeptiVolt_Delivery
+/_Archive_Legacy
 docs
 manus-mcp-server
 .tmp
