@@ -302,8 +302,8 @@ export function AssessmentFunnelClient() {
         septivolt_score: normalizedScore,
         septivolt_confidence_score: confidenceScore,
         septivolt_maturity_class: maturity,
-        septivolt_attribution_source: attribution.source,
-        septivolt_device_type: attribution.device,
+        septivolt_attribution_source: attribution.utm_source || attribution.referrer || "direct",
+        septivolt_device_type: attribution.device_type,
         septivolt_funnel_completed: true,
         septivolt_company_name: formData.company,
         septivolt_source: "solar-sales-training-assessment",
@@ -325,7 +325,7 @@ export function AssessmentFunnelClient() {
 
       if (!res.ok) throw new Error("Submission failed")
       
-      setSubmissionLock();
+      setSubmissionLock(formData.email);
       clearFunnelProgress();
       setIsSubmitted(true)
       setCurrentStep(currentStep + 1)
