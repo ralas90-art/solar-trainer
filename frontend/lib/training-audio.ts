@@ -31,33 +31,40 @@ function makeSection(id: string, title: string, text: string, scriptLines: strin
   }
 }
 
-export function buildModuleAudioLesson(module: TrainingModuleView): ModuleAudioLesson {
-  const transitionScenario = module.simulationScenarioIds[0] ?? "assigned scenario"
+export function buildModuleAudioLesson(module: TrainingModuleView, locale: string = "en"): ModuleAudioLesson {
+  const transitionScenario = module.simulationScenarioIds[0] ?? (locale === "es" ? "escenario asignado" : "assigned scenario")
 
   const firstSegmentScript = module.instructionalSegments[0]?.spokenTeachingScript ?? ""
   const isIntroRedundant = firstSegmentScript.toLowerCase().startsWith(module.lessonOverview.toLowerCase().slice(0, 50))
 
+  const introText = locale === "es"
+    ? (isIntroRedundant ? `Bienvenido al ${module.title}. Empecemos.` : `Bienvenido al ${module.title}. ${module.lessonOverview}`)
+    : (isIntroRedundant ? `Welcome to ${module.title}. Let's get started.` : `Welcome to ${module.title}. ${module.lessonOverview}`)
+
   const introSection = makeSection(
     `${module.id}_intro`,
-    "Intro",
-    isIntroRedundant 
-      ? `Welcome to ${module.title}. Let's get started.`
-      : `Welcome to ${module.title}. ${module.lessonOverview}`
+    locale === "es" ? "Introducción" : "Intro",
+    introText
   )
   const instructionalSections = module.instructionalSegments.map((segment) =>
     makeSection(segment.id, segment.title || "", segment.spokenTeachingScript, [segment.slideContent])
   )
+
+  const transitionText = locale === "es"
+    ? `Completa la verificación de conocimientos y luego inicia el escenario de simulación. Enfócate en un descubrimiento claro, un encuadre conciso y un lenguaje de próximos pasos seguro.`
+    : `Complete the knowledge check, then launch simulation scenario ${transitionScenario}. Focus on clear discovery, concise framing, and confident next-step language.`
+
   const transitionSection = makeSection(
     `${module.id}_transition`,
-    "Transition to Simulation",
-    `Complete the knowledge check, then launch simulation scenario ${transitionScenario}. Focus on clear discovery, concise framing, and confident next-step language.`
+    locale === "es" ? "Transición a Simulación" : "Transition to Simulation",
+    transitionText
   )
 
   const sections: AudioLessonSection[] = [introSection, ...instructionalSections, transitionSection]
 
   return {
     moduleId: module.id,
-    lessonTitle: `${module.title} Audio Lesson`,
+    lessonTitle: locale === "es" ? `${module.title} Lección de Audio` : `${module.title} Audio Lesson`,
     totalEstimatedDurationSec: sections.reduce((sum, section) => sum + section.estimatedDurationSec, 0),
     sections,
   }

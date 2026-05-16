@@ -26,22 +26,20 @@ from pathlib import Path
 import requests
 
 # ── Config ───────────────────────────────────────────────────────────────────
-VOICE_ID   = "QO7Mfy7rwYLdxzo4Q3iD"  # Tom — Confident & Persuasive Trainer
-MODEL_ID   = "eleven_v3"
+VOICE_ID   = "QO7Mfy7rwYLdxzo4Q3iD"  # Tom – Confident & Persuasive Trainer
+MODEL_ID   = "eleven_turbo_v2_5"
 VOICE_SETTINGS = {
-    "stability": 0.42,
-    "similarity_boost": 0.92,
-    "style": 0.48,
-    "use_speaker_boost": True,
+    "stability": 0.55,
+    "similarity_boost": 0.75,
 }
-AUDIO_TAGS = ["professional", "engaging", "confident", "trainer"]
+AUDIO_TAGS = ["professional", "instructional"]
 
 # Output directory mirrors the frontend public folder
-OUTPUT_ROOT = Path("solar-trainer/frontend/public/audio/modules")
+OUTPUT_ROOT = Path(__file__).parent.parent / "frontend" / "public" / "audio" / "modules"
 
 # Load API key from backend .env
 def load_api_key() -> str:
-    env_path = Path("solar-trainer/backend/.env")
+    env_path = Path(__file__).parent.parent / "backend" / ".env"
     if env_path.exists():
         for line in env_path.read_text(encoding="utf-8").splitlines():
             if line.startswith("ELEVENLABS_API_KEY="):

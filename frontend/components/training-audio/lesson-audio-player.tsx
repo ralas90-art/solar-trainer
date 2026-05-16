@@ -51,6 +51,7 @@ export function LessonAudioPlayer({
   variant = "default",
   className,
   autoAdvance = false,
+  locale = "en",
 }: {
   moduleId: string
   moduleTitle?: string
@@ -63,6 +64,7 @@ export function LessonAudioPlayer({
   variant?: PlayerVariant
   className?: string
   autoAdvance?: boolean
+  locale?: string
 }) {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const generatedUrlRef = useRef<string | null>(null)
@@ -250,6 +252,7 @@ export function LessonAudioPlayer({
       moduleId,
       sectionId: section.id,
       text: section.narrationText,
+      locale,
     })
 
     setSourceMode(source.mode)

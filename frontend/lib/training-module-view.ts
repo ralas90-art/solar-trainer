@@ -231,8 +231,8 @@ function extractKnowledgeChecks(module: ModuleContent, keyConcepts: string[], lo
   ]
 }
 
-function extractInstructionalSegments(module: ModuleContent, keyConcepts: string[]): ModuleInstructionalSegment[] {
-  const spokenFallback = extractSpokenTeachingScript(module, keyConcepts).join(" ")
+function extractInstructionalSegments(module: ModuleContent, keyConcepts: string[], locale: string = "en"): ModuleInstructionalSegment[] {
+  const spokenFallback = extractSpokenTeachingScript(module, keyConcepts, locale).join(" ")
   const quizIds = (module.quiz?.questions ?? []).map((question) => question.id)
 
   const segments = module.sections
@@ -334,7 +334,7 @@ function toView(module: ModuleContent, locale: string = "en"): TrainingModuleVie
     lessonOverview: extractLessonOverview(module, locale),
     keyConcepts,
     presentationSummary: extractPresentationSummary(module, locale),
-    instructionalSegments: extractInstructionalSegments(module, keyConcepts),
+    instructionalSegments: extractInstructionalSegments(module, keyConcepts, locale),
     visualSlides: extractVisualSlides(module),
     workbookPrompts: module.workbookPrompts ?? [],
     knowledgeChecks: extractKnowledgeChecks(module, keyConcepts, locale),

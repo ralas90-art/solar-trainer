@@ -36,7 +36,7 @@ from pathlib import Path
 
 # ─── Configuration ────────────────────────────────────────────────────────────
 # Always load from .env first — avoids stale session env vars
-_ENV_FILE = Path(__file__).parent / "solar-trainer" / "backend" / ".env"
+_ENV_FILE = Path(__file__).parent.parent / "backend" / ".env"
 ELEVENLABS_API_KEY = ""
 if _ENV_FILE.exists():
     for _line in _ENV_FILE.read_text(encoding="utf-8").splitlines():
@@ -46,11 +46,11 @@ if _ENV_FILE.exists():
 if not ELEVENLABS_API_KEY:
     ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY", "")
 
-VOICE_ID  = "21m00Tcm4TlvDq8ikWAM"  # Rachel – Professional Instructor
+VOICE_ID  = "QO7Mfy7rwYLdxzo4Q3iD"  # Tom – Confident & Persuasive Trainer
 MODEL_ID  = "eleven_turbo_v2_5"      # Works on all account tiers
-AUDIO_BASE_DIR     = Path("audio")
-PART1_JSON         = Path("narration_transcripts_part1.json")
-PART2_JSON         = Path("narration_transcripts_part2.json")
+AUDIO_BASE_DIR     = Path(__file__).parent.parent / "frontend" / "public" / "audio" / "modules"
+PART1_JSON         = Path(__file__).parent / "narration_transcripts_part1_updated.json"
+PART2_JSON         = Path(__file__).parent / "narration_transcripts_part2_updated.json"
 RATE_LIMIT_DELAY   = 1.5   # seconds between API calls (free tier safe)
 TEST_MODULE_ID     = "1.1"  # only process this module in test mode
 
@@ -238,7 +238,7 @@ def main():
 
     mode_label = "ALL MODULES" if generate_all else f"TEST — Module {TEST_MODULE_ID} only"
     log.info(f"Starting SeptiVolt Audio Pipeline │ Mode: {mode_label}")
-    log.info(f"Voice: Rachel ({VOICE_ID}) │ Model: {MODEL_ID}")
+    log.info(f"Voice: Tom ({VOICE_ID}) │ Model: {MODEL_ID}")
     log.info(f"Output directory: {AUDIO_BASE_DIR.resolve()}\n")
 
     for json_path in [PART1_JSON, PART2_JSON]:

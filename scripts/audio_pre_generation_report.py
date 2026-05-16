@@ -1,6 +1,7 @@
 import os
 import re
 import json
+from pathlib import Path
 
 def count_files_in_dir(directory):
     if not os.path.exists(directory):
@@ -75,15 +76,15 @@ def parse_main_days_es(file_path):
     return modules
 
 def generate_report():
-    base_path = r'c:\Users\12132\Desktop\Antigravity Solar Sales Trainer Agent'
-    core_en_path = os.path.join(base_path, 'frontend', 'public', 'audio', 'modules')
+    base_path = Path(__file__).parent.parent
+    core_en_path = base_path / 'frontend' / 'public' / 'audio' / 'modules'
     # Update paths to canonical SeptiVolt_Delivery structure
-    v2_en_transcript = os.path.join(base_path, 'SeptiVolt_Delivery', 'EN', 'ElevenLabs_Transcripts', 'ElevenLabs_Transcripts_V2_Modules.md')
-    v2_es_transcript_additive = os.path.join(base_path, 'SeptiVolt_Delivery', 'ES', 'ElevenLabs_Transcripts', 'ElevenLabs_Transcripts_V2_Modules_ES.md')
-    v2_es_transcript_main = os.path.join(base_path, 'SeptiVolt_Delivery', 'ES', 'ElevenLabs_Transcripts', 'ElevenLabs_Transcripts_MainDays_ES.md')
+    v2_en_transcript = base_path / 'SeptiVolt_Delivery' / 'EN' / 'ElevenLabs_Transcripts' / 'ElevenLabs_Transcripts_V2_Modules.md'
+    v2_es_transcript_additive = base_path / 'SeptiVolt_Delivery' / 'ES' / 'ElevenLabs_Transcripts' / 'ElevenLabs_Transcripts_V2_Modules_ES.md'
+    v2_es_transcript_main = base_path / 'SeptiVolt_Delivery' / 'ES' / 'ElevenLabs_Transcripts' / 'ElevenLabs_Transcripts_MainDays_ES.md'
     
-    v2_en_target = os.path.join(base_path, 'public', 'audio', 'v2', 'en')
-    v2_es_target = os.path.join(base_path, 'public', 'audio', 'v2', 'es')
+    v2_en_target = base_path / 'public' / 'audio' / 'v2' / 'en'
+    v2_es_target = base_path / 'public' / 'audio' / 'v2' / 'es'
     
     # 1. Existing English audio count
     existing_en_core_count = count_files_in_dir(core_en_path)
@@ -98,15 +99,15 @@ def generate_report():
     missing_en_v2_list = []
     for mod in en_v2_modules:
         for slide in mod['slides']:
-            target_file = os.path.join(v2_en_target, mod['id'], f"slide_{slide['num']}.mp3")
-            if not os.path.exists(target_file):
+            target_file = v2_en_target / mod['id'] / f"slide_{slide['num']}.mp3"
+            if not target_file.exists():
                 missing_en_v2_list.append(slide)
     
     # 3. Spanish V2
     es_v2_additive_modules = parse_v2_transcripts(v2_es_transcript_additive)
     es_v2_main_modules = parse_main_days_es(v2_es_transcript_main)
     
-    manifest_path = os.path.join(base_path, 'SeptiVolt_Delivery', 'EN', 'ElevenLabs_Transcripts', 'ElevenLabs_Production_Manifest.json')
+    manifest_path = base_path / 'SeptiVolt_Delivery' / 'EN' / 'ElevenLabs_Transcripts' / 'ElevenLabs_Production_Manifest.json'
     with open(manifest_path, 'r', encoding='utf-8') as f:
         manifest = json.load(f)
     mod_slide_map = {m['module_id']: m['slide_count'] for m in manifest['modules']}

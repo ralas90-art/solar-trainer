@@ -8,13 +8,18 @@ import requests
 from pathlib import Path
 
 # Load API key from .env
-KEY = ""
-for line in Path("solar-trainer/backend/.env").read_text(encoding="utf-8").splitlines():
-    if line.startswith("ELEVENLABS_API_KEY="):
-        KEY = line.split("=", 1)[1].strip()
-        break
+# Try root .env first
+env_path = Path(__file__).parent.parent / ".env"
+if not env_path.exists():
+    env_path = Path(".env")
 
-VOICE_ID = "21m00Tcm4TlvDq8ikWAM"
+if env_path.exists():
+    for line in env_path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("ELEVENLABS_API_KEY="):
+            KEY = line.split("=", 1)[1].strip()
+            break
+
+VOICE_ID = "QO7Mfy7rwYLdxzo4Q3iD" # Tom
 MODEL_ID = "eleven_turbo_v2_5"
 OUT_DIR  = Path("audio/day-1/module-1.1")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -22,7 +27,7 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 data = json.loads(Path("module_1_1_narration_v2.json").read_text(encoding="utf-8"))
 
 print(f"Regenerating {len(data['slides'])} slides for Module 1.1 (v2 scripts)")
-print(f"Voice: Rachel | Model: {MODEL_ID}\n")
+print(f"Voice: Tom | Model: {MODEL_ID}\n")
 
 for slide in data["slides"]:
     num    = slide["slide_number"]

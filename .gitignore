@@ -9,9 +9,6 @@ dist
 .antigravity
 .venv
 __pycache__
-*.mp3
-audio/
-public/audio/
 *.log
 .DS_Store
 

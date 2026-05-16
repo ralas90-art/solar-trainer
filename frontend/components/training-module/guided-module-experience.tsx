@@ -67,7 +67,7 @@ export function GuidedModuleExperience({
   const [autoNextModule, setAutoNextModule] = useState(false)
   const [autoNextCountdown, setAutoNextCountdown] = useState<number | null>(null)
 
-  const lesson = useMemo(() => moduleView ? buildModuleAudioLesson(moduleView) : null, [moduleView])
+  const lesson = useMemo(() => moduleView ? buildModuleAudioLesson(moduleView, locale) : null, [moduleView, locale])
 
   const quiz = useMemo(
     () => {
@@ -379,6 +379,7 @@ export function GuidedModuleExperience({
         onProgressChange={handleAudioProgressChange}
         onModuleSelect={onModuleSelect}
         moduleCatalog={moduleCatalog}
+        locale={locale}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
