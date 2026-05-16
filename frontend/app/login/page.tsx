@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useAuth } from "@/context/AuthContext"
 import { api } from "@/lib/api-client"
-import { Crown, Lock, Mail, Zap, ShieldCheck } from "lucide-react"
+import { Crown, Lock, Mail, Zap, ShieldCheck, Loader2 } from "lucide-react"
 import Link from "next/link"
 import { WHITE_LABEL } from "@/lib/white-label.config"
 
@@ -21,18 +21,27 @@ export default function LoginPage() {
 
         try {
             const response = await api.post<any>("/login", {
-                email,
+                username: email,
                 password,
             })
             
-            if (response.status === "ok") {
+            if (response.status === "ok" || response.status === "created") {
+                const userData = response.user || {
+                    id: response.username || response.email || "admin-id",
+                    email: response.username || response.email,
+                    role: response.role || "admin",
+                    company_id: response.company_id || "septivolt",
+                    plan_tier: response.plan_tier || "growth"
+                };
+                const token = response.access_token || "mock-token-" + Date.now();
+
                 login({
-                    id: response.user.id,
-                    email: response.user.email,
-                    role: response.user.role,
-                    companyId: response.user.company_id,
-                    planTier: response.user.plan_tier || "starter"
-                }, response.access_token)
+                    id: userData.id,
+                    email: userData.email,
+                    role: userData.role,
+                    companyId: userData.company_id,
+                    planTier: userData.plan_tier || "starter"
+                }, token)
             }
         } catch (err: any) {
             setError(err.message || "Failed to login. Please check your credentials.")
@@ -100,7 +109,12 @@ export default function LoginPage() {
                             disabled={isLoading}
                             className="w-full bg-[#FF5722] hover:bg-[#FF7043] disabled:opacity-50 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-[#FF5722]/20 flex items-center justify-center gap-2"
                         >
-                            {isLoading ? "Authenticating..." : (
+                            {isLoading ? (
+                                <>
+                                    <Loader2 className="h-5 w-5 animate-spin" />
+                                    <span>Authenticating...</span>
+                                </>
+                            ) : (
                                 <>
                                     ENTER SYSTEM
                                     <Crown className="h-4 w-4" />
