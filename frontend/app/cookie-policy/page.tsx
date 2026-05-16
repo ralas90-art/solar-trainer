@@ -3,13 +3,13 @@ import { LegalPageLayout } from "@/components/marketing/LegalPageLayout"
 export default function CookiePolicy() {
     return (
         <LegalPageLayout title="Cookie Policy" lastUpdated="March 16, 2026">
-            <h2>1. How Cookies Are Used</h2>
-            <p>We use cookies and similar tracking technologies to ensure the Platform functions correctly, to remember your login session, and to save your preferences.</p>
+            <h2>1. How Cookies and Local Storage Are Used</h2>
+            <p>We use cookies, local storage, and similar tracking technologies to ensure the Platform functions correctly, to remember your login session, to save your progress in training assessments, and to remember your preferences.</p>
 
-            <h2>2. Types of Cookies</h2>
+            <h2>2. Types of Technologies Used</h2>
             <ul>
-                <li><strong>Essential Cookies:</strong> Necessary for the Platform to operate (e.g., authentication, security). These cannot be disabled.</li>
-                <li><strong>Analytics Cookies:</strong> Used to understand how users interact with our training modules and dashboards so we can improve the curriculum and user interface.</li>
+                <li><strong>Essential Technologies:</strong> Necessary for the Platform to operate (e.g., authentication, security, and progress saving for active assessments). These cannot be disabled.</li>
+                <li><strong>Analytics Technologies:</strong> Used to understand how users interact with our training modules, assessment funnels, and dashboards so we can improve the curriculum and user interface.</li>
             </ul>
 
             <h2>3. Managing Cookie Preferences</h2>

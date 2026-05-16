@@ -8,15 +8,16 @@ export default function PrivacyPolicy() {
             <ul>
                 <li><strong>Account Data:</strong> Name, email address, company name, and password.</li>
                 <li><strong>Billing Data:</strong> Invoicing details and payment history. (Note: Full credit card data is securely stored and processed by Stripe; we do not store this data).</li>
-                <li><strong>Usage & Training Data:</strong> Audio recordings (from voice AI simulations), text transcripts (from text AI simulations), quiz scores, workbook entries, certifications attained, and general platform interaction metrics.</li>
-                <li><strong>Device & Technical Data:</strong> IP addresses, browser type, and operating system.</li>
+                <li><strong>Usage & Training Data:</strong> Audio recordings (from voice AI simulations), text transcripts (from text AI simulations), quiz scores, workbook entries, certifications attained, assessment funnel progress, and general platform interaction metrics.</li>
+                <li><strong>Device & Technical Data:</strong> IP addresses, browser type, operating system, and attribution data (e.g., UTM parameters, referral sources).</li>
             </ul>
 
             <h2>2. How We Use Your Data</h2>
             <ul>
                 <li>To deliver and operate the training curriculum, AI simulations, and manager dashboards.</li>
                 <li>To process payments and manage subscriptions.</li>
-                <li>To analyze user performance and aggregate team analytics for your company administrators.</li>
+                <li>To analyze user performance, assessment funnel completion rates, and aggregate team analytics for your company administrators.</li>
+                <li>To enrich lead profiles for sales and onboarding qualification.</li>
                 <li>To improve our AI models and training scenarios (audio and text interactions may be used internally to refine AI responses unless explicitly opted-out in Enterprise agreements).</li>
                 <li>To send administrative notifications and customer support communications.</li>
             </ul>

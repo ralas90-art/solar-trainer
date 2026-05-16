@@ -22,20 +22,31 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
-
-// --- Types ---
-
-type TrackId = 'individual' | 'team' | 'bilingual' | 'enterprise'
+import { 
+  captureAttribution, 
+  trackEvent, 
+  saveFunnelProgress, 
+  loadFunnelProgress, 
+  clearFunnelProgress,
+  isAlreadySubmitted,
+  setSubmissionLock,
+  getAttribution
+} from "@/lib/analytics-service"
+import { calculateIntelligence, TrackId } from "@/lib/scoring-engine"
+import { useEffect } from "react"
+import { t, Language, getLanguagePreference, setLanguagePreference } from "@/lib/i18n"
 
 interface QuestionOption {
   id: string
   label: string
   weights: Partial<Record<TrackId, number>>
+  isSubQuestion?: boolean
 }
 
 interface Question {
   id: string
   text: string
+  isOptional?: boolean
   options: QuestionOption[]
 }
 
@@ -44,100 +55,117 @@ interface Question {
 const QUESTIONS: Question[] = [
   {
     id: "lead_type",
-    text: "How would you describe your current role?",
+    text: "funnel.questions.lead_type.text",
     options: [
-      { id: "rep", label: "Individual Solar Rep", weights: { individual: 3 } },
-      { id: "manager", label: "Sales Manager", weights: { team: 3 } },
-      { id: "owner", label: "Dealer / EPC Owner", weights: { enterprise: 4 } },
-      { id: "recruiter", label: "Recruiting / Onboarding Team", weights: { team: 2, enterprise: 2 } },
+      { id: "rep", label: "funnel.questions.lead_type.options.rep", weights: { individual: 3 } },
+      { id: "manager", label: "funnel.questions.lead_type.options.manager", weights: { team: 3 } },
+      { id: "owner", label: "funnel.questions.lead_type.options.owner", weights: { enterprise: 4 } },
+      { id: "recruiter", label: "funnel.questions.lead_type.options.recruiter", weights: { team: 2, enterprise: 2 } },
     ]
   },
   {
     id: "team_size",
-    text: "What is the size of your team?",
+    text: "funnel.questions.team_size.text",
     options: [
-      { id: "1", label: "Just me", weights: { individual: 4 } },
-      { id: "2-5", label: "2–5 reps", weights: { individual: 2, team: 2 } },
-      { id: "6-15", label: "6–15 reps", weights: { team: 4 } },
-      { id: "16-50", label: "16–50 reps", weights: { enterprise: 3, team: 2 } },
-      { id: "50+", label: "50+ reps", weights: { enterprise: 5 } },
+      { id: "1", label: "funnel.questions.team_size.options.1", weights: { individual: 4 } },
+      { id: "2-5", label: "funnel.questions.team_size.options.2-5", weights: { individual: 2, team: 2 } },
+      { id: "6-15", label: "funnel.questions.team_size.options.6-15", weights: { team: 4 } },
+      { id: "16-50", label: "funnel.questions.team_size.options.16-50", weights: { enterprise: 3, team: 2 } },
+      { id: "50+", label: "funnel.questions.team_size.options.50+", weights: { enterprise: 5 } },
     ]
   },
   {
     id: "experience",
-    text: "What is your team's average experience level?",
+    text: "funnel.questions.experience.text",
     options: [
-      { id: "new", label: "Brand new", weights: { individual: 3 } },
-      { id: "0-3", label: "0–3 months", weights: { individual: 3 } },
-      { id: "3-12", label: "3–12 months", weights: { individual: 2, team: 2 } },
-      { id: "1y+", label: "1+ year", weights: { team: 2 } },
-      { id: "mixed", label: "Mixed team", weights: { team: 3, enterprise: 2 } },
+      { id: "new", label: "funnel.questions.experience.options.new", weights: { individual: 3 } },
+      { id: "0-3", label: "funnel.questions.experience.options.0-3", weights: { individual: 3 } },
+      { id: "3-12", label: "funnel.questions.experience.options.3-12", weights: { individual: 2, team: 2 } },
+      { id: "1y+", label: "funnel.questions.experience.options.1y+", weights: { team: 2 } },
+      { id: "mixed", label: "funnel.questions.experience.options.mixed", weights: { team: 3, enterprise: 2 } },
     ]
   },
   {
     id: "gap",
-    text: "What is your biggest training gap right now?",
+    text: "funnel.questions.gap.text",
     options: [
-      { id: "prospecting", label: "Door knocking / Prospecting", weights: { individual: 1, team: 1 } },
-      { id: "objections", label: "Handling objections", weights: { individual: 1, team: 1 } },
-      { id: "bills", label: "Explaining utility bills", weights: { individual: 1, team: 1 } },
-      { id: "finance", label: "Explaining financing", weights: { individual: 1, team: 1 } },
-      { id: "closing", label: "Closing deals", weights: { individual: 1, team: 1, enterprise: 1 } },
-      { id: "post-sale", label: "Post-sale communication", weights: { team: 1, enterprise: 1 } },
-      { id: "onboarding", label: "Recruiting and onboarding", weights: { team: 2, enterprise: 3 } },
+      { id: "prospecting", label: "funnel.questions.gap.options.prospecting", weights: { individual: 1, team: 1 } },
+      { id: "objections", label: "funnel.questions.gap.options.objections", weights: { individual: 1, team: 1 } },
+      { id: "bills", label: "funnel.questions.gap.options.bills", weights: { individual: 1, team: 1 } },
+      { id: "finance", label: "funnel.questions.gap.options.finance", weights: { individual: 1, team: 1 } },
+      { id: "closing", label: "funnel.questions.gap.options.closing", weights: { individual: 1, team: 1, enterprise: 1 } },
+      { id: "post-sale", label: "funnel.questions.gap.options.post-sale", weights: { team: 1, enterprise: 1 } },
+      { id: "onboarding", label: "funnel.questions.gap.options.onboarding", weights: { team: 2, enterprise: 3 } },
     ]
   },
   {
     id: "language",
-    text: "What are your primary language needs?",
+    text: "funnel.questions.language.text",
     options: [
-      { id: "en", label: "English", weights: { individual: 1, team: 1 } },
-      { id: "es", label: "Spanish", weights: { bilingual: 5 } },
-      { id: "both", label: "Both (English & Spanish)", weights: { bilingual: 5 } },
+      { id: "en", label: "funnel.questions.language.options.en", weights: { individual: 1, team: 1 } },
+      { id: "es", label: "funnel.questions.language.options.es", weights: { bilingual: 5 } },
+      { id: "both", label: "funnel.questions.language.options.both", weights: { bilingual: 5 } },
     ]
   },
   {
     id: "process",
-    text: "Describe your current training process.",
+    text: "funnel.questions.process.text",
     options: [
-      { id: "none", label: "No formal training", weights: { individual: 2 } },
-      { id: "shadowing", label: "Shadowing only", weights: { individual: 1, team: 1 } },
-      { id: "pdfs", label: "Zoom calls / PDFs", weights: { team: 2 } },
-      { id: "internal", label: "Internal training system", weights: { enterprise: 2 } },
-      { id: "need_better", label: "We need a better system", weights: { team: 3, enterprise: 3 } },
+      { id: "none", label: "funnel.questions.process.options.none", weights: { individual: 2 } },
+      { id: "shadowing", label: "funnel.questions.process.options.shadowing", weights: { individual: 1, team: 1 } },
+      { id: "pdfs", label: "funnel.questions.process.options.pdfs", weights: { team: 2 } },
+      { id: "internal", label: "funnel.questions.process.options.internal", weights: { enterprise: 2 } },
+      { id: "need_better", label: "funnel.questions.process.options.need_better", weights: { team: 3, enterprise: 3 } },
     ]
   },
   {
     id: "urgency",
-    text: "When are you looking to start training?",
+    text: "funnel.questions.urgency.text",
     options: [
-      { id: "now", label: "Immediately", weights: { individual: 1, team: 1, bilingual: 1, enterprise: 1 } },
-      { id: "month", label: "This month", weights: { team: 1 } },
-      { id: "60d", label: "Next 30–60 days", weights: { team: 1 } },
-      { id: "research", label: "Just researching", weights: { individual: 1 } },
+      { id: "now", label: "funnel.questions.urgency.options.now", weights: { individual: 1, team: 1, bilingual: 1, enterprise: 1 } },
+      { id: "month", label: "funnel.questions.urgency.options.month", weights: { team: 1 } },
+      { id: "60d", label: "funnel.questions.urgency.options.60d", weights: { team: 1 } },
+      { id: "research", label: "funnel.questions.urgency.options.research", weights: { individual: 1 } },
     ]
   },
   {
     id: "interest",
-    text: "What interests you most about SeptiVolt?",
+    text: "funnel.questions.interest.text",
     options: [
-      { id: "individual", label: "Individual access", weights: { individual: 4 } },
-      { id: "team", label: "Team license", weights: { team: 3, enterprise: 2 } },
-      { id: "demo", label: "Demo", weights: { enterprise: 3, team: 2 } },
-      { id: "spanish", label: "Spanish training", weights: { bilingual: 5 } },
-      { id: "white-label", label: "White-label / company version", weights: { enterprise: 5 } },
+      { id: "individual", label: "funnel.questions.interest.options.individual", weights: { individual: 4 } },
+      { id: "team", label: "funnel.questions.interest.options.team", weights: { team: 3, enterprise: 2 } },
+      { id: "demo", label: "funnel.questions.interest.options.demo", weights: { enterprise: 3, team: 2 } },
+      { id: "spanish", label: "funnel.questions.interest.options.spanish", weights: { bilingual: 5 } },
+      { id: "white-label", label: "funnel.questions.interest.options.white-label", weights: { enterprise: 5 } },
+    ]
+  },
+  {
+    id: "business_intel",
+    text: "funnel.questions.business_intel.text",
+    isOptional: true,
+    options: [
+      { id: "crm", label: "funnel.questions.business_intel.options.crm", isSubQuestion: true, weights: {} },
+      { id: "volume", label: "funnel.questions.business_intel.options.volume", isSubQuestion: true, weights: {} },
+      { id: "structure", label: "funnel.questions.business_intel.options.structure", isSubQuestion: true, weights: {} },
     ]
   }
 ]
 
-// --- Main Component ---
+const ASSESSMENT_VARIANT = "solar_sales_readiness_v2"
 
+// Note: Bilingual Architecture Foundation
+// We will use a translation mapping in Phase 3. 
+// For now, the structure supports { id, text, options } which will be mapped to { id, text: { en, es } }
+
+// --- Main Component ---
 export function AssessmentFunnelClient() {
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [showResumePrompt, setShowResumePrompt] = useState(false)
+  const [language, setLanguage] = useState<Language>('en')
   
   const [formData, setFormData] = useState({
     firstName: "",
@@ -147,56 +175,110 @@ export function AssessmentFunnelClient() {
     company: ""
   })
 
+  // Attribution & Progress Lifecycle
+  useEffect(() => {
+    captureAttribution();
+    
+    // Set initial language
+    const lang = getLanguagePreference();
+    setLanguage(lang);
+
+    const saved = loadFunnelProgress();
+    if (saved && saved.currentStep > 0 && !isSubmitted) {
+      setShowResumePrompt(true);
+    }
+    
+    // Initial page view event
+    trackEvent('funnel_view', { 
+      step: 0, 
+      lang,
+      language_preference: lang,
+      assessment_variant: ASSESSMENT_VARIANT
+    });
+  }, []);
+
+  const handleLanguageSwitch = (newLang: Language) => {
+    setLanguage(newLang);
+    setLanguagePreference(newLang);
+    trackEvent('language_switch', { 
+      from: language, 
+      to: newLang,
+      language_preference: newLang,
+      assessment_variant: ASSESSMENT_VARIANT
+    });
+  }
+
   const totalSteps = QUESTIONS.length + 1 // +1 for lead form
 
   const handleOptionSelect = (questionId: string, optionId: string) => {
-    setAnswers(prev => ({ ...prev, [questionId]: optionId }))
+    const newAnswers = { ...answers, [questionId]: optionId };
+    setAnswers(newAnswers);
+    
+    trackEvent('funnel_step_complete', { 
+      step: currentStep, 
+      questionId, 
+      optionId,
+      lang: language,
+      language_preference: language,
+      assessment_variant: ASSESSMENT_VARIANT
+    });
+    
+    saveFunnelProgress({ currentStep, answers: newAnswers });
+    
     setTimeout(() => {
       setCurrentStep(prev => prev + 1)
     }, 300)
+  }
+
+  const handleResume = () => {
+    const saved = loadFunnelProgress();
+    if (saved) {
+      setAnswers(saved.answers);
+      setCurrentStep(saved.currentStep);
+    }
+    setShowResumePrompt(false);
+    trackEvent('funnel_resume', { 
+      step: saved?.currentStep,
+      lang: language,
+      language_preference: language,
+      assessment_variant: ASSESSMENT_VARIANT
+    });
+  }
+
+  const handleStartFresh = () => {
+    clearFunnelProgress();
+    setCurrentStep(0);
+    setAnswers({});
+    setShowResumePrompt(false);
+    trackEvent('funnel_restart', {
+      lang: language,
+      language_preference: language,
+      assessment_variant: ASSESSMENT_VARIANT
+    });
   }
 
   const handleBack = () => {
     if (currentStep > 0) setCurrentStep(prev => prev - 1)
   }
 
-  const scoring = useMemo(() => {
-    const scores: Record<TrackId, number> = {
-      individual: 0,
-      team: 0,
-      bilingual: 0,
-      enterprise: 0
-    }
+  // Advanced Scoring via Intelligence Engine
+  const intelligence = calculateIntelligence(answers, QUESTIONS);
+  const { winningTrack, normalizedScore, maturity, weaknesses, insights, confidenceScore } = intelligence;
 
-    Object.entries(answers).forEach(([qId, optId]) => {
-      const question = QUESTIONS.find(q => q.id === qId)
-      const option = question?.options.find(o => o.id === optId)
-      if (option?.weights) {
-        Object.entries(option.weights).forEach(([track, weight]) => {
-          scores[track as TrackId] += weight || 0
-        })
-      }
-    })
-
-    // Tie-break priority: enterprise > bilingual > team > individual
-    const sortedTracks = (Object.keys(scores) as TrackId[]).sort((a, b) => {
-      if (scores[b] !== scores[a]) return scores[b] - scores[a]
-      const priority = { enterprise: 4, bilingual: 3, team: 2, individual: 1 }
-      return priority[b] - priority[a]
-    })
-
-    const winningTrack = sortedTracks[0]
-    const maxPossibleScore = 40 // Estimated max
-    const rawScore = scores[winningTrack]
-    const normalizedScore = Math.min(Math.round((rawScore / maxPossibleScore) * 100), 100)
-
-    return { winningTrack, normalizedScore, scores }
-  }, [answers])
+  const translatedMaturity = t(`funnel.results.maturity_levels.${maturity}`, language);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     setError(null)
+
+    if (isAlreadySubmitted(formData.email)) {
+      setError(t("funnel.already_submitted", language));
+      setTimeout(() => setIsSubmitted(true), 1500);
+      return;
+    }
+
+    const attribution = getAttribution();
 
     const payload = {
       firstName: formData.firstName,
@@ -206,7 +288,8 @@ export function AssessmentFunnelClient() {
       tags: [
         "SeptiVolt - Funnel Lead",
         "SeptiVolt - Assessment Completed",
-        `SeptiVolt - ${scoring.winningTrack.charAt(0).toUpperCase() + scoring.winningTrack.slice(1)}`
+        `SeptiVolt - ${winningTrack.charAt(0).toUpperCase() + winningTrack.slice(1)}`,
+        `SeptiVolt - ${maturity}`
       ],
       customFields: {
         septivolt_lead_type: answers.lead_type,
@@ -215,11 +298,19 @@ export function AssessmentFunnelClient() {
         septivolt_language_need: answers.language,
         septivolt_experience_level: answers.experience,
         septivolt_training_urgency: answers.urgency,
-        septivolt_recommended_track: scoring.winningTrack,
-        septivolt_score: scoring.normalizedScore,
+        septivolt_recommended_track: winningTrack,
+        septivolt_score: normalizedScore,
+        septivolt_confidence_score: confidenceScore,
+        septivolt_maturity_class: maturity,
+        septivolt_attribution_source: attribution.source,
+        septivolt_device_type: attribution.device,
         septivolt_funnel_completed: true,
         septivolt_company_name: formData.company,
-        septivolt_source: "solar-sales-training-assessment"
+        septivolt_source: "solar-sales-training-assessment",
+        septivolt_language_preference: language,
+        septivolt_assessment_variant: ASSESSMENT_VARIANT,
+        septivolt_weaknesses: weaknesses,
+        septivolt_insights: insights
       },
       pipeline: "SeptiVolt Enrollment Pipeline",
       pipelineStage: "Assessment Completed"
@@ -234,10 +325,19 @@ export function AssessmentFunnelClient() {
 
       if (!res.ok) throw new Error("Submission failed")
       
+      setSubmissionLock();
+      clearFunnelProgress();
       setIsSubmitted(true)
       setCurrentStep(currentStep + 1)
+      trackEvent('funnel_complete', { 
+        track: winningTrack, 
+        score: normalizedScore,
+        lang: language,
+        language_preference: language,
+        assessment_variant: ASSESSMENT_VARIANT
+      });
     } catch (err) {
-      setError("Something went wrong. Please check your connection and try again.")
+      setError(t("funnel.error_generic", language))
     } finally {
       setIsSubmitting(false)
     }
@@ -265,10 +365,10 @@ export function AssessmentFunnelClient() {
       <div className="space-y-8">
         <div className="space-y-4">
           <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#F97316] font-display">
-            Module {currentStep + 1} / {totalSteps}
+            {t("funnel.module", language)} {currentStep + 1} / {totalSteps}
           </span>
           <h2 className="text-3xl md:text-4xl font-black font-display tracking-tight leading-tight uppercase italic">
-            {q.text}
+            {t(q.text, language)}
           </h2>
         </div>
         <div className="grid gap-3">
@@ -282,7 +382,7 @@ export function AssessmentFunnelClient() {
               )}
             >
               <div className="flex justify-between items-center">
-                <span className="text-lg font-medium">{opt.label}</span>
+                <span className="text-lg font-medium">{t(opt.label, language)}</span>
                 <ChevronRight className={cn(
                   "w-5 h-5 text-slate-600 transition-transform group-hover:translate-x-1 group-hover:text-[#F97316]",
                   answers[q.id] === opt.id && "text-[#F97316] translate-x-1"
@@ -291,6 +391,17 @@ export function AssessmentFunnelClient() {
             </button>
           ))}
         </div>
+
+        {(q.isOptional || answers[q.id]) && (
+          <div className="flex justify-end pt-4">
+            <button 
+              onClick={() => setCurrentStep(prev => prev + 1)}
+              className="group flex items-center gap-2 text-[#F97316] font-black uppercase tracking-[0.2em] italic text-sm hover:translate-x-1 transition-all"
+            >
+              {t("funnel.cta.next", language)} <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
+        )}
       </div>
     )
   }
@@ -300,26 +411,26 @@ export function AssessmentFunnelClient() {
       <div className="space-y-8">
         <div className="space-y-4">
           <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#F59E0B] font-display">
-            Final Step: Lead Activation
+            {t("funnel.final_step.title", language)}
           </span>
           <h2 className="text-3xl md:text-4xl font-black font-display tracking-tight leading-tight uppercase italic">
-            Who should we send the results to?
+            {t("funnel.final_step.subtitle", language)}
           </h2>
           <p className="text-slate-400 font-light">
-            Enter your details to generate your performance score and custom training path.
+            {t("funnel.final_step.description", language)}
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1 font-display">First Name</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1 font-display">{t("funnel.form.first_name", language)}</label>
               <div className="relative">
                 <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
                 <input 
                   required
                   type="text"
-                  placeholder="First name"
+                  placeholder={t("funnel.form.first_name_placeholder", language)}
                   value={formData.firstName}
                   onChange={e => setFormData({...formData, firstName: e.target.value})}
                   className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm focus:border-[#F97316]/50 outline-none transition-all"
@@ -327,13 +438,13 @@ export function AssessmentFunnelClient() {
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1 font-display">Last Name</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1 font-display">{t("funnel.form.last_name", language)}</label>
               <div className="relative">
                 <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
                 <input 
                   required
                   type="text"
-                  placeholder="Last name"
+                  placeholder={t("funnel.form.last_name_placeholder", language)}
                   value={formData.lastName}
                   onChange={e => setFormData({...formData, lastName: e.target.value})}
                   className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm focus:border-[#F97316]/50 outline-none transition-all"
@@ -343,13 +454,13 @@ export function AssessmentFunnelClient() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1 font-display">Email Address</label>
+            <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1 font-display">{t("funnel.form.email", language)}</label>
             <div className="relative">
               <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
               <input 
                 required
                 type="email"
-                placeholder="email@example.com"
+                placeholder={t("funnel.form.email_placeholder", language)}
                 value={formData.email}
                 onChange={e => setFormData({...formData, email: e.target.value})}
                 className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm focus:border-[#F97316]/50 outline-none transition-all"
@@ -359,13 +470,13 @@ export function AssessmentFunnelClient() {
 
           <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1 font-display">Phone Number</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1 font-display">{t("funnel.form.phone", language)}</label>
               <div className="relative">
                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
                 <input 
                   required
                   type="tel"
-                  placeholder="(555) 000-0000"
+                  placeholder={t("funnel.form.phone_placeholder", language)}
                   value={formData.phone}
                   onChange={e => setFormData({...formData, phone: e.target.value})}
                   className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm focus:border-[#F97316]/50 outline-none transition-all"
@@ -373,12 +484,12 @@ export function AssessmentFunnelClient() {
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1 font-display">Company Name (Optional)</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1 font-display">{t("funnel.form.company", language)}</label>
               <div className="relative">
                 <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
                 <input 
                   type="text"
-                  placeholder="Company name"
+                  placeholder={t("funnel.form.company_placeholder", language)}
                   value={formData.company}
                   onChange={e => setFormData({...formData, company: e.target.value})}
                   className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm focus:border-[#F97316]/50 outline-none transition-all"
@@ -394,7 +505,7 @@ export function AssessmentFunnelClient() {
             disabled={isSubmitting}
             className="w-full py-5 btn-primary flex items-center justify-center gap-3 mt-4 italic"
           >
-            {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <>GENERATE RESULTS <ArrowRight className="w-5 h-5" /></>}
+            {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <>{t("funnel.cta.generate", language)} <ArrowRight className="w-5 h-5" /></>}
           </button>
         </form>
       </div>
@@ -402,35 +513,33 @@ export function AssessmentFunnelClient() {
   }
 
   const renderResult = () => {
-    const { winningTrack, normalizedScore } = scoring
-
     const trackDetails = {
       individual: {
-        title: "Individual Performance Track",
-        desc: "Optimized for solo representatives seeking elite closing mastery and objection handling precision.",
-        cta1: { label: "GET INDIVIDUAL ACCESS", href: "/pricing" },
-        cta2: { label: "LEARN MORE", href: "/pricing" },
+        title: t("funnel.results.tracks.individual.title", language),
+        desc: t("funnel.results.tracks.individual.desc", language, { maturity: translatedMaturity }),
+        cta1: { label: t("funnel.cta.individual_access", language), href: "/pricing" },
+        cta2: { label: t("funnel.cta.learn_more", language), href: "/pricing" },
         icon: User
       },
       team: {
-        title: "Strategic Team Accelerator",
-        desc: "Designed for sales managers requiring structural training deployment and high-fidelity analytics.",
-        cta1: { label: "BOOK TEAM DEMO", href: "/enterprise" },
-        cta2: { label: "REQUEST TEAM LICENSE", href: "/enterprise?tier=team" },
+        title: t("funnel.results.tracks.team.title", language),
+        desc: t("funnel.results.tracks.team.desc", language, { maturity: translatedMaturity }),
+        cta1: { label: t("funnel.cta.book_demo", language), href: "/enterprise" },
+        cta2: { label: t("funnel.cta.team_license", language), href: "/enterprise?tier=team" },
         icon: Users
       },
       bilingual: {
-        title: "Bilingual Growth Track",
-        desc: "Full Spanish-enabled curriculum mapping for teams operating in diverse, high-growth markets.",
-        cta1: { label: "BOOK STRATEGY CALL", href: "/enterprise" },
-        cta2: { label: "SPANISH TRAINING INTEREST", href: "/enterprise?interest=spanish" },
+        title: t("funnel.results.tracks.bilingual.title", language),
+        desc: t("funnel.results.tracks.bilingual.desc", language, { maturity: translatedMaturity }),
+        cta1: { label: t("funnel.cta.strategy_call", language), href: "/enterprise" },
+        cta2: { label: t("funnel.cta.spanish_interest", language), href: "/enterprise?interest=spanish" },
         icon: Globe
       },
       enterprise: {
-        title: "Enterprise Ecosystem",
-        desc: "Custom white-label infrastructure for Dealer/EPC owners managing multi-state organizations.",
-        cta1: { label: "REQUEST CUSTOM QUOTE", href: "/enterprise?tier=enterprise" },
-        cta2: { label: "BOOK STRATEGY CALL", href: "/enterprise" },
+        title: t("funnel.results.tracks.enterprise.title", language),
+        desc: t("funnel.results.tracks.enterprise.desc", language, { maturity: translatedMaturity }),
+        cta1: { label: t("funnel.cta.custom_quote", language), href: "/enterprise?tier=enterprise" },
+        cta2: { label: t("funnel.cta.strategy_call", language), href: "/enterprise" },
         icon: Building2
       }
     }[winningTrack]
@@ -445,9 +554,9 @@ export function AssessmentFunnelClient() {
              </div>
           </div>
           <div className="space-y-2">
-            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-500 font-display">Readiness Assessment Complete</h2>
+            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-500 font-display">{t("funnel.results.complete", language)}</h2>
             <h1 className="text-4xl md:text-6xl font-black font-display uppercase italic tracking-tighter leading-[0.9]">
-              Your Optimal <span className="text-[#F97316]">Path</span>
+              {t("funnel.results.your_path", language)}
             </h1>
           </div>
         </div>
@@ -483,24 +592,99 @@ export function AssessmentFunnelClient() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
            {[
-             { label: "Profile", val: winningTrack.toUpperCase(), icon: User },
-             { label: "Urgency", val: answers.urgency?.toUpperCase() || "HIGH", icon: Zap },
-             { label: "Gap", val: answers.gap?.split('-')[0].toUpperCase() || "NONE", icon: BarChart3 },
-             { label: "Status", val: "ACTIVE", icon: CheckCircle2 }
+             { label: t("funnel.results.maturity_label", language), val: translatedMaturity.toUpperCase(), sub: t(`funnel.results.maturity_explanations.${maturity}`, language), icon: ShieldCheck },
+             { label: t("funnel.results.confidence_label", language), val: `${confidenceScore}%`, icon: Zap },
+             { label: t("funnel.results.gaps_label", language), val: `${weaknesses.length} ${t("funnel.results.detected", language)}`, icon: BarChart3 },
+             { label: t("funnel.results.status_label", language), val: t("funnel.results.verified", language), icon: CheckCircle2 }
            ].map((stat, i) => (
-             <div key={i} className="glass-card p-6 border border-white/5 text-center space-y-2">
-                <stat.icon className="w-4 h-4 text-slate-500 mx-auto" />
-                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest font-display">{stat.label}</div>
-                <div className="metrics-font font-bold text-white text-sm tracking-tighter italic">{stat.val}</div>
+             <div key={i} className="glass-card p-6 border border-white/5 text-center space-y-2 flex flex-col justify-between">
+                <div>
+                  <stat.icon className="w-4 h-4 text-slate-500 mx-auto mb-2" />
+                  <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest font-display">{stat.label}</div>
+                  <div className="metrics-font font-bold text-white text-sm tracking-tighter italic">{stat.val}</div>
+                </div>
+                {stat.sub && (
+                  <div className="text-[9px] text-slate-400 font-light mt-2 leading-tight uppercase tracking-tighter">
+                    {stat.sub}
+                  </div>
+                )}
              </div>
            ))}
+        </div>
+
+        {/* Key Weaknesses & Opportunities Section */}
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="glass-card p-8 border border-white/10 space-y-6 relative overflow-hidden group">
+            <div className="absolute top-0 left-0 w-1 h-full bg-[#F97316]/30 group-hover:bg-[#F97316] transition-colors" />
+            <h4 className="text-sm font-black uppercase tracking-widest text-[#F97316] font-display flex items-center gap-2">
+              <BarChart3 className="w-4 h-4" /> {t("funnel.results.gaps_label", language)}
+            </h4>
+            <ul className="space-y-4">
+              {weaknesses.length > 0 ? weaknesses.map((w, i) => (
+                <li key={i} className="text-slate-300 text-sm flex gap-3 items-start animate-in slide-in-from-left duration-500" style={{ animationDelay: `${i * 100}ms` }}>
+                  <span className="text-[#F97316] mt-1">•</span>
+                  <span className="font-light leading-relaxed">{t(`funnel.results.weaknesses.${w}`, language)}</span>
+                </li>
+              )) : (
+                <li className="text-slate-500 text-sm italic">{t("funnel.results.no_weaknesses", language)}</li>
+              )}
+            </ul>
+          </div>
+          <div className="glass-card p-8 border border-white/10 space-y-6 relative overflow-hidden group">
+            <div className="absolute top-0 left-0 w-1 h-full bg-[#F59E0B]/30 group-hover:bg-[#F59E0B] transition-colors" />
+            <h4 className="text-sm font-black uppercase tracking-widest text-[#F59E0B] font-display flex items-center gap-2">
+              <Sparkles className="w-4 h-4" /> {t("funnel.results.insights_label", language)}
+            </h4>
+            <ul className="space-y-4">
+              {insights.length > 0 ? insights.map((ins, i) => (
+                <li key={i} className="text-slate-300 text-sm flex gap-3 items-start animate-in slide-in-from-left duration-500" style={{ animationDelay: `${(i + weaknesses.length) * 100}ms` }}>
+                  <span className="text-[#F59E0B] mt-1">→</span>
+                  <span className="font-light leading-relaxed">{t(`funnel.results.insights.${ins}`, language)}</span>
+                </li>
+              )) : (
+                <li className="text-slate-500 text-sm italic">{t("funnel.results.no_insights", language)}</li>
+              )}
+            </ul>
+          </div>
         </div>
       </div>
     )
   }
-
   return (
     <div className="max-w-4xl mx-auto px-6 pt-24 pb-32">
+      {/* Language Switcher UI */}
+      <div className="flex justify-between items-center mb-12">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 bg-[#F97316] flex items-center justify-center font-black text-white italic text-lg hud-border">
+            S
+          </div>
+          <span className="font-display font-black tracking-tighter uppercase italic text-xl text-white">
+            Septivolt
+          </span>
+        </div>
+
+        <div className="flex items-center gap-1 bg-white/5 p-1 border border-white/10 hud-border hud-corner-tl hud-corner-br">
+          <button
+            onClick={() => handleLanguageSwitch('en')}
+            className={cn(
+              "px-3 py-1 text-[10px] font-black uppercase tracking-widest transition-all",
+              language === 'en' ? "bg-[#F97316] text-white" : "text-slate-500 hover:text-white"
+            )}
+          >
+            EN
+          </button>
+          <button
+            onClick={() => handleLanguageSwitch('es')}
+            className={cn(
+              "px-3 py-1 text-[10px] font-black uppercase tracking-widest transition-all",
+              language === 'es' ? "bg-[#F97316] text-white" : "text-slate-500 hover:text-white"
+            )}
+          >
+            ES
+          </button>
+        </div>
+      </div>
+
       {currentStep < totalSteps && renderProgressBar()}
       
       <div className="mt-12 relative min-h-[600px]">
@@ -544,10 +728,41 @@ export function AssessmentFunnelClient() {
             onClick={handleBack}
             className="absolute -bottom-20 left-0 flex items-center gap-2 text-slate-500 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest font-display"
           >
-            <ArrowLeft className="w-3 h-3" /> PREVIOUS STEP
+            <ArrowLeft className="w-3 h-3" /> {t("funnel.cta.previous", language)}
           </motion.button>
         )}
       </div>
+      {showResumePrompt && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm">
+          <motion.div 
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="glass-card max-w-md w-full p-8 border border-white/10 text-center space-y-6 hud-border"
+          >
+            <div className="w-16 h-16 rounded-full bg-[#F97316]/20 flex items-center justify-center mx-auto border border-[#F97316]/40">
+              <Sparkles className="w-8 h-8 text-[#F97316]" />
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-2xl font-black uppercase italic font-display">{t("funnel.resume.title", language)}</h3>
+              <p className="text-slate-400 font-light">{t("funnel.resume.description", language)}</p>
+            </div>
+            <div className="grid gap-3 pt-4">
+              <button 
+                onClick={handleResume}
+                className="btn-primary py-4 italic"
+              >
+                {t("funnel.resume.cta_resume", language)}
+              </button>
+              <button 
+                onClick={handleStartFresh}
+                className="py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-white transition-colors"
+              >
+                {t("funnel.resume.cta_fresh", language)}
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,0 +1,32 @@
+name: Production Smoke Test
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install Dependencies
+        run: npm install
+        
+      - name: Wait for Vercel Deployment
+        # Simple wait for Vercel to pick up the push and deploy.
+        # In a real enterprise setup, we'd use the Vercel CLI or API to poll status.
+        run: sleep 60
+        
+      - name: Run Integrity Audit
+        run: npx tsx scripts/repo-integrity-check.ts
+        
+      - name: Run Production Smoke Test
+        run: npx tsx scripts/production-smoke-test.ts https://solar-trainer.vercel.app
