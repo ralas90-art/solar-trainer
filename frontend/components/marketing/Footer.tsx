@@ -13,17 +13,18 @@ export function Footer() {
                             <div className="w-8 h-8 rounded bg-[#F97316]/10 border border-[#F97316]/30 flex items-center justify-center text-[#F97316]">
                                 <Zap className="w-4 h-4 fill-[#F97316]" />
                             </div>
-                            <span className="font-display font-black text-xl tracking-tighter text-white uppercase italic">Septi<span className="text-[#F97316]">Volt</span></span>
+                            <span className="font-display font-black text-xl tracking-tighter text-white uppercase italic">SeptiVolt</span>
                         </div>
-                        <p className="text-slate-500 text-sm font-body leading-relaxed">
-                            The elite Solar-Powered training ecosystem for solar sales professionals.
+                        <p className="text-slate-500 text-sm leading-relaxed mb-8">
+                            The elite AI flight simulator for solar sales teams. Training the next generation of top-tier closers.
                         </p>
                     </div>
 
                     <div>
                         <h4 className="text-white font-display font-black uppercase tracking-widest text-xs mb-6 italic">Product</h4>
                         <ul className="space-y-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 font-display">
-                            <li><Link href="/#process" className="hover:text-[#F97316] transition-colors">Mastery Path</Link></li>
+                            <li><Link href="/#process" className="hover:text-[#F97316] transition-colors">How It Works</Link></li>
+                            <li><Link href="/curriculum-preview" className="hover:text-[#F97316] transition-colors">Curriculum</Link></li>
                             <li><Link href="/pricing" className="hover:text-[#F97316] transition-colors">Pricing</Link></li>
                             <li><Link href="/enterprise" className="hover:text-[#F97316] transition-colors">Enterprise</Link></li>
                         </ul>
@@ -32,18 +33,17 @@ export function Footer() {
                     <div>
                         <h4 className="text-white font-display font-black uppercase tracking-widest text-xs mb-6 italic">Resources</h4>
                         <ul className="space-y-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 font-display">
-                            <li><Link href="#" className="hover:text-[#F97316] transition-colors">Framework Blog</Link></li>
-                            <li><Link href="#" className="hover:text-[#F97316] transition-colors">PPA Scripts</Link></li>
-                            <li><Link href="#" className="hover:text-[#F97316] transition-colors">Closed Deals</Link></li>
+                            <li><Link href="/solar-sales-training-assessment" className="hover:text-[#F97316] transition-colors">Free Sales Audit</Link></li>
+                            <li><Link href="/curriculum-preview" className="hover:text-[#F97316] transition-colors">7-Day Curriculum</Link></li>
+                            <li><Link href="/pricing" className="hover:text-[#F97316] transition-colors">Plans & Pricing</Link></li>
                         </ul>
                     </div>
 
                     <div>
                         <h4 className="text-white font-display font-black uppercase tracking-widest text-xs mb-6 italic">Connect</h4>
                         <ul className="space-y-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 font-display">
-                            <li><Link href="#" className="hover:text-[#F97316] transition-colors">Contact Support</Link></li>
-                            <li><Link href="#" className="hover:text-[#F97316] transition-colors">Twitter / X</Link></li>
-                            <li><Link href="#" className="hover:text-[#F97316] transition-colors">LinkedIn</Link></li>
+                            <li><Link href="/contact" className="hover:text-[#F97316] transition-colors">Contact Support</Link></li>
+                            <li><Link href="/enterprise" className="hover:text-[#F97316] transition-colors">Book a Demo</Link></li>
                         </ul>
                     </div>
                 </div>

@@ -274,7 +274,7 @@ export default function EnterprisePage() {
           <Link href="/refund-policy" className="hover:text-white transition-colors">Refunds</Link>
           <Link href="/cookie-policy" className="hover:text-white transition-colors">Cookies</Link>
         </div>
-        <p className="text-[10px] font-black uppercase tracking-widest font-display">© 2026 Global Sales Accelerator</p>
+        <p className="text-[10px] font-black uppercase tracking-widest font-display">© 2026 SeptiVolt Mastery</p>
       </footer>
     </div>
   )
