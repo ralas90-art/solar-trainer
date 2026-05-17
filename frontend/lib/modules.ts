@@ -2489,32 +2489,7 @@ export const MODULES: Record<string, ModuleContent> = {
         }
     ]
 }
-}
-// Each module has an ordered list of scenarios that must be completed sequentially
-export const MODULE_SCENARIOS: Record<string, string[]> = {
-    // Legacy day-level mappings (backward compat)
-    "day_1_foundation": [],
-    "day_2_prospecting": ["d2d_1", "not_interested", "busy_objection", "guarded_gloria", "busy_brian"],
-    "day_3_discovery": ["discovery_1", "price_shopper", "debt_fear", "burned_beth", "analytical_alan", "reluctant_rosa", "garcia_household"],
-    "day_4_presentation": ["eng_1", "bad_experience", "price_objection", "skeptical_steve", "numbers_nancy"],
-    "day_5_closing": ["d2d_1", "lease_1", "stalling_objection", "moving_objection", "stalling_stan", "hesitant_helen"],
-    "day_6_mastery": ["referral_ask", "exam_1", "post_install_patricia", "rodriguez_family"],
-    // Sub-module level mappings
-    "mod_2_3": ["guarded_gloria", "busy_brian"],
-    "mod_2_6": ["not_interested", "busy_objection"],
-    "mod_3_3": ["burned_beth", "reluctant_rosa"],
-    "mod_3_4": ["analytical_alan", "busy_bob", "friendly_frank"],
-    "mod_3_5": ["garcia_household"],
-    "mod_3_8": ["solar_sam", "loyal_linda", "garcia_household"],
-    "mod_4_1": ["skeptical_steve"],
-    "mod_4_6": ["numbers_nancy"],
-    "mod_5_2": ["stalling_stan"],
-    "mod_5_6": ["hesitant_helen"],
-    "mod_6_1": ["post_install_patricia"],
-    "mod_6_5": ["rodriguez_family"],
-}
-
-
+,
     // ─── MODULE 1.5A — Utility Bills & Net Metering ─────────────────────────────
     "mod_1_5a": {
         id: "mod_1_5a",
@@ -4263,6 +4238,32 @@ export const MODULE_SCENARIOS: Record<string, string[]> = {
             ]
         }
     },
+
+}
+// Each module has an ordered list of scenarios that must be completed sequentially
+export const MODULE_SCENARIOS: Record<string, string[]> = {
+    // Legacy day-level mappings (backward compat)
+    "day_1_foundation": [],
+    "day_2_prospecting": ["d2d_1", "not_interested", "busy_objection", "guarded_gloria", "busy_brian"],
+    "day_3_discovery": ["discovery_1", "price_shopper", "debt_fear", "burned_beth", "analytical_alan", "reluctant_rosa", "garcia_household"],
+    "day_4_presentation": ["eng_1", "bad_experience", "price_objection", "skeptical_steve", "numbers_nancy"],
+    "day_5_closing": ["d2d_1", "lease_1", "stalling_objection", "moving_objection", "stalling_stan", "hesitant_helen"],
+    "day_6_mastery": ["referral_ask", "exam_1", "post_install_patricia", "rodriguez_family"],
+    // Sub-module level mappings
+    "mod_2_3": ["guarded_gloria", "busy_brian"],
+    "mod_2_6": ["not_interested", "busy_objection"],
+    "mod_3_3": ["burned_beth", "reluctant_rosa"],
+    "mod_3_4": ["analytical_alan", "busy_bob", "friendly_frank"],
+    "mod_3_5": ["garcia_household"],
+    "mod_3_8": ["solar_sam", "loyal_linda", "garcia_household"],
+    "mod_4_1": ["skeptical_steve"],
+    "mod_4_6": ["numbers_nancy"],
+    "mod_5_2": ["stalling_stan"],
+    "mod_5_6": ["hesitant_helen"],
+    "mod_6_1": ["post_install_patricia"],
+    "mod_6_5": ["rodriguez_family"],
+}
+
 
 // Map scenarios back to their primary module for "Resume Training" logic
 export const SCENARIO_TO_MODULE: Record<string, string> = {}
