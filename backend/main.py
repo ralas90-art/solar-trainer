@@ -100,6 +100,11 @@ class UserAuth(BaseModel):
     company_id: Optional[str] = "septivolt"
     plan_tier: Optional[PlanTier] = PlanTier.STARTER
 
+class LoginAuth(BaseModel):
+    identifier: Optional[str] = None
+    username: Optional[str] = None # Legacy support
+    password: str
+
 @app.post("/signup")
 def signup(user_data: UserAuth, session: Session = Depends(get_session)):
     # 1. Ensure Company exists
@@ -136,11 +141,36 @@ def signup(user_data: UserAuth, session: Session = Depends(get_session)):
     }
 
 @app.post("/login")
-def login(user_data: UserAuth, session: Session = Depends(get_session)):
-    statement = select(User).where(User.username == user_data.username).where(User.password == user_data.password)
+def login(login_data: LoginAuth, session: Session = Depends(get_session)):
+    login_id = login_data.identifier or login_data.username
+    if not login_id:
+        raise HTTPException(status_code=400, detail="Must provide username or email")
+        
+    statement = select(User).where((User.username == login_id) | (User.email == login_id))
     user = session.exec(statement).first()
+    
     if not user:
         raise HTTPException(status_code=401, detail="Invalid credentials")
+    
+    from passlib.context import CryptContext
+    pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+    
+    try:
+        valid_bcrypt = pwd_context.verify(login_data.password, user.password)
+    except Exception:
+        valid_bcrypt = False
+        
+    if not valid_bcrypt:
+        import hashlib
+        hashed_input = hashlib.sha256(login_data.password.encode()).hexdigest()
+        if user.password == hashed_input:
+            # Auto-upgrade to bcrypt
+            user.password = pwd_context.hash(login_data.password)
+            session.add(user)
+            session.commit()
+            session.refresh(user)
+        else:
+            raise HTTPException(status_code=401, detail="Invalid credentials")
     
     # Get plan tier from company
     company = session.get(Company, user.company_id)

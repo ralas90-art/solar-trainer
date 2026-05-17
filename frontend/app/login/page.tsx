@@ -11,7 +11,7 @@ type View = "login" | "forgot" | "forgot-success"
 export default function LoginPage() {
     const { login } = useAuth()
     const [view, setView] = useState<View>("login")
-    const [username, setUsername] = useState("")
+    const [identifier, setIdentifier] = useState("")
     const [password, setPassword] = useState("")
     const [resetEmail, setResetEmail] = useState("")
     const [error, setError] = useState("")
@@ -24,7 +24,7 @@ export default function LoginPage() {
 
         try {
             const response = await api.post<any>("/login", {
-                username,
+                identifier,
                 password,
             })
             if (response.status === "ok") {
@@ -157,14 +157,14 @@ export default function LoginPage() {
                                 )}
 
                                 <div className="space-y-2">
-                                    <label className="font-hud text-[10px] uppercase tracking-[0.18em] text-[#64748B]">Username</label>
+                                    <label className="font-hud text-[10px] uppercase tracking-[0.18em] text-[#64748B]">Username or Email</label>
                                     <div className="relative">
                                         <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748B]" />
                                         <input
                                             type="text"
-                                            value={username}
-                                            onChange={(e) => setUsername(e.target.value)}
-                                            placeholder="your_username"
+                                            value={identifier}
+                                            onChange={(e) => setIdentifier(e.target.value)}
+                                            placeholder="name@company.com or username"
                                             required
                                             className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-4 text-sm focus:outline-none focus:border-[#FF5722]/50 transition-colors"
                                         />

@@ -54,31 +54,48 @@ def create_db_and_tables():
             )
             session.add(demo_company)
         
-        # Demo Admin User
-        username = "demo_admin"
-        statement = select(User).where(User.username == username)
+        # Demo Admin User (Render Env Vars Required)
+        admin_username = os.getenv("ADMIN_USERNAME")
+        admin_email = os.getenv("ADMIN_EMAIL")
+        raw_pwd = os.getenv("ADMIN_PASSWORD")
+        
+        if not admin_username or not admin_email or not raw_pwd:
+            raise RuntimeError("CRITICAL ERROR: ADMIN_USERNAME, ADMIN_EMAIL, and ADMIN_PASSWORD environment variables are required.")
+            
+        # Hash password with bcrypt
+        from passlib.context import CryptContext
+        pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+        stored_pwd = pwd_context.hash(raw_pwd)
+            
+        statement = select(User).where((User.username == admin_username) | (User.email == admin_email))
         user = session.exec(statement).first()
         
         if not user:
             user = User(
-                username=username,
-                password="solar_password_2026", # Shared demo password
+                username=admin_username,
+                email=admin_email,
+                password=stored_pwd,
                 role=UserRole.ADMIN,
                 company_id=company_id
             )
             session.add(user)
         else:
-            # Always ensure demo password/role is reset
+            # Only reset existing admin password if explicitly requested
+            reset_flag = os.getenv("RESET_ADMIN_PASSWORD", "false").lower() == "true"
+            if reset_flag:
+                user.password = stored_pwd
+                
+            user.username = admin_username
+            user.email = admin_email
             user.role = UserRole.ADMIN
             user.company_id = company_id
-            user.password = "solar_password_2026"
             session.add(user)
         
         # Demo Stats
-        stats = session.get(UserStats, username)
+        stats = session.get(UserStats, admin_username)
         if not stats:
             stats = UserStats(
-                user_id=username,
+                user_id=admin_username,
                 total_score=1500,
                 current_streak=5,
                 highest_streak=12,

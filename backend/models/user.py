@@ -30,6 +30,7 @@ class Company(SQLModel, table=True):
 class User(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     username: str = Field(index=True, unique=True)
+    email: Optional[str] = Field(default=None, index=True)
     password: str # In production, hash this!
     role: UserRole = Field(default=UserRole.SALES_REP)
     company_id: Optional[str] = Field(default="septivolt", foreign_key="company.id")

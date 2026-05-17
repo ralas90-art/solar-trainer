@@ -13,3 +13,4 @@ gunicorn
 pandas
 openpyxl
 jinja2
+passlib[bcrypt]
