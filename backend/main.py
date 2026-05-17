@@ -41,6 +41,8 @@ allow_origins = [
     "https://solar-trainer.vercel.app",
     "https://solar-trainer.vercel.app/",
     "https://solar-trainer-git-main-ralas90-arts-projects.vercel.app",
+    "https://septivolt.com",
+    "https://www.septivolt.com",
 ]
 # Merge with env origins
 for o in cors_origins:
@@ -50,7 +52,7 @@ for o in cors_origins:
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allow_origins,
-    allow_origin_regex=r"https://.*\.vercel\.app|https://.*\.onrender\.com|http://localhost:.*",
+    allow_origin_regex=r"https://.*\.vercel\.app|https://.*\.onrender\.com|http://localhost:.*|https://.*septivolt\.com",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
