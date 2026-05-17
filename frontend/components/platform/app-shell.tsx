@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { Bell, Search, Sparkles, Trophy, X, Zap } from "lucide-react"
+import { Bell, Search, Sparkles, Trophy, X, Zap, Menu } from "lucide-react"
 import Link from "next/link"
 import { ReactNode, useEffect, useState } from "react"
 import {
@@ -24,11 +24,24 @@ export function AppShell({
 }) {
   const { user, logout } = useAuth()
   const [notificationsOpen, setNotificationsOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activities, setActivities] = useState<RecentActivity[]>([])
 
   useEffect(() => {
     setActivities(getRecentActivity())
   }, [])
+
+  // Lock body scroll when mobile menu is active
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [mobileMenuOpen])
 
   return (
     <div className="min-h-screen bg-[#121212] text-white font-body">
@@ -68,6 +81,15 @@ export function AppShell({
         <div className="flex min-h-screen min-w-0 flex-1 flex-col">
           <header className="sticky top-0 z-40 border-b border-white/5 bg-[rgba(18,18,18,0.88)] backdrop-blur">
             <div className="flex items-center gap-3 px-4 py-4 sm:px-6 lg:px-8">
+              <button
+                onClick={() => setMobileMenuOpen(prev => !prev)}
+                className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-[#CBD5E1] transition-colors hover:border-[#FF5722]/30 lg:hidden shrink-0"
+                aria-label="Toggle Navigation Drawer"
+                aria-expanded={mobileMenuOpen}
+              >
+                <Menu className="h-5 w-5" />
+              </button>
+
               <div className="min-w-0 flex-1">
                 <p className="font-hud text-[11px] uppercase tracking-[0.24em] text-[#64748B]">
                   Sales Training OS {user && `// Rep: ${user.username}`}
@@ -163,6 +185,68 @@ export function AppShell({
           <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">{children}</main>
         </div>
       </div>
+
+      {/* Mobile Navigation Drawer Overlay */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-[60] bg-[#121212] h-[100dvh] overflow-y-auto w-full flex flex-col lg:hidden">
+          {/* Header Bar matching app shell header height */}
+          <div className="flex justify-between items-center h-16 px-4 border-b border-white/5 bg-[#1A1A1A]">
+            <div className="flex items-center">
+              <Zap className="h-6 w-6 text-[#FF5722] mr-2" />
+              <span className="font-display font-black text-xl tracking-tight text-white uppercase italic">SEPTIVOLT</span>
+            </div>
+            <button 
+              className="text-slate-400 hover:text-white min-w-[48px] min-h-[48px] flex items-center justify-center rounded-md hover:bg-white/5 active:bg-white/10 transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-label="Close navigation menu"
+            >
+              <X className="w-8 h-8" />
+            </button>
+          </div>
+          
+          <nav className="p-6 space-y-4 flex-1">
+            <Link 
+              href="/dashboard" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
+            >
+              <Zap className="h-5 w-5 text-[#FF5722]" /> Dashboard
+            </Link>
+            <div className="h-px bg-white/5 w-full" />
+            
+            <Link 
+              href="/ai-simulator" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
+            >
+              <Sparkles className="h-5 w-5 text-[#FFB300]" /> AI Simulator
+            </Link>
+            <div className="h-px bg-white/5 w-full" />
+            
+            <FeatureGate allowedTiers={["growth", "enterprise"]}>
+              <Link 
+                href="/analytics" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
+              >
+                <Search className="h-5 w-5 text-[#22D3EE]" /> Analytics
+              </Link>
+              <div className="h-px bg-white/5 w-full" />
+            </FeatureGate>
+            
+            <FeatureGate allowedRoles={["admin", "manager"]} allowedTiers={["growth", "enterprise"]}>
+              <Link 
+                href="/leaderboards" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-[#FFB300] hover:text-white"
+              >
+                <Trophy className="h-5 w-5" /> Team Rankings
+              </Link>
+              <div className="h-px bg-white/5 w-full" />
+            </FeatureGate>
+          </nav>
+        </div>
+      )}
     </div>
   )
 }

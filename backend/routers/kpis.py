@@ -352,7 +352,7 @@ async def bulk_create_entries(
 
 @router.get("/api/v1/kpis/analytics", response_model=KPIAnalytics)
 async def get_analytics(
-    period: str = "week",  # week, month, year
+    period: str = "week",  # week, month, quarter, year
     session: Session = Depends(get_session),
     user_id: str = Depends(get_user_id)
 ):
@@ -363,7 +363,9 @@ async def get_analytics(
         start_date = end_date - timedelta(days=7)
     elif period == "month":
         start_date = end_date - timedelta(days=30)
-    else:  # year
+    elif period == "quarter":
+        start_date = end_date - timedelta(days=90)
+    else:  # year/default
         start_date = end_date - timedelta(days=365)
     
     # Get all KPI definitions

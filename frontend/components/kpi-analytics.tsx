@@ -23,6 +23,7 @@ interface KPIAnalyticsData {
         total: number
         average: number
         target: number | null
+        daily_target?: number | null
         target_weekly?: number | null
         target_monthly?: number | null
         target_quarterly?: number | null
@@ -30,7 +31,11 @@ interface KPIAnalyticsData {
         trend: 'up' | 'down' | 'stable'
         daily_values: number[]
     }>
-    // ... existing conversion_rates
+    conversion_rates?: {
+        signal_to_lock: number
+        lock_to_acquisition: number
+        signal_to_acquisition: number
+    }
 }
 
 // ... existing components
@@ -325,24 +330,104 @@ export function KPIAnalytics({ kpiDefinitions }: KPIAnalyticsProps) {
                                 })}
                             </div>
 
-                            {/* ... existing Daily Breakdown */}
-                            <div className="space-y-4">
-                                <h3 className="font-semibold text-white">Daily Breakdown</h3>
-                                {analytics.kpis.map((kpi) => {
-                                    // For daily breakdown, we might want to compare against the *daily* target, not the period target.
-                                    // But `kpi.target` from backend is the Period Target.
-                                    // We should probably ask backend for `target_daily` explicitly if we want that line.
-                                    // For now, let's just use the period target / days in period? No that's messy.
-                                    // Let's assume daily breakdown chart wants to show daily progress.
-                                    // I'll leave it as is for now, it uses `kpi.target` which might be the weekly target now. 
-                                    const maxValue = Math.max(...kpi.daily_values, (kpi.target || 0) / (period === 'week' ? 7 : period === 'month' ? 30 : 90))
-                                    // This logic is getting complicated without backend support.
-                                    return (
-                                        <div key={kpi.label} className="space-y-2">
-                                            {/* ... */}
+                            {/* Daily Trends Breakdown */}
+                            <div className="space-y-6 pt-6 border-t border-slate-800/60">
+                                <div className="flex items-center justify-between">
+                                    <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                                        <BarChart3 className="w-5 h-5 text-purple-400" />
+                                        Daily Trends Breakdown
+                                    </h3>
+                                    <div className="flex gap-4 text-xs">
+                                        <div className="flex items-center gap-1.5 text-slate-400">
+                                            <div className="w-2.5 h-2.5 rounded bg-purple-500/80" />
+                                            <span>Progress</span>
                                         </div>
-                                    )
-                                })}
+                                        <div className="flex items-center gap-1.5 text-slate-400">
+                                            <div className="w-2.5 h-2.5 rounded bg-green-500/80" />
+                                            <span>Target Met</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    {analytics.kpis.map((kpi) => {
+                                        const dailyTarget = kpi.daily_target || 0;
+                                        const maxValue = Math.max(...kpi.daily_values, dailyTarget, 1);
+                                        return (
+                                            <div key={kpi.label} className="bg-slate-950/40 p-4 rounded-xl border border-slate-800/80 space-y-4 hover:border-slate-700/60 transition-all duration-300">
+                                                <div className="flex justify-between items-start">
+                                                    <div>
+                                                        <span className="font-semibold text-slate-200 text-sm">{kpi.label}</span>
+                                                        {dailyTarget > 0 ? (
+                                                            <span className="text-[11px] text-slate-500 block mt-0.5">Daily Goal: {dailyTarget}</span>
+                                                        ) : (
+                                                            <span className="text-[11px] text-slate-500 block mt-0.5">No Daily Goal Set</span>
+                                                        )}
+                                                    </div>
+                                                    <div className="text-right">
+                                                        <span className="text-[11px] text-slate-400 font-medium block">
+                                                            {kpi.daily_values.length} Days Logged
+                                                        </span>
+                                                        <span className="text-xs text-purple-400 font-bold block mt-0.5">
+                                                            Avg: {kpi.average}/day
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div className="h-24 flex items-end gap-1 pt-2 px-1 relative border-b border-slate-800/60">
+                                                    {/* Daily target reference line */}
+                                                    {dailyTarget > 0 && (
+                                                        <div 
+                                                            className="absolute left-0 right-0 border-t border-dashed border-red-500/30 z-0 pointer-events-none"
+                                                            style={{ bottom: `${(dailyTarget / maxValue) * 100}%` }}
+                                                            title={`Daily Target: ${dailyTarget}`}
+                                                        />
+                                                    )}
+                                                    
+                                                    {kpi.daily_values.length > 0 ? (
+                                                        kpi.daily_values.map((val, idx) => {
+                                                            const pct = (val / maxValue) * 100;
+                                                            const meetsTarget = dailyTarget > 0 && val >= dailyTarget;
+                                                            return (
+                                                                <div key={idx} className="flex-1 group relative h-full flex items-end z-10">
+                                                                    <div 
+                                                                        className={`w-full rounded-t transition-all duration-300 ${
+                                                                            meetsTarget 
+                                                                                ? 'bg-gradient-to-t from-green-600/50 to-green-400/80 group-hover:from-green-500 group-hover:to-green-300' 
+                                                                                : 'bg-gradient-to-t from-purple-600/40 to-purple-400/70 group-hover:from-purple-500 group-hover:to-purple-300'
+                                                                        }`}
+                                                                        style={{ height: `${Math.max(pct, 6)}%` }}
+                                                                    />
+                                                                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover:block bg-slate-900 border border-slate-800 text-white text-[10px] px-2.5 py-1.5 rounded-lg shadow-2xl whitespace-nowrap z-20 font-mono">
+                                                                        <div className="font-semibold text-slate-300">Day {idx + 1}</div>
+                                                                        <div className="text-white text-xs mt-0.5 font-bold">
+                                                                            Logged: <span className="text-purple-300">{val}</span>
+                                                                        </div>
+                                                                        {dailyTarget > 0 && (
+                                                                            <div className="text-[9px] text-slate-400 mt-0.5">
+                                                                                Pacing: <span className={meetsTarget ? "text-green-400 font-bold" : "text-yellow-400 font-bold"}>
+                                                                                    {meetsTarget ? "Target Met!" : `${Math.round((val / dailyTarget) * 100)}%`}
+                                                                                </span>
+                                                                            </div>
+                                                                        )}
+                                                                    </div>
+                                                                </div>
+                                                            );
+                                                        })
+                                                    ) : (
+                                                        <div className="w-full h-full flex items-center justify-center text-xs text-slate-500 italic">
+                                                            No daily logs recorded in this period.
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                
+                                                <div className="flex justify-between text-[9px] text-slate-500 font-mono pt-1">
+                                                    <span>Start of Period</span>
+                                                    <span>Today</span>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         </div>
                     ) : (

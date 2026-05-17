@@ -39,7 +39,7 @@ export function HeroSection() {
                         </Button>
                     </Link>
                     <Link href="/curriculum-preview" className="w-full sm:w-auto">
-                        <Button size="lg" variant="outline" className="border-[var(--brand-primary)] text-[var(--brand-primary)] hover:bg-[var(--brand-primary-dim)] w-full h-16 px-6 sm:px-10 text-lg sm:text-xl flex items-center justify-center gap-3 transition-colors bg-transparent">
+                        <Button size="lg" variant="solarOutline" className="w-full h-16 px-6 sm:px-10 text-lg sm:text-xl flex items-center justify-center gap-3">
                             View Curriculum
                         </Button>
                     </Link>

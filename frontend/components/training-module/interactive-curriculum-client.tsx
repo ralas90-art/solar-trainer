@@ -140,7 +140,7 @@ export function InteractiveCurriculumClient({ moduleCatalog }: { moduleCatalog: 
         </button>
 
         {isDropdownOpen && (
-          <div className="absolute left-0 top-full mt-2 w-full max-w-sm rounded-[20px] border border-white/10 bg-[rgba(18,18,18,0.98)] p-4 shadow-2xl backdrop-blur-xl">
+          <div className="fixed inset-x-4 top-24 max-h-[70vh] z-50 flex flex-col md:absolute md:left-0 md:top-full md:inset-x-auto md:w-full md:max-w-sm md:mt-2 md:max-h-none md:flex-none rounded-[20px] border border-white/10 bg-[rgba(18,18,18,0.98)] p-4 shadow-2xl backdrop-blur-xl">
             {/* Header */}
             <div className="flex items-center justify-between mb-3">
               <p className="font-display font-bold text-white text-sm">Full Curriculum</p>

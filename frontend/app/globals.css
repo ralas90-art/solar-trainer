@@ -139,7 +139,7 @@
   }
 
   /* --- Solar CTA button --- */
-  .btn-primary {
+  .btn-primary, .btn-solar {
     background: linear-gradient(135deg, #F97316 0%, #F59E0B 100%);
     color: #000000;
     font-family: 'Montserrat', sans-serif;
@@ -150,8 +150,25 @@
     box-shadow: 0 0 20px rgba(249, 115, 22, 0.35);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .btn-primary:hover {
+  .btn-primary:hover, .btn-solar:hover {
     box-shadow: 0 0 35px rgba(249, 115, 22, 0.6);
+    transform: translateY(-2px);
+  }
+  .btn-solar-outline {
+    border: 1px solid var(--brand-primary);
+    color: var(--brand-primary);
+    background: transparent;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-solar-outline:hover {
+    background: rgba(249, 115, 22, 0.15);
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.2);
     transform: translateY(-2px);
   }
   /* --- Accent badges --- */

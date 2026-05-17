@@ -99,10 +99,10 @@
         - [x] Apply Dark Theme to Entry Form & Analytics <!-- id: kpi_theme -->
         - [x] Apply Dark Theme to KPI Manager <!-- id: kpi_manager_theme -->
 
-- [ ] **Phase 9: Goal Setting & Reporting** <!-- id: phase_9 -->
-    - [ ] **Goal Onboarding Wizard** <!-- id: goal_wizard -->
-        - [ ] Backend: Update KPIDefinition with Period Targets <!-- id: kpi_targets -->
-        - [ ] Frontend: Create Goal Setting Modal/Wizard <!-- id: goal_modal -->
-    - [ ] **Advanced Analytics & Reporting** <!-- id: adv_reports -->
-        - [ ] Update Analytics to track Weekly/Monthly/Quarterly Goals <!-- id: period_tracking -->
-        - [ ] Create "End of Period" Report View <!-- id: period_report -->
+- [x] **Phase 9: Goal Setting & Reporting** <!-- id: phase_9 -->
+    - [x] **Goal Onboarding Wizard** <!-- id: goal_wizard -->
+        - [x] Backend: Update KPIDefinition with Period Targets <!-- id: kpi_targets -->
+        - [x] Frontend: Create Goal Setting Modal/Wizard <!-- id: goal_modal -->
+    - [x] **Advanced Analytics & Reporting** <!-- id: adv_reports -->
+        - [x] Update Analytics to track Weekly/Monthly/Quarterly Goals <!-- id: period_tracking -->
+        - [x] Create "End of Period" Report View <!-- id: period_report -->

@@ -53,8 +53,8 @@ export function Navbar() {
                             <Button className="btn-primary h-10 px-6 text-[10px]">Get Started</Button>
                         </Link>
                         <button 
-                            className="md:hidden text-white min-w-[48px] min-h-[48px] flex items-center justify-center rounded-md active:bg-white/10 transition-colors"
-                            onClick={() => setIsOpen(true)}
+                            className="md:hidden text-white min-w-[48px] min-h-[48px] flex items-center justify-center rounded-md hover:bg-white/5 active:bg-white/10 transition-colors"
+                            onClick={() => setIsOpen(prev => !prev)}
                             aria-label="Toggle menu"
                             aria-expanded={isOpen}
                         >
@@ -67,16 +67,23 @@ export function Navbar() {
             {/* Mobile Navigation Overlay */}
             {isOpen && (
                 <div className="fixed inset-0 z-[60] bg-[#121212] h-[100dvh] overflow-y-auto w-full flex flex-col">
-                    <div className="flex justify-end p-4">
+                    {/* Header Bar matching desktop layout height */}
+                    <div className="flex justify-between items-center h-20 px-4 sm:px-6 border-b border-white/5">
+                        <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2 group">
+                            <div className="w-8 h-8 rounded bg-[#F97316]/10 border border-[#F97316]/30 flex items-center justify-center text-[#F97316] group-hover:bg-[#F97316]/20 transition-all">
+                                <Zap className="w-4 h-4 fill-[#F97316]" />
+                            </div>
+                            <span className="font-display font-black text-xl tracking-tighter text-white uppercase italic">SeptiVolt</span>
+                        </Link>
                         <button 
-                            className="text-slate-400 hover:text-white min-w-[48px] min-h-[48px] flex items-center justify-center rounded-md active:bg-white/10 transition-colors"
+                            className="text-slate-400 hover:text-white min-w-[48px] min-h-[48px] flex items-center justify-center rounded-md hover:bg-white/5 active:bg-white/10 transition-colors"
                             onClick={() => setIsOpen(false)}
                             aria-label="Close menu"
                         >
                             <X className="w-8 h-8" />
                         </button>
                     </div>
-                    <div className="flex flex-col px-6 gap-6 flex-1 pb-24">
+                    <div className="flex flex-col px-6 pt-6 gap-6 flex-1 pb-24">
                         <Link href="/#process" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">How it Works</Link>
                         <div className="h-px bg-white/5 w-full" />
                         <Link href="/curriculum-preview" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">Curriculum</Link>
@@ -91,7 +98,7 @@ export function Navbar() {
                         
                         <div className="pt-8 pb-10 mt-auto">
                             <Link href="/pricing" onClick={() => setIsOpen(false)} className="w-full">
-                                <Button className="btn-primary w-full h-14 text-sm tracking-widest">Get Started</Button>
+                                <Button variant="solar" className="w-full h-14 text-sm tracking-widest">Get Started</Button>
                             </Link>
                         </div>
                     </div>

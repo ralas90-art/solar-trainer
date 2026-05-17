@@ -14,7 +14,8 @@ const buttonVariants = cva(
                 secondary: "bg-slate-100 text-slate-900 hover:bg-slate-100/80",
                 ghost: "hover:bg-slate-100 hover:text-slate-900",
                 link: "text-slate-900 underline-offset-4 hover:underline",
-                solar: "btn-primary",
+                solar: "bg-gradient-to-br from-[#F97316] to-[#F59E0B] text-black font-display font-black uppercase tracking-[-0.02em] rounded-[8px] shadow-[0_0_20px_rgba(249,115,22,0.35)] hover:shadow-[0_0_35px_rgba(249,115,22,0.6)] hover:-translate-y-0.5 transition-all duration-300",
+                solarOutline: "border border-[#F97316] text-[#F97316] bg-transparent font-display font-black uppercase tracking-[-0.02em] rounded-[8px] hover:bg-[#F97316]/15 hover:text-white hover:shadow-[0_0_20px_rgba(249,115,22,0.2)] hover:-translate-y-0.5 transition-all duration-300",
             },
             size: {
                 default: "h-10 px-4 py-2",
