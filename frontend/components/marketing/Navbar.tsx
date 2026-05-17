@@ -2,9 +2,31 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Menu, Zap } from "lucide-react"
+import { Menu, Zap, X } from "lucide-react"
+import { useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
 
 export function Navbar() {
+    const [isOpen, setIsOpen] = useState(false)
+    const pathname = usePathname()
+
+    // Close menu when route changes
+    useEffect(() => {
+        setIsOpen(false)
+    }, [pathname])
+
+    // Prevent body scroll when menu is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden"
+        } else {
+            document.body.style.overflow = ""
+        }
+        return () => {
+            document.body.style.overflow = ""
+        }
+    }, [isOpen])
+
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 bg-[#121212]/80 backdrop-blur-md border-b border-white/5">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -16,6 +38,7 @@ export function Navbar() {
                         <span className="font-display font-black text-xl tracking-tighter text-white uppercase italic">SeptiVolt</span>
                     </Link>
 
+                    {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-10">
                         <Link href="/#process" className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display">How it Works</Link>
                         <Link href="/curriculum-preview" className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display">Curriculum</Link>
@@ -26,15 +49,45 @@ export function Navbar() {
 
                     <div className="flex items-center gap-4">
                         <Link href="/login" className="hidden md:block text-[10px] font-black uppercase tracking-[0.2em] text-white hover:text-[#F97316] transition-colors font-display">Log In</Link>
-                        <Link href="/pricing">
+                        <Link href="/pricing" className="hidden md:block">
                             <Button className="btn-primary h-10 px-6 text-[10px]">Get Started</Button>
                         </Link>
-                        <button className="md:hidden text-white p-2">
-                            <Menu className="w-6 h-6" />
+                        <button 
+                            className="md:hidden text-white min-w-[48px] min-h-[48px] flex items-center justify-center rounded-md active:bg-white/10 transition-colors"
+                            onClick={() => setIsOpen(!isOpen)}
+                            aria-label="Toggle menu"
+                            aria-expanded={isOpen}
+                        >
+                            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                         </button>
                     </div>
                 </div>
             </div>
+
+            {/* Mobile Navigation Overlay */}
+            {isOpen && (
+                <div className="fixed inset-0 z-40 bg-[#121212] pt-20 h-[100dvh] overflow-y-auto w-full">
+                    <div className="flex flex-col p-6 gap-6 min-h-full pb-24">
+                        <Link href="/#process" onClick={() => setIsOpen(false)} className="text-sm font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">How it Works</Link>
+                        <div className="h-px bg-white/5 w-full" />
+                        <Link href="/curriculum-preview" onClick={() => setIsOpen(false)} className="text-sm font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">Curriculum</Link>
+                        <div className="h-px bg-white/5 w-full" />
+                        <Link href="/solar-sales-training-assessment" onClick={() => setIsOpen(false)} className="text-sm font-black uppercase tracking-[0.2em] text-[#F97316] transition-colors font-display py-2">Free Audit</Link>
+                        <div className="h-px bg-white/5 w-full" />
+                        <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-sm font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">Pricing</Link>
+                        <div className="h-px bg-white/5 w-full" />
+                        <Link href="/enterprise" onClick={() => setIsOpen(false)} className="text-sm font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">Enterprise</Link>
+                        <div className="h-px bg-white/5 w-full" />
+                        <Link href="/login" onClick={() => setIsOpen(false)} className="text-sm font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">Log In</Link>
+                        
+                        <div className="pt-4 pb-10">
+                            <Link href="/pricing" onClick={() => setIsOpen(false)} className="w-full">
+                                <Button className="btn-primary w-full h-12 text-xs">Get Started</Button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            )}
         </nav>
     )
 }

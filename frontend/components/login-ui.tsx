@@ -150,7 +150,7 @@ export function AuthForm({ onLogin }: { onLogin: (user: any) => void }) {
                             <User className="absolute left-3 top-3.5 h-4 w-4" style={{ color: '#94A3B8' }} />
                             <input
                                 id="username"
-                                placeholder="Username"
+                                placeholder="Username or Email"
                                 className={inputClass}
                                 value={username}
                                 onChange={e => setUsername(e.target.value)}

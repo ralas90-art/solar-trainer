@@ -40,7 +40,7 @@ export default function RootLayout({
             <head>
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" />
             </head>
-            <body className="font-body antialiased">
+            <body className="font-body antialiased bg-[#09090b] text-white overflow-x-hidden">
                 <AuthProvider>
                     {children}
                 </AuthProvider>

@@ -42,8 +42,7 @@ export function Footer() {
                     <div>
                         <h4 className="text-white font-display font-black uppercase tracking-widest text-xs mb-6 italic">Connect</h4>
                         <ul className="space-y-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 font-display">
-                            <li><Link href="/contact" className="hover:text-[#F97316] transition-colors">Contact Support</Link></li>
-                            <li><Link href="/enterprise" className="hover:text-[#F97316] transition-colors">Book a Demo</Link></li>
+                            <li><Link href="/enterprise" className="hover:text-[#F97316] transition-colors">Contact Sales & Demo</Link></li>
                         </ul>
                     </div>
                 </div>

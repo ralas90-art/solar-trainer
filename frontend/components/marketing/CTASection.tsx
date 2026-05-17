@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 export function CTASection() {
     return (
@@ -18,12 +19,16 @@ export function CTASection() {
                     Join the top solar teams using AI simulation to certify their reps and close more deals.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <Button size="lg" className="btn-solar h-14 px-10 text-lg rounded-full">
-                        Get a Demo
-                    </Button>
-                    <Button size="lg" variant="outline" className="h-14 px-10 text-lg border-white/20 text-white bg-transparent hover:bg-white/10 rounded-full">
-                        View Pricing <ArrowRight className="ml-2 w-5 h-5" />
-                    </Button>
+                    <Link href="/enterprise" className="w-full sm:w-auto">
+                        <Button size="lg" className="btn-solar w-full sm:w-auto h-14 px-10 text-lg rounded-full">
+                            Get a Demo
+                        </Button>
+                    </Link>
+                    <Link href="/pricing" className="w-full sm:w-auto">
+                        <Button size="lg" variant="outline" className="w-full sm:w-auto h-14 px-10 text-lg border-white/20 text-white bg-transparent hover:bg-white/10 rounded-full flex items-center justify-center">
+                            View Pricing <ArrowRight className="ml-2 w-5 h-5" />
+                        </Button>
+                    </Link>
                 </div>
                 <p className="mt-6 text-sm text-slate-500">
                     No credit card required for pilot • SOC2 Compliant • Enterprise Ready
