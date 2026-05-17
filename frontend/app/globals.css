@@ -5,11 +5,11 @@
 /* ─── SeptiVolt Design Tokens (Mapped to High-Fidelity Classes) ─── */
 :root {
   /* Core palette - Solar Dawn */
-  --solar-orange:     #F97316;
-  --solar-orange-dim: rgba(249, 115, 22, 0.15);
-  --solar-orange-glow:rgba(249, 115, 22, 0.4);
-  --solar-amber:      #F59E0B;
-  --solar-amber-dim:  rgba(245, 158, 11, 0.15);
+  --brand-primary:     #F97316;
+  --brand-primary-dim: rgba(249, 115, 22, 0.15);
+  --brand-primary-glow:rgba(249, 115, 22, 0.4);
+  --brand-accent:      #F59E0B;
+  --brand-accent-dim:  rgba(245, 158, 11, 0.15);
   --slate-base:       #121212;
   --charcoal-panel:   #1A1A1A;
   --silver-text:      #94A3B8;
@@ -69,21 +69,21 @@
 @layer utilities {
 
   /* --- Glow effects --- */
-  .solar-glow {
+  .brand-glow {
     box-shadow: 0 0 20px rgba(249, 115, 22, 0.25), 0 0 40px rgba(249, 115, 22, 0.1);
   }
-  .solar-glow-strong {
+  .brand-glow-strong {
     box-shadow: 0 0 30px rgba(249, 115, 22, 0.5), 0 0 60px rgba(249, 115, 22, 0.2);
   }
   .amber-glow {
     box-shadow: 0 0 20px rgba(245, 158, 11, 0.25), 0 0 40px rgba(245, 158, 11, 0.1);
   }
-  .text-solar {
-    color: var(--solar-orange);
+  .text-primary {
+    color: var(--brand-primary);
     text-shadow: 0 0 20px rgba(249, 115, 22, 0.6);
   }
   .text-amber {
-    color: var(--solar-amber);
+    color: var(--brand-accent);
     text-shadow: 0 0 16px rgba(245, 158, 11, 0.5);
   }
   .text-glow {
@@ -139,7 +139,7 @@
   }
 
   /* --- Solar CTA button --- */
-  .btn-solar {
+  .btn-primary {
     background: linear-gradient(135deg, #F97316 0%, #F59E0B 100%);
     color: #000000;
     font-family: 'Montserrat', sans-serif;
@@ -150,7 +150,7 @@
     box-shadow: 0 0 20px rgba(249, 115, 22, 0.35);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .btn-solar:hover {
+  .btn-primary:hover {
     box-shadow: 0 0 35px rgba(249, 115, 22, 0.6);
     transform: translateY(-2px);
   }
@@ -158,7 +158,7 @@
   .badge-amber {
     background: rgba(245, 158, 11, 0.12);
     border: 1px solid rgba(245, 158, 11, 0.4);
-    color: var(--solar-amber);
+    color: var(--brand-accent);
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.65rem;
     font-weight: 600;
@@ -167,10 +167,10 @@
     border-radius: 4px;
     padding: 2px 8px;
   }
-  .badge-solar {
+  .badge-primary {
     background: rgba(249, 115, 22, 0.12);
     border: 1px solid rgba(249, 115, 22, 0.35);
-    color: var(--solar-orange);
+    color: var(--brand-primary);
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.65rem;
     font-weight: 600;
@@ -182,7 +182,7 @@
 }
 
 /* ─── Keyframe Animations ────────────────────────────────────────────────── */
-@keyframes solarPulse {
+@keyframes brandPulse {
   0%, 100% { box-shadow: 0 0 15px rgba(249, 115, 22, 0.3); }
   50%       { box-shadow: 0 0 35px rgba(249, 115, 22, 0.7); }
 }
@@ -200,6 +200,6 @@
   100% { transform: translateY(100vh); opacity: 0; }
 }
 
-.animate-solar-pulse  { animation: solarPulse  2s ease-in-out infinite; }
+.animate-brand-pulse  { animation: brandPulse  2s ease-in-out infinite; }
 .animate-amber-pulse  { animation: amberPulse  2.5s ease-in-out infinite; }
 .animate-energy-flow { animation: energyFlow 4s ease infinite; background-size: 200% 200%; }

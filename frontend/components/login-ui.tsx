@@ -113,7 +113,7 @@ export function AuthForm({ onLogin }: { onLogin: (user: any) => void }) {
                     <div className="text-center mb-8">
                         <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-4 relative"
                             style={{ background: 'linear-gradient(135deg, rgba(255,87,34,0.15), rgba(255,87,34,0.05))', border: '1px solid rgba(255,87,34,0.3)' }}>
-                            <div className="absolute inset-0 rounded-xl animate-solar-pulse" />
+                            <div className="absolute inset-0 rounded-xl animate-brand-pulse" />
                             <Zap className="w-7 h-7 relative z-10" style={{ color: '#FF5722', filter: 'drop-shadow(0 0 8px #FF5722)' }} />
                         </div>
                         <h1 className="font-display text-3xl font-black tracking-tight text-white">
@@ -199,7 +199,7 @@ export function AuthForm({ onLogin }: { onLogin: (user: any) => void }) {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="btn-solar w-full py-3 flex items-center justify-center gap-2 font-display font-bold text-sm disabled:opacity-60 disabled:cursor-not-allowed"
+                            className="btn-primary w-full py-3 flex items-center justify-center gap-2 font-display font-bold text-sm disabled:opacity-60 disabled:cursor-not-allowed"
                         >
                             {isLoading
                                 ? <Loader2 className="h-4 w-4 animate-spin" />

@@ -18,6 +18,7 @@ import {
     Menu,
     AlertTriangle
 } from "lucide-react";
+import { WHITE_LABEL } from "@/lib/white-label.config";
 
 // Real Data for Day 1 Modules based on curriculum
 const DAY_1_MODULES = [
@@ -44,14 +45,14 @@ const DAY_1_MODULES = [
     },
     {
         id: "1.4",
-        title: "Solar Industry Overview",
+        title: `${WHITE_LABEL.industry} Industry Overview`,
         type: "lecture",
         duration: "20 min",
         completed: false
     },
     {
         id: "1.5",
-        title: "Solar Technology Fundamentals",
+        title: `${WHITE_LABEL.industry} Technology Fundamentals`,
         type: "quiz",
         duration: "25 min",
         completed: false
@@ -121,7 +122,7 @@ export default function CurriculumPreview() {
                         </CardHeader>
                         <CardContent className="space-y-4 text-slate-300">
                             <p className="italic font-medium border-l-4 border-primary pl-4 bg-primary/5 p-3 rounded-r-lg shadow-inner">
-                                "Welcome to Day 1 of the Solar Sales Accelerator. By Day 7, you won’t just be a trainee, you will be field-ready, capable of running a full appointment cycle independently. But first, we need to cast a vision."
+                                "Welcome to Day 1 of the {WHITE_LABEL.industry} Sales Accelerator. By Day 7, you won’t just be a trainee, you will be field-ready, capable of running a full appointment cycle independently. But first, we need to cast a vision."
                             </p>
                             <p>
                                 "This industry isn't just about money, but the money is real if you put in the work. Let me break down a realistic path to $100K+ in your first year:"
@@ -268,14 +269,14 @@ export default function CurriculumPreview() {
                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                     <Card className="glass-card bg-slate-900/40 border-white/10">
                         <CardHeader>
-                            <CardTitle className="text-slate-100">Solar Industry Overview</CardTitle>
+                            <CardTitle className="text-slate-100">{WHITE_LABEL.industry} Industry Overview</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-5 text-slate-300">
                             <p>
-                                "Welcome back. Why solar? And why <em className="text-primary not-italic font-bold">now</em>? U.S. residential solar is exploding because utility bills are inflating at an average of 6-8% annually."
+                                "Welcome back. Why {WHITE_LABEL.industry.toLowerCase()}? And why <em className="text-primary not-italic font-bold">now</em>? U.S. residential {WHITE_LABEL.industry.toLowerCase()} is exploding because utility bills are inflating at an average of 6-8% annually."
                             </p>
                             <p>
-                                "Homeowners go solar for three reasons: Utility inflation protection, energy independence, and increasing their home value."
+                                "Homeowners go {WHITE_LABEL.industry.toLowerCase()} for three reasons: Utility inflation protection, energy independence, and increasing their home value."
                             </p>
 
                             <div className="bg-destructive/10 p-5 rounded-xl border border-destructive/30 my-6 flex gap-4 items-start relative overflow-hidden shadow-[0_0_30px_rgba(239,68,68,0.1)]">
@@ -294,7 +295,7 @@ export default function CurriculumPreview() {
                                     <CheckCircle2 className="w-4 h-4 text-primary" /> Mythbusting
                                 </h4>
                                 <p className="leading-relaxed">
-                                    "Let's debunk some myths: 'Solar doesn't work locally because of clouds.' False, Germany leads the world in solar and has the climate of Alaska. 'It's too expensive.' False, it is zero down—a bill swap."
+                                    "Let's debunk some myths: '{WHITE_LABEL.industry} doesn't work locally because of clouds.' False, Germany leads the world in {WHITE_LABEL.industry.toLowerCase()} and has the climate of Alaska. 'It's too expensive.' False, it is zero down—a bill swap."
                                 </p>
                             </div>
                         </CardContent>
@@ -312,13 +313,13 @@ export default function CurriculumPreview() {
                         </CardHeader>
                         <CardContent className="space-y-4 text-slate-300">
                             <p className="leading-relaxed">
-                                "Here is the simple flow you will explain to homeowners. Photons hit the panel, generating Direct Current (DC) electricity. The Inverter converts that DC to Alternating Current (AC), which is what powers the home. Excess power goes to the grid, banking net metering credits. At night, the grid supplies power back."
+                                "Here is the simple flow you will explain to homeowners. Photons hit the {WHITE_LABEL.productName.toLowerCase()}, generating Direct Current (DC) electricity. The Inverter converts that DC to Alternating Current (AC), which is what powers the home. Excess power goes to the grid, banking net metering credits. At night, the grid supplies power back."
                             </p>
                             <p className="leading-relaxed text-slate-400">
-                                "Panel efficiency is usually 16-22%. They degrade at 0.5% to 1% a year—this is factored into the savings."
+                                "{WHITE_LABEL.productName} efficiency is usually 16-22%. They degrade at 0.5% to 1% a year—this is factored into the savings."
                             </p>
                             <div className="p-5 bg-slate-950/60 border border-white/5 rounded-xl mt-6 shadow-inner">
-                                <h4 className="font-bold mb-3 text-slate-200">What Solar Does NOT Do:</h4>
+                                <h4 className="font-bold mb-3 text-slate-200">What {WHITE_LABEL.industry} Does NOT Do:</h4>
                                 <ul className="list-disc pl-5 space-y-2 text-slate-400 marker:text-red-500/70">
                                     <li>It won't eliminate the connection fee entirely.</li>
                                     <li>It won't power their home in an outage without a battery.</li>
@@ -372,7 +373,7 @@ export default function CurriculumPreview() {
                                     </div>
                                 </div>
                                 <div className="space-y-4">
-                                    <h3 className="font-medium text-lg text-slate-200">3. True or False: Solar panels degrade at approximately 0.5% to 1% per year.</h3>
+                                    <h3 className="font-medium text-lg text-slate-200">3. True or False: {WHITE_LABEL.productName} degrade at approximately 0.5% to 1% per year.</h3>
                                     <div className="flex gap-4">
                                         <label className="flex items-center space-x-4 p-4 border border-white/5 rounded-lg bg-slate-900/50 hover:bg-slate-800 hover:border-white/10 w-full cursor-pointer transition-all justify-center">
                                             <input type="radio" name="q3" className="w-4 h-4 text-primary bg-slate-950 border-slate-700 focus:ring-primary focus:ring-offset-slate-900" />
@@ -403,7 +404,7 @@ export default function CurriculumPreview() {
                                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent group-hover:via-primary transition-all duration-700" />
                                 <div className="absolute inset-0 bg-primary/5 blur-[20px] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                                 <p className="font-bold text-xl text-slate-200 italic relative z-10 drop-shadow-md">
-                                    "I am not selling panels. I am restructuring utility spending and protecting families from inflation."
+                                    "I am not selling {WHITE_LABEL.productName.toLowerCase()}. I am restructuring utility spending and protecting families from inflation."
                                 </p>
                             </div>
 
@@ -422,7 +423,7 @@ export default function CurriculumPreview() {
                                     </label>
                                     <label className="flex items-start gap-4 p-4 bg-slate-950/40 border border-white/5 rounded-lg cursor-pointer hover:bg-slate-900/60 transition-colors shadow-sm">
                                         <input type="checkbox" className="w-5 h-5 rounded mt-0.5 bg-slate-900 border-slate-600 text-primary focus:ring-primary focus:ring-offset-slate-900" />
-                                        <span className="text-slate-300 font-medium">I will not promise free solar or guaranteed tax cash-returns.</span>
+                                        <span className="text-slate-300 font-medium">I will not promise free {WHITE_LABEL.industry.toLowerCase()} or guaranteed tax cash-returns.</span>
                                     </label>
                                     <label className="flex items-start gap-4 p-4 bg-slate-950/40 border border-white/5 rounded-lg cursor-pointer hover:bg-slate-900/60 transition-colors shadow-sm">
                                         <input type="checkbox" className="w-5 h-5 rounded mt-0.5 bg-slate-900 border-slate-600 text-primary focus:ring-primary focus:ring-offset-slate-900" />
@@ -545,7 +546,7 @@ export default function CurriculumPreview() {
                                         </div>
                                         <div>
                                             <p className="font-bold text-slate-200 text-lg">3. Record</p>
-                                            <p className="text-sm text-slate-400 mt-1 leading-relaxed">Use your phone to record a 60-second video of yourself explaining "How Solar Works" to a theoretical 5-year-old. Assume the guise of a Consultant.</p>
+                                            <p className="text-sm text-slate-400 mt-1 leading-relaxed">Use your phone to record a 60-second video of yourself explaining "How {WHITE_LABEL.industry} Works" to a theoretical 5-year-old. Assume the guise of a Consultant.</p>
                                         </div>
                                     </li>
                                 </ul>
@@ -580,7 +581,7 @@ export default function CurriculumPreview() {
                     </Button>
                     <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-full bg-primary/20 border border-primary/50 flex items-center justify-center text-primary font-bold shadow-[0_0_15px_rgba(56,189,248,0.3)] text-glow">
-                            S
+                            {WHITE_LABEL.companyName.charAt(0)}
                         </div>
                         <h1 className="font-bold text-lg hidden sm:block text-slate-100 placeholder:text-glow tracking-tight">Accelerator Program</h1>
                     </div>

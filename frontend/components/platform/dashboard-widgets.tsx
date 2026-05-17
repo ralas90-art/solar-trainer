@@ -107,7 +107,7 @@ export function StatCard({
             "flex h-12 w-12 items-center justify-center rounded-2xl border",
             accent === "lime"
               ? "border-[#FFB300]/20 bg-[#FFB300]/10 text-[#FFB300] amber-glow"
-              : "border-[#FF5722]/20 bg-[#FF5722]/10 text-[#FF5722] solar-glow"
+              : "border-[#FF5722]/20 bg-[#FF5722]/10 text-[#FF5722] brand-glow"
           )}
         >
           <Icon className="h-5 w-5" />

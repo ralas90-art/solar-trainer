@@ -108,7 +108,7 @@ export function AppShell({
                   </button>
 
                   {notificationsOpen && (
-                    <div className="absolute right-0 mt-3 w-80 rounded-2xl border border-white/10 bg-[#1A1A1A] p-4 shadow-2xl solar-glow-subtle z-50">
+                    <div className="absolute right-0 mt-3 w-80 rounded-2xl border border-white/10 bg-[#1A1A1A] p-4 shadow-2xl brand-glow-subtle z-50">
                       <div className="flex items-center justify-between mb-4">
                         <p className="font-hud text-[11px] uppercase tracking-[0.24em] text-[#64748B]">Recent Activity</p>
                         <button onClick={() => setNotificationsOpen(false)} className="text-[#64748B] hover:text-white">

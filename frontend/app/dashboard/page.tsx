@@ -111,7 +111,7 @@ export default function DashboardPage() {
             <div className="relative mt-6 flex flex-wrap items-center gap-3">
               <Link
                 href={stats.lastModuleId ? `/my-training/${stats.lastModuleId}` : "/my-training"}
-                className="btn-solar inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold"
+                className="btn-primary inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold"
               >
                 {stats.lastModuleId ? "Resume Training" : "Start Training"}
                 <ArrowRight className="h-4 w-4" />

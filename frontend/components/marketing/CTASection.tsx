@@ -20,7 +20,7 @@ export function CTASection() {
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                     <Link href="/enterprise" className="w-full sm:w-auto">
-                        <Button size="lg" className="btn-solar w-full sm:w-auto h-14 px-10 text-lg rounded-full">
+                        <Button size="lg" className="btn-primary w-full sm:w-auto h-14 px-10 text-lg rounded-full">
                             Get a Demo
                         </Button>
                     </Link>

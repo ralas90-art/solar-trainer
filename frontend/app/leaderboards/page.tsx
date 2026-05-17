@@ -474,7 +474,7 @@ export default function LeaderboardsPage() {
         <WidgetCard>
           <SectionEyebrow label="Next step" action="Credential + analytics loop" />
           <div className="flex flex-wrap gap-3">
-            <Link href="/certifications" className="btn-solar inline-flex items-center gap-2 px-5 py-3 text-sm">
+            <Link href="/certifications" className="btn-primary inline-flex items-center gap-2 px-5 py-3 text-sm">
               Open Certifications
             </Link>
             <Link href="/analytics" className="rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-[#CBD5E1]">

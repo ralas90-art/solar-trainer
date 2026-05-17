@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { getApiUrl } from "@/lib/utils"
+import { WHITE_LABEL } from "@/lib/white-label.config"
 // @ts-ignore
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 // @ts-ignore
@@ -299,17 +300,17 @@ export function SimulationWindow({ tenant, stateCode, scenario, userId, difficul
             try {
                 // 1. Get difficulty-based personality
                 const getDifficultyPrompt = () => {
-                    const basePrompt = `You are a homeowner in ${stateCode}. A solar salesperson is calling you.
+                    const basePrompt = `You are a homeowner in ${stateCode}. A ${WHITE_LABEL.industry.toLowerCase()} salesperson is calling you.
 
 Scenario: ${scenario.name}
 Description: ${scenario.description}
 Briefing: ${scenario.briefing}
 
-IMPORTANT: You are the HOMEOWNER, NOT the salesperson. The user calling you is the salesperson trying to sell you solar panels.
+IMPORTANT: You are the HOMEOWNER, NOT the salesperson. The user calling you is the salesperson trying to sell you ${WHITE_LABEL.productName.toLowerCase()}.
 
 CRITICAL NEGATIVE CONSTRAINTS:
-- You are NOT a solar professional. You are a regular homeowner.
-- UNDER NO CIRCUMSTANCES should you identify yourself as a representative of a solar company.
+- You are NOT a ${WHITE_LABEL.industry.toLowerCase()} professional. You are a regular homeowner.
+- UNDER NO CIRCUMSTANCES should you identify yourself as a representative of a ${WHITE_LABEL.industry.toLowerCase()} company.
 - If the user introduces themselves as a salesperson, YOU MUST respond as the prospective customer.
 - Do NOT generate sales pitches. You are the one BEING pitched to.
 
@@ -331,8 +332,8 @@ PERSONALITY:
 
 Start by stating your objection clearly.
 
-IMPORTANT: When the salesperson explains solar benefits clearly and answers your questions well, respond with ONE of these phrases and STOP TALKING:
-- "This sounds great! I'd love to get more information about solar."
+IMPORTANT: When the salesperson explains ${WHITE_LABEL.industry.toLowerCase()} benefits clearly and answers your questions well, respond with ONE of these phrases and STOP TALKING:
+- "This sounds great! I'd love to get more information about ${WHITE_LABEL.industry.toLowerCase()}."
 - "That makes sense. When can someone come out to assess my home?"
 - "Okay, I'm interested. What are the next steps?"
 
@@ -349,7 +350,7 @@ PERSONALITY:
 - However, if the logic is sound, admit it. "Okay, I see your point."
 
 OBJECTIONS TO RAISE IF NOT ADDRESSED:
-1. "Isn't solar really expensive?"
+1. "Isn't ${WHITE_LABEL.industry.toLowerCase()} really expensive?"
 2. "What if I move in a few years?"
 3. "I've heard maintenance is a hassle"
 
@@ -372,8 +373,8 @@ PERSONALITY:
 
 STRONG OBJECTIONS:
 1. "I don't have time for this"
-2. "Solar is a scam"
-3. "I'm happy with my current bill"
+2. "${WHITE_LABEL.industry} is a scam"
+3. "I'm happy with my current ${WHITE_LABEL.billName.toLowerCase()}"
 4. "Remove me from your list"
 
 IMPORTANT: Only agree if the salesperson:
@@ -385,7 +386,7 @@ If they achieve this (rare), respond with ONE phrase and STOP TALKING:
 - "Fine. You've earned my attention. Tell me more."
 - "Alright, I'll give you 2 minutes. Make it quick."
 
-After saying this success phrase, DO NOT continue the conversation. The simulation will end automatically.`;;
+After saying this success phrase, DO NOT continue the conversation. The simulation will end automatically.`;
                     }
                 };
 

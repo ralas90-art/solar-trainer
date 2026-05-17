@@ -50,7 +50,7 @@ export function Navbar() {
                     <div className="flex items-center gap-4">
                         <Link href="/login" className="hidden md:block text-[10px] font-black uppercase tracking-[0.2em] text-white hover:text-[#F97316] transition-colors font-display">Log In</Link>
                         <Link href="/pricing" className="hidden md:block">
-                            <Button className="btn-solar h-10 px-6 text-[10px]">Get Started</Button>
+                            <Button className="btn-primary h-10 px-6 text-[10px]">Get Started</Button>
                         </Link>
                         <button 
                             className="md:hidden text-white min-w-[48px] min-h-[48px] flex items-center justify-center rounded-md active:bg-white/10 transition-colors"
@@ -91,7 +91,7 @@ export function Navbar() {
                         
                         <div className="pt-8 pb-10 mt-auto">
                             <Link href="/pricing" onClick={() => setIsOpen(false)} className="w-full">
-                                <Button className="btn-solar w-full h-14 text-sm tracking-widest">Get Started</Button>
+                                <Button className="btn-primary w-full h-14 text-sm tracking-widest">Get Started</Button>
                             </Link>
                         </div>
                     </div>

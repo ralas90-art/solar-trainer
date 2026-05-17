@@ -395,7 +395,7 @@ export function GuidedModuleExperience({
             <button
               type="button"
               onClick={() => onModuleSelect && onModuleSelect(moduleView.nextModuleId!)}
-              className="btn-solar inline-flex px-4 py-2 text-sm"
+              className="btn-primary inline-flex px-4 py-2 text-sm"
             >
               Continue to {moduleView.nextModuleTitle ?? `Module ${moduleView.nextModuleId}`}
             </button>

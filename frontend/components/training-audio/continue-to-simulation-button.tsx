@@ -21,7 +21,7 @@ export function ContinueToSimulationButton({
   }
 
   return (
-    <Link href={href} className="btn-solar inline-flex items-center gap-2 px-5 py-3 text-sm">
+    <Link href={href} className="btn-primary inline-flex items-center gap-2 px-5 py-3 text-sm">
       Continue to Simulation
       <ArrowRight className="h-4 w-4" />
     </Link>

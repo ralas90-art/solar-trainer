@@ -7,7 +7,7 @@ export default function PaymentCancelPage() {
     return (
         <div className="min-h-screen bg-[#121212] text-white flex flex-col items-center justify-center p-4">
             <div className="max-w-md w-full text-center">
-                <div className="inline-flex h-20 w-20 items-center justify-center rounded-3xl bg-red-500/10 border border-red-500/20 text-red-500 mb-8 solar-glow-subtle" style={{ "--glow-color": "rgba(239, 68, 68, 0.2)" } as any}>
+                <div className="inline-flex h-20 w-20 items-center justify-center rounded-3xl bg-red-500/10 border border-red-500/20 text-red-500 mb-8 brand-glow-subtle" style={{ "--glow-color": "rgba(239, 68, 68, 0.2)" } as any}>
                     <XCircle className="h-10 w-10" />
                 </div>
                 

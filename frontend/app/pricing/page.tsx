@@ -160,7 +160,7 @@ export default function PricingPage() {
                                 <button className={cn(
                                     "w-full py-4 transition-all font-display text-[10px] font-black uppercase tracking-widest",
                                     tier.recommended 
-                                        ? "btn-solar h-auto" 
+                                        ? "btn-primary h-auto" 
                                         : "border border-white/10 hover:border-[#F97316]/50 hover:bg-[#F97316]/5"
                                 )}>
                                     {tier.cta}
@@ -227,7 +227,7 @@ export default function PricingPage() {
                     <div className="max-w-3xl mx-auto glass-card p-16 hud-border hud-corner-tl hud-corner-tr hud-corner-bl hud-corner-br">
                         <h2 className="text-3xl lg:text-4xl font-black font-display tracking-tight uppercase italic mb-8">Ready for <span className="text-[#F97316]">Solar Dawn?</span></h2>
                         <div className="flex flex-wrap justify-center gap-6">
-                            <button className="btn-solar px-10 py-5 text-xs rounded-sm h-auto translate-y-0">
+                            <button className="btn-primary px-10 py-5 text-xs rounded-sm h-auto translate-y-0">
                                 Initiate Organization Training
                             </button>
                             <button className="px-10 py-5 text-xs border border-white/10 bg-white/5 hover:bg-white/10 transition-all font-display font-black uppercase tracking-widest text-white">

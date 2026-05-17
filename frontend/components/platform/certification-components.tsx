@@ -183,7 +183,7 @@ export function AssessmentStatusCard({
       {detailed && !passed ? (
         <button
           type="button"
-          className="btn-solar mt-4 inline-flex items-center gap-2 px-4 py-2.5 text-sm"
+          className="btn-primary mt-4 inline-flex items-center gap-2 px-4 py-2.5 text-sm"
         >
           Retry Assessment
           <ChevronRight className="h-4 w-4" />
@@ -198,7 +198,7 @@ export function CertificationTrackCard({ track }: { track: CertificationTrack })
   const completedRequirements = track.requirements.filter((item) => item.complete).length
 
   return (
-    <WidgetCard className={cn(track.status === "certified" ? "solar-glow" : "")}>
+    <WidgetCard className={cn(track.status === "certified" ? "brand-glow" : "")}>
       <div className="flex items-start justify-between gap-3">
         <div>
           <h3 className="font-display text-xl font-bold text-white">{track.title}</h3>

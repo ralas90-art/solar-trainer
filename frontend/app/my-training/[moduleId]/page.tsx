@@ -11,7 +11,7 @@ export default function TrainingModuleDetailPage({ params }: { params: { moduleI
       <AppShell heading="Training Module" subheading="Module not found.">
         <div className="space-y-4">
           <p className="text-sm text-[#94A3B8]">This module route does not exist in local curriculum data.</p>
-          <Link href="/my-training" className="btn-solar inline-flex px-4 py-2 text-sm">
+          <Link href="/my-training" className="btn-primary inline-flex px-4 py-2 text-sm">
             Back to module list
           </Link>
         </div>

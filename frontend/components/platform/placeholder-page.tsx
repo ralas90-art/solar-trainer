@@ -49,7 +49,7 @@ export function PlatformPlaceholderPage({
             This page now inherits the SeptiVolt platform shell, utility bar, and reusable dashboard card system so
             deeper workflows can plug in without another layout pass.
           </p>
-          <Link href={primaryAction.href} className="btn-solar mt-6 inline-flex items-center gap-2 px-5 py-3 text-sm">
+          <Link href={primaryAction.href} className="btn-primary mt-6 inline-flex items-center gap-2 px-5 py-3 text-sm">
             {primaryAction.label}
             <ArrowRight className="h-4 w-4" />
           </Link>

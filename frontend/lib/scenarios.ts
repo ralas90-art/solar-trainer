@@ -4,6 +4,8 @@
  * Used by sequential-simulation.tsx as a client-side fallback.
  */
 
+import { WHITE_LABEL } from "./white-label.config"
+
 export interface Scenario {
     id: string
     name: string
@@ -15,7 +17,39 @@ export interface Scenario {
     requiredModule?: string // ID of the curriculum module required to unlock this scenario
 }
 
-export const SCENARIOS: Record<string, Scenario> = {
+// Helper to recursively replace industry terms in the scenario object at runtime
+function parameterizeObject<T>(obj: T): T {
+    if (typeof obj === "string") {
+        let text: string = obj;
+        text = text.replace(/Solar/g, WHITE_LABEL.industry);
+        text = text.replace(/solar/g, WHITE_LABEL.industry.toLowerCase());
+        
+        text = text.replace(/Panels/g, WHITE_LABEL.productName);
+        text = text.replace(/panels/g, WHITE_LABEL.productName.toLowerCase());
+        text = text.replace(/panel/g, WHITE_LABEL.productName.toLowerCase().replace(/s$/, '')); // singular
+        
+        text = text.replace(/Roof/g, WHITE_LABEL.objectName);
+        text = text.replace(/roof/g, WHITE_LABEL.objectName.toLowerCase());
+        
+        text = text.replace(/Electric Bill/g, WHITE_LABEL.billName);
+        text = text.replace(/electric bill/g, WHITE_LABEL.billName.toLowerCase());
+        
+        return text as unknown as T;
+    }
+    if (Array.isArray(obj)) {
+        return obj.map(item => parameterizeObject(item)) as unknown as T;
+    }
+    if (obj !== null && typeof obj === "object") {
+        const result: any = {};
+        for (const [key, value] of Object.entries(obj)) {
+            result[key] = parameterizeObject(value);
+        }
+        return result as T;
+    }
+    return obj;
+}
+
+const RAW_SCENARIOS: Record<string, Scenario> = {
     "d2d_1": {
         id: "d2d_1",
         name: "The Penny Pincher",
@@ -287,7 +321,10 @@ export const SCENARIOS: Record<string, Scenario> = {
         briefing: "Goal: Manage chaos, address multiple stakeholders, maintain composure.\n\nKey Concepts:\n1. Address teen warmly, acknowledge competitors.\n2. 'What specifically did she hear?' for mother's concern.\n3. 'Mind if we sit at the table so I can show you both the numbers?'\n\nTip: The rep who stays calm in chaos wins.",
         valid_responses: ["homework", "different", "understand", "specifically", "table", "both", "calm", "next step"]
     }
-}
+};
+
+export const SCENARIOS = parameterizeObject(RAW_SCENARIOS);
+
 
 /**
  * Get scenarios by their IDs, using local fallback data.

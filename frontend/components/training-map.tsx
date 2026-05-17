@@ -25,8 +25,8 @@ const DAY_COLORS = [
 ]
 
 const TYPE_BADGES: Record<string, { label: string; color: string }> = {
-    content: { label: "Content", color: "badge-solar" },
-    activity: { label: "Activity", color: "badge-solar" },
+    content: { label: "Content", color: "badge-primary" },
+    activity: { label: "Activity", color: "badge-primary" },
     quiz: { label: "Quiz", color: "badge-amber" },
     simulation: { label: "Simulation", color: "bg-purple-500/10 text-purple-300 border border-purple-500/30 font-hud text-[10px] uppercase tracking-widest px-2 py-0.5 rounded" },
     certification: { label: "Certification", color: "badge-amber" },

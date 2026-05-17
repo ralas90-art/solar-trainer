@@ -53,7 +53,7 @@ export function TrainingModuleHeader({
       <div className="flex flex-col lg:flex-row justify-between gap-5 relative z-10">
         <div className="flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="badge-solar">{moduleTag}</span>
+            <span className="badge-primary">{moduleTag}</span>
             <span className="badge-amber">Simulation Prep</span>
           </div>
           <p className="mt-3 max-w-2xl text-sm leading-7 text-[#CBD5E1] sm:text-base">{description}</p>
@@ -180,7 +180,7 @@ export function ScriptExampleCard({
     <section className="glass-circuit hud-border rounded-[20px] p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h3 className="font-display text-xl font-bold text-white">{title}</h3>
-        <span className="badge-solar">Script Example</span>
+        <span className="badge-primary">Script Example</span>
       </div>
       <div className="mt-4 space-y-2">
         {script.map((line, index) => (
@@ -428,7 +428,7 @@ export function StartSimulationButton({
         </div>
       </div>
 
-      <Link href={href ?? "/ai-simulator"} className="btn-solar mt-5 inline-flex items-center gap-2 px-5 py-3 text-sm">
+      <Link href={href ?? "/ai-simulator"} className="btn-primary mt-5 inline-flex items-center gap-2 px-5 py-3 text-sm">
         Start Simulation
         <ArrowRight className="h-4 w-4" />
       </Link>

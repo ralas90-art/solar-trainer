@@ -592,7 +592,7 @@ export function LessonAudioPlayer({
           type="button"
           onClick={handlePlayPause}
           disabled={isLoadingAudio}
-          className="btn-solar px-4 py-2 text-sm disabled:opacity-60"
+          className="btn-primary px-4 py-2 text-sm disabled:opacity-60"
         >
           {isLoadingAudio ? "Loading..." : isPlaying ? "Pause" : sectionElapsedSec > 0 ? "Resume" : "Play Lesson"}
         </button>
@@ -649,7 +649,7 @@ export function LessonAudioPlayer({
                 type="button"
                 onClick={handlePlayPause}
                 disabled={isLoadingAudio}
-                className="btn-solar min-h-[48px] min-w-[78px] px-3 py-2 text-xs disabled:opacity-60"
+                className="btn-primary min-h-[48px] min-w-[78px] px-3 py-2 text-xs disabled:opacity-60"
               >
                 {isPlaying ? "Pause" : "Play"}
               </button>
@@ -780,7 +780,7 @@ export function LessonAudioPlayer({
                 type="button"
                 onClick={handlePlayPause}
                 disabled={isLoadingAudio}
-                className="btn-solar px-3 py-2 text-xs disabled:opacity-60"
+                className="btn-primary px-3 py-2 text-xs disabled:opacity-60"
               >
                 {isPlaying ? "Pause" : "Play"}
               </button>

@@ -2,9 +2,11 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { Montserrat, Roboto, JetBrains_Mono } from 'next/font/google'
 
+import { WHITE_LABEL } from '@/lib/white-label.config'
+
 export const metadata: Metadata = {
-    title: 'SeptiVolt — Solar Sales Training Platform',
-    description: 'Elite AI-powered training for the next generation of solar sales professionals.',
+    title: `${WHITE_LABEL.companyName} — ${WHITE_LABEL.tagline}`,
+    description: `Elite AI-powered training for the next generation of ${WHITE_LABEL.industry.toLowerCase()} sales professionals.`,
 }
 
 const montserrat = Montserrat({

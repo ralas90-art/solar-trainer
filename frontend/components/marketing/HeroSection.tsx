@@ -12,8 +12,8 @@ export function HeroSection() {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 {/* Badge */}
-                <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--solar-orange-dim)] border border-[var(--solar-orange)]/20 mb-10">
-                    <span className="text-xs font-black uppercase tracking-[0.2em] text-[var(--solar-orange)]">
+                <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--brand-primary-dim)] border border-[var(--brand-primary)]/20 mb-10">
+                    <span className="text-xs font-black uppercase tracking-[0.2em] text-[var(--brand-primary)]">
                         High-Performance Training
                     </span>
                 </div>
@@ -21,12 +21,12 @@ export function HeroSection() {
                 {/* Headline */}
                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight text-white mb-8 max-w-5xl mx-auto italic font-display">
                     The 7-Day Path to <br />
-                    <span className="text-[var(--solar-orange)]">Solar Mastery.</span>
+                    <span className="text-[var(--brand-primary)]">Solar Mastery.</span>
                 </h1>
 
                 {/* Subheadline */}
                 <p className="text-lg lg:text-2xl text-slate-400 max-w-3xl mx-auto mb-12 leading-relaxed font-light font-body">
-                    Restructured for <span className="text-white font-bold underline decoration-[var(--solar-amber)]/30 underline-offset-4">Maximum Speed-to-Revenue.</span> <br className="hidden md:block" />
+                    Restructured for <span className="text-white font-bold underline decoration-[var(--brand-accent)]/30 underline-offset-4">Maximum Speed-to-Revenue.</span> <br className="hidden md:block" />
                     Transform from a salesperson into a Solar Consultant in one week.
                 </p>
 
@@ -39,7 +39,7 @@ export function HeroSection() {
                         </Button>
                     </Link>
                     <Link href="/curriculum-preview" className="w-full sm:w-auto">
-                        <Button size="lg" variant="outline" className="border-[var(--solar-orange)] text-[var(--solar-orange)] hover:bg-[var(--solar-orange-dim)] w-full h-16 px-6 sm:px-10 text-lg sm:text-xl flex items-center justify-center gap-3 transition-colors bg-transparent">
+                        <Button size="lg" variant="outline" className="border-[var(--brand-primary)] text-[var(--brand-primary)] hover:bg-[var(--brand-primary-dim)] w-full h-16 px-6 sm:px-10 text-lg sm:text-xl flex items-center justify-center gap-3 transition-colors bg-transparent">
                             View Curriculum
                         </Button>
                     </Link>
@@ -50,19 +50,19 @@ export function HeroSection() {
                     {/* Proof Stats Row */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 max-w-3xl mx-auto">
                         <div className="flex flex-col items-center gap-2">
-                            <span className="text-2xl font-black text-[var(--solar-orange)] metrics-font">7 Days</span>
+                            <span className="text-2xl font-black text-[var(--brand-primary)] metrics-font">7 Days</span>
                             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">To First Deal</span>
                         </div>
                         <div className="flex flex-col items-center gap-2">
-                            <span className="text-2xl font-black text-[var(--solar-orange)] metrics-font">50+</span>
+                            <span className="text-2xl font-black text-[var(--brand-primary)] metrics-font">50+</span>
                             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">AI Roleplay Scenarios</span>
                         </div>
                         <div className="flex flex-col items-center gap-2">
-                            <span className="text-2xl font-black text-[var(--solar-orange)] metrics-font">40%</span>
+                            <span className="text-2xl font-black text-[var(--brand-primary)] metrics-font">40%</span>
                             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Close Rate Lift</span>
                         </div>
                         <div className="flex flex-col items-center gap-2">
-                            <span className="text-2xl font-black text-[var(--solar-orange)] metrics-font">24h</span>
+                            <span className="text-2xl font-black text-[var(--brand-primary)] metrics-font">24h</span>
                             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Rep Onboarding</span>
                         </div>
                     </div>
@@ -79,13 +79,13 @@ export function HeroSection() {
 
                     {/* Founder Credibility Block */}
                     <div className="max-w-2xl mx-auto bg-white/[0.03] border border-white/10 rounded-2xl p-8 text-left relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-1 h-full bg-[var(--solar-orange)]" />
+                        <div className="absolute top-0 left-0 w-1 h-full bg-[var(--brand-primary)]" />
                         <div className="flex items-start gap-5 pl-4">
-                            <div className="h-12 w-12 rounded-xl bg-[var(--solar-orange)]/10 border border-[var(--solar-orange)]/20 flex items-center justify-center shrink-0">
-                                <Award className="w-6 h-6 text-[var(--solar-orange)]" />
+                            <div className="h-12 w-12 rounded-xl bg-[var(--brand-primary)]/10 border border-[var(--brand-primary)]/20 flex items-center justify-center shrink-0">
+                                <Award className="w-6 h-6 text-[var(--brand-primary)]" />
                             </div>
                             <div>
-                                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[var(--solar-orange)] mb-2">Built by Real Solar Leaders</p>
+                                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[var(--brand-primary)] mb-2">Built by Real Solar Leaders</p>
                                 <p className="text-white font-bold text-sm mb-1">10+ Years in Solar Sales & Operations</p>
                                 <p className="text-slate-400 text-sm leading-relaxed">
                                     Multi-state solar operations, D2D team management, battery sales, and rep training from the ground up.

@@ -1,4 +1,5 @@
 import { LegalPageLayout } from "@/components/marketing/LegalPageLayout"
+import { WHITE_LABEL } from "@/lib/white-label.config"
 
 export default function TermsOfService() {
     return (
@@ -25,13 +26,13 @@ export default function TermsOfService() {
             <p>You may cancel your subscription at any time through your account settings or by contacting our support team. Cancellations take effect at the end of the current billing cycle. You will retain access to the Platform until that billing cycle concludes. Platform fees and per-rep fees already paid are non-refundable unless otherwise required by law.</p>
 
             <h2>5. Intellectual Property Ownership</h2>
-            <p>All content on the Platform, including but not limited to training curriculum, narrated modules, AI roleplay scenarios, software code, and UI design, is the exclusive property of SeptiVolt or its licensors. You are granted a limited, non-exclusive, non-transferable license to use the Platform solely for internal training purposes during your active subscription period.</p>
+            <p>All content on the Platform, including but not limited to training curriculum, narrated modules, AI roleplay scenarios, software code, and UI design, is the exclusive property of {WHITE_LABEL.companyName} or its licensors. You are granted a limited, non-exclusive, non-transferable license to use the Platform solely for internal training purposes during your active subscription period.</p>
 
             <h2>6. Disclaimers About Training Results</h2>
-            <p>The Platform provides training, educational materials, and AI simulations intended to improve solar sales performance. <strong>However, we make no guarantees, warranties, or promises regarding specific financial outcomes, increased sales volume, or commission earnings.</strong> Sales success depends on numerous independent factors outside our control. The AI simulations are for educational purposes and do not substitute for professional legal, financial, or direct management advice.</p>
+            <p>The Platform provides training, educational materials, and AI simulations intended to improve {WHITE_LABEL.industry.toLowerCase()} sales performance. <strong>However, we make no guarantees, warranties, or promises regarding specific financial outcomes, increased sales volume, or commission earnings.</strong> Sales success depends on numerous independent factors outside our control. The AI simulations are for educational purposes and do not substitute for professional legal, financial, or direct management advice.</p>
 
             <h2>7. Limitation of Liability</h2>
-            <p>To the maximum extent permitted by applicable law, SeptiVolt and its affiliates shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or business opportunities, arising from your use of or inability to use the Platform. In no event shall our total liability exceed the amounts you paid to us in the twelve (12) months preceding the claim.</p>
+            <p>To the maximum extent permitted by applicable law, {WHITE_LABEL.companyName} and its affiliates shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or business opportunities, arising from your use of or inability to use the Platform. In no event shall our total liability exceed the amounts you paid to us in the twelve (12) months preceding the claim.</p>
 
             <h2>8. Acceptable Use</h2>
             <p>You agree to use the Platform only for its intended training purposes and strictly in accordance with our Acceptable Use Policy.</p>

@@ -94,7 +94,7 @@ function SignupForm() {
                     <p className="text-[#94A3B8] mt-2">Create your training account</p>
                 </div>
 
-                <div className="bg-[#1A1A1A] rounded-3xl border border-white/5 p-8 shadow-2xl solar-glow-subtle">
+                <div className="bg-[#1A1A1A] rounded-3xl border border-white/5 p-8 shadow-2xl brand-glow-subtle">
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {error && (
                             <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
