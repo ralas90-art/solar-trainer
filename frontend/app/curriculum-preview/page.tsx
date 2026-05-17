@@ -82,7 +82,7 @@ const DAY_1_MODULES = [
 export default function CurriculumPreview() {
     const [activeModuleId, setActiveModuleId] = useState("1.1");
     const [modules, setModules] = useState(DAY_1_MODULES);
-    const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const activeModule = modules.find(m => m.id === activeModuleId);
 
@@ -601,8 +601,16 @@ export default function CurriculumPreview() {
             </header>
 
             <div className="flex flex-1 overflow-hidden">
+                {/* Mobile Backdrop */}
+                {sidebarOpen && (
+                    <div 
+                        className="fixed top-16 inset-x-0 bottom-0 bg-black/60 z-20 lg:hidden backdrop-blur-sm"
+                        onClick={() => setSidebarOpen(false)}
+                    />
+                )}
+
                 {/* Left Sidebar - Module Navigation */}
-                <aside className={`${sidebarOpen ? 'w-80 translate-x-0' : 'w-0 -translate-x-full'} transition-all duration-300 shrink-0 glass-card bg-slate-950/40 border-r border-white/10 overflow-y-auto lg:translate-x-0 lg:static fixed inset-y-16 left-0 z-20`}>
+                <aside className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} w-80 transition-all duration-300 shrink-0 glass-card bg-slate-950/40 border-r border-white/10 overflow-y-auto lg:translate-x-0 lg:static fixed inset-y-16 left-0 z-30`}>
                     <div className="p-6">
                         <div className="flex items-center gap-3 text-sm font-bold text-primary mb-8 uppercase tracking-wider text-glow bg-primary/5 p-3 rounded-lg border border-primary/20">
                             <Award className="w-5 h-5" />
@@ -615,7 +623,10 @@ export default function CurriculumPreview() {
                                 return (
                                     <button
                                         key={module.id}
-                                        onClick={() => setActiveModuleId(module.id)}
+                                        onClick={() => {
+                                            setActiveModuleId(module.id);
+                                            setSidebarOpen(false);
+                                        }}
                                         className={`w-full text-left p-3 rounded-xl transition-all relative flex gap-4 group ${isActive
                                                 ? 'bg-primary/10 border border-primary/20 shadow-[0_0_20px_rgba(56,189,248,0.05)]'
                                                 : 'hover:bg-white/5 border border-transparent'

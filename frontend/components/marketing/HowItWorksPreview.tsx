@@ -41,7 +41,7 @@ export function HowItWorksPreview() {
                     { icon: PlayCircle, step: "3", title: "Simulate", desc: "Live AI roleplay sessions with difficult homeowner personas for real experience." },
                     { icon: BarChart3, step: "4", title: "Improve", desc: "AI analysis of roleplays providing managers with precise coaching data." }
                 ].map((item, i) => (
-                    <div key={i} className="flex flex-col gap-6 p-8 glass-card hud-border hud-corner-tl hover:bg-white/[0.05] transition-all">
+                    <div key={i} className="flex flex-col gap-6 p-8 glass-card border border-white/10 hover:bg-white/[0.05] transition-all">
                         <div className="h-14 w-14 rounded-xl bg-[#F97316]/10 flex items-center justify-center border border-[#F97316]/20">
                             <item.icon className="w-8 h-8 text-[#F97316]" />
                         </div>

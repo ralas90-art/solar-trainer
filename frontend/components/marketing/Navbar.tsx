@@ -50,15 +50,15 @@ export function Navbar() {
                     <div className="flex items-center gap-4">
                         <Link href="/login" className="hidden md:block text-[10px] font-black uppercase tracking-[0.2em] text-white hover:text-[#F97316] transition-colors font-display">Log In</Link>
                         <Link href="/pricing" className="hidden md:block">
-                            <Button className="btn-primary h-10 px-6 text-[10px]">Get Started</Button>
+                            <Button className="btn-solar h-10 px-6 text-[10px]">Get Started</Button>
                         </Link>
                         <button 
                             className="md:hidden text-white min-w-[48px] min-h-[48px] flex items-center justify-center rounded-md active:bg-white/10 transition-colors"
-                            onClick={() => setIsOpen(!isOpen)}
+                            onClick={() => setIsOpen(true)}
                             aria-label="Toggle menu"
                             aria-expanded={isOpen}
                         >
-                            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                            <Menu className="w-6 h-6" />
                         </button>
                     </div>
                 </div>
@@ -66,23 +66,32 @@ export function Navbar() {
 
             {/* Mobile Navigation Overlay */}
             {isOpen && (
-                <div className="fixed inset-0 z-40 bg-[#121212] pt-20 h-[100dvh] overflow-y-auto w-full">
-                    <div className="flex flex-col p-6 gap-6 min-h-full pb-24">
-                        <Link href="/#process" onClick={() => setIsOpen(false)} className="text-sm font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">How it Works</Link>
+                <div className="fixed inset-0 z-[60] bg-[#121212] h-[100dvh] overflow-y-auto w-full flex flex-col">
+                    <div className="flex justify-end p-4">
+                        <button 
+                            className="text-slate-400 hover:text-white min-w-[48px] min-h-[48px] flex items-center justify-center rounded-md active:bg-white/10 transition-colors"
+                            onClick={() => setIsOpen(false)}
+                            aria-label="Close menu"
+                        >
+                            <X className="w-8 h-8" />
+                        </button>
+                    </div>
+                    <div className="flex flex-col px-6 gap-6 flex-1 pb-24">
+                        <Link href="/#process" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">How it Works</Link>
                         <div className="h-px bg-white/5 w-full" />
-                        <Link href="/curriculum-preview" onClick={() => setIsOpen(false)} className="text-sm font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">Curriculum</Link>
+                        <Link href="/curriculum-preview" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">Curriculum</Link>
                         <div className="h-px bg-white/5 w-full" />
-                        <Link href="/solar-sales-training-assessment" onClick={() => setIsOpen(false)} className="text-sm font-black uppercase tracking-[0.2em] text-[#F97316] transition-colors font-display py-2">Free Audit</Link>
+                        <Link href="/solar-sales-training-assessment" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-[0.2em] text-[#F97316] transition-colors font-display py-2">Free Audit</Link>
                         <div className="h-px bg-white/5 w-full" />
-                        <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-sm font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">Pricing</Link>
+                        <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">Pricing</Link>
                         <div className="h-px bg-white/5 w-full" />
-                        <Link href="/enterprise" onClick={() => setIsOpen(false)} className="text-sm font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">Enterprise</Link>
+                        <Link href="/enterprise" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">Enterprise</Link>
                         <div className="h-px bg-white/5 w-full" />
-                        <Link href="/login" onClick={() => setIsOpen(false)} className="text-sm font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">Log In</Link>
+                        <Link href="/login" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">Log In</Link>
                         
-                        <div className="pt-4 pb-10">
+                        <div className="pt-8 pb-10 mt-auto">
                             <Link href="/pricing" onClick={() => setIsOpen(false)} className="w-full">
-                                <Button className="btn-primary w-full h-12 text-xs">Get Started</Button>
+                                <Button className="btn-solar w-full h-14 text-sm tracking-widest">Get Started</Button>
                             </Link>
                         </div>
                     </div>
