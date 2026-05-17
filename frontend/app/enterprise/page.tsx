@@ -313,7 +313,7 @@ export default function EnterprisePage() {
                 </div>
                 
                 <div className="space-y-4 flex-1">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-black uppercase tracking-widest text-[#64748B] ml-1 font-display">First Name</label>
                       <div className="relative">
