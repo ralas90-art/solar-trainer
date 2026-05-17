@@ -101,8 +101,7 @@ class UserAuth(BaseModel):
     plan_tier: Optional[PlanTier] = PlanTier.STARTER
 
 class LoginAuth(BaseModel):
-    identifier: Optional[str] = None
-    username: Optional[str] = None # Legacy support
+    identifier: str
     password: str
 
 @app.post("/signup")
@@ -142,7 +141,7 @@ def signup(user_data: UserAuth, session: Session = Depends(get_session)):
 
 @app.post("/login")
 def login(login_data: LoginAuth, session: Session = Depends(get_session)):
-    login_id = login_data.identifier or login_data.username
+    login_id = login_data.identifier
     if not login_id:
         raise HTTPException(status_code=400, detail="Must provide username or email")
         

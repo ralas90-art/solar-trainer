@@ -26,7 +26,7 @@ export function AuthForm({ onLogin }: { onLogin: (user: any) => void }) {
             const res = await fetch(requestUrl, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ identifier: username, password }),
                 signal: controller.signal,
             })
             window.clearTimeout(timeout)
