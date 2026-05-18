@@ -8,6 +8,8 @@ export type TrainingModuleProgress = {
   moduleCompleted: boolean
   completedAt?: string
   updatedAt: string
+  quizScore?: number
+  quizPercentage?: number
 }
 
 const STORAGE_PREFIX = "septivolt_training_progress_"
@@ -49,6 +51,8 @@ export async function updateTrainingModuleProgress(
     coachingNotes: previous?.coachingNotes ?? "",
     moduleCompleted: previous?.moduleCompleted ?? false,
     completedAt: previous?.completedAt,
+    quizScore: previous?.quizScore,
+    quizPercentage: previous?.quizPercentage,
     updatedAt: new Date().toISOString(),
     ...patch,
   }

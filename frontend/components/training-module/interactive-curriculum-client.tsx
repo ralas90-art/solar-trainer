@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect, useCallback } from "react"
 import { TrainingModuleView } from "@/lib/training-module-view"
 import { GuidedModuleExperience } from "@/components/training-module/guided-module-experience"
-import { loadTrainingModuleProgress } from "@/lib/training-module-progress"
+import { loadTrainingModuleProgress, saveTrainingModuleProgress } from "@/lib/training-module-progress"
 import { ModuleCatalogEntry } from "@/components/training-audio/lesson-audio-player"
 import {
   BookOpen,
@@ -15,8 +15,13 @@ import {
   X,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useAuth } from "@/context/AuthContext"
+import { canBypassTrainingLocks } from "@/lib/auth-bypass"
 
 export function InteractiveCurriculumClient({ moduleCatalog }: { moduleCatalog: TrainingModuleView[] }) {
+  const { user } = useAuth()
+  const hasBypass = useMemo(() => canBypassTrainingLocks(user), [user])
+
   // Group modules by day, excluding placeholder noisy modules
   const groupedModules = useMemo(() => {
     const groups: Record<string, TrainingModuleView[]> = {}
@@ -30,9 +35,17 @@ export function InteractiveCurriculumClient({ moduleCatalog }: { moduleCatalog: 
   }, [moduleCatalog])
 
   const [activeModuleId, setActiveModuleId] = useState<string>("")
+  const [firstIncompleteModuleId, setFirstIncompleteModuleId] = useState<string>("")
   const [expandedDays, setExpandedDays] = useState<Record<string, boolean>>({})
   const [moduleProgress, setModuleProgress] = useState<Record<string, any>>({})
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [toastMessage, setToastMessage] = useState<string>("")
+
+  const showToast = useCallback((msg: string) => {
+    setToastMessage(msg)
+    const t = setTimeout(() => setToastMessage(""), 3000)
+    return () => clearTimeout(t)
+  }, [])
 
   const refreshProgress = useCallback(() => {
     const progress: Record<string, any> = {}
@@ -48,6 +61,7 @@ export function InteractiveCurriculumClient({ moduleCatalog }: { moduleCatalog: 
     }
 
     setModuleProgress(progress)
+    setFirstIncompleteModuleId(firstIncompleteId)
     return firstIncompleteId
   }, [moduleCatalog])
 
@@ -69,16 +83,22 @@ export function InteractiveCurriculumClient({ moduleCatalog }: { moduleCatalog: 
   )
 
   const handleModuleSelect = useCallback((moduleId: string) => {
+    // Check locks unless bypassed
+    const mod = moduleCatalog.find((m) => m.id === moduleId)
+    if (!mod) return
+    const isCompleted = moduleProgress[mod.id]?.moduleCompleted
+    const isLocked = !hasBypass && !isCompleted && mod.id !== firstIncompleteModuleId
+    if (isLocked) return
+
     setActiveModuleId(moduleId)
     setIsDropdownOpen(false)
     // Ensure the day containing this module is expanded
-    const mod = moduleCatalog.find((m) => m.id === moduleId)
     if (mod?.dayLabel) {
       setExpandedDays((prev) => ({ ...prev, [mod.dayLabel]: true }))
     }
     // Refresh progress so new completion states are reflected
     refreshProgress()
-  }, [moduleCatalog, refreshProgress])
+  }, [moduleCatalog, refreshProgress, hasBypass, firstIncompleteModuleId, moduleProgress])
 
   const toggleDay = (day: string) => {
     setExpandedDays((prev) => ({ ...prev, [day]: !prev[day] }))
@@ -167,6 +187,77 @@ export function InteractiveCurriculumClient({ moduleCatalog }: { moduleCatalog: 
               </div>
             </div>
 
+            {/* Admin / Demo Controls or Trainee Lock Progression Info */}
+            <div className="mb-4 p-3 rounded-xl bg-white/5 border border-white/10">
+              {hasBypass ? (
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <div className="h-2 w-2 rounded-full bg-[#FFB300] animate-pulse" />
+                      <span className="text-xs font-bold text-[#FFB300] uppercase tracking-wider">Admin Bypass Active</span>
+                    </div>
+                    <span className="text-[10px] text-[#64748B]">Bypass active for testing</span>
+                  </div>
+                  <p className="text-xs text-[#94A3B8]">You have unrestricted access to all modules and simulator scenarios.</p>
+                  <div className="flex gap-2 pt-1">
+                    <button
+                      onClick={() => {
+                        // Clear all module progress
+                        moduleCatalog.forEach((m) => saveTrainingModuleProgress({
+                          moduleId: m.id,
+                          moduleCompleted: false,
+                          audioCompleted: false,
+                          quizCompleted: false,
+                          simulationCompleted: false,
+                          coachingScore: null,
+                          coachingNotes: "",
+                          quizScore: 0,
+                          quizPercentage: 0,
+                          updatedAt: new Date().toISOString(),
+                        }))
+                        refreshProgress()
+                        showToast("All progress has been reset successfully!")
+                      }}
+                      className="flex-1 text-[11px] font-semibold py-1 px-2 rounded bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/20 transition-all text-center"
+                    >
+                      Reset All
+                    </button>
+                    <button
+                      onClick={() => {
+                        // Mark all modules completed
+                        moduleCatalog.forEach((m) => saveTrainingModuleProgress({
+                          moduleId: m.id,
+                          moduleCompleted: true,
+                          audioCompleted: true,
+                          quizCompleted: true,
+                          simulationCompleted: true,
+                          coachingScore: 100,
+                          coachingNotes: "Admin Bypass Completed",
+                          quizScore: 100,
+                          quizPercentage: 100,
+                          completedAt: new Date().toISOString(),
+                          updatedAt: new Date().toISOString(),
+                        }))
+                        refreshProgress()
+                        showToast("All modules unlocked & marked completed!")
+                      }}
+                      className="flex-1 text-[11px] font-semibold py-1 px-2 rounded bg-[#FF5722]/20 hover:bg-[#FF5722]/30 text-[#FF5722] border border-[#FF5722]/20 transition-all text-center"
+                    >
+                      Unlock All
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-start gap-2">
+                  <Lock className="w-3.5 h-3.5 text-[#FFB300] mt-0.5 shrink-0" />
+                  <div className="space-y-0.5">
+                    <span className="text-xs font-semibold text-white">Trainee Locked Progression</span>
+                    <p className="text-[11px] text-[#94A3B8]">Modules unlock sequentially. Complete lessons and pass quizzes to unlock subsequent modules.</p>
+                  </div>
+                </div>
+              )}
+            </div>
+
             <div className="max-h-[60vh] overflow-y-auto pr-1 no-scrollbar space-y-2">
               {Object.entries(groupedModules).map(([dayLabel, modules]) => {
                 const isExpanded = expandedDays[dayLabel]
@@ -207,14 +298,23 @@ export function InteractiveCurriculumClient({ moduleCatalog }: { moduleCatalog: 
                           const isCompleted = moduleProgress[mod.id]?.moduleCompleted
                           const hasAudio = moduleProgress[mod.id]?.audioCompleted
                           const isInProgress = !isCompleted && (isActive || hasAudio)
+                          const isLocked = !hasBypass && !isCompleted && mod.id !== firstIncompleteModuleId
 
                           return (
                             <button
                               key={mod.id}
-                              onClick={() => handleModuleSelect(mod.id)}
+                              onClick={() => {
+                                if (isLocked) {
+                                  showToast("Please complete the previous module first to unlock this lesson!")
+                                  return
+                                }
+                                handleModuleSelect(mod.id)
+                              }}
                               className={cn(
-                                "w-full flex items-start gap-2 p-2 rounded-lg text-left text-sm transition-all",
-                                isActive
+                                "w-full flex items-start gap-2 p-2 rounded-lg text-left text-sm transition-all relative overflow-hidden",
+                                isLocked
+                                  ? "opacity-50 cursor-not-allowed text-[#64748B]"
+                                  : isActive
                                   ? "bg-[rgba(255,87,34,0.1)] border border-[#FF5722]/30 text-white"
                                   : isCompleted
                                   ? "hover:bg-white/5 text-[#94A3B8] hover:text-white"
@@ -222,7 +322,9 @@ export function InteractiveCurriculumClient({ moduleCatalog }: { moduleCatalog: 
                               )}
                             >
                               <div className="mt-0.5 shrink-0">
-                                {isCompleted ? (
+                                {isLocked ? (
+                                  <Lock className="w-3.5 h-3.5 text-[#64748B]" />
+                                ) : isCompleted ? (
                                   <CheckCircle2 className={cn("w-3.5 h-3.5", isActive ? "text-[#FFB300]" : "text-[#FFB300]/70")} />
                                 ) : isActive ? (
                                   <PlayCircle className="w-3.5 h-3.5 text-[#FF5722]" />
@@ -241,12 +343,13 @@ export function InteractiveCurriculumClient({ moduleCatalog }: { moduleCatalog: 
                                 )}>
                                   {mod.title.replace(/^Module\s+\d+(\.\d+)?:\s*/i, "")}
                                 </span>
-                                {isInProgress && !isActive && (
+                                {isLocked ? (
+                                  <span className="text-xs text-[#64748B]">Locked</span>
+                                ) : isInProgress && !isActive ? (
                                   <span className="text-xs text-[#FF5722]/70">In progress</span>
-                                )}
-                                {isCompleted && (
+                                ) : isCompleted ? (
                                   <span className="text-xs text-[#FFB300]/60">Completed</span>
-                                )}
+                                ) : null}
                               </div>
                             </button>
                           )
@@ -271,6 +374,14 @@ export function InteractiveCurriculumClient({ moduleCatalog }: { moduleCatalog: 
           onModuleSelect={handleModuleSelect}
         />
       </main>
+
+      {/* Premium Lock Overlay Toast Container */}
+      {toastMessage && (
+        <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-xl border border-red-500/30 bg-[#121212] px-4 py-3 text-sm text-white shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-bottom-5 duration-300">
+          <Lock className="w-4 h-4 text-red-500 shrink-0" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
     </div>
   )
 }

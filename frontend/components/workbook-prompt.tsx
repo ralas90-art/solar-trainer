@@ -1,9 +1,10 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
-import { PenLine, CheckSquare, Square, Star } from "lucide-react"
+import { PenLine, CheckSquare, Square, Star, Lightbulb } from "lucide-react"
 import { type WorkbookPrompt } from "@/lib/modules"
 import { saveResponse, getResponse } from "@/lib/workbook-storage"
+import { EXPERT_PRO_TIPS, DYNAMIC_PLACEHOLDERS } from "@/lib/workbook-expert-tips"
 
 interface WorkbookPromptBlockProps {
   moduleId: string
@@ -121,6 +122,8 @@ function TextPrompt({
   }, [moduleId, prompt.id, value, onCompletionChange])
 
   const isMultiline = prompt.type === "open_response" && (prompt.lines || 3) > 1
+  const proTip = EXPERT_PRO_TIPS[prompt.id]
+  const customPlaceholder = DYNAMIC_PLACEHOLDERS[prompt.id] || prompt.placeholder
 
   return (
     <div className="glass-circuit hud-border rounded-xl p-5 space-y-3">
@@ -131,7 +134,7 @@ function TextPrompt({
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onBlur={handleSave}
-          placeholder={prompt.placeholder || "Type your response here..."}
+          placeholder={customPlaceholder || "Type your response here..."}
           className="w-full resize-none rounded-lg border border-white/10 bg-white/5 p-3 text-sm text-[#E2E8F0] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-[#FF5722]/35"
         />
       ) : (
@@ -140,11 +143,22 @@ function TextPrompt({
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onBlur={handleSave}
-          placeholder={prompt.placeholder || "Your answer..."}
+          placeholder={customPlaceholder || "Your answer..."}
           className="w-full rounded-lg border border-white/10 bg-white/5 p-3 text-sm text-[#E2E8F0] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-[#FF5722]/35"
         />
       )}
-      <div className="flex items-center justify-between gap-3">
+      
+      {proTip && (
+        <div className="mt-3 flex items-start gap-2.5 rounded-xl border border-amber-500/20 bg-amber-500/5 p-3 text-xs text-amber-200/90 leading-relaxed shadow-[inset_0_0_12px_rgba(245,158,11,0.03)] transition-all duration-300 hover:border-amber-500/35">
+          <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-amber-400 animate-pulse" />
+          <div>
+            <span className="font-semibold text-amber-300">Expert Pro Tip: </span>
+            {proTip}
+          </div>
+        </div>
+      )}
+
+      <div className="flex items-center justify-between gap-3 pt-1">
         <button
           type="button"
           onClick={handleSave}

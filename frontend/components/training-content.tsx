@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowLeft, Download, BookOpen, Crown, AlertTriangle, CheckCircle, Zap, PenLine } from "lucide-react"
 import { MODULES, MODULE_SCENARIOS } from "@/lib/modules"
 import { WHITE_LABEL, SLIDE_START_PAGES } from "@/lib/white-label.config"
+import { useLanguage } from "@/hooks/use-language"
 
 // Dynamically import to avoid SSR issues with react-pdf
 const PdfSlideViewer = dynamic(
@@ -23,6 +24,7 @@ interface TrainingContentProps {
 }
 
 export function TrainingContent({ moduleId, onBack, onComplete }: TrainingContentProps) {
+    const { language } = useLanguage()
     // Image Zoom State
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
     // Sequential Simulation State
@@ -143,7 +145,40 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
                     if (!dayNum) return null
 
                     if (WHITE_LABEL.presentationMode === "google_slides") {
-                        const embedUrl = WHITE_LABEL.slideEmbedUrls[dayNum as keyof typeof WHITE_LABEL.slideEmbedUrls]
+                        const esUrls = WHITE_LABEL.slideEmbedUrls_es || {}
+                        const enUrls = WHITE_LABEL.slideEmbedUrls || {}
+                        const isPlaceholder = (url?: string) => !url || url.trim() === "" || url.startsWith("PASTE_")
+
+                        let embedUrl: string | null = null
+                        if (language === "es") {
+                            // 1. Try Spanish module-specific URL
+                            let url = esUrls[moduleId as keyof typeof esUrls]
+                            if (!isPlaceholder(url)) {
+                                embedUrl = url
+                            } else if (Number.isFinite(dayNum)) {
+                                // 2. Try Spanish day-level URL
+                                url = esUrls[dayNum as keyof typeof esUrls]
+                                if (!isPlaceholder(url)) {
+                                    embedUrl = url
+                                }
+                            }
+                        }
+
+                        if (!embedUrl) {
+                            // Fallback to English
+                            // 1. Try English module-specific URL
+                            let url = enUrls[moduleId as keyof typeof enUrls]
+                            if (!isPlaceholder(url)) {
+                                embedUrl = url
+                            } else if (Number.isFinite(dayNum)) {
+                                // 2. Try English day-level URL
+                                url = enUrls[dayNum as keyof typeof enUrls]
+                                if (!isPlaceholder(url)) {
+                                    embedUrl = url
+                                }
+                            }
+                        }
+
                         if (!embedUrl) return null
                         return (
                             <div className="mb-12 rounded-2xl overflow-hidden border border-white/10 shadow-2xl">

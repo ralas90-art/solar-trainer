@@ -33,11 +33,15 @@ def create_demo():
         statement = select(User).where(User.username == username)
         user = session.exec(statement).first()
         
+        from auth_utils import CryptContext
+        pwd_context = CryptContext()
+        hashed_pwd = pwd_context.hash("solar_password_2026")
+        
         if not user:
             print(f"Creating demo user: {username}")
             user = User(
                 username=username,
-                password="solar_password_2026", # Shared demo password
+                password=hashed_pwd, # Shared demo password
                 role=UserRole.ADMIN,
                 company_id=company_id
             )
@@ -46,7 +50,7 @@ def create_demo():
             print(f"Demo user {username} already exists. Resetting to Admin.")
             user.role = UserRole.ADMIN
             user.company_id = company_id
-            user.password = "solar_password_2026"
+            user.password = hashed_pwd
             session.add(user)
         
         session.commit()

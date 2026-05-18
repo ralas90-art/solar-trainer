@@ -151,7 +151,7 @@ def login(login_data: LoginAuth, session: Session = Depends(get_session)):
     if not user:
         raise HTTPException(status_code=401, detail="Invalid credentials")
     
-    from passlib.context import CryptContext
+    from auth_utils import CryptContext
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     
     try:

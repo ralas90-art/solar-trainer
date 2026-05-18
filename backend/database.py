@@ -63,7 +63,7 @@ def create_db_and_tables():
             raise RuntimeError("CRITICAL ERROR: ADMIN_USERNAME, ADMIN_EMAIL, and ADMIN_PASSWORD environment variables are required.")
             
         # Hash password with bcrypt
-        from passlib.context import CryptContext
+        from auth_utils import CryptContext
         pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
         stored_pwd = pwd_context.hash(raw_pwd)
             

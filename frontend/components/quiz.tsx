@@ -9,9 +9,10 @@ import { Quiz } from "@/lib/modules"
 interface QuizProps {
     quiz: Quiz
     onComplete: (score: number) => void
+    passingThreshold?: number
 }
 
-export function QuizModule({ quiz, onComplete }: QuizProps) {
+export function QuizModule({ quiz, onComplete, passingThreshold }: QuizProps) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [selectedOption, setSelectedOption] = useState<number | null>(null)
     const [isAnswered, setIsAnswered] = useState(false)
@@ -49,7 +50,16 @@ export function QuizModule({ quiz, onComplete }: QuizProps) {
         onComplete(score)
     }
 
-    const passThreshold = Math.ceil(quiz.questions.length * 0.7)
+    const handleRetry = () => {
+        setCurrentIndex(0)
+        setSelectedOption(null)
+        setIsAnswered(false)
+        setScore(0)
+        setShowResults(false)
+    }
+
+    const passPct = passingThreshold ?? 70
+    const passThreshold = Math.ceil(quiz.questions.length * (passPct / 100))
     const passed = score >= passThreshold
 
     if (showResults) {
@@ -69,7 +79,7 @@ export function QuizModule({ quiz, onComplete }: QuizProps) {
 
                 <h2 className="text-3xl font-bold text-white mb-2">{passed ? "Mission Accomplished!" : "Mission Failed"}</h2>
                 <p className="text-slate-400 mb-8">
-                    You scored <span className={passed ? "text-green-400 font-bold" : "text-red-400 font-bold"}>{score}</span> out of <span className="text-white">{quiz.questions.length}</span>
+                    You scored <span className={passed ? "text-green-400 font-bold" : "text-red-400 font-bold"}>{score}</span> out of <span className="text-white">{quiz.questions.length}</span> (Required passing score: {passThreshold}/{quiz.questions.length})
                 </p>
 
                 <div className="flex gap-4 justify-center">
@@ -78,7 +88,7 @@ export function QuizModule({ quiz, onComplete }: QuizProps) {
                             Complete Training <ArrowRight className="ml-2 w-5 h-5" />
                         </Button>
                     ) : (
-                        <Button onClick={() => window.location.reload()} variant="outline" className="border-slate-600 text-slate-300 hover:text-white">
+                        <Button onClick={handleRetry} variant="outline" className="border-slate-600 text-slate-300 hover:text-white">
                             Retry Mission
                         </Button>
                     )}

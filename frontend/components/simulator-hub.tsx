@@ -6,6 +6,10 @@ import { Button } from "@/components/ui/button"
 import { SimulationWindow } from "@/components/simulation-ui"
 import { SCENARIOS as FALLBACK_SCENARIOS } from "@/lib/scenarios"
 import { useAuth } from "@/context/AuthContext"
+import { loadTrainingModuleProgress } from "@/lib/training-module-progress"
+import { canBypassTrainingLocks } from "@/lib/auth-bypass"
+import { SCENARIO_LOCK_RULES } from "@/lib/scenario-lock-mapping"
+import { getLanguagePreference } from "@/lib/i18n"
 import {
     Trophy,
     Lock,
@@ -27,6 +31,7 @@ interface Scenario {
     requiredModule?: string
 }
 
+
 interface SimulatorHubProps {
     tenant: any
     stateCode: string
@@ -37,6 +42,9 @@ export function SimulatorHub({ tenant, stateCode, onBack }: SimulatorHubProps) {
     const { user } = useAuth()
     const userId = user?.username || "trainee"
     const userTier = user?.planTier || "starter"
+    
+    const isAdminBypass = canBypassTrainingLocks(user)
+    const lang = getLanguagePreference()
     
     const [scenarios, setScenarios] = useState<Scenario[]>([])
     const [selectedScenario, setSelectedScenario] = useState<Scenario | null>(null)
@@ -162,6 +170,14 @@ export function SimulatorHub({ tenant, stateCode, onBack }: SimulatorHubProps) {
                         </h1>
                     </div>
                     <div className="flex items-center gap-4">
+                        {isAdminBypass && (
+                            <div className="flex items-center gap-2 bg-amber-500/10 border border-amber-500/25 px-3 py-1.5 rounded-lg">
+                                <div className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />
+                                <span className="text-amber-300 font-hud text-[10px] uppercase tracking-widest leading-none">
+                                    {lang === 'es' ? 'Modo Demo: Todos Desbloqueados' : 'Demo Mode: All Simulations Unlocked'}
+                                </span>
+                            </div>
+                        )}
                         <div className="bg-[#FF5722]/10 border border-[#FF5722]/20 px-4 py-2 rounded-lg text-sm">
                             <span className="text-[#FF5722] font-hud text-[10px] uppercase tracking-widest leading-none">Status: {userTier.toUpperCase()}</span>
                         </div>
@@ -269,36 +285,93 @@ export function SimulatorHub({ tenant, stateCode, onBack }: SimulatorHubProps) {
                                             isLockedByPackage = true;
                                         }
                                         
-                                        const isLockedByModule = false; 
-                                        const isLockedAll = isLockedByPackage || isLockedByModule;
+                                        // Gating Logic Based on Curriculum Progress
+                                        const lockRule = SCENARIO_LOCK_RULES[scenario.id];
+                                        let isLockedByModule = false;
+                                        if (lockRule) {
+                                            const progress = loadTrainingModuleProgress(lockRule.requiredModuleId);
+                                            if (!progress) {
+                                                isLockedByModule = true;
+                                            } else {
+                                                const score = progress.quizPercentage ?? (progress.quizCompleted ? 100 : 0);
+                                                isLockedByModule = score < lockRule.requiredQuizThreshold;
+                                            }
+                                        }
+                                        
+                                        // Admin/Demo-Admin Bypass
+                                        const isLockedAll = !isAdminBypass && (isLockedByPackage || isLockedByModule);
 
                                         return (
                                             <Card
                                                 key={scenario.id}
-                                                className={`bg-slate-900/50 border-slate-800 transition-all group ${status === 'completed' ? 'border-green-500/30' : ''} ${!isLockedAll ? 'hover:border-[#FF5722]/50' : 'opacity-75'}`}
+                                                className={`relative bg-slate-900/50 border-slate-800 transition-all group overflow-hidden ${status === 'completed' ? 'border-green-500/30' : ''} ${!isLockedAll ? 'hover:border-[#FF5722]/50 hover:shadow-[0_4px_20px_rgba(255,87,34,0.1)]' : ''}`}
                                             >
-                                                <CardHeader className="relative">
-                                                    {isLockedAll && (
-                                                        <div className="absolute top-4 right-4 bg-slate-950/80 p-2 rounded-full border border-slate-800 z-10">
-                                                            <Lock className="w-4 h-4 text-slate-400" />
+                                                {/* Premium Glassmorphic Lock Overlay */}
+                                                {isLockedAll && (
+                                                    <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-[6px] flex flex-col items-center justify-center p-6 text-center z-20 border border-white/5">
+                                                        <div className="bg-amber-500/10 p-3 rounded-full border border-amber-500/30 mb-3 animate-pulse">
+                                                            <Lock className="w-6 h-6 text-[#FFB300]" />
                                                         </div>
-                                                    )}
+                                                        <h4 className="font-display text-sm font-bold text-white mb-2 tracking-wide uppercase">
+                                                            {isLockedByPackage ? (lang === 'es' ? "Actualización Requerida" : "Upgrade Required") : (lang === 'es' ? "Simulador Bloqueado" : "Simulator Locked")}
+                                                        </h4>
+                                                        <p className="text-xs text-slate-300 leading-relaxed mb-4 max-w-[220px]">
+                                                            {isLockedByPackage ? (
+                                                                lang === 'es' 
+                                                                    ? `Este simulador requiere el plan ${diff === 'expert' ? 'Enterprise' : 'Growth'}.` 
+                                                                    : `This simulator requires the ${diff === 'expert' ? 'Enterprise' : 'Growth'} Plan.`
+                                                            ) : (
+                                                                lockRule ? (
+                                                                    lang === 'es'
+                                                                        ? `Requiere el cuestionario de ${lockRule.unlockLabel.es} (Mínimo: ${lockRule.requiredQuizThreshold}%).`
+                                                                        : `Requires ${lockRule.unlockLabel.en} Quiz (Score: ${lockRule.requiredQuizThreshold}%+).`
+                                                                ) : (
+                                                                    lang === 'es'
+                                                                        ? "Requiere completar el módulo de entrenamiento correspondiente."
+                                                                        : "Requires completing the training prerequisite."
+                                                                )
+                                                            )}
+                                                        </p>
+                                                        
+                                                        {lockRule && !isLockedByPackage && (
+                                                            <div className="mb-4 text-[11px] text-[#FF5722] font-hud uppercase tracking-wider">
+                                                                {lang === 'es' ? "Habilidad:" : "Skill:"} {lockRule.relatedSkill[lang] || lockRule.relatedSkill.en}
+                                                            </div>
+                                                        )}
+
+                                                        {!isLockedByPackage ? (
+                                                            <Button
+                                                                onClick={onBack}
+                                                                size="sm"
+                                                                className="bg-[#FF5722] hover:bg-[#E64A19] hover:shadow-[0_0_15px_rgba(255,87,34,0.5)] text-white text-xs font-semibold px-4 py-2 rounded-lg"
+                                                            >
+                                                                {lang === 'es' ? "Aprender Habilidad" : "Learn Skill"}
+                                                            </Button>
+                                                        ) : (
+                                                            <span className="text-[10px] text-slate-500 uppercase tracking-widest font-mono">
+                                                                {lang === 'es' ? "Contactar Administrador" : "Contact Admin"}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                )}
+
+                                                <CardHeader className="relative">
                                                     <div className="flex items-start justify-between mb-2">
-                                                        {isLockedAll ? <Lock className="w-5 h-5 text-slate-600" /> : getStatusIcon(scenario.id)}
+                                                        {getStatusIcon(scenario.id)}
                                                         <span className={getDifficultyColor(scenario.difficulty)}>
                                                             {scenario.difficulty}
                                                         </span>
                                                     </div>
-                                                    <CardTitle className={`text-lg transition-colors ${!isLockedAll ? 'text-white group-hover:text-[#FFB300]' : 'text-slate-400'}`}>
+                                                    <CardTitle className={`text-lg transition-colors text-white group-hover:text-[#FFB300]`}>
                                                         {scenario.name}
                                                         {isAdvanced && (
-                                                            <Award className={`inline-block w-4 h-4 ml-2 ${!isLockedAll ? 'text-[#FFD54F]' : 'text-slate-600'}`} />
+                                                            <Award className={`inline-block w-4 h-4 ml-2 text-[#FFD54F]`} />
                                                         )}
                                                     </CardTitle>
                                                     <p className="text-sm text-slate-400 mt-2 line-clamp-2">{scenario.description}</p>
                                                 </CardHeader>
                                                 <CardContent>
-                                                    {progress && !isLockedAll && (
+                                                    {progress && (
                                                         <div className="mb-4 p-3 bg-slate-800/50 rounded-lg">
                                                             <div className="flex justify-between text-sm mb-1">
                                                                  <span className="text-slate-400">Best Score:</span>
@@ -312,20 +385,10 @@ export function SimulatorHub({ tenant, stateCode, onBack }: SimulatorHubProps) {
                                                     )}
                                                     <Button
                                                         onClick={() => setSelectedScenario(scenario)}
-                                                        disabled={isLockedAll}
-                                                        className={`w-full ${!isLockedAll ? 'bg-[#FF5722] hover:bg-[#E64A19] text-white' : 'bg-slate-800 text-slate-500 cursor-not-allowed'}`}
+                                                        className={`w-full transition-all duration-300 bg-[#FF5722] hover:bg-[#E64A19] hover:shadow-[0_0_15px_rgba(255,87,34,0.5)] text-white`}
                                                     >
-                                                        {isLockedAll ? (
-                                                            <>
-                                                                <Lock className="w-4 h-4 mr-2" />
-                                                                Upgrade to Unlock
-                                                            </>
-                                                        ) : (
-                                                            <>
-                                                                <Play className="w-4 h-4 mr-2" />
-                                                                {status === 'completed' ? 'Practice Again' : 'Launch Simulator'}
-                                                            </>
-                                                        )}
+                                                        <Play className="w-4 h-4 mr-2" />
+                                                        {status === 'completed' ? 'Practice Again' : 'Launch Simulator'}
                                                     </Button>
                                                 </CardContent>
                                             </Card>
