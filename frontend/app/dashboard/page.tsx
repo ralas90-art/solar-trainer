@@ -45,8 +45,9 @@ export default function DashboardPage() {
         // Map backend payload to DashboardStats
         const mappedStats: DashboardStats = {
           streak: data.currentTrainingStreak,
-          skillScore: data.overallPerformanceScore,
-          simWinRate: data.averageSimulationScore,
+          overallScore: data.overallPerformanceScore,
+          simWinRate: data.simWinRate,
+          goalAchievement: data.fieldGoalAchievement,
           attentionFlags: data.coachingInsights.filter((i: any) => i.severity === 'high').length,
           certificationProgress: data.levelProgress,
           completedMilestones: data.simulationsCompleted,
@@ -138,11 +139,12 @@ export default function DashboardPage() {
           </div>
         </section>
 
-        <section className="grid gap-6 md:grid-cols-2 2xl:grid-cols-4">
+        <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           <StatCard label="Current Streak" value={`${stats.streak} Days`} change="Active daily training" icon={Flame} accent="lime" />
-          <StatCard label="Skill Score" value={stats.skillScore.toString()} change="Based on coaching results" icon={TrendingUp} />
+          <StatCard label="Overall Score" value={stats.overallScore.toString()} change="Weighted blended rating" icon={TrendingUp} />
+          <StatCard label="Goal Achievement" value={`${stats.goalAchievement}%`} change="Real-world activity goal vs target" icon={Target} />
           <StatCard label="Sim Win Rate" value={`${stats.simWinRate}%`} change="Passed (85+) simulations" icon={Radar} />
-          <StatCard label="Attention Now" value={`${stats.attentionFlags} Flags`} change="Need review" icon={AlertTriangle} accent="lime" />
+          <StatCard label="Attention Now" value={`${stats.attentionFlags} Flags`} change="Funnel bottleneck issues" icon={AlertTriangle} accent="lime" />
         </section>
 
         <section className="grid gap-6 2xl:grid-cols-2">

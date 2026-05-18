@@ -636,7 +636,7 @@ async def generate_kpi_report(
     
     try:
         response = await client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are a helpful sales manager. Respond only in valid JSON."},
                 {"role": "user", "content": prompt}

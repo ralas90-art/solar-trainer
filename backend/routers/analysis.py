@@ -220,7 +220,7 @@ Set to FALSE if:
     try:
         # Call OpenAI for analysis using new API
         response = await client.chat.completions.create(
-            model="gpt-4",  # Using GPT-4 for better accuracy
+            model="gpt-4o",  # Using GPT-4o for better accuracy and JSON mode support
             messages=[
                 {"role": "system", "content": "You are a sales performance analyzer. Respond only with valid JSON."},
                 {"role": "user", "content": analysis_prompt}

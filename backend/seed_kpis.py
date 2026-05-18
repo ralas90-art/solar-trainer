@@ -1,3 +1,5 @@
+from dotenv import load_dotenv
+load_dotenv()
 from sqlmodel import Session, select
 from database import engine, create_db_and_tables
 from models.kpi import KPITemplate, TemplateKPI

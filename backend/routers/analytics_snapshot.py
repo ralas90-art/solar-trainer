@@ -2,10 +2,11 @@
 Rep Performance Analytics Snapshot Router
 Returns a canonical analytics payload for frontend dashboard rendering.
 """
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 import json
 from typing import Any, Dict, List, Optional
 import time
+import os
 
 from fastapi import APIRouter, Depends
 from sqlmodel import Session, select
@@ -13,6 +14,8 @@ from sqlmodel import Session, select
 from data import SCENARIOS
 from database import get_session
 from models import UserStats
+from models.kpi import KPIDefinition, KPIEntry
+from routers.kpis import get_analytics
 
 router = APIRouter()
 
@@ -109,6 +112,33 @@ def _build_history(stats: UserStats) -> List[Dict[str, Any]]:
 
     history.sort(key=lambda item: item["dateIso"], reverse=True)
     return history
+
+
+def _calculate_kpi_streak(session: Session, user_id: str) -> int:
+    """
+    Calculate real consecutive-day activity streak by grouping KPIEntry.date values
+    and tracking adjacent calendar days.
+    """
+    statement = select(KPIEntry.date).where(KPIEntry.user_id == user_id).distinct()
+    dates = sorted(session.exec(statement).all(), reverse=True)
+    if not dates:
+        return 0
+        
+    today = date.today()
+    yesterday = today - timedelta(days=1)
+    
+    # Check if user was active today or yesterday to continue/start the streak
+    if dates[0] not in (today, yesterday):
+        return 0
+        
+    streak = 1
+    for i in range(len(dates) - 1):
+        diff = dates[i] - dates[i + 1]
+        if diff == timedelta(days=1):
+            streak += 1
+        elif diff > timedelta(days=1):
+            break # streak broken
+    return streak
 
 
 def _derive_team_overview(leaderboard: List[UserStats]) -> List[Dict[str, Any]]:
@@ -221,8 +251,10 @@ async def get_analytics_snapshot(
         stats = UserStats(user_id=user_id, total_score=0, current_streak=0, highest_streak=0, lives=3)
 
     history = _build_history(stats)
+    is_demo = os.getenv("DEMO_MODE", "false").lower() in ("true", "1") or user_id in ("trainee", "test_user", "admin")
 
-    if not history:
+    # If it is empty simulation history but we are in demo mode, inject realistic simulator history
+    if not history and is_demo:
         history = []
         for i in range(10):
             score = 66 + i * 2 + (i % 3)
@@ -256,19 +288,142 @@ async def get_analytics_snapshot(
         return cached_payload
 
     filtered_history = _filter_history(history, time_range, scenario_type, skill_category)
-    if not filtered_history:
+    if not filtered_history and history:
         filtered_history = history[:4]
 
-    avg_score = round(sum(item["score"] for item in filtered_history) / max(1, len(filtered_history)))
+    # 1. Simulator Performance Calculations
+    total_sims = len(filtered_history)
+    avg_score = round(sum(item["score"] for item in filtered_history) / max(1, total_sims)) if total_sims > 0 else 0
+    
+    # 2. Sim Win Rate: Percentage of simulation attempts with score >= 85
+    if total_sims > 0:
+        passing_sims = len([item for item in filtered_history if item["score"] >= 85])
+        sim_win_rate = round((passing_sims / total_sims) * 100)
+    else:
+        sim_win_rate = 0
+
+    # 3. KPI / Goal Setting Calculations
+    period_map = {
+        "daily": "week",
+        "weekly": "week",
+        "monthly": "month",
+        "all-time": "quarter"
+    }
+    kpi_period = period_map.get(time_range, "week")
+    
+    try:
+        kpi_analytics = await get_analytics(period=kpi_period, session=session, user_id=user_id)
+        kpi_list = kpi_analytics.kpis
+        kpi_conversions = kpi_analytics.conversion_rates or {
+            "signal_to_lock": 0.0,
+            "lock_to_acquisition": 0.0,
+            "signal_to_acquisition": 0.0
+        }
+    except Exception as e:
+        print(f"Error calling get_analytics for snap: {e}")
+        kpi_list = []
+        kpi_conversions = {
+            "signal_to_lock": 0.0,
+            "lock_to_acquisition": 0.0,
+            "signal_to_acquisition": 0.0
+        }
+
+    # Inject mock KPI data if empty and is_demo is active
+    if not kpi_list and is_demo:
+        kpi_list = [
+            {
+                "label": "Knocks",
+                "total": 45,
+                "average": 9.0,
+                "target": 50,
+                "daily_target": 10,
+                "target_weekly": 50,
+                "target_monthly": 200,
+                "target_quarterly": 600,
+                "achievement": 90.0,
+                "trend": "up",
+                "daily_values": [8, 10, 7, 9, 11]
+            },
+            {
+                "label": "Conversations",
+                "total": 12,
+                "average": 2.4,
+                "target": 15,
+                "daily_target": 3,
+                "target_weekly": 15,
+                "target_monthly": 60,
+                "target_quarterly": 180,
+                "achievement": 80.0,
+                "trend": "down",
+                "daily_values": [3, 2, 2, 3, 2]
+            },
+            {
+                "label": "Appointments Set",
+                "total": 4,
+                "average": 0.8,
+                "target": 5,
+                "daily_target": 1,
+                "target_weekly": 5,
+                "target_monthly": 20,
+                "target_quarterly": 60,
+                "achievement": 80.0,
+                "trend": "stable",
+                "daily_values": [1, 1, 0, 1, 1]
+            },
+            {
+                "label": "Closes",
+                "total": 1,
+                "average": 0.2,
+                "target": 2,
+                "daily_target": 0,
+                "target_weekly": 2,
+                "target_monthly": 8,
+                "target_quarterly": 24,
+                "achievement": 50.0,
+                "trend": "stable",
+                "daily_values": [0, 0, 1, 0, 0]
+            }
+        ]
+        kpi_conversions = {
+            "signal_to_lock": 8.9,
+            "lock_to_acquisition": 25.0,
+            "signal_to_acquisition": 2.2
+        }
+
+    # Calculate fieldGoalAchievement
+    if kpi_list:
+        achievements = [kpi.get("achievement", 0) for kpi in kpi_list]
+        field_goal_achievement = round(sum(achievements) / len(achievements), 1)
+    else:
+        field_goal_achievement = 0.0
+
+    # 4. Blended Performance Score Calculation (Weighted blend of simulator and KPI achievement)
+    sims_active = total_sims > 0
+    kpis_active = len(kpi_list) > 0
+    
+    if sims_active and kpis_active:
+        overall_score = round(avg_score * 0.5 + field_goal_achievement * 0.5)
+    elif sims_active:
+        overall_score = round(avg_score)
+    elif kpis_active:
+        overall_score = round(field_goal_achievement)
+    else:
+        overall_score = 69 if is_demo else 0
+
+    # 5. Streak logic (Field streak falls back to simulator streak)
+    kpi_streak = _calculate_kpi_streak(session, user_id)
+    current_streak = kpi_streak if kpi_streak > 0 else stats.current_streak
+
     rank = next((idx + 1 for idx, row in enumerate(leaderboard) if row.user_id == user_id), 1)
     certifications_earned = 0
-    if avg_score >= 88:
+    if overall_score >= 88:
         certifications_earned = 3
-    elif avg_score >= 80:
+    elif overall_score >= 80:
         certifications_earned = 2
-    elif avg_score >= 72:
+    elif overall_score >= 72:
         certifications_earned = 1
 
+    # 6. Skill scores mapping
     skill_scores: Dict[str, List[int]] = {
         "prospecting": [],
         "discovery": [],
@@ -285,9 +440,9 @@ async def get_analytics_snapshot(
     skill_keys = ["prospecting", "discovery", "presentation", "objections", "closing"]
     for idx, key in enumerate(skill_keys):
         values = skill_scores[key]
-        score = round(sum(values) / len(values)) if values else 68 + idx * 3
+        score = round(sum(values) / len(values)) if values else (68 + idx * 3 if is_demo else 0)
         recent = values[:3] if values else [score]
-        prior = values[3:6] if len(values) > 3 else [max(55, score - 2)]
+        prior = values[3:6] if len(values) > 3 else [max(0, score - 2)]
         recent_avg = sum(recent) / len(recent)
         prior_avg = sum(prior) / len(prior)
         trend = round(recent_avg - prior_avg)
@@ -306,50 +461,185 @@ async def get_analytics_snapshot(
             }
         )
 
-    weakest_skill = min(skill_keys, key=lambda skill: skills[skill]["score"])
-    second_weakest = min([skill for skill in skill_keys if skill != weakest_skill], key=lambda skill: skills[skill]["score"])
+    # 7. TAILORED DYNAMIC COACHING INSIGHTS (Bottleneck Logic)
+    total_knocks = 0
+    total_conversations = 0
+    total_appointments = 0
+    total_closes = 0
+    knocks_weekly_target = 0
 
-    coaching_insights = [
+    for kpi in kpi_list:
+        label = kpi["label"].lower()
+        total_val = kpi["total"]
+        
+        if "knock" in label or "lead" in label or "signal" in label:
+            total_knocks += total_val
+            if kpi.get("target_weekly"):
+                knocks_weekly_target += kpi["target_weekly"]
+            elif kpi.get("daily_target"):
+                knocks_weekly_target += kpi["daily_target"] * 5
+                
+        if "conversation" in label or "talk" in label or "contact" in label:
+            total_conversations += total_val
+            
+        if "appointment" in label or "set" in label or "lock" in label or "sit" in label:
+            total_appointments += total_val
+            
+        if "close" in label or "sale" in label or "acquisition" in label or "install" in label:
+            total_closes += total_val
+
+    coaching_insights = []
+    
+    # Stale field check
+    recent_entry = session.exec(
+        select(KPIEntry).where(KPIEntry.user_id == user_id).order_by(KPIEntry.date.desc())
+    ).first()
+    
+    if recent_entry:
+        days_since_last = (date.today() - recent_entry.date).days
+        if days_since_last >= 3:
+            coaching_insights.append({
+                "title": "Stale Activity Warning",
+                "detail": f"No field entries logged in the last {days_since_last} days. Maintain consistent entry discipline.",
+                "severity": "high"
+            })
+    else:
+        # User has no entries whatsoever
+        if not kpis_active:
+            if not is_demo:
+                coaching_insights.append({
+                    "title": "Setup Sales Goals",
+                    "detail": "Set up your target definitions in the Goal Setting Wizard to start mapping your path.",
+                    "severity": "medium"
+                })
+        else:
+            if not is_demo:
+                coaching_insights.append({
+                    "title": "Log Your First Day",
+                    "detail": "Keep momentum high. Enter today's knobs, appointments, and closes in the tracker.",
+                    "severity": "medium"
+                })
+
+    # Volume bottleneck check
+    if knocks_weekly_target > 0 and total_knocks < knocks_weekly_target:
+        coaching_insights.append({
+            "title": "Low Volume Bottleneck",
+            "detail": f"Activity shortfall: total Knocks ({total_knocks}) are currently below weekly goal of {knocks_weekly_target}.",
+            "severity": "high"
+        })
+
+    # Knock-to-Conversation bottleneck check
+    if total_knocks > 0:
+        ratio = total_conversations / total_knocks
+        if ratio < 0.15:
+            coaching_insights.append({
+                "title": "Knock-to-Conversation Bottleneck",
+                "detail": f"Prospecting opener warning: set-to-conversation conversion is {ratio * 100:.1f}% (benchmark >= 15%).",
+                "severity": "high"
+            })
+
+    # Conversation-to-Appointment bottleneck check
+    if total_conversations > 0:
+        ratio = total_appointments / total_conversations
+        if ratio < 0.20:
+            coaching_insights.append({
+                "title": "Conversation-to-Appointment Bottleneck",
+                "detail": f"Value building warning: conversation-to-appointment set is {ratio * 100:.1f}% (benchmark >= 20%).",
+                "severity": "high"
+            })
+
+    # Appointment-to-Close bottleneck check
+    if total_appointments > 0:
+        ratio = total_closes / total_appointments
+        if ratio < 0.25:
+            coaching_insights.append({
+                "title": "Appointment-to-Close Bottleneck",
+                "detail": f"Closing ratio warning: appointment-to-close conversion is {ratio * 100:.1f}% (benchmark >= 25%).",
+                "severity": "high"
+            })
+
+    # No bottlenecks detected fallback
+    if not coaching_insights:
+        coaching_insights.append({
+            "title": "No coaching flags yet",
+            "detail": "Excellent field execution! Funnel conversion ratios and activity volume look healthy.",
+            "severity": "low"
+        })
+
+    # 8. RECOMMENDATIONS
+    recommendations = []
+    
+    if recent_entry and (date.today() - recent_entry.date).days >= 3:
+        recommendations.append({
+            "title": "Log Daily Field Activity",
+            "rationale": "Consistent recording enables highly tailored pipeline diagnostic coaching.",
+            "action": "Open the KPI Entry panel and log your activity for today."
+        })
+        
+    if not kpis_active and not is_demo:
+        recommendations.append({
+            "title": "Set Custom Sales Goals",
+            "rationale": "Goal setting unlocks targeted analytics dashboards and active feedback structures.",
+            "action": "Complete the Goal Setting Wizard to initialize your personal milestones."
+        })
+        
+    if knocks_weekly_target > 0 and total_knocks < knocks_weekly_target:
+        recommendations.append({
+            "title": "Increase Prospecting Volume",
+            "rationale": "Opening volume is insufficient to reliably meet your weekly contract targets.",
+            "action": "Allocate an additional 90 minutes to field door-knocking tomorrow."
+        })
+        
+    if total_knocks > 0 and (total_conversations / total_knocks) < 0.15:
+        recommendations.append({
+            "title": "Practice Pitch Opener Drills",
+            "rationale": " Opener transition is dropping too early, indicating rapport barriers.",
+            "action": "Run the Door Opener simulation to master rapid trust-building."
+        })
+        
+    if total_conversations > 0 and (total_appointments / total_conversations) < 0.20:
+        recommendations.append({
+            "title": "Sharpen Value Presentation",
+            "rationale": "Rapport is built but fails to convert to appointments, implying weak value anchor.",
+            "action": "Study presentation curriculum deck and rerun Discovery simulation."
+        })
+        
+    if total_appointments > 0 and (total_closes / total_appointments) < 0.25:
+        recommendations.append({
+            "title": "Master Closing Objections",
+            "rationale": "High drop-off rate on sits indicates difficulty handling closing price pressure.",
+            "action": "Complete Objection Stack lesson and practice price-matching sims."
+        })
+
+    # Always ensure 3 high-value recommendations
+    default_recs = [
         {
-            "title": "Most common mistakes",
-            "detail": f"Weak value anchoring before {weakest_skill} responses.",
-            "severity": "high",
+            "title": "Complete Today's AI Challenge",
+            "rationale": "Maintain your daily streak momentum and claim daily XP boosts.",
+            "action": "Run today's curriculum challenge in the simulator queue."
         },
         {
-            "title": "Missed discovery questions",
-            "detail": "Follow-up depth drops during mid-call transitions.",
-            "severity": "medium",
+            "title": "Review Spanish Pitch Assets",
+            "rationale": "Bilingual reps reach broader client demographics and close 34% more contracts.",
+            "action": "Open Spanish Slides inside active module presentations."
         },
         {
-            "title": "Compliance warnings",
-            "detail": "Guarantee-style phrasing appears in pressure sequences.",
-            "severity": "low",
-        },
+            "title": "Practice Price Pressure Scenario",
+            "rationale": "Reps anchoring with strong price objections see immediate conversion uplift.",
+            "action": "Load high-severity objection simulation modules."
+        }
     ]
 
-    recommendations = [
-        {
-            "title": f"Practice {weakest_skill.title()} module",
-            "rationale": f"{weakest_skill.title()} score is below target benchmark.",
-            "action": f"Run the {weakest_skill.title()} lesson and one focused scenario.",
-        },
-        {
-            "title": f"Repeat {second_weakest.title()} scenario",
-            "rationale": f"{second_weakest.title()} trend remains inconsistent.",
-            "action": "Replay scenario and apply coaching feedback.",
-        },
-        {
-            "title": "Review closing techniques lesson",
-            "rationale": "Final commitment language needs stronger consistency.",
-            "action": "Complete close checklist and rerun final sequence scenario.",
-        },
-    ]
+    for rec in default_recs:
+        if len(recommendations) >= 3:
+            break
+        recommendations.append(rec)
 
     payload = {
-        "overallPerformanceScore": round(avg_score * 0.62 + skills["closing"]["score"] * 0.22 + skills["discovery"]["score"] * 0.16),
-        "simulationsCompleted": len(filtered_history),
+        "overallPerformanceScore": overall_score,
+        "simulationsCompleted": total_sims,
         "averageSimulationScore": avg_score,
-        "currentTrainingStreak": stats.current_streak,
+        "currentTrainingStreak": current_streak,
         "certificationsEarned": certifications_earned,
         "xpEarned": stats.total_score,
         "levelProgress": min(100, round((stats.total_score % 2000) / 20)),
@@ -366,6 +656,13 @@ async def get_analytics_snapshot(
             "skillCategory": skill_category,
         },
         "updatedAt": date.today().isoformat(),
+        # New telemetry metrics
+        "fieldGoalAchievement": field_goal_achievement,
+        "simWinRate": sim_win_rate,
+        "kpis": kpi_list,
+        "conversionRates": kpi_conversions,
+        "kpiStreak": kpi_streak
     }
     _set_cached_payload(cache_key, payload)
     return payload
+

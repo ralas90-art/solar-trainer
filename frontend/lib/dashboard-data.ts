@@ -4,9 +4,10 @@ import { MODULES, MODULE_SCENARIOS } from "./modules"
 
 export type DashboardStats = {
   streak: number
-  skillScore: number
-  simWinRate: number
-  attentionFlags: number
+  overallScore: number       // Blended metric
+  simWinRate: number         // Passing sim attempts % (>=85)
+  goalAchievement: number    // Field Goal Achievement %
+  attentionFlags: number     // Coaching bottleneck warnings
   certificationProgress: number
   completedMilestones: number
   totalMilestones: number
@@ -38,8 +39,9 @@ export function getDashboardStats(): DashboardStats {
   if (typeof window === "undefined") {
     return {
       streak: 18,
-      skillScore: 84.6,
+      overallScore: 82,
       simWinRate: 79,
+      goalAchievement: 85,
       attentionFlags: 3,
       certificationProgress: 72,
       completedMilestones: 5,
@@ -88,12 +90,19 @@ export function getDashboardStats(): DashboardStats {
     ? Math.round((wins / simAttempts.length) * 100)
     : 79
 
-  // 5. Milestones
+  // 5. Goal Achievement (Field Goal Achievement fallback)
+  // Using 85 as fallback/starting goal achievement
+  const goalAchievement = 85
+
+  // Blended Overall Score (50% skill score, 50% goal achievement)
+  const overallScore = Math.round(skillScore * 0.5 + goalAchievement * 0.5)
+
+  // 6. Milestones
   const completedMilestones = moduleProgress.filter(p => p.moduleCompleted).length
   const totalMilestones = Object.keys(MODULES).length
   const certificationProgress = Math.round((completedMilestones / totalMilestones) * 100)
 
-  // 6. Recent Simulations
+  // 7. Recent Simulations
   const recentSimulations = moduleProgress
     .filter(p => p.simulationCompleted)
     .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
@@ -104,13 +113,13 @@ export function getDashboardStats(): DashboardStats {
       subtitle: p.coachingNotes || "Simulation completed successfully."
     }))
 
-  // 7. Last incomplete module
+  // 8. Last incomplete module
   const sortedByActivity = moduleProgress
     .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
   
   const lastActiveModuleId = sortedByActivity[0]?.moduleId || "mod_1_1"
 
-  // 8. Today's Challenge (Random unlocked scenario)
+  // 9. Today's Challenge (Random unlocked scenario)
   const unlockedModuleIds = moduleProgress.filter(p => p.moduleCompleted).map(p => p.moduleId)
   const availableScenarios = unlockedModuleIds.flatMap(id => MODULE_SCENARIOS[id] || [])
   const todayChallengeScenarioId = availableScenarios.length > 0
@@ -119,8 +128,9 @@ export function getDashboardStats(): DashboardStats {
 
   return {
     streak,
-    skillScore,
+    overallScore,
     simWinRate,
+    goalAchievement,
     attentionFlags: scores.filter(s => s < 70).length || 3,
     certificationProgress,
     completedMilestones,
