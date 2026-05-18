@@ -141,10 +141,10 @@ export default function DashboardPage() {
 
         <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           <StatCard label="Current Streak" value={`${stats.streak} Days`} change="Active daily training" icon={Flame} accent="lime" />
-          <StatCard label="Overall Score" value={stats.overallScore.toString()} change="Weighted blended rating" icon={TrendingUp} />
-          <StatCard label="Goal Achievement" value={`${stats.goalAchievement}%`} change="Real-world activity goal vs target" icon={Target} />
-          <StatCard label="Sim Win Rate" value={`${stats.simWinRate}%`} change="Passed (85+) simulations" icon={Radar} />
-          <StatCard label="Attention Now" value={`${stats.attentionFlags} Flags`} change="Funnel bottleneck issues" icon={AlertTriangle} accent="lime" />
+          <StatCard label="Overall Score" value={stats.overallScore.toString()} change="Blended simulation + KPI achievement" icon={TrendingUp} />
+          <StatCard label="Goal Achievement" value={`${stats.goalAchievement}%`} change="Real KPI progress vs targets" icon={Target} />
+          <StatCard label="Sim Win Rate" value={`${stats.simWinRate}%`} change="Simulator wins / attempts only" icon={Radar} />
+          <StatCard label="Attention Flags" value={`${stats.attentionFlags} Flags`} change="KPI, simulation, & coaching bottlenecks" icon={AlertTriangle} accent="lime" />
         </section>
 
         <section className="grid gap-6 2xl:grid-cols-2">

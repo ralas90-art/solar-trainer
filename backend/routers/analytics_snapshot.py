@@ -561,7 +561,7 @@ async def get_analytics_snapshot(
     # No bottlenecks detected fallback
     if not coaching_insights:
         coaching_insights.append({
-            "title": "No coaching flags yet",
+            "title": "No flags yet",
             "detail": "Excellent field execution! Funnel conversion ratios and activity volume look healthy.",
             "severity": "low"
         })
