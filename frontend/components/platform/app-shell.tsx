@@ -14,6 +14,7 @@ import { LogOut } from "lucide-react"
 import { FeatureGate } from "@/components/auth/FeatureGate"
 import { isDemoModeActive } from "@/lib/demo-mode"
 import { useLanguage } from "@/hooks/use-language"
+import { IssueReporter } from "./issue-reporter"
 
 export function AppShell({
   children,
@@ -359,6 +360,7 @@ export function AppShell({
           </nav>
         </div>
       )}
+      {!mobileMenuOpen && <IssueReporter />}
     </div>
   )
 }
