@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { Bell, Search, Sparkles, Trophy, X, Zap, Menu } from "lucide-react"
+import { Bell, BookOpen, History, Search, Sparkles, Trophy, X, Zap, Menu, Settings, Award, User, Users, ShieldAlert } from "lucide-react"
 import Link from "next/link"
 import { ReactNode, useEffect, useState } from "react"
 import {
@@ -52,27 +52,60 @@ export function AppShell({
             <Zap className="h-6 w-6 text-[#FF5722] mr-2" />
             <span className="font-display font-black text-xl tracking-tight">SEPTIVOLT</span>
           </div>
-          <nav className="p-4 space-y-2">
+          <nav className="p-4 space-y-1">
+            {/* ── Core Navigation ── */}
             <Link href="/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
               <Zap className="h-4 w-4" /> Dashboard
+            </Link>
+            <Link href="/my-training" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
+              <BookOpen className="h-4 w-4" /> My Training
             </Link>
             <Link href="/ai-simulator" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
               <Sparkles className="h-4 w-4" /> AI Simulator
             </Link>
-            
+            <Link href="/certifications" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
+              <Award className="h-4 w-4" /> Certifications
+            </Link>
+
+            {/* ── Account ── */}
+            <div className="pt-4 pb-1 px-4">
+              <p className="font-hud text-[10px] uppercase tracking-[0.2em] text-[#64748B]">Account</p>
+            </div>
+            <Link href="/settings" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
+              <User className="h-4 w-4" /> Profile
+            </Link>
+            <Link href="/dashboard/settings" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
+              <Settings className="h-4 w-4" /> Settings
+            </Link>
+
+            {/* ── Management (tier-gated) ── */}
             <FeatureGate allowedTiers={["growth", "enterprise"]}>
-              <div className="pt-4 pb-2 px-4">
+              <div className="pt-4 pb-1 px-4">
                 <p className="font-hud text-[10px] uppercase tracking-[0.2em] text-[#64748B]">Management</p>
               </div>
-              
               <Link href="/analytics" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
                 <Search className="h-4 w-4" /> Analytics
               </Link>
+              <Link href="/analytics/debriefs" className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-400 hover:text-white ml-3">
+                <History className="h-3.5 w-3.5" /> AI Coaching Reports
+              </Link>
             </FeatureGate>
-            
+
             <FeatureGate allowedRoles={["admin", "manager"]} allowedTiers={["growth", "enterprise"]}>
               <Link href="/leaderboards" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white text-[#FFB300]">
                 <Trophy className="h-4 w-4" /> Team Rankings
+              </Link>
+            </FeatureGate>
+
+            <FeatureGate allowedRoles={["admin", "manager"]} allowedTiers={["growth", "enterprise"]}>
+              <Link href="/team-hub" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
+                <Users className="h-4 w-4 text-blue-400" /> Manager Command Center
+              </Link>
+            </FeatureGate>
+
+            <FeatureGate allowedRoles={["admin"]}>
+              <Link href="/admin" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-red-400 hover:text-white">
+                <ShieldAlert className="h-4 w-4" /> Admin Control Center
               </Link>
             </FeatureGate>
           </nav>
@@ -204,7 +237,8 @@ export function AppShell({
             </button>
           </div>
           
-          <nav className="p-6 space-y-4 flex-1">
+          <nav className="p-6 space-y-1 flex-1">
+            {/* ── Core Navigation ── */}
             <Link 
               href="/dashboard" 
               onClick={() => setMobileMenuOpen(false)}
@@ -212,8 +246,13 @@ export function AppShell({
             >
               <Zap className="h-5 w-5 text-[#FF5722]" /> Dashboard
             </Link>
-            <div className="h-px bg-white/5 w-full" />
-            
+            <Link 
+              href="/my-training" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
+            >
+              <BookOpen className="h-5 w-5 text-[#22D3EE]" /> My Training
+            </Link>
             <Link 
               href="/ai-simulator" 
               onClick={() => setMobileMenuOpen(false)}
@@ -221,9 +260,38 @@ export function AppShell({
             >
               <Sparkles className="h-5 w-5 text-[#FFB300]" /> AI Simulator
             </Link>
-            <div className="h-px bg-white/5 w-full" />
-            
+            <Link 
+              href="/certifications" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
+            >
+              <Award className="h-5 w-5 text-[#FFD54F]" /> Certifications
+            </Link>
+
+            <div className="h-px bg-white/5 w-full my-2" />
+
+            {/* ── Account (all users) ── */}
+            <p className="px-4 py-1 font-hud text-[10px] uppercase tracking-[0.2em] text-[#64748B]">Account</p>
+            <Link 
+              href="/settings" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
+            >
+              <User className="h-5 w-5 text-[#94A3B8]" /> Profile
+            </Link>
+            <Link 
+              href="/dashboard/settings" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
+            >
+              <Settings className="h-5 w-5 text-[#FFD54F]" /> Settings
+            </Link>
+
+            <div className="h-px bg-white/5 w-full my-2" />
+
+            {/* ── Management (tier-gated) ── */}
             <FeatureGate allowedTiers={["growth", "enterprise"]}>
+              <p className="px-4 py-1 font-hud text-[10px] uppercase tracking-[0.2em] text-[#64748B]">Management</p>
               <Link 
                 href="/analytics" 
                 onClick={() => setMobileMenuOpen(false)}
@@ -231,18 +299,40 @@ export function AppShell({
               >
                 <Search className="h-5 w-5 text-[#22D3EE]" /> Analytics
               </Link>
-              <div className="h-px bg-white/5 w-full" />
-            </FeatureGate>
-            
-            <FeatureGate allowedRoles={["admin", "manager"]} allowedTiers={["growth", "enterprise"]}>
               <Link 
-                href="/leaderboards" 
+                href="/analytics/debriefs" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-base font-medium text-slate-400 hover:text-white ml-4"
+              >
+                <History className="h-4 w-4 text-indigo-400" /> AI Coaching Reports
+              </Link>
+            </FeatureGate>
+            <FeatureGate allowedRoles={["admin", "manager"]} allowedTiers={["growth", "enterprise"]}>
+              <Link
+                href="/leaderboards"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-[#FFB300] hover:text-white"
               >
                 <Trophy className="h-5 w-5" /> Team Rankings
               </Link>
-              <div className="h-px bg-white/5 w-full" />
+            </FeatureGate>
+            <FeatureGate allowedRoles={["admin", "manager"]} allowedTiers={["growth", "enterprise"]}>
+              <Link
+                href="/team-hub"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
+              >
+                <Users className="h-5 w-5 text-blue-400" /> Manager Command Center
+              </Link>
+            </FeatureGate>
+            <FeatureGate allowedRoles={["admin"]}>
+              <Link
+                href="/admin"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-red-400 hover:text-white"
+              >
+                <ShieldAlert className="h-5 w-5" /> Admin Control Center
+              </Link>
             </FeatureGate>
           </nav>
         </div>

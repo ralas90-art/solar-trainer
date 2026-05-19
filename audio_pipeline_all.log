@@ -1,0 +1,1076 @@
+2026-05-16 10:17:49,899 [INFO] Starting pipeline for language: EN
+2026-05-16 10:17:49,899 [INFO] Source: C:\Users\12132\Desktop\Antigravity Solar Sales Trainer Agent\scripts\modules_en.json | Voice: QO7Mfy7rwYLdxzo4Q3iD | Model: eleven_v3
+2026-05-16 10:17:49,900 [INFO] 
+Processing Module: mod_1_5a
+2026-05-16 10:17:49,900 [INFO]   [GEN] Generating section_1.mp3 (287 chars)
+2026-05-16 10:18:04,358 [INFO]   [SAVE] section_1.mp3 (287.4 KB)
+2026-05-16 10:18:05,559 [INFO]   [GEN] Generating section_2.mp3 (47 chars)
+2026-05-16 10:18:08,304 [INFO]   [SAVE] section_2.mp3 (46.2 KB)
+2026-05-16 10:18:09,505 [INFO]   [GEN] Generating section_3.mp3 (537 chars)
+2026-05-16 10:18:14,590 [INFO] Starting pipeline for language: ES
+2026-05-16 10:18:14,591 [INFO] Source: C:\Users\12132\Desktop\Antigravity Solar Sales Trainer Agent\scripts\modules_es.json | Voice: l1zE9xgNpUTaQCZzpNJa | Model: eleven_v3
+2026-05-16 10:18:14,591 [INFO] 
+Processing Module: mod_1_1
+2026-05-16 10:18:14,592 [INFO]   [SKIP] section_1.mp3 already exists.
+2026-05-16 10:18:14,592 [INFO]   [SKIP] section_2.mp3 already exists.
+2026-05-16 10:18:14,593 [INFO]   [SKIP] section_3.mp3 already exists.
+2026-05-16 10:18:14,594 [INFO]   [SKIP] section_4.mp3 already exists.
+2026-05-16 10:18:14,594 [INFO] 
+Processing Module: mod_1_2
+2026-05-16 10:18:14,595 [INFO]   [GEN] Generating section_1.mp3 (426 chars)
+2026-05-16 10:18:28,477 [INFO]   [SAVE] section_1.mp3 (388.6 KB)
+2026-05-16 10:18:29,678 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:18:31,872 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:18:33,073 [INFO]   [GEN] Generating section_3.mp3 (121 chars)
+2026-05-16 10:18:36,169 [INFO]   [SAVE] section_3.mp3 (774.7 KB)
+2026-05-16 10:18:37,370 [INFO]   [GEN] Generating section_4.mp3 (687 chars)
+2026-05-16 10:18:38,147 [INFO]   [SAVE] section_3.mp3 (100.9 KB)
+2026-05-16 10:18:39,348 [INFO]   [GEN] Generating section_4.mp3 (55 chars)
+2026-05-16 10:18:42,134 [INFO]   [SAVE] section_4.mp3 (46.2 KB)
+2026-05-16 10:18:43,334 [INFO] 
+Processing Module: mod_1_3
+2026-05-16 10:18:43,335 [INFO]   [GEN] Generating section_1.mp3 (507 chars)
+2026-05-16 10:19:01,202 [INFO]   [SAVE] section_1.mp3 (457.2 KB)
+2026-05-16 10:19:02,403 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:19:04,619 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:19:04,724 [INFO]   [SAVE] section_4.mp3 (934.7 KB)
+2026-05-16 10:19:05,820 [INFO]   [GEN] Generating section_3.mp3 (123 chars)
+2026-05-16 10:19:05,925 [INFO]   [GEN] Generating section_5.mp3 (495 chars)
+2026-05-16 10:19:15,914 [INFO]   [SAVE] section_3.mp3 (106.2 KB)
+2026-05-16 10:19:17,115 [INFO]   [GEN] Generating section_4.mp3 (75 chars)
+2026-05-16 10:19:20,815 [INFO]   [SAVE] section_4.mp3 (63.7 KB)
+2026-05-16 10:19:22,016 [INFO] 
+Processing Module: mod_1_4
+2026-05-16 10:19:22,017 [INFO]   [GEN] Generating section_1.mp3 (534 chars)
+2026-05-16 10:19:22,841 [INFO]   [SAVE] section_5.mp3 (483.7 KB)
+2026-05-16 10:19:24,043 [INFO]   [GEN] Generating section_6.mp3 (40 chars)
+2026-05-16 10:19:26,289 [INFO]   [SAVE] section_6.mp3 (39.6 KB)
+2026-05-16 10:19:27,490 [INFO]   [GEN] Generating section_7.mp3 (43 chars)
+2026-05-16 10:19:30,178 [INFO]   [SAVE] section_7.mp3 (43.7 KB)
+2026-05-16 10:19:31,379 [INFO] 
+════════════════════════════════════════════════════════════
+2026-05-16 10:19:31,379 [INFO] Pipeline complete | Generated: 7 | Skipped: 0 | Failed: 0
+2026-05-16 10:19:31,379 [INFO] Estimated character usage: 2136
+2026-05-16 10:19:31,379 [INFO] ════════════════════════════════════════════════════════════
+
+2026-05-16 10:19:43,889 [INFO]   [SAVE] section_1.mp3 (473.5 KB)
+2026-05-16 10:19:45,090 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:19:47,165 [INFO]   [SAVE] section_2.mp3 (23.7 KB)
+2026-05-16 10:19:48,367 [INFO]   [GEN] Generating section_3.mp3 (129 chars)
+2026-05-16 10:19:54,751 [INFO]   [SAVE] section_3.mp3 (118.4 KB)
+2026-05-16 10:19:55,952 [INFO]   [GEN] Generating section_4.mp3 (77 chars)
+2026-05-16 10:20:00,003 [INFO]   [SAVE] section_4.mp3 (74.7 KB)
+2026-05-16 10:20:01,204 [INFO] 
+Processing Module: mod_1_5
+2026-05-16 10:20:01,205 [INFO]   [GEN] Generating section_1.mp3 (487 chars)
+2026-05-16 10:20:18,830 [INFO]   [SAVE] section_1.mp3 (478.4 KB)
+2026-05-16 10:20:20,031 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:20:22,452 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:20:23,653 [INFO]   [GEN] Generating section_3.mp3 (150 chars)
+2026-05-16 10:20:29,785 [INFO]   [SAVE] section_3.mp3 (120.9 KB)
+2026-05-16 10:20:30,986 [INFO]   [GEN] Generating section_4.mp3 (84 chars)
+2026-05-16 10:20:35,273 [INFO]   [SAVE] section_4.mp3 (67.4 KB)
+2026-05-16 10:20:36,474 [INFO] 
+Processing Module: mod_1_5a
+2026-05-16 10:20:36,475 [INFO]   [GEN] Generating section_1.mp3 (489 chars)
+2026-05-16 10:20:55,871 [INFO]   [SAVE] section_1.mp3 (428.6 KB)
+2026-05-16 10:20:57,072 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:20:59,337 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:21:00,539 [INFO]   [GEN] Generating section_3.mp3 (132 chars)
+2026-05-16 10:21:06,757 [INFO]   [SAVE] section_3.mp3 (113.5 KB)
+2026-05-16 10:21:07,958 [INFO]   [GEN] Generating section_4.mp3 (95 chars)
+2026-05-16 10:21:12,839 [INFO]   [SAVE] section_4.mp3 (93.5 KB)
+2026-05-16 10:21:14,040 [INFO] 
+Processing Module: mod_1_5b
+2026-05-16 10:21:14,040 [INFO]   [GEN] Generating section_1.mp3 (761 chars)
+2026-05-16 10:21:38,088 [INFO]   [SAVE] section_1.mp3 (631.1 KB)
+2026-05-16 10:21:39,289 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:21:41,406 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:21:42,607 [INFO]   [GEN] Generating section_3.mp3 (206 chars)
+2026-05-16 10:21:49,655 [INFO]   [SAVE] section_3.mp3 (160.9 KB)
+2026-05-16 10:21:50,856 [INFO]   [GEN] Generating section_4.mp3 (93 chars)
+2026-05-16 10:21:54,820 [INFO]   [SAVE] section_4.mp3 (74.7 KB)
+2026-05-16 10:21:56,020 [INFO] 
+Processing Module: mod_1_5c
+2026-05-16 10:21:56,020 [INFO]   [GEN] Generating section_1.mp3 (719 chars)
+2026-05-16 10:22:24,711 [INFO]   [SAVE] section_1.mp3 (628.6 KB)
+2026-05-16 10:22:25,912 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:22:27,965 [INFO]   [SAVE] section_2.mp3 (34.7 KB)
+2026-05-16 10:22:29,166 [INFO]   [GEN] Generating section_3.mp3 (115 chars)
+2026-05-16 10:22:33,543 [INFO]   [SAVE] section_3.mp3 (92.3 KB)
+2026-05-16 10:22:34,744 [INFO]   [GEN] Generating section_4.mp3 (95 chars)
+2026-05-16 10:22:38,322 [INFO]   [SAVE] section_4.mp3 (76.0 KB)
+2026-05-16 10:22:39,523 [INFO] 
+Processing Module: mod_1_6
+2026-05-16 10:22:39,523 [INFO]   [GEN] Generating section_1.mp3 (702 chars)
+2026-05-16 10:23:00,548 [INFO]   [SAVE] section_1.mp3 (567.4 KB)
+2026-05-16 10:23:01,749 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:23:03,747 [INFO]   [SAVE] section_2.mp3 (23.7 KB)
+2026-05-16 10:23:04,948 [INFO]   [GEN] Generating section_3.mp3 (167 chars)
+2026-05-16 10:23:12,023 [INFO]   [SAVE] section_3.mp3 (133.5 KB)
+2026-05-16 10:23:13,224 [INFO]   [GEN] Generating section_4.mp3 (96 chars)
+2026-05-16 10:23:17,589 [INFO]   [SAVE] section_4.mp3 (73.5 KB)
+2026-05-16 10:23:18,790 [INFO] 
+Processing Module: mod_1_7
+2026-05-16 10:23:18,790 [INFO]   [GEN] Generating section_1.mp3 (717 chars)
+2026-05-16 10:23:43,499 [INFO]   [SAVE] section_1.mp3 (624.9 KB)
+2026-05-16 10:23:44,700 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:23:46,624 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:23:47,825 [INFO]   [GEN] Generating section_3.mp3 (107 chars)
+2026-05-16 10:23:52,414 [INFO]   [SAVE] section_3.mp3 (87.4 KB)
+2026-05-16 10:23:53,615 [INFO]   [GEN] Generating section_4.mp3 (73 chars)
+2026-05-16 10:23:56,643 [INFO]   [SAVE] section_4.mp3 (56.0 KB)
+2026-05-16 10:23:57,844 [INFO] 
+Processing Module: mod_1_7a
+2026-05-16 10:23:57,844 [INFO]   [GEN] Generating section_1.mp3 (652 chars)
+2026-05-16 10:24:21,271 [INFO]   [SAVE] section_1.mp3 (566.2 KB)
+2026-05-16 10:24:22,472 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:24:24,475 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:24:25,676 [INFO]   [GEN] Generating section_3.mp3 (158 chars)
+2026-05-16 10:24:30,964 [INFO]   [SAVE] section_3.mp3 (132.3 KB)
+2026-05-16 10:24:32,165 [INFO]   [GEN] Generating section_4.mp3 (68 chars)
+2026-05-16 10:24:35,502 [INFO]   [SAVE] section_4.mp3 (54.7 KB)
+2026-05-16 10:24:36,703 [INFO] 
+Processing Module: mod_1_8
+2026-05-16 10:24:36,703 [INFO]   [GEN] Generating section_1.mp3 (649 chars)
+2026-05-16 10:24:57,157 [INFO]   [SAVE] section_1.mp3 (537.2 KB)
+2026-05-16 10:24:58,358 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:24:59,987 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:25:01,188 [INFO]   [GEN] Generating section_3.mp3 (97 chars)
+2026-05-16 10:25:05,481 [INFO]   [SAVE] section_3.mp3 (79.6 KB)
+2026-05-16 10:25:06,683 [INFO]   [GEN] Generating section_4.mp3 (44 chars)
+2026-05-16 10:25:08,971 [INFO]   [SAVE] section_4.mp3 (40.9 KB)
+2026-05-16 10:25:10,172 [INFO] 
+Processing Module: mod_2_1
+2026-05-16 10:25:10,172 [INFO]   [GEN] Generating section_1.mp3 (624 chars)
+2026-05-16 10:25:31,498 [INFO]   [SAVE] section_1.mp3 (539.6 KB)
+2026-05-16 10:25:32,699 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:25:34,473 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:25:35,675 [INFO]   [GEN] Generating section_3.mp3 (153 chars)
+2026-05-16 10:25:49,027 [INFO]   [SAVE] section_3.mp3 (131.1 KB)
+2026-05-16 10:25:50,228 [INFO]   [GEN] Generating section_4.mp3 (92 chars)
+2026-05-16 10:25:54,182 [INFO]   [SAVE] section_4.mp3 (72.3 KB)
+2026-05-16 10:25:55,383 [INFO] 
+Processing Module: mod_2_2
+2026-05-16 10:25:55,383 [INFO]   [GEN] Generating section_1.mp3 (683 chars)
+2026-05-16 10:26:16,460 [INFO]   [SAVE] section_1.mp3 (611.1 KB)
+2026-05-16 10:26:17,661 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:26:19,400 [INFO]   [SAVE] section_2.mp3 (23.7 KB)
+2026-05-16 10:26:20,600 [INFO]   [GEN] Generating section_3.mp3 (136 chars)
+2026-05-16 10:26:25,660 [INFO]   [SAVE] section_3.mp3 (114.7 KB)
+2026-05-16 10:26:26,861 [INFO]   [GEN] Generating section_4.mp3 (92 chars)
+2026-05-16 10:26:31,424 [INFO]   [SAVE] section_4.mp3 (68.6 KB)
+2026-05-16 10:26:32,627 [INFO] 
+Processing Module: mod_2_3
+2026-05-16 10:26:32,628 [INFO]   [GEN] Generating section_1.mp3 (570 chars)
+2026-05-16 10:26:54,165 [INFO]   [SAVE] section_1.mp3 (568.6 KB)
+2026-05-16 10:26:55,366 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:26:57,334 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 10:26:58,535 [INFO]   [GEN] Generating section_3.mp3 (127 chars)
+2026-05-16 10:27:05,057 [INFO]   [SAVE] section_3.mp3 (100.9 KB)
+2026-05-16 10:27:06,257 [INFO]   [GEN] Generating section_4.mp3 (87 chars)
+2026-05-16 10:27:10,389 [INFO]   [SAVE] section_4.mp3 (71.1 KB)
+2026-05-16 10:27:11,590 [INFO] 
+Processing Module: mod_2_4
+2026-05-16 10:27:11,591 [INFO]   [GEN] Generating section_1.mp3 (572 chars)
+2026-05-16 10:27:31,912 [INFO]   [SAVE] section_1.mp3 (592.3 KB)
+2026-05-16 10:27:33,113 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:27:34,969 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:27:36,169 [INFO]   [GEN] Generating section_3.mp3 (102 chars)
+2026-05-16 10:27:40,361 [INFO]   [SAVE] section_3.mp3 (92.3 KB)
+2026-05-16 10:27:41,562 [INFO]   [GEN] Generating section_4.mp3 (86 chars)
+2026-05-16 10:27:45,274 [INFO]   [SAVE] section_4.mp3 (69.8 KB)
+2026-05-16 10:27:46,475 [INFO] 
+Processing Module: mod_2_5
+2026-05-16 10:27:46,475 [INFO]   [GEN] Generating section_1.mp3 (607 chars)
+2026-05-16 10:28:10,280 [INFO]   [SAVE] section_1.mp3 (578.4 KB)
+2026-05-16 10:28:11,481 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:28:13,339 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:28:14,540 [INFO]   [GEN] Generating section_3.mp3 (144 chars)
+2026-05-16 10:28:19,804 [INFO]   [SAVE] section_3.mp3 (126.2 KB)
+2026-05-16 10:28:21,005 [INFO]   [GEN] Generating section_4.mp3 (67 chars)
+2026-05-16 10:28:24,269 [INFO]   [SAVE] section_4.mp3 (54.7 KB)
+2026-05-16 10:28:25,470 [INFO] 
+Processing Module: mod_2_6
+2026-05-16 10:28:25,470 [INFO]   [GEN] Generating section_1.mp3 (574 chars)
+2026-05-16 10:28:44,342 [INFO]   [SAVE] section_1.mp3 (524.9 KB)
+2026-05-16 10:28:45,543 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:28:47,598 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 10:28:48,798 [INFO]   [GEN] Generating section_3.mp3 (148 chars)
+2026-05-16 10:28:54,482 [INFO]   [SAVE] section_3.mp3 (122.5 KB)
+2026-05-16 10:28:55,683 [INFO]   [GEN] Generating section_4.mp3 (94 chars)
+2026-05-16 10:28:59,422 [INFO]   [SAVE] section_4.mp3 (73.5 KB)
+2026-05-16 10:29:00,623 [INFO] 
+Processing Module: mod_2_7
+2026-05-16 10:29:00,623 [INFO]   [GEN] Generating section_1.mp3 (621 chars)
+2026-05-16 10:29:20,867 [INFO]   [SAVE] section_1.mp3 (538.4 KB)
+2026-05-16 10:29:22,068 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:29:24,208 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:29:25,409 [INFO]   [GEN] Generating section_3.mp3 (153 chars)
+2026-05-16 10:29:31,133 [INFO]   [SAVE] section_3.mp3 (140.9 KB)
+2026-05-16 10:29:32,334 [INFO]   [GEN] Generating section_4.mp3 (90 chars)
+2026-05-16 10:29:36,140 [INFO]   [SAVE] section_4.mp3 (71.1 KB)
+2026-05-16 10:29:37,340 [INFO] 
+Processing Module: mod_2_8
+2026-05-16 10:29:37,341 [INFO]   [GEN] Generating section_1.mp3 (635 chars)
+2026-05-16 10:30:03,954 [INFO]   [SAVE] section_1.mp3 (567.4 KB)
+2026-05-16 10:30:05,154 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:30:07,076 [INFO]   [SAVE] section_2.mp3 (33.5 KB)
+2026-05-16 10:30:08,277 [INFO]   [GEN] Generating section_3.mp3 (118 chars)
+2026-05-16 10:30:14,271 [INFO]   [SAVE] section_3.mp3 (97.2 KB)
+2026-05-16 10:30:15,472 [INFO]   [GEN] Generating section_4.mp3 (91 chars)
+2026-05-16 10:30:19,656 [INFO]   [SAVE] section_4.mp3 (80.9 KB)
+2026-05-16 10:30:20,856 [INFO] 
+Processing Module: mod_3_1
+2026-05-16 10:30:20,857 [INFO]   [GEN] Generating section_1.mp3 (590 chars)
+2026-05-16 10:30:39,451 [INFO]   [SAVE] section_1.mp3 (443.7 KB)
+2026-05-16 10:30:40,652 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:30:42,802 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:30:44,003 [INFO]   [GEN] Generating section_3.mp3 (132 chars)
+2026-05-16 10:30:49,655 [INFO]   [SAVE] section_3.mp3 (129.8 KB)
+2026-05-16 10:30:50,856 [INFO]   [GEN] Generating section_4.mp3 (92 chars)
+2026-05-16 10:30:54,950 [INFO]   [SAVE] section_4.mp3 (69.8 KB)
+2026-05-16 10:30:56,151 [INFO] 
+Processing Module: mod_3_2
+2026-05-16 10:30:56,151 [INFO]   [GEN] Generating section_1.mp3 (564 chars)
+2026-05-16 10:31:17,746 [INFO]   [SAVE] section_1.mp3 (496.0 KB)
+2026-05-16 10:31:18,947 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:31:21,286 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 10:31:22,487 [INFO]   [GEN] Generating section_3.mp3 (98 chars)
+2026-05-16 10:31:26,885 [INFO]   [SAVE] section_3.mp3 (88.6 KB)
+2026-05-16 10:31:28,086 [INFO]   [GEN] Generating section_4.mp3 (78 chars)
+2026-05-16 10:31:31,190 [INFO]   [SAVE] section_4.mp3 (49.8 KB)
+2026-05-16 10:31:32,391 [INFO] 
+Processing Module: mod_3_3
+2026-05-16 10:31:32,391 [INFO]   [GEN] Generating section_1.mp3 (580 chars)
+2026-05-16 10:31:51,519 [INFO]   [SAVE] section_1.mp3 (517.2 KB)
+2026-05-16 10:31:52,720 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:31:54,774 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 10:31:55,974 [INFO]   [GEN] Generating section_3.mp3 (86 chars)
+2026-05-16 10:32:00,010 [INFO]   [SAVE] section_3.mp3 (71.1 KB)
+2026-05-16 10:32:01,211 [INFO]   [GEN] Generating section_4.mp3 (66 chars)
+2026-05-16 10:32:04,339 [INFO]   [SAVE] section_4.mp3 (51.1 KB)
+2026-05-16 10:32:05,539 [INFO] 
+Processing Module: mod_3_4
+2026-05-16 10:32:05,540 [INFO]   [GEN] Generating section_1.mp3 (585 chars)
+2026-05-16 10:32:30,422 [INFO]   [SAVE] section_1.mp3 (571.1 KB)
+2026-05-16 10:32:31,623 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:32:33,854 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 10:32:35,055 [INFO]   [GEN] Generating section_3.mp3 (101 chars)
+2026-05-16 10:32:40,315 [INFO]   [SAVE] section_3.mp3 (86.2 KB)
+2026-05-16 10:32:41,516 [INFO]   [GEN] Generating section_4.mp3 (69 chars)
+2026-05-16 10:32:44,454 [INFO]   [SAVE] section_4.mp3 (63.7 KB)
+2026-05-16 10:32:45,655 [INFO] 
+Processing Module: mod_3_5
+2026-05-16 10:32:45,656 [INFO]   [GEN] Generating section_1.mp3 (587 chars)
+2026-05-16 10:33:10,862 [INFO]   [SAVE] section_1.mp3 (513.5 KB)
+2026-05-16 10:33:12,063 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:33:14,690 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:33:15,891 [INFO]   [GEN] Generating section_3.mp3 (103 chars)
+2026-05-16 10:33:21,085 [INFO]   [SAVE] section_3.mp3 (83.7 KB)
+2026-05-16 10:33:22,286 [INFO]   [GEN] Generating section_4.mp3 (82 chars)
+2026-05-16 10:33:26,255 [INFO]   [SAVE] section_4.mp3 (63.7 KB)
+2026-05-16 10:33:27,456 [INFO] 
+Processing Module: mod_3_6
+2026-05-16 10:33:27,456 [INFO]   [GEN] Generating section_1.mp3 (597 chars)
+2026-05-16 10:34:02,020 [INFO]   [SAVE] section_1.mp3 (558.4 KB)
+2026-05-16 10:34:03,221 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:34:05,317 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:34:06,517 [INFO]   [GEN] Generating section_3.mp3 (96 chars)
+2026-05-16 10:34:11,485 [INFO]   [SAVE] section_3.mp3 (78.4 KB)
+2026-05-16 10:34:12,686 [INFO]   [GEN] Generating section_4.mp3 (81 chars)
+2026-05-16 10:34:16,954 [INFO]   [SAVE] section_4.mp3 (59.6 KB)
+2026-05-16 10:34:18,155 [INFO] 
+Processing Module: mod_3_7
+2026-05-16 10:34:18,155 [INFO]   [GEN] Generating section_1.mp3 (579 chars)
+2026-05-16 10:34:40,581 [INFO]   [SAVE] section_1.mp3 (547.4 KB)
+2026-05-16 10:34:41,782 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:34:43,902 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:34:45,103 [INFO]   [GEN] Generating section_3.mp3 (108 chars)
+2026-05-16 10:34:49,642 [INFO]   [SAVE] section_3.mp3 (84.9 KB)
+2026-05-16 10:34:50,842 [INFO]   [GEN] Generating section_4.mp3 (91 chars)
+2026-05-16 10:34:55,386 [INFO]   [SAVE] section_4.mp3 (72.3 KB)
+2026-05-16 10:34:56,587 [INFO] 
+Processing Module: mod_3_7a
+2026-05-16 10:34:56,587 [INFO]   [GEN] Generating section_1.mp3 (540 chars)
+2026-05-16 10:35:20,992 [INFO]   [SAVE] section_1.mp3 (477.2 KB)
+2026-05-16 10:35:22,193 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:35:24,347 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:35:25,548 [INFO]   [GEN] Generating section_3.mp3 (110 chars)
+2026-05-16 10:35:31,468 [INFO]   [SAVE] section_3.mp3 (87.4 KB)
+2026-05-16 10:35:32,669 [INFO]   [GEN] Generating section_4.mp3 (87 chars)
+2026-05-16 10:35:36,915 [INFO]   [SAVE] section_4.mp3 (69.8 KB)
+2026-05-16 10:35:38,123 [INFO] 
+Processing Module: mod_3_7b
+2026-05-16 10:35:38,124 [INFO]   [GEN] Generating section_1.mp3 (528 chars)
+2026-05-16 10:35:57,808 [INFO]   [SAVE] section_1.mp3 (437.2 KB)
+2026-05-16 10:35:59,009 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:36:01,074 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:36:02,275 [INFO]   [GEN] Generating section_3.mp3 (128 chars)
+2026-05-16 10:36:08,569 [INFO]   [SAVE] section_3.mp3 (98.4 KB)
+2026-05-16 10:36:09,770 [INFO]   [GEN] Generating section_4.mp3 (76 chars)
+2026-05-16 10:36:14,377 [INFO]   [SAVE] section_4.mp3 (60.9 KB)
+2026-05-16 10:36:15,577 [INFO] 
+Processing Module: mod_3_8
+2026-05-16 10:36:15,578 [INFO]   [GEN] Generating section_1.mp3 (579 chars)
+2026-05-16 10:36:41,474 [INFO]   [SAVE] section_1.mp3 (491.1 KB)
+2026-05-16 10:36:42,675 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:36:44,534 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:36:45,735 [INFO]   [GEN] Generating section_3.mp3 (130 chars)
+2026-05-16 10:36:52,042 [INFO]   [SAVE] section_3.mp3 (108.6 KB)
+2026-05-16 10:36:53,243 [INFO]   [GEN] Generating section_4.mp3 (82 chars)
+2026-05-16 10:36:57,778 [INFO]   [SAVE] section_4.mp3 (64.9 KB)
+2026-05-16 10:36:58,979 [INFO] 
+Processing Module: mod_4_1
+2026-05-16 10:36:58,980 [INFO]   [GEN] Generating section_1.mp3 (750 chars)
+2026-05-16 10:37:25,623 [INFO]   [SAVE] section_1.mp3 (649.8 KB)
+2026-05-16 10:37:26,824 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:37:28,712 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:37:29,913 [INFO]   [GEN] Generating section_3.mp3 (146 chars)
+2026-05-16 10:37:38,043 [INFO]   [SAVE] section_3.mp3 (163.7 KB)
+2026-05-16 10:37:39,244 [INFO]   [GEN] Generating section_4.mp3 (98 chars)
+2026-05-16 10:37:43,617 [INFO]   [SAVE] section_4.mp3 (79.6 KB)
+2026-05-16 10:37:44,818 [INFO] 
+Processing Module: mod_4_1a
+2026-05-16 10:37:44,818 [INFO]   [GEN] Generating section_1.mp3 (616 chars)
+2026-05-16 10:38:11,422 [INFO]   [SAVE] section_1.mp3 (529.8 KB)
+2026-05-16 10:38:12,623 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:38:14,837 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:38:16,038 [INFO]   [GEN] Generating section_3.mp3 (129 chars)
+2026-05-16 10:38:22,439 [INFO]   [SAVE] section_3.mp3 (114.7 KB)
+2026-05-16 10:38:23,640 [INFO]   [GEN] Generating section_4.mp3 (72 chars)
+2026-05-16 10:38:26,032 [INFO]   [SAVE] section_4.mp3 (63.7 KB)
+2026-05-16 10:38:27,232 [INFO] 
+Processing Module: mod_4_2
+2026-05-16 10:38:27,233 [INFO]   [GEN] Generating section_1.mp3 (624 chars)
+2026-05-16 10:38:47,810 [INFO]   [SAVE] section_1.mp3 (562.5 KB)
+2026-05-16 10:38:49,011 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:38:51,179 [INFO]   [SAVE] section_2.mp3 (23.7 KB)
+2026-05-16 10:38:52,380 [INFO]   [GEN] Generating section_3.mp3 (183 chars)
+2026-05-16 10:39:00,257 [INFO]   [SAVE] section_3.mp3 (164.9 KB)
+2026-05-16 10:39:01,458 [INFO]   [GEN] Generating section_4.mp3 (119 chars)
+2026-05-16 10:39:07,550 [INFO]   [SAVE] section_4.mp3 (108.6 KB)
+2026-05-16 10:39:08,751 [INFO] 
+Processing Module: mod_4_2a
+2026-05-16 10:39:08,752 [INFO]   [GEN] Generating section_1.mp3 (626 chars)
+2026-05-16 10:39:32,212 [INFO]   [SAVE] section_1.mp3 (548.6 KB)
+2026-05-16 10:39:33,413 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:39:35,492 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:39:36,692 [INFO]   [GEN] Generating section_3.mp3 (140 chars)
+2026-05-16 10:39:42,611 [INFO]   [SAVE] section_3.mp3 (139.6 KB)
+2026-05-16 10:39:43,811 [INFO]   [GEN] Generating section_4.mp3 (102 chars)
+2026-05-16 10:39:49,109 [INFO]   [SAVE] section_4.mp3 (80.9 KB)
+2026-05-16 10:39:50,310 [INFO] 
+Processing Module: mod_4_2b
+2026-05-16 10:39:50,310 [INFO]   [GEN] Generating section_1.mp3 (646 chars)
+2026-05-16 10:40:12,598 [INFO]   [SAVE] section_1.mp3 (563.7 KB)
+2026-05-16 10:40:13,799 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:40:15,768 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 10:40:16,969 [INFO]   [GEN] Generating section_3.mp3 (133 chars)
+2026-05-16 10:40:23,853 [INFO]   [SAVE] section_3.mp3 (138.4 KB)
+2026-05-16 10:40:25,054 [INFO]   [GEN] Generating section_4.mp3 (98 chars)
+2026-05-16 10:40:29,384 [INFO]   [SAVE] section_4.mp3 (86.2 KB)
+2026-05-16 10:40:30,585 [INFO] 
+Processing Module: mod_4_3
+2026-05-16 10:40:30,586 [INFO]   [GEN] Generating section_1.mp3 (572 chars)
+2026-05-16 10:40:51,927 [INFO]   [SAVE] section_1.mp3 (507.4 KB)
+2026-05-16 10:40:53,128 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:40:55,009 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:40:56,210 [INFO]   [GEN] Generating section_3.mp3 (111 chars)
+2026-05-16 10:41:00,659 [INFO]   [SAVE] section_3.mp3 (98.4 KB)
+2026-05-16 10:41:01,860 [INFO]   [GEN] Generating section_4.mp3 (108 chars)
+2026-05-16 10:41:05,873 [INFO]   [SAVE] section_4.mp3 (83.7 KB)
+2026-05-16 10:41:07,074 [INFO] 
+Processing Module: mod_4_4
+2026-05-16 10:41:07,074 [INFO]   [GEN] Generating section_1.mp3 (613 chars)
+2026-05-16 10:41:27,519 [INFO]   [SAVE] section_1.mp3 (537.2 KB)
+2026-05-16 10:41:28,719 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:41:30,838 [INFO]   [SAVE] section_2.mp3 (34.7 KB)
+2026-05-16 10:41:32,039 [INFO]   [GEN] Generating section_3.mp3 (119 chars)
+2026-05-16 10:41:36,839 [INFO]   [SAVE] section_3.mp3 (109.8 KB)
+2026-05-16 10:41:38,040 [INFO]   [GEN] Generating section_4.mp3 (96 chars)
+2026-05-16 10:41:41,926 [INFO]   [SAVE] section_4.mp3 (87.4 KB)
+2026-05-16 10:41:43,126 [INFO] 
+Processing Module: mod_4_4a
+2026-05-16 10:41:43,127 [INFO]   [GEN] Generating section_1.mp3 (607 chars)
+2026-05-16 10:42:01,140 [INFO]   [SAVE] section_1.mp3 (504.9 KB)
+2026-05-16 10:42:02,341 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:42:04,335 [INFO]   [SAVE] section_2.mp3 (23.7 KB)
+2026-05-16 10:42:05,536 [INFO]   [GEN] Generating section_3.mp3 (105 chars)
+2026-05-16 10:42:09,975 [INFO]   [SAVE] section_3.mp3 (87.4 KB)
+2026-05-16 10:42:11,176 [INFO]   [GEN] Generating section_4.mp3 (95 chars)
+2026-05-16 10:42:16,078 [INFO]   [SAVE] section_4.mp3 (100.9 KB)
+2026-05-16 10:42:17,278 [INFO] 
+Processing Module: mod_4_5
+2026-05-16 10:42:17,279 [INFO]   [GEN] Generating section_1.mp3 (570 chars)
+2026-05-16 10:42:36,039 [INFO]   [SAVE] section_1.mp3 (478.4 KB)
+2026-05-16 10:42:37,240 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:42:39,081 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:42:40,282 [INFO]   [GEN] Generating section_3.mp3 (156 chars)
+2026-05-16 10:42:46,665 [INFO]   [SAVE] section_3.mp3 (178.4 KB)
+2026-05-16 10:42:47,866 [INFO]   [GEN] Generating section_4.mp3 (99 chars)
+2026-05-16 10:42:51,938 [INFO]   [SAVE] section_4.mp3 (80.9 KB)
+2026-05-16 10:42:53,139 [INFO] 
+Processing Module: mod_4_5a
+2026-05-16 10:42:53,139 [INFO]   [GEN] Generating section_1.mp3 (653 chars)
+2026-05-16 10:43:14,392 [INFO]   [SAVE] section_1.mp3 (599.6 KB)
+2026-05-16 10:43:15,593 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:43:17,585 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:43:18,785 [INFO]   [GEN] Generating section_3.mp3 (113 chars)
+2026-05-16 10:43:23,452 [INFO]   [SAVE] section_3.mp3 (122.5 KB)
+2026-05-16 10:43:24,653 [INFO]   [GEN] Generating section_4.mp3 (113 chars)
+2026-05-16 10:43:29,026 [INFO]   [SAVE] section_4.mp3 (98.4 KB)
+2026-05-16 10:43:30,227 [INFO] 
+Processing Module: mod_4_6
+2026-05-16 10:43:30,227 [INFO]   [GEN] Generating section_1.mp3 (528 chars)
+2026-05-16 10:43:44,205 [INFO]   [SAVE] section_1.mp3 (418.4 KB)
+2026-05-16 10:43:45,406 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:43:47,493 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:43:48,693 [INFO]   [GEN] Generating section_3.mp3 (105 chars)
+2026-05-16 10:43:52,448 [INFO]   [SAVE] section_3.mp3 (68.6 KB)
+2026-05-16 10:43:53,649 [INFO]   [GEN] Generating section_4.mp3 (104 chars)
+2026-05-16 10:43:57,668 [INFO]   [SAVE] section_4.mp3 (83.7 KB)
+2026-05-16 10:43:58,869 [INFO] 
+Processing Module: mod_4_7
+2026-05-16 10:43:58,869 [INFO]   [GEN] Generating section_1.mp3 (560 chars)
+2026-05-16 10:44:15,570 [INFO]   [SAVE] section_1.mp3 (499.6 KB)
+2026-05-16 10:44:16,771 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:44:18,625 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:44:19,826 [INFO]   [GEN] Generating section_3.mp3 (106 chars)
+2026-05-16 10:44:24,038 [INFO]   [SAVE] section_3.mp3 (87.4 KB)
+2026-05-16 10:44:25,239 [INFO]   [GEN] Generating section_4.mp3 (79 chars)
+2026-05-16 10:44:28,484 [INFO]   [SAVE] section_4.mp3 (59.6 KB)
+2026-05-16 10:44:29,685 [INFO] 
+Processing Module: mod_4_8
+2026-05-16 10:44:29,685 [INFO]   [GEN] Generating section_1.mp3 (491 chars)
+2026-05-16 10:44:43,758 [INFO]   [SAVE] section_1.mp3 (422.5 KB)
+2026-05-16 10:44:44,959 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:44:46,799 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 10:44:47,999 [INFO]   [GEN] Generating section_3.mp3 (92 chars)
+2026-05-16 10:44:52,174 [INFO]   [SAVE] section_3.mp3 (94.7 KB)
+2026-05-16 10:44:53,375 [INFO]   [GEN] Generating section_4.mp3 (101 chars)
+2026-05-16 10:44:57,272 [INFO]   [SAVE] section_4.mp3 (80.9 KB)
+2026-05-16 10:44:58,473 [INFO] 
+Processing Module: mod_5_1
+2026-05-16 10:44:58,473 [INFO]   [GEN] Generating section_1.mp3 (742 chars)
+2026-05-16 10:45:24,298 [INFO]   [SAVE] section_1.mp3 (632.3 KB)
+2026-05-16 10:45:25,499 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:45:27,460 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:45:28,661 [INFO]   [GEN] Generating section_3.mp3 (97 chars)
+2026-05-16 10:45:33,246 [INFO]   [SAVE] section_3.mp3 (112.3 KB)
+2026-05-16 10:45:34,447 [INFO]   [GEN] Generating section_4.mp3 (101 chars)
+2026-05-16 10:45:39,110 [INFO]   [SAVE] section_4.mp3 (84.9 KB)
+2026-05-16 10:45:40,311 [INFO] 
+Processing Module: mod_5_2
+2026-05-16 10:45:40,312 [INFO]   [GEN] Generating section_1.mp3 (710 chars)
+2026-05-16 10:46:03,984 [INFO]   [SAVE] section_1.mp3 (611.1 KB)
+2026-05-16 10:46:05,185 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:46:07,013 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:46:08,215 [INFO]   [GEN] Generating section_3.mp3 (106 chars)
+2026-05-16 10:46:13,017 [INFO]   [SAVE] section_3.mp3 (93.5 KB)
+2026-05-16 10:46:14,218 [INFO]   [GEN] Generating section_4.mp3 (85 chars)
+2026-05-16 10:46:17,820 [INFO]   [SAVE] section_4.mp3 (72.3 KB)
+2026-05-16 10:46:19,020 [INFO] 
+Processing Module: mod_5_3
+2026-05-16 10:46:19,021 [INFO]   [GEN] Generating section_1.mp3 (640 chars)
+2026-05-16 10:46:42,303 [INFO]   [SAVE] section_1.mp3 (556.0 KB)
+2026-05-16 10:46:43,504 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:46:45,624 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:46:46,825 [INFO]   [GEN] Generating section_3.mp3 (83 chars)
+2026-05-16 10:46:50,699 [INFO]   [SAVE] section_3.mp3 (69.8 KB)
+2026-05-16 10:46:51,900 [INFO]   [GEN] Generating section_4.mp3 (83 chars)
+2026-05-16 10:46:55,453 [INFO]   [SAVE] section_4.mp3 (66.2 KB)
+2026-05-16 10:46:56,654 [INFO] 
+Processing Module: mod_5_4
+2026-05-16 10:46:56,655 [INFO]   [GEN] Generating section_1.mp3 (638 chars)
+2026-05-16 10:47:19,504 [INFO]   [SAVE] section_1.mp3 (543.7 KB)
+2026-05-16 10:47:20,704 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:47:22,817 [INFO]   [SAVE] section_2.mp3 (28.6 KB)
+2026-05-16 10:47:24,018 [INFO]   [GEN] Generating section_3.mp3 (81 chars)
+2026-05-16 10:47:27,058 [INFO]   [SAVE] section_3.mp3 (49.8 KB)
+2026-05-16 10:47:28,259 [INFO]   [GEN] Generating section_4.mp3 (83 chars)
+2026-05-16 10:47:32,050 [INFO]   [SAVE] section_4.mp3 (67.4 KB)
+2026-05-16 10:47:33,251 [INFO] 
+Processing Module: mod_5_5
+2026-05-16 10:47:33,252 [INFO]   [GEN] Generating section_1.mp3 (599 chars)
+2026-05-16 10:47:50,892 [INFO]   [SAVE] section_1.mp3 (518.4 KB)
+2026-05-16 10:47:52,093 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:47:53,931 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 10:47:55,132 [INFO]   [GEN] Generating section_3.mp3 (104 chars)
+2026-05-16 10:47:58,806 [INFO]   [SAVE] section_3.mp3 (84.9 KB)
+2026-05-16 10:48:00,007 [INFO]   [GEN] Generating section_4.mp3 (96 chars)
+2026-05-16 10:48:03,963 [INFO]   [SAVE] section_4.mp3 (72.3 KB)
+2026-05-16 10:48:05,164 [INFO] 
+Processing Module: mod_5_5a
+2026-05-16 10:48:05,164 [INFO]   [GEN] Generating section_1.mp3 (774 chars)
+2026-05-16 10:48:29,481 [INFO]   [SAVE] section_1.mp3 (666.2 KB)
+2026-05-16 10:48:30,682 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:48:33,098 [INFO]   [SAVE] section_2.mp3 (47.4 KB)
+2026-05-16 10:48:34,299 [INFO]   [GEN] Generating section_3.mp3 (109 chars)
+2026-05-16 10:48:38,673 [INFO]   [SAVE] section_3.mp3 (83.7 KB)
+2026-05-16 10:48:39,874 [INFO]   [GEN] Generating section_4.mp3 (82 chars)
+2026-05-16 10:48:43,752 [INFO]   [SAVE] section_4.mp3 (63.7 KB)
+2026-05-16 10:48:44,953 [INFO] 
+Processing Module: mod_5_5b
+2026-05-16 10:48:44,954 [INFO]   [GEN] Generating section_1.mp3 (720 chars)
+2026-05-16 10:49:09,866 [INFO]   [SAVE] section_1.mp3 (614.7 KB)
+2026-05-16 10:49:11,067 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:49:13,184 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 10:49:14,385 [INFO]   [GEN] Generating section_3.mp3 (85 chars)
+2026-05-16 10:49:18,682 [INFO]   [SAVE] section_3.mp3 (74.7 KB)
+2026-05-16 10:49:19,882 [INFO]   [GEN] Generating section_4.mp3 (81 chars)
+2026-05-16 10:49:23,968 [INFO]   [SAVE] section_4.mp3 (60.9 KB)
+2026-05-16 10:49:25,169 [INFO] 
+Processing Module: mod_5_5c
+2026-05-16 10:49:25,169 [INFO]   [GEN] Generating section_1.mp3 (717 chars)
+2026-05-16 10:49:53,094 [INFO]   [SAVE] section_1.mp3 (666.2 KB)
+2026-05-16 10:49:54,295 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:49:56,415 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 10:49:57,615 [INFO]   [GEN] Generating section_3.mp3 (110 chars)
+2026-05-16 10:50:03,111 [INFO]   [SAVE] section_3.mp3 (82.5 KB)
+2026-05-16 10:50:04,312 [INFO]   [GEN] Generating section_4.mp3 (88 chars)
+2026-05-16 10:50:08,574 [INFO]   [SAVE] section_4.mp3 (67.4 KB)
+2026-05-16 10:50:09,774 [INFO] 
+Processing Module: mod_5_5d
+2026-05-16 10:50:09,775 [INFO]   [GEN] Generating section_1.mp3 (693 chars)
+2026-05-16 10:50:35,663 [INFO]   [SAVE] section_1.mp3 (632.3 KB)
+2026-05-16 10:50:36,864 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:50:39,339 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 10:50:40,540 [INFO] 
+Processing Module: mod_5_6
+2026-05-16 10:50:40,540 [INFO]   [GEN] Generating section_1.mp3 (564 chars)
+2026-05-16 10:50:55,954 [INFO]   [SAVE] section_1.mp3 (457.2 KB)
+2026-05-16 10:50:57,155 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:50:59,271 [INFO]   [SAVE] section_2.mp3 (23.7 KB)
+2026-05-16 10:51:00,472 [INFO]   [GEN] Generating section_3.mp3 (132 chars)
+2026-05-16 10:51:05,524 [INFO]   [SAVE] section_3.mp3 (94.7 KB)
+2026-05-16 10:51:06,725 [INFO]   [GEN] Generating section_4.mp3 (98 chars)
+2026-05-16 10:51:10,639 [INFO]   [SAVE] section_4.mp3 (80.9 KB)
+2026-05-16 10:51:11,840 [INFO] 
+Processing Module: mod_5_7
+2026-05-16 10:51:11,840 [INFO]   [GEN] Generating section_1.mp3 (550 chars)
+2026-05-16 10:51:31,956 [INFO]   [SAVE] section_1.mp3 (452.3 KB)
+2026-05-16 10:51:33,157 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:51:35,211 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 10:51:36,411 [INFO]   [GEN] Generating section_3.mp3 (134 chars)
+2026-05-16 10:51:40,703 [INFO]   [SAVE] section_3.mp3 (109.8 KB)
+2026-05-16 10:51:41,903 [INFO]   [GEN] Generating section_4.mp3 (91 chars)
+2026-05-16 10:51:46,464 [INFO]   [SAVE] section_4.mp3 (73.5 KB)
+2026-05-16 10:51:47,666 [INFO] 
+Processing Module: mod_5_8
+2026-05-16 10:51:47,666 [INFO]   [GEN] Generating section_1.mp3 (571 chars)
+2026-05-16 10:52:08,246 [INFO]   [SAVE] section_1.mp3 (498.4 KB)
+2026-05-16 10:52:09,447 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:52:11,252 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:52:12,453 [INFO]   [GEN] Generating section_3.mp3 (116 chars)
+2026-05-16 10:52:17,455 [INFO]   [SAVE] section_3.mp3 (100.9 KB)
+2026-05-16 10:52:18,656 [INFO]   [GEN] Generating section_4.mp3 (83 chars)
+2026-05-16 10:52:22,500 [INFO]   [SAVE] section_4.mp3 (80.9 KB)
+2026-05-16 10:52:23,701 [INFO] 
+Processing Module: mod_6_1
+2026-05-16 10:52:23,701 [INFO]   [GEN] Generating section_1.mp3 (582 chars)
+2026-05-16 10:52:47,711 [INFO]   [SAVE] section_1.mp3 (471.1 KB)
+2026-05-16 10:52:48,913 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:52:50,972 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 10:52:52,173 [INFO]   [GEN] Generating section_3.mp3 (148 chars)
+2026-05-16 10:52:59,312 [INFO]   [SAVE] section_3.mp3 (132.3 KB)
+2026-05-16 10:53:00,513 [INFO]   [GEN] Generating section_4.mp3 (92 chars)
+2026-05-16 10:53:05,023 [INFO]   [SAVE] section_4.mp3 (73.5 KB)
+2026-05-16 10:53:06,224 [INFO] 
+Processing Module: mod_6_1a
+2026-05-16 10:53:06,225 [INFO]   [GEN] Generating section_1.mp3 (535 chars)
+2026-05-16 10:53:25,956 [INFO]   [SAVE] section_1.mp3 (448.6 KB)
+2026-05-16 10:53:27,157 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:53:29,379 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 10:53:30,580 [INFO]   [GEN] Generating section_3.mp3 (107 chars)
+2026-05-16 10:53:35,522 [INFO]   [SAVE] section_3.mp3 (96.0 KB)
+2026-05-16 10:53:36,723 [INFO]   [GEN] Generating section_4.mp3 (83 chars)
+2026-05-16 10:53:39,640 [INFO]   [SAVE] section_4.mp3 (49.8 KB)
+2026-05-16 10:53:40,841 [INFO] 
+Processing Module: mod_6_2
+2026-05-16 10:53:40,842 [INFO]   [GEN] Generating section_1.mp3 (598 chars)
+2026-05-16 10:54:01,610 [INFO]   [SAVE] section_1.mp3 (491.1 KB)
+2026-05-16 10:54:02,811 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:54:04,926 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:54:06,127 [INFO]   [GEN] Generating section_3.mp3 (120 chars)
+2026-05-16 10:54:11,412 [INFO]   [SAVE] section_3.mp3 (107.4 KB)
+2026-05-16 10:54:12,613 [INFO]   [GEN] Generating section_4.mp3 (86 chars)
+2026-05-16 10:54:17,248 [INFO]   [SAVE] section_4.mp3 (71.1 KB)
+2026-05-16 10:54:18,448 [INFO] 
+Processing Module: mod_6_2a
+2026-05-16 10:54:18,449 [INFO]   [GEN] Generating section_1.mp3 (569 chars)
+2026-05-16 10:54:42,171 [INFO]   [SAVE] section_1.mp3 (502.5 KB)
+2026-05-16 10:54:43,372 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:54:45,950 [INFO]   [SAVE] section_2.mp3 (28.6 KB)
+2026-05-16 10:54:47,151 [INFO]   [GEN] Generating section_3.mp3 (129 chars)
+2026-05-16 10:54:52,692 [INFO]   [SAVE] section_3.mp3 (97.2 KB)
+2026-05-16 10:54:53,893 [INFO]   [GEN] Generating section_4.mp3 (70 chars)
+2026-05-16 10:54:56,839 [INFO]   [SAVE] section_4.mp3 (40.9 KB)
+2026-05-16 10:54:58,040 [INFO] 
+Processing Module: mod_6_3
+2026-05-16 10:54:58,041 [INFO]   [GEN] Generating section_1.mp3 (617 chars)
+2026-05-16 10:55:15,464 [INFO]   [SAVE] section_1.mp3 (496.0 KB)
+2026-05-16 10:55:16,665 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:55:18,758 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:55:19,960 [INFO]   [GEN] Generating section_3.mp3 (140 chars)
+2026-05-16 10:55:24,762 [INFO]   [SAVE] section_3.mp3 (117.2 KB)
+2026-05-16 10:55:25,963 [INFO]   [GEN] Generating section_4.mp3 (76 chars)
+2026-05-16 10:55:30,119 [INFO]   [SAVE] section_4.mp3 (58.4 KB)
+2026-05-16 10:55:31,320 [INFO] 
+Processing Module: mod_6_3a
+2026-05-16 10:55:31,320 [INFO]   [GEN] Generating section_1.mp3 (578 chars)
+2026-05-16 10:55:52,331 [INFO]   [SAVE] section_1.mp3 (517.2 KB)
+2026-05-16 10:55:53,532 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:55:55,705 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:55:56,905 [INFO]   [GEN] Generating section_3.mp3 (89 chars)
+2026-05-16 10:56:01,860 [INFO]   [SAVE] section_3.mp3 (78.4 KB)
+2026-05-16 10:56:03,061 [INFO]   [GEN] Generating section_4.mp3 (72 chars)
+2026-05-16 10:56:06,049 [INFO]   [SAVE] section_4.mp3 (47.4 KB)
+2026-05-16 10:56:07,250 [INFO] 
+Processing Module: mod_6_4
+2026-05-16 10:56:07,250 [INFO]   [GEN] Generating section_1.mp3 (617 chars)
+2026-05-16 10:56:34,185 [INFO]   [SAVE] section_1.mp3 (578.4 KB)
+2026-05-16 10:56:35,386 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:56:37,566 [INFO]   [SAVE] section_2.mp3 (24.9 KB)
+2026-05-16 10:56:38,767 [INFO]   [GEN] Generating section_3.mp3 (112 chars)
+2026-05-16 10:56:44,483 [INFO]   [SAVE] section_3.mp3 (93.5 KB)
+2026-05-16 10:56:45,684 [INFO]   [GEN] Generating section_4.mp3 (73 chars)
+2026-05-16 10:56:49,480 [INFO]   [SAVE] section_4.mp3 (56.0 KB)
+2026-05-16 10:56:50,680 [INFO] 
+Processing Module: mod_6_4a
+2026-05-16 10:56:50,680 [INFO]   [GEN] Generating section_1.mp3 (577 chars)
+2026-05-16 10:57:12,740 [INFO]   [SAVE] section_1.mp3 (518.4 KB)
+2026-05-16 10:57:13,941 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:57:16,118 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:57:17,319 [INFO]   [GEN] Generating section_3.mp3 (92 chars)
+2026-05-16 10:57:22,577 [INFO]   [SAVE] section_3.mp3 (87.4 KB)
+2026-05-16 10:57:23,777 [INFO]   [GEN] Generating section_4.mp3 (66 chars)
+2026-05-16 10:57:27,578 [INFO]   [SAVE] section_4.mp3 (57.2 KB)
+2026-05-16 10:57:28,779 [INFO] 
+Processing Module: mod_6_5
+2026-05-16 10:57:28,779 [INFO]   [GEN] Generating section_1.mp3 (635 chars)
+2026-05-16 10:57:51,407 [INFO]   [SAVE] section_1.mp3 (527.4 KB)
+2026-05-16 10:57:52,608 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:57:54,421 [INFO]   [SAVE] section_2.mp3 (22.5 KB)
+2026-05-16 10:57:55,622 [INFO]   [GEN] Generating section_3.mp3 (106 chars)
+2026-05-16 10:58:00,794 [INFO]   [SAVE] section_3.mp3 (91.1 KB)
+2026-05-16 10:58:01,995 [INFO]   [GEN] Generating section_4.mp3 (82 chars)
+2026-05-16 10:58:05,594 [INFO]   [SAVE] section_4.mp3 (63.7 KB)
+2026-05-16 10:58:06,795 [INFO] 
+Processing Module: mod_6_6
+2026-05-16 10:58:06,796 [INFO]   [GEN] Generating section_1.mp3 (574 chars)
+2026-05-16 10:58:27,791 [INFO]   [SAVE] section_1.mp3 (453.5 KB)
+2026-05-16 10:58:28,992 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:58:31,160 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 10:58:32,361 [INFO]   [GEN] Generating section_3.mp3 (100 chars)
+2026-05-16 10:58:36,949 [INFO]   [SAVE] section_3.mp3 (79.6 KB)
+2026-05-16 10:58:38,150 [INFO]   [GEN] Generating section_4.mp3 (64 chars)
+2026-05-16 10:58:41,254 [INFO]   [SAVE] section_4.mp3 (48.6 KB)
+2026-05-16 10:58:42,456 [INFO] 
+Processing Module: mod_6_7
+2026-05-16 10:58:42,457 [INFO]   [GEN] Generating section_1.mp3 (586 chars)
+2026-05-16 10:59:02,009 [INFO]   [SAVE] section_1.mp3 (502.5 KB)
+2026-05-16 10:59:03,210 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:59:05,192 [INFO]   [SAVE] section_2.mp3 (23.7 KB)
+2026-05-16 10:59:06,393 [INFO]   [GEN] Generating section_3.mp3 (111 chars)
+2026-05-16 10:59:11,198 [INFO]   [SAVE] section_3.mp3 (97.2 KB)
+2026-05-16 10:59:12,399 [INFO]   [GEN] Generating section_4.mp3 (67 chars)
+2026-05-16 10:59:16,076 [INFO]   [SAVE] section_4.mp3 (52.3 KB)
+2026-05-16 10:59:17,277 [INFO] 
+Processing Module: mod_6_8
+2026-05-16 10:59:17,278 [INFO]   [GEN] Generating section_1.mp3 (543 chars)
+2026-05-16 10:59:38,348 [INFO]   [SAVE] section_1.mp3 (498.4 KB)
+2026-05-16 10:59:39,549 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 10:59:41,966 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 10:59:43,167 [INFO]   [GEN] Generating section_3.mp3 (111 chars)
+2026-05-16 10:59:47,936 [INFO]   [SAVE] section_3.mp3 (83.7 KB)
+2026-05-16 10:59:49,137 [INFO]   [GEN] Generating section_4.mp3 (50 chars)
+2026-05-16 10:59:52,193 [INFO]   [SAVE] section_4.mp3 (51.1 KB)
+2026-05-16 10:59:53,394 [INFO] 
+Processing Module: mod_7_1
+2026-05-16 10:59:53,394 [INFO]   [GEN] Generating section_1.mp3 (563 chars)
+2026-05-16 11:00:15,631 [INFO]   [SAVE] section_1.mp3 (503.7 KB)
+2026-05-16 11:00:16,831 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 11:00:19,057 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 11:00:20,258 [INFO]   [GEN] Generating section_3.mp3 (97 chars)
+2026-05-16 11:00:24,350 [INFO]   [SAVE] section_3.mp3 (63.7 KB)
+2026-05-16 11:00:25,551 [INFO]   [GEN] Generating section_4.mp3 (61 chars)
+2026-05-16 11:00:29,222 [INFO]   [SAVE] section_4.mp3 (48.6 KB)
+2026-05-16 11:00:30,423 [INFO] 
+Processing Module: mod_7_2
+2026-05-16 11:00:30,423 [INFO]   [GEN] Generating section_1.mp3 (517 chars)
+2026-05-16 11:00:51,341 [INFO]   [SAVE] section_1.mp3 (473.5 KB)
+2026-05-16 11:00:52,541 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 11:00:54,578 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 11:00:55,779 [INFO]   [GEN] Generating section_3.mp3 (102 chars)
+2026-05-16 11:01:01,243 [INFO]   [SAVE] section_3.mp3 (82.5 KB)
+2026-05-16 11:01:02,444 [INFO]   [GEN] Generating section_4.mp3 (75 chars)
+2026-05-16 11:01:05,296 [INFO]   [SAVE] section_4.mp3 (57.2 KB)
+2026-05-16 11:01:06,497 [INFO] 
+Processing Module: mod_7_3
+2026-05-16 11:01:06,497 [INFO]   [GEN] Generating section_1.mp3 (526 chars)
+2026-05-16 11:01:27,975 [INFO]   [SAVE] section_1.mp3 (483.7 KB)
+2026-05-16 11:01:29,176 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 11:01:31,180 [INFO]   [SAVE] section_2.mp3 (23.7 KB)
+2026-05-16 11:01:32,381 [INFO]   [GEN] Generating section_3.mp3 (98 chars)
+2026-05-16 11:01:37,411 [INFO]   [SAVE] section_3.mp3 (79.6 KB)
+2026-05-16 11:01:38,612 [INFO]   [GEN] Generating section_4.mp3 (80 chars)
+2026-05-16 11:01:42,835 [INFO]   [SAVE] section_4.mp3 (62.5 KB)
+2026-05-16 11:01:44,036 [INFO] 
+Processing Module: mod_7_4
+2026-05-16 11:01:44,036 [INFO]   [GEN] Generating section_1.mp3 (549 chars)
+2026-05-16 11:02:04,976 [INFO]   [SAVE] section_1.mp3 (387.4 KB)
+2026-05-16 11:02:06,177 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 11:02:08,068 [INFO]   [SAVE] section_2.mp3 (29.8 KB)
+2026-05-16 11:02:09,269 [INFO]   [GEN] Generating section_3.mp3 (101 chars)
+2026-05-16 11:02:13,634 [INFO]   [SAVE] section_3.mp3 (84.9 KB)
+2026-05-16 11:02:14,834 [INFO]   [GEN] Generating section_4.mp3 (68 chars)
+2026-05-16 11:02:18,391 [INFO]   [SAVE] section_4.mp3 (52.3 KB)
+2026-05-16 11:02:19,591 [INFO] 
+Processing Module: mod_7_5
+2026-05-16 11:02:19,592 [INFO]   [GEN] Generating section_1.mp3 (525 chars)
+2026-05-16 11:02:39,367 [INFO]   [SAVE] section_1.mp3 (467.4 KB)
+2026-05-16 11:02:40,568 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 11:02:42,515 [INFO]   [SAVE] section_2.mp3 (23.7 KB)
+2026-05-16 11:02:43,716 [INFO]   [GEN] Generating section_3.mp3 (91 chars)
+2026-05-16 11:02:48,375 [INFO]   [SAVE] section_3.mp3 (79.6 KB)
+2026-05-16 11:02:49,575 [INFO]   [GEN] Generating section_4.mp3 (69 chars)
+2026-05-16 11:02:52,626 [INFO]   [SAVE] section_4.mp3 (51.1 KB)
+2026-05-16 11:02:53,827 [INFO] 
+Processing Module: mod_7_6
+2026-05-16 11:02:53,827 [INFO]   [GEN] Generating section_1.mp3 (579 chars)
+2026-05-16 11:03:15,920 [INFO]   [SAVE] section_1.mp3 (529.8 KB)
+2026-05-16 11:03:17,121 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 11:03:18,999 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 11:03:20,200 [INFO]   [GEN] Generating section_3.mp3 (90 chars)
+2026-05-16 11:03:23,840 [INFO]   [SAVE] section_3.mp3 (82.5 KB)
+2026-05-16 11:03:25,041 [INFO]   [GEN] Generating section_4.mp3 (61 chars)
+2026-05-16 11:03:28,033 [INFO]   [SAVE] section_4.mp3 (51.1 KB)
+2026-05-16 11:03:29,233 [INFO] 
+Processing Module: mod_7_7
+2026-05-16 11:03:29,234 [INFO]   [GEN] Generating section_1.mp3 (527 chars)
+2026-05-16 11:03:41,122 [INFO]   [SAVE] section_1.mp3 (416.0 KB)
+2026-05-16 11:03:42,323 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 11:03:44,380 [INFO]   [SAVE] section_2.mp3 (26.2 KB)
+2026-05-16 11:03:45,581 [INFO]   [GEN] Generating section_3.mp3 (74 chars)
+2026-05-16 11:03:49,219 [INFO]   [SAVE] section_3.mp3 (60.9 KB)
+2026-05-16 11:03:50,420 [INFO]   [GEN] Generating section_4.mp3 (66 chars)
+2026-05-16 11:03:53,671 [INFO]   [SAVE] section_4.mp3 (53.5 KB)
+2026-05-16 11:03:54,871 [INFO] 
+Processing Module: mod_7_8
+2026-05-16 11:03:54,872 [INFO]   [GEN] Generating section_1.mp3 (541 chars)
+2026-05-16 11:04:11,410 [INFO]   [SAVE] section_1.mp3 (486.2 KB)
+2026-05-16 11:04:12,611 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 11:04:14,758 [INFO]   [SAVE] section_2.mp3 (23.7 KB)
+2026-05-16 11:04:15,959 [INFO]   [GEN] Generating section_3.mp3 (110 chars)
+2026-05-16 11:04:20,359 [INFO]   [SAVE] section_3.mp3 (104.9 KB)
+2026-05-16 11:04:21,560 [INFO]   [GEN] Generating section_4.mp3 (54 chars)
+2026-05-16 11:04:24,497 [INFO]   [SAVE] section_4.mp3 (47.4 KB)
+2026-05-16 11:04:25,697 [INFO] 
+Processing Module: mod_7_9
+2026-05-16 11:04:25,698 [INFO]   [GEN] Generating section_1.mp3 (551 chars)
+2026-05-16 11:04:44,487 [INFO]   [SAVE] section_1.mp3 (469.8 KB)
+2026-05-16 11:04:45,689 [INFO]   [GEN] Generating section_2.mp3 (22 chars)
+2026-05-16 11:04:47,618 [INFO]   [SAVE] section_2.mp3 (27.4 KB)
+2026-05-16 11:04:48,819 [INFO]   [GEN] Generating section_3.mp3 (129 chars)
+2026-05-16 11:04:53,593 [INFO]   [SAVE] section_3.mp3 (132.3 KB)
+2026-05-16 11:04:54,794 [INFO]   [GEN] Generating section_4.mp3 (59 chars)
+2026-05-16 11:04:58,020 [INFO]   [SAVE] section_4.mp3 (49.8 KB)
+2026-05-16 11:04:59,221 [INFO] 
+════════════════════════════════════════════════════════════
+2026-05-16 11:04:59,221 [INFO] Pipeline complete | Generated: 298 | Skipped: 4 | Failed: 0
+2026-05-16 11:04:59,222 [INFO] Estimated character usage: 61388
+2026-05-16 11:04:59,222 [INFO] ════════════════════════════════════════════════════════════
+
+2026-05-16 11:13:53,161 [INFO] Starting pipeline for language: EN
+2026-05-16 11:13:53,161 [INFO] Source: C:\Users\12132\Desktop\Antigravity Solar Sales Trainer Agent\scripts\modules_en.json | Voice: QO7Mfy7rwYLdxzo4Q3iD | Model: eleven_v3
+2026-05-16 11:13:53,162 [INFO] 
+Processing Module: mod_1_1
+2026-05-16 11:13:53,162 [INFO]   [GEN] Generating section_1.mp3 (383 chars)
+2026-05-16 11:14:34,849 [INFO] Starting pipeline for language: EN
+2026-05-16 11:14:34,849 [INFO] Source: C:\Users\12132\Desktop\Antigravity Solar Sales Trainer Agent\scripts\modules_en.json | Voice: QO7Mfy7rwYLdxzo4Q3iD | Model: eleven_v3
+2026-05-16 11:14:34,850 [INFO]   [SKIP] English Module mod_1_1 already has an audio directory. Skipping.
+2026-05-16 11:14:34,850 [INFO]   [SKIP] English Module mod_1_2 already has an audio directory. Skipping.
+2026-05-16 11:14:34,850 [INFO]   [SKIP] English Module mod_1_3 already has an audio directory. Skipping.
+2026-05-16 11:14:34,850 [INFO]   [SKIP] English Module mod_1_4 already has an audio directory. Skipping.
+2026-05-16 11:14:34,850 [INFO]   [SKIP] English Module mod_1_5 already has an audio directory. Skipping.
+2026-05-16 11:14:34,851 [INFO]   [SKIP] English Module mod_1_6 already has an audio directory. Skipping.
+2026-05-16 11:14:34,851 [INFO]   [SKIP] English Module mod_1_7 already has an audio directory. Skipping.
+2026-05-16 11:14:34,851 [INFO]   [SKIP] English Module mod_1_8 already has an audio directory. Skipping.
+2026-05-16 11:14:34,851 [INFO]   [SKIP] English Module mod_2_1 already has an audio directory. Skipping.
+2026-05-16 11:14:34,851 [INFO]   [SKIP] English Module mod_2_2 already has an audio directory. Skipping.
+2026-05-16 11:14:34,851 [INFO]   [SKIP] English Module mod_2_3 already has an audio directory. Skipping.
+2026-05-16 11:14:34,852 [INFO]   [SKIP] English Module mod_2_4 already has an audio directory. Skipping.
+2026-05-16 11:14:34,852 [INFO]   [SKIP] English Module mod_2_5 already has an audio directory. Skipping.
+2026-05-16 11:14:34,852 [INFO]   [SKIP] English Module mod_2_6 already has an audio directory. Skipping.
+2026-05-16 11:14:34,853 [INFO]   [SKIP] English Module mod_2_7 already has an audio directory. Skipping.
+2026-05-16 11:14:34,853 [INFO]   [SKIP] English Module mod_2_8 already has an audio directory. Skipping.
+2026-05-16 11:14:34,854 [INFO]   [SKIP] English Module mod_2_9 already has an audio directory. Skipping.
+2026-05-16 11:14:34,855 [INFO]   [SKIP] English Module mod_2_10 already has an audio directory. Skipping.
+2026-05-16 11:14:34,855 [INFO]   [SKIP] English Module mod_2_11 already has an audio directory. Skipping.
+2026-05-16 11:14:34,855 [INFO]   [SKIP] English Module mod_3_1 already has an audio directory. Skipping.
+2026-05-16 11:14:34,856 [INFO]   [SKIP] English Module mod_3_2 already has an audio directory. Skipping.
+2026-05-16 11:14:34,856 [INFO]   [SKIP] English Module mod_3_3 already has an audio directory. Skipping.
+2026-05-16 11:14:34,856 [INFO]   [SKIP] English Module mod_3_4 already has an audio directory. Skipping.
+2026-05-16 11:14:34,857 [INFO]   [SKIP] English Module mod_3_5 already has an audio directory. Skipping.
+2026-05-16 11:14:34,857 [INFO]   [SKIP] English Module mod_3_6 already has an audio directory. Skipping.
+2026-05-16 11:14:34,857 [INFO]   [SKIP] English Module mod_3_7 already has an audio directory. Skipping.
+2026-05-16 11:14:34,858 [INFO]   [SKIP] English Module mod_3_8 already has an audio directory. Skipping.
+2026-05-16 11:14:34,858 [INFO]   [SKIP] English Module mod_3_9 already has an audio directory. Skipping.
+2026-05-16 11:14:34,858 [INFO]   [SKIP] English Module mod_3_10 already has an audio directory. Skipping.
+2026-05-16 11:14:34,858 [INFO]   [SKIP] English Module mod_4_1 already has an audio directory. Skipping.
+2026-05-16 11:14:34,859 [INFO]   [SKIP] English Module mod_4_2 already has an audio directory. Skipping.
+2026-05-16 11:14:34,859 [INFO]   [SKIP] English Module mod_4_3 already has an audio directory. Skipping.
+2026-05-16 11:14:34,859 [INFO]   [SKIP] English Module mod_4_4 already has an audio directory. Skipping.
+2026-05-16 11:14:34,859 [INFO]   [SKIP] English Module mod_4_5 already has an audio directory. Skipping.
+2026-05-16 11:14:34,860 [INFO]   [SKIP] English Module mod_4_6 already has an audio directory. Skipping.
+2026-05-16 11:14:34,860 [INFO]   [SKIP] English Module mod_4_7 already has an audio directory. Skipping.
+2026-05-16 11:14:34,860 [INFO]   [SKIP] English Module mod_5_1 already has an audio directory. Skipping.
+2026-05-16 11:14:34,860 [INFO]   [SKIP] English Module mod_5_2 already has an audio directory. Skipping.
+2026-05-16 11:14:34,861 [INFO]   [SKIP] English Module mod_5_3 already has an audio directory. Skipping.
+2026-05-16 11:14:34,861 [INFO]   [SKIP] English Module mod_5_4 already has an audio directory. Skipping.
+2026-05-16 11:14:34,861 [INFO]   [SKIP] English Module mod_5_5 already has an audio directory. Skipping.
+2026-05-16 11:14:34,862 [INFO]   [SKIP] English Module mod_5_6 already has an audio directory. Skipping.
+2026-05-16 11:14:34,862 [INFO]   [SKIP] English Module mod_6_1 already has an audio directory. Skipping.
+2026-05-16 11:14:34,863 [INFO]   [SKIP] English Module mod_6_2 already has an audio directory. Skipping.
+2026-05-16 11:14:34,863 [INFO]   [SKIP] English Module mod_6_3 already has an audio directory. Skipping.
+2026-05-16 11:14:34,863 [INFO]   [SKIP] English Module mod_6_4 already has an audio directory. Skipping.
+2026-05-16 11:14:34,864 [INFO]   [SKIP] English Module mod_6_5 already has an audio directory. Skipping.
+2026-05-16 11:14:34,864 [INFO]   [SKIP] English Module mod_6_6 already has an audio directory. Skipping.
+2026-05-16 11:14:34,865 [INFO]   [SKIP] English Module mod_6_7 already has an audio directory. Skipping.
+2026-05-16 11:14:34,865 [INFO]   [SKIP] English Module mod_7_1 already has an audio directory. Skipping.
+2026-05-16 11:14:34,866 [INFO]   [SKIP] English Module mod_7_2 already has an audio directory. Skipping.
+2026-05-16 11:14:34,866 [INFO]   [SKIP] English Module mod_7_3 already has an audio directory. Skipping.
+2026-05-16 11:14:34,866 [INFO]   [SKIP] English Module mod_7_4 already has an audio directory. Skipping.
+2026-05-16 11:14:34,866 [INFO]   [SKIP] English Module mod_7_5 already has an audio directory. Skipping.
+2026-05-16 11:14:34,867 [INFO]   [SKIP] English Module mod_7_6 already has an audio directory. Skipping.
+2026-05-16 11:14:34,867 [INFO]   [SKIP] English Module mod_7_7 already has an audio directory. Skipping.
+2026-05-16 11:14:34,867 [INFO]   [SKIP] English Module mod_7_8 already has an audio directory. Skipping.
+2026-05-16 11:14:34,867 [INFO]   [SKIP] English Module mod_7_9 already has an audio directory. Skipping.
+2026-05-16 11:14:34,867 [INFO]   [SKIP] English Module mod_1_5a already has an audio directory. Skipping.
+2026-05-16 11:14:34,868 [INFO] 
+Processing Module: mod_1_5b
+2026-05-16 11:14:34,868 [INFO]   [GEN] Generating section_1.mp3 (356 chars)
+2026-05-16 11:14:47,522 [INFO]   [SAVE] section_1.mp3 (344.9 KB)
+2026-05-16 11:14:48,723 [INFO]   [GEN] Generating section_2.mp3 (47 chars)
+2026-05-16 11:14:51,992 [INFO]   [SAVE] section_2.mp3 (42.5 KB)
+2026-05-16 11:14:53,193 [INFO]   [GEN] Generating section_3.mp3 (435 chars)
+2026-05-16 11:15:09,059 [INFO]   [SAVE] section_3.mp3 (400.9 KB)
+2026-05-16 11:15:10,260 [INFO]   [GEN] Generating section_4.mp3 (717 chars)
+2026-05-16 11:15:42,558 [INFO]   [SAVE] section_4.mp3 (837.2 KB)
+2026-05-16 11:15:43,759 [INFO]   [GEN] Generating section_5.mp3 (615 chars)
+2026-05-16 11:16:04,829 [INFO]   [SAVE] section_5.mp3 (716.0 KB)
+2026-05-16 11:16:06,030 [INFO]   [GEN] Generating section_6.mp3 (41 chars)
+2026-05-16 11:16:08,319 [INFO]   [SAVE] section_6.mp3 (44.9 KB)
+2026-05-16 11:16:09,519 [INFO] 
+Processing Module: mod_1_7a
+2026-05-16 11:16:09,520 [INFO]   [GEN] Generating section_1.mp3 (342 chars)
+2026-05-16 11:16:21,142 [INFO]   [SAVE] section_1.mp3 (326.2 KB)
+2026-05-16 11:16:22,343 [INFO]   [GEN] Generating section_2.mp3 (39 chars)
+2026-05-16 11:16:25,262 [INFO]   [SAVE] section_2.mp3 (46.2 KB)
+2026-05-16 11:16:26,463 [INFO]   [GEN] Generating section_3.mp3 (47 chars)
+2026-05-16 11:16:29,214 [INFO]   [SAVE] section_3.mp3 (51.1 KB)
+2026-05-16 11:16:30,415 [INFO]   [GEN] Generating section_4.mp3 (519 chars)
+2026-05-16 11:16:50,115 [INFO]   [SAVE] section_4.mp3 (602.5 KB)
+2026-05-16 11:16:51,316 [INFO]   [GEN] Generating section_5.mp3 (351 chars)
+2026-05-16 11:17:08,776 [INFO]   [SAVE] section_5.mp3 (413.5 KB)
+2026-05-16 11:17:09,977 [INFO]   [GEN] Generating section_6.mp3 (527 chars)
+2026-05-16 11:17:34,345 [INFO]   [SAVE] section_6.mp3 (499.6 KB)
+2026-05-16 11:17:35,546 [INFO]   [GEN] Generating section_7.mp3 (47 chars)
+2026-05-16 11:17:38,820 [INFO]   [SAVE] section_7.mp3 (48.6 KB)
+2026-05-16 11:17:40,021 [INFO] 
+Processing Module: mod_3_7a
+2026-05-16 11:17:40,021 [INFO]   [GEN] Generating section_1.mp3 (494 chars)
+2026-05-16 11:17:55,886 [INFO]   [SAVE] section_1.mp3 (498.4 KB)
+2026-05-16 11:17:57,086 [INFO]   [GEN] Generating section_2.mp3 (47 chars)
+2026-05-16 11:18:00,259 [INFO]   [SAVE] section_2.mp3 (46.2 KB)
+2026-05-16 11:18:01,460 [INFO]   [GEN] Generating section_3.mp3 (349 chars)
+2026-05-16 11:18:12,474 [INFO]   [SAVE] section_3.mp3 (320.9 KB)
+2026-05-16 11:18:13,675 [INFO]   [GEN] Generating section_4.mp3 (71 chars)
+2026-05-16 11:18:16,491 [INFO]   [SAVE] section_4.mp3 (66.2 KB)
+2026-05-16 11:18:17,692 [INFO]   [GEN] Generating section_5.mp3 (359 chars)
+2026-05-16 11:18:33,818 [INFO]   [SAVE] section_5.mp3 (429.8 KB)
+2026-05-16 11:18:35,019 [INFO]   [GEN] Generating section_6.mp3 (44 chars)
+2026-05-16 11:18:37,420 [INFO]   [SAVE] section_6.mp3 (48.6 KB)
+2026-05-16 11:18:38,621 [INFO] 
+Processing Module: mod_3_7b
+2026-05-16 11:18:38,621 [INFO]   [GEN] Generating section_1.mp3 (480 chars)
+2026-05-16 11:18:54,729 [INFO]   [SAVE] section_1.mp3 (476.0 KB)
+2026-05-16 11:18:55,930 [INFO]   [GEN] Generating section_2.mp3 (47 chars)
+2026-05-16 11:18:58,508 [INFO]   [SAVE] section_2.mp3 (49.8 KB)
+2026-05-16 11:18:59,709 [INFO]   [GEN] Generating section_3.mp3 (42 chars)
+2026-05-16 11:19:01,270 [INFO]   [SAVE] section_3.mp3 (43.7 KB)
+2026-05-16 11:19:02,471 [INFO]   [GEN] Generating section_4.mp3 (527 chars)
+2026-05-16 11:19:21,561 [INFO]   [SAVE] section_4.mp3 (706.2 KB)
+2026-05-16 11:19:22,762 [INFO]   [GEN] Generating section_5.mp3 (568 chars)
+2026-05-16 11:19:47,594 [INFO]   [SAVE] section_5.mp3 (780.9 KB)
+2026-05-16 11:19:48,794 [INFO]   [GEN] Generating section_6.mp3 (40 chars)
+2026-05-16 11:19:51,077 [INFO]   [SAVE] section_6.mp3 (40.9 KB)
+2026-05-16 11:19:52,278 [INFO] 
+Processing Module: mod_4_1a
+2026-05-16 11:19:52,279 [INFO]   [GEN] Generating section_1.mp3 (408 chars)
+2026-05-16 11:20:04,606 [INFO]   [SAVE] section_1.mp3 (406.2 KB)
+2026-05-16 11:20:05,807 [INFO]   [GEN] Generating section_2.mp3 (637 chars)
+2026-05-16 11:20:29,385 [INFO]   [SAVE] section_2.mp3 (786.2 KB)
+2026-05-16 11:20:30,586 [INFO]   [GEN] Generating section_3.mp3 (431 chars)
+2026-05-16 11:20:44,945 [INFO]   [SAVE] section_3.mp3 (522.5 KB)
+2026-05-16 11:20:46,146 [INFO]   [GEN] Generating section_4.mp3 (209 chars)
+2026-05-16 11:20:52,233 [INFO]   [SAVE] section_4.mp3 (196.0 KB)
+2026-05-16 11:20:53,435 [INFO]   [GEN] Generating section_5.mp3 (610 chars)
+2026-05-16 11:21:10,997 [INFO]   [SAVE] section_5.mp3 (658.4 KB)
+2026-05-16 11:21:12,198 [INFO]   [GEN] Generating section_6.mp3 (404 chars)
+2026-05-16 11:21:25,261 [INFO]   [SAVE] section_6.mp3 (439.6 KB)
+2026-05-16 11:21:26,463 [INFO]   [GEN] Generating section_7.mp3 (58 chars)
+2026-05-16 11:21:29,716 [INFO]   [SAVE] section_7.mp3 (62.5 KB)
+2026-05-16 11:21:30,917 [INFO] 
+Processing Module: mod_4_2a
+2026-05-16 11:21:30,917 [INFO]   [GEN] Generating section_1.mp3 (354 chars)
+2026-05-16 11:21:41,764 [INFO]   [SAVE] section_1.mp3 (356.0 KB)
+2026-05-16 11:21:42,965 [INFO]   [GEN] Generating section_2.mp3 (61 chars)
+2026-05-16 11:21:45,885 [INFO]   [SAVE] section_2.mp3 (62.5 KB)
+2026-05-16 11:21:47,086 [INFO]   [GEN] Generating section_3.mp3 (309 chars)
+2026-05-16 11:22:04,682 [INFO]   [SAVE] section_3.mp3 (328.6 KB)
+2026-05-16 11:22:05,882 [INFO]   [GEN] Generating section_4.mp3 (376 chars)
+2026-05-16 11:22:20,175 [INFO]   [SAVE] section_4.mp3 (394.7 KB)
+2026-05-16 11:22:21,376 [INFO]   [GEN] Generating section_5.mp3 (37 chars)
+2026-05-16 11:22:23,627 [INFO]   [SAVE] section_5.mp3 (38.4 KB)
+2026-05-16 11:22:24,828 [INFO]   [GEN] Generating section_6.mp3 (46 chars)
+2026-05-16 11:22:27,123 [INFO]   [SAVE] section_6.mp3 (47.4 KB)
+2026-05-16 11:22:28,324 [INFO] 
+Processing Module: mod_4_2b
+2026-05-16 11:22:28,324 [INFO]   [GEN] Generating section_1.mp3 (446 chars)
+2026-05-16 11:22:45,141 [INFO]   [SAVE] section_1.mp3 (551.1 KB)
+2026-05-16 11:22:46,342 [INFO]   [GEN] Generating section_2.mp3 (393 chars)
+2026-05-16 11:22:57,387 [INFO]   [SAVE] section_2.mp3 (388.6 KB)
+2026-05-16 11:22:58,588 [INFO]   [GEN] Generating section_3.mp3 (388 chars)
+2026-05-16 11:23:11,855 [INFO]   [SAVE] section_3.mp3 (443.7 KB)
+2026-05-16 11:23:13,055 [INFO]   [GEN] Generating section_4.mp3 (349 chars)
+2026-05-16 11:23:25,618 [INFO]   [SAVE] section_4.mp3 (379.6 KB)
+2026-05-16 11:23:26,818 [INFO]   [GEN] Generating section_5.mp3 (34 chars)
+2026-05-16 11:23:28,854 [INFO]   [SAVE] section_5.mp3 (36.0 KB)
+2026-05-16 11:23:30,054 [INFO] 
+Processing Module: mod_4_4a
+2026-05-16 11:23:30,055 [INFO]   [GEN] Generating section_1.mp3 (497 chars)
+2026-05-16 11:23:46,189 [INFO]   [SAVE] section_1.mp3 (500.9 KB)
+2026-05-16 11:23:47,390 [INFO]   [GEN] Generating section_2.mp3 (72 chars)
+2026-05-16 11:23:50,312 [INFO]   [SAVE] section_2.mp3 (64.9 KB)
+2026-05-16 11:23:51,513 [INFO]   [GEN] Generating section_3.mp3 (433 chars)
+2026-05-16 11:24:04,546 [INFO]   [SAVE] section_3.mp3 (488.6 KB)
+2026-05-16 11:24:05,747 [INFO]   [GEN] Generating section_4.mp3 (42 chars)
+2026-05-16 11:24:07,819 [INFO]   [SAVE] section_4.mp3 (38.4 KB)
+2026-05-16 11:24:09,020 [INFO]   [GEN] Generating section_5.mp3 (351 chars)
+2026-05-16 11:24:19,973 [INFO]   [SAVE] section_5.mp3 (366.2 KB)
+2026-05-16 11:24:21,174 [INFO]   [GEN] Generating section_6.mp3 (44 chars)
+2026-05-16 11:24:24,153 [INFO]   [SAVE] section_6.mp3 (60.9 KB)
+2026-05-16 11:24:25,354 [INFO] 
+Processing Module: mod_5_5a
+2026-05-16 11:24:25,355 [INFO]   [GEN] Generating section_1.mp3 (346 chars)
+2026-05-16 11:24:37,763 [INFO]   [SAVE] section_1.mp3 (367.4 KB)
+2026-05-16 11:24:38,965 [INFO]   [GEN] Generating section_2.mp3 (48 chars)
+2026-05-16 11:24:41,467 [INFO]   [SAVE] section_2.mp3 (44.9 KB)
+2026-05-16 11:24:42,668 [INFO]   [GEN] Generating section_3.mp3 (229 chars)
+2026-05-16 11:24:51,050 [INFO]   [SAVE] section_3.mp3 (253.5 KB)
+2026-05-16 11:24:52,250 [INFO]   [GEN] Generating section_4.mp3 (109 chars)
+2026-05-16 11:24:56,352 [INFO]   [SAVE] section_4.mp3 (112.3 KB)
+2026-05-16 11:24:57,553 [INFO]   [GEN] Generating section_5.mp3 (120 chars)
+2026-05-16 11:25:02,274 [INFO]   [SAVE] section_5.mp3 (107.4 KB)
+2026-05-16 11:25:03,475 [INFO]   [GEN] Generating section_6.mp3 (68 chars)
+2026-05-16 11:25:06,004 [INFO]   [SAVE] section_6.mp3 (64.9 KB)
+2026-05-16 11:25:07,205 [INFO]   [GEN] Generating section_7.mp3 (31 chars)
+2026-05-16 11:25:10,416 [INFO]   [SAVE] section_7.mp3 (72.3 KB)
+2026-05-16 11:25:11,617 [INFO] 
+Processing Module: mod_5_5b
+2026-05-16 11:25:11,617 [INFO]   [GEN] Generating section_1.mp3 (245 chars)
+2026-05-16 11:25:18,689 [INFO]   [SAVE] section_1.mp3 (212.3 KB)
+2026-05-16 11:25:19,889 [INFO]   [GEN] Generating section_2.mp3 (78 chars)
+2026-05-16 11:25:23,249 [INFO]   [SAVE] section_2.mp3 (67.4 KB)
+2026-05-16 11:25:24,450 [INFO]   [GEN] Generating section_3.mp3 (268 chars)
+2026-05-16 11:25:32,525 [INFO]   [SAVE] section_3.mp3 (252.3 KB)
+2026-05-16 11:25:33,726 [INFO]   [GEN] Generating section_4.mp3 (91 chars)
+2026-05-16 11:25:36,949 [INFO]   [SAVE] section_4.mp3 (84.9 KB)
+2026-05-16 11:25:38,150 [INFO]   [GEN] Generating section_5.mp3 (31 chars)
+2026-05-16 11:25:41,071 [INFO]   [SAVE] section_5.mp3 (54.7 KB)
+2026-05-16 11:25:42,272 [INFO] 
+Processing Module: mod_5_5c
+2026-05-16 11:25:42,272 [INFO]   [GEN] Generating section_1.mp3 (343 chars)
+2026-05-16 11:25:56,142 [INFO]   [SAVE] section_1.mp3 (491.1 KB)
+2026-05-16 11:25:57,343 [INFO]   [GEN] Generating section_2.mp3 (63 chars)
+2026-05-16 11:26:00,027 [INFO]   [SAVE] section_2.mp3 (67.4 KB)
+2026-05-16 11:26:01,228 [INFO]   [GEN] Generating section_3.mp3 (70 chars)
+2026-05-16 11:26:03,750 [INFO]   [SAVE] section_3.mp3 (68.6 KB)
+2026-05-16 11:26:04,951 [INFO]   [GEN] Generating section_4.mp3 (208 chars)
+2026-05-16 11:26:17,643 [INFO]   [SAVE] section_4.mp3 (417.2 KB)
+2026-05-16 11:26:18,844 [INFO]   [GEN] Generating section_5.mp3 (31 chars)
+2026-05-16 11:26:22,256 [INFO]   [SAVE] section_5.mp3 (73.5 KB)
+2026-05-16 11:26:23,457 [INFO] 
+Processing Module: mod_5_5d
+2026-05-16 11:26:23,457 [INFO]   [GEN] Generating section_1.mp3 (256 chars)
+2026-05-16 11:26:31,645 [INFO]   [SAVE] section_1.mp3 (263.7 KB)
+2026-05-16 11:26:32,846 [INFO]   [GEN] Generating section_2.mp3 (45 chars)
+2026-05-16 11:26:35,308 [INFO]   [SAVE] section_2.mp3 (54.7 KB)
+2026-05-16 11:26:36,509 [INFO]   [GEN] Generating section_3.mp3 (255 chars)
+2026-05-16 11:26:45,671 [INFO]   [SAVE] section_3.mp3 (358.4 KB)
+2026-05-16 11:26:46,872 [INFO]   [GEN] Generating section_4.mp3 (263 chars)
+2026-05-16 11:26:55,358 [INFO]   [SAVE] section_4.mp3 (342.5 KB)
+2026-05-16 11:26:56,559 [INFO]   [GEN] Generating section_5.mp3 (60 chars)
+2026-05-16 11:26:59,242 [INFO]   [SAVE] section_5.mp3 (54.7 KB)
+2026-05-16 11:27:00,443 [INFO]   [GEN] Generating section_6.mp3 (31 chars)
+2026-05-16 11:27:03,603 [INFO]   [SAVE] section_6.mp3 (92.3 KB)
+2026-05-16 11:27:04,804 [INFO] 
+Processing Module: mod_6_1a
+2026-05-16 11:27:04,804 [INFO]   [GEN] Generating section_1.mp3 (351 chars)
+2026-05-16 11:27:15,380 [INFO]   [SAVE] section_1.mp3 (376.0 KB)
+2026-05-16 11:27:16,581 [INFO]   [GEN] Generating section_2.mp3 (100 chars)
+2026-05-16 11:27:19,892 [INFO]   [SAVE] section_2.mp3 (87.4 KB)
+2026-05-16 11:27:21,093 [INFO]   [GEN] Generating section_3.mp3 (380 chars)
+2026-05-16 11:27:37,653 [INFO]   [SAVE] section_3.mp3 (651.1 KB)
+2026-05-16 11:27:38,854 [INFO]   [GEN] Generating section_4.mp3 (59 chars)
+2026-05-16 11:27:41,661 [INFO]   [SAVE] section_4.mp3 (52.3 KB)
+2026-05-16 11:27:42,861 [INFO]   [GEN] Generating section_5.mp3 (321 chars)
+2026-05-16 11:27:58,186 [INFO]   [SAVE] section_5.mp3 (440.9 KB)
+2026-05-16 11:27:59,387 [INFO]   [GEN] Generating section_6.mp3 (43 chars)
+2026-05-16 11:28:01,645 [INFO]   [SAVE] section_6.mp3 (40.9 KB)
+2026-05-16 11:28:02,846 [INFO] 
+Processing Module: mod_6_2a
+2026-05-16 11:28:02,846 [INFO]   [GEN] Generating section_1.mp3 (330 chars)
+2026-05-16 11:28:13,766 [INFO]   [SAVE] section_1.mp3 (313.5 KB)
+2026-05-16 11:28:14,967 [INFO]   [GEN] Generating section_2.mp3 (57 chars)
+2026-05-16 11:28:18,086 [INFO]   [SAVE] section_2.mp3 (49.8 KB)
+2026-05-16 11:28:19,287 [INFO]   [GEN] Generating section_3.mp3 (413 chars)
+2026-05-16 11:28:36,415 [INFO]   [SAVE] section_3.mp3 (494.7 KB)
+2026-05-16 11:28:37,615 [INFO]   [GEN] Generating section_4.mp3 (44 chars)
+2026-05-16 11:28:40,142 [INFO]   [SAVE] section_4.mp3 (47.4 KB)
+2026-05-16 11:28:41,343 [INFO]   [GEN] Generating section_5.mp3 (70 chars)
+2026-05-16 11:28:44,302 [INFO]   [SAVE] section_5.mp3 (79.6 KB)
+2026-05-16 11:28:45,503 [INFO]   [GEN] Generating section_6.mp3 (55 chars)
+2026-05-16 11:28:48,181 [INFO]   [SAVE] section_6.mp3 (56.0 KB)
+2026-05-16 11:28:49,382 [INFO] 
+Processing Module: mod_6_3a
+2026-05-16 11:28:49,383 [INFO]   [GEN] Generating section_1.mp3 (342 chars)
+2026-05-16 11:29:02,189 [INFO]   [SAVE] section_1.mp3 (328.6 KB)
+2026-05-16 11:29:03,390 [INFO]   [GEN] Generating section_2.mp3 (81 chars)
+2026-05-16 11:29:07,051 [INFO]   [SAVE] section_2.mp3 (78.4 KB)
+2026-05-16 11:29:08,251 [INFO]   [GEN] Generating section_3.mp3 (656 chars)
+2026-05-16 11:29:33,982 [INFO]   [SAVE] section_3.mp3 (723.7 KB)
+2026-05-16 11:29:35,183 [INFO]   [GEN] Generating section_4.mp3 (63 chars)
+2026-05-16 11:29:38,458 [INFO]   [SAVE] section_4.mp3 (67.4 KB)
+2026-05-16 11:29:39,659 [INFO]   [GEN] Generating section_5.mp3 (49 chars)
+2026-05-16 11:29:42,367 [INFO]   [SAVE] section_5.mp3 (46.2 KB)
+2026-05-16 11:29:43,568 [INFO] 
+Processing Module: mod_6_4a
+2026-05-16 11:29:43,568 [INFO]   [GEN] Generating section_1.mp3 (336 chars)
+2026-05-16 11:29:58,680 [INFO]   [SAVE] section_1.mp3 (354.7 KB)
+2026-05-16 11:29:59,881 [INFO]   [GEN] Generating section_2.mp3 (48 chars)
+2026-05-16 11:30:02,511 [INFO]   [SAVE] section_2.mp3 (48.6 KB)
+2026-05-16 11:30:03,713 [INFO]   [GEN] Generating section_3.mp3 (532 chars)
+2026-05-16 11:30:24,406 [INFO]   [SAVE] section_3.mp3 (822.5 KB)
+2026-05-16 11:30:25,608 [INFO]   [GEN] Generating section_4.mp3 (81 chars)
+2026-05-16 11:30:29,407 [INFO]   [SAVE] section_4.mp3 (80.9 KB)
+2026-05-16 11:30:30,608 [INFO]   [GEN] Generating section_5.mp3 (49 chars)
+2026-05-16 11:30:33,503 [INFO]   [SAVE] section_5.mp3 (52.3 KB)
+2026-05-16 11:30:34,704 [INFO] 
+════════════════════════════════════════════════════════════
+2026-05-16 11:30:34,704 [INFO] Pipeline complete | Generated: 94 | Skipped: 129 | Failed: 0
+2026-05-16 11:30:34,704 [INFO] Estimated character usage: 21889
+2026-05-16 11:30:34,704 [INFO] ════════════════════════════════════════════════════════════
+

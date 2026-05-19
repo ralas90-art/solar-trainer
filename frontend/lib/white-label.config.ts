@@ -172,3 +172,54 @@ export const SLIDE_START_PAGES: Record<string, number> = {
     "mod_7_8": 42,
     "mod_7_9": 48,
 }
+
+// ── Google Slides Resolution Helper ──────────────────────────────────────────
+export function getGoogleSlidesEmbedUrl(moduleId: string, language: string): string | null {
+    if (WHITE_LABEL.presentationMode !== "google_slides") return null;
+
+    const esUrls = WHITE_LABEL.slideEmbedUrls_es || {};
+    const enUrls = WHITE_LABEL.slideEmbedUrls || {};
+    const dayNum = parseInt(moduleId.split("_")[1], 10);
+
+    const isPlaceholder = (url?: string) => {
+        if (!url || url.trim() === "") return true;
+        if (url.startsWith("PASTE_")) return true;
+        return false;
+    };
+
+    let resolvedUrl: string | null = null;
+
+    if (language === "es") {
+        let url = esUrls[moduleId as keyof typeof esUrls];
+        if (!isPlaceholder(url)) {
+            resolvedUrl = url;
+        } else if (Number.isFinite(dayNum)) {
+            url = esUrls[dayNum as keyof typeof esUrls];
+            if (!isPlaceholder(url)) {
+                resolvedUrl = url;
+            }
+        }
+    }
+
+    // Fallback to English
+    if (!resolvedUrl) {
+        let url = enUrls[moduleId as keyof typeof enUrls];
+        if (!isPlaceholder(url)) {
+            resolvedUrl = url;
+        } else if (Number.isFinite(dayNum)) {
+            url = enUrls[dayNum as keyof typeof enUrls];
+            if (!isPlaceholder(url)) {
+                resolvedUrl = url;
+            }
+        }
+    }
+
+    // Console-safe behavior: only warn for English missing or invalid format
+    if (!resolvedUrl) {
+        console.warn(`[Slide Fallback Warning] No valid slide URL found for module ${moduleId}.`);
+    } else if (!resolvedUrl.includes("docs.google.com/presentation")) {
+        console.warn(`[Slide Fallback Warning] URL for module ${moduleId} does not look like a valid Google Slides embed URL: ${resolvedUrl}`);
+    }
+
+    return resolvedUrl;
+}

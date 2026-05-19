@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SeptiVolt Premium Plans - AI Solar Sales Mastery</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Roboto:wght@300;400;500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "solar-orange": "#F97316",
+                        "amber-highlight": "#F59E0B",
+                        "deep-dark": "#121212",
+                    },
+                    fontFamily: {
+                        "roboto": ["Roboto", "sans-serif"],
+                        "montserrat": ["Montserrat", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            @apply bg-deep-dark text-slate-100 font-roboto;
+            background-image: 
+                radial-gradient(circle at 50% -20%, rgba(249, 115, 22, 0.15), transparent 60%),
+                radial-gradient(circle at 0% 100%, rgba(245, 158, 11, 0.05), transparent 40%);
+        }
+        .glass-card {
+            @apply bg-white/[0.03] backdrop-blur-xl border border-white/10 relative;
+        }
+        .hud-border::before, .hud-border::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-color: #F97316;
+            pointer-events: none;
+        }
+        .hud-corner-tl::before { top: -1px; left: -1px; border-top: 2px solid; border-left: 2px solid; box-shadow: -2px -2px 10px rgba(249, 115, 22, 0.5); }
+        .hud-corner-tr::after { top: -1px; right: -1px; border-top: 2px solid; border-right: 2px solid; box-shadow: 2px -2px 10px rgba(249, 115, 22, 0.5); }
+        .hud-corner-bl::before { bottom: -1px; left: -1px; border-bottom: 2px solid; border-left: 2px solid; box-shadow: -2px 2px 10px rgba(249, 115, 22, 0.5); }
+        .hud-corner-br::after { bottom: -1px; right: -1px; border-bottom: 2px solid; border-right: 2px solid; box-shadow: 2px 2px 10px rgba(249, 115, 22, 0.5); }
+        .solar-glow-btn {
+            @apply bg-gradient-to-r from-solar-orange to-amber-highlight text-deep-dark font-black uppercase tracking-tighter transition-all duration-300;
+            box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
+        }
+        .solar-glow-btn:hover {
+            box-shadow: 0 0 35px rgba(249, 115, 22, 0.6);
+            transform: translateY(-2px);
+        }
+        .roi-gradient-text {
+            @apply bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-500;
+        }
+    </style>
+</head>
+<body class="min-h-screen selection:bg-solar-orange/30">
+<div class="relative flex flex-col min-h-screen w-full overflow-x-hidden">
+<header class="flex items-center justify-between border-b border-white/5 px-8 lg:px-20 py-6 bg-deep-dark/90 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="size-10 flex items-center justify-center bg-solar-orange rounded-sm shadow-[0_0_15px_rgba(249,115,22,0.5)]">
+<span class="material-symbols-outlined text-deep-dark font-bold">bolt</span>
+</div>
+<h2 class="text-2xl font-black tracking-widest font-montserrat uppercase italic">SeptiVolt</h2>
+</div>
+<nav class="hidden md:flex gap-8 font-montserrat text-[10px] font-bold uppercase tracking-[0.2em]">
+<a class="hover:text-solar-orange transition-colors" href="#">Curriculum</a>
+<a class="hover:text-solar-orange transition-colors" href="#">Simulations</a>
+<a class="text-solar-orange" href="#">Pricing</a>
+<a class="hover:text-solar-orange transition-colors" href="#">Results</a>
+</nav>
+<button class="solar-glow-btn px-6 py-2 text-[10px] rounded-sm">Portal Login</button>
+</header>
+<main class="flex-1 max-w-7xl mx-auto w-full px-6 py-20">
+<div class="text-center mb-24 relative">
+<div class="inline-block px-4 py-1 mb-6 border border-amber-highlight/30 bg-amber-highlight/5 text-amber-highlight text-[10px] font-black uppercase tracking-widest rounded-full">
+                High-Voltage Training Systems
+            </div>
+<h1 class="text-6xl lg:text-8xl font-black font-montserrat tracking-tighter mb-6 uppercase italic">
+                Premium <span class="text-solar-orange">Plans</span>
+</h1>
+<p class="text-slate-400 max-w-2xl mx-auto text-lg font-light leading-relaxed">
+                Scalable AI infrastructure designed to convert sales representatives into $25k/mo elite consultants through rigorous simulation.
+            </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+<div class="glass-card hud-border hud-corner-tl p-10 flex flex-col h-full group hover:bg-white/[0.05] transition-colors">
+<div class="mb-8">
+<h3 class="font-montserrat text-xs font-black uppercase tracking-[0.3em] text-slate-500 mb-4">Starter</h3>
+<div class="flex flex-col gap-1 mb-6">
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-mono font-bold text-white tracking-tighter">$499</span>
+<span class="text-[10px] font-mono uppercase text-slate-500 tracking-widest">Platform Fee</span>
+</div>
+<div class="text-amber-highlight font-mono font-bold text-lg">
+                            + $39<span class="text-xs font-normal text-slate-400">/rep</span>
+</div>
+</div>
+<p class="text-sm text-slate-400 leading-relaxed font-light">Essential AI training for emerging solar teams focused on fundamental closing.</p>
+</div>
+<ul class="space-y-4 mb-10 text-sm flex-1">
+<li class="flex items-center gap-3 text-slate-300">
+<span class="material-symbols-outlined text-xs text-solar-orange">check_circle</span>
+                        Core Simulation Engine
+                    </li>
+<li class="flex items-center gap-3 text-slate-300">
+<span class="material-symbols-outlined text-xs text-solar-orange">check_circle</span>
+                        Standard Objection Library
+                    </li>
+<li class="flex items-center gap-3 text-slate-300">
+<span class="material-symbols-outlined text-xs text-solar-orange">check_circle</span>
+                        Performance Dashboards
+                    </li>
+</ul>
+<button class="w-full py-4 border border-white/10 hover:border-solar-orange/50 hover:bg-solar-orange/5 transition-all font-montserrat text-[10px] font-black uppercase tracking-widest">
+                    Initialize Setup
+                </button>
+</div>
+<div class="glass-card hud-border hud-corner-tl hud-corner-tr hud-corner-bl hud-corner-br p-10 flex flex-col h-full ring-2 ring-solar-orange/30 scale-105 z-10 bg-gradient-to-b from-solar-orange/[0.05] to-transparent">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-solar-orange text-deep-dark text-[9px] font-black uppercase tracking-[0.2em] px-4 py-1.5 shadow-[0_0_15px_rgba(249,115,22,0.4)]">
+                    Recommended
+                </div>
+<div class="mb-8">
+<h3 class="font-montserrat text-xs font-black uppercase tracking-[0.3em] text-solar-orange mb-4">Growth</h3>
+<div class="flex flex-col gap-1 mb-6">
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-mono font-bold text-white tracking-tighter">$999</span>
+<span class="text-[10px] font-mono uppercase text-slate-500 tracking-widest">Platform Fee</span>
+</div>
+<div class="text-amber-highlight font-mono font-bold text-lg">
+                            + $59<span class="text-xs font-normal text-slate-400">/rep</span>
+</div>
+</div>
+<p class="text-sm text-slate-200 leading-relaxed font-medium">Full AI deployment with advanced voice synthesis for aggressive market expansion.</p>
+</div>
+<ul class="space-y-4 mb-10 text-sm flex-1">
+<li class="flex items-center gap-3 text-white font-bold">
+<span class="material-symbols-outlined text-xs text-amber-highlight">bolt</span>
+                        Voice AI (200 mins/mo)
+                    </li>
+<li class="flex items-center gap-3 text-slate-300">
+<span class="material-symbols-outlined text-xs text-solar-orange">check_circle</span>
+                        Advanced PPA/Lease Logic
+                    </li>
+<li class="flex items-center gap-3 text-slate-300">
+<span class="material-symbols-outlined text-xs text-solar-orange">check_circle</span>
+                        Market-Specific Scripts
+                    </li>
+<li class="flex items-center gap-3 text-slate-300">
+<span class="material-symbols-outlined text-xs text-solar-orange">check_circle</span>
+                        Priority AI Rendering
+                    </li>
+</ul>
+<button class="solar-glow-btn w-full py-4 font-montserrat text-[10px]">
+                    Activate Growth Mode
+                </button>
+</div>
+<div class="glass-card hud-border hud-corner-tr p-10 flex flex-col h-full group hover:bg-white/[0.05] transition-colors">
+<div class="mb-8">
+<h3 class="font-montserrat text-xs font-black uppercase tracking-[0.3em] text-slate-500 mb-4">Enterprise</h3>
+<div class="flex flex-col gap-1 mb-6">
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-mono font-bold text-white tracking-tighter italic">Custom</span>
+</div>
+<div class="text-slate-500 font-mono text-sm">
+                            Tailored Architecture
+                        </div>
+</div>
+<p class="text-sm text-slate-400 leading-relaxed font-light">Private cloud infrastructure for EPCs and multi-state solar organizations.</p>
+</div>
+<ul class="space-y-4 mb-10 text-sm flex-1">
+<li class="flex items-center gap-3 text-slate-300">
+<span class="material-symbols-outlined text-xs text-solar-orange">check_circle</span>
+                        White-label Interface
+                    </li>
+<li class="flex items-center gap-3 text-slate-300">
+<span class="material-symbols-outlined text-xs text-solar-orange">check_circle</span>
+                        Strategic Executive Support
+                    </li>
+<li class="flex items-center gap-3 text-slate-300">
+<span class="material-symbols-outlined text-xs text-solar-orange">check_circle</span>
+                        Custom API Integrations
+                    </li>
+</ul>
+<button class="w-full py-4 border border-white/10 hover:border-amber-highlight/50 hover:bg-amber-highlight/5 transition-all font-montserrat text-[10px] font-black uppercase tracking-widest">
+                    Contact Strategy Team
+                </button>
+</div>
+</div>
+<section class="glass-card p-12 lg:p-20 overflow-hidden relative">
+<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-solar-orange/5 blur-[120px] rounded-full -mr-64 -mt-64"></div>
+<div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div>
+<div class="inline-block px-3 py-1 bg-solar-orange/10 border border-solar-orange/20 text-solar-orange text-[9px] font-black uppercase tracking-[0.3em] mb-6">Data Projection 2.0</div>
+<h2 class="text-4xl lg:text-5xl font-black font-montserrat tracking-tighter uppercase mb-8 italic">Projected <br/>Earnings <span class="text-solar-orange">Impact</span></h2>
+<p class="text-slate-400 mb-10 font-light leading-relaxed max-w-lg">
+                        Our platform doesn't just train; it rewires the sales process. Reps utilizing SeptiVolt simulations consistently bridge the gap between amateur performance and mastery.
+                    </p>
+<div class="space-y-6">
+<div class="group">
+<div class="flex justify-between items-end mb-2">
+<span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Standard Rep Output</span>
+<span class="font-mono text-xl text-slate-300">$4,500/mo</span>
+</div>
+<div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-slate-700 w-1/4"></div>
+</div>
+</div>
+<div class="group">
+<div class="flex justify-between items-end mb-2">
+<span class="text-[10px] font-black uppercase tracking-widest text-solar-orange">SeptiVolt Mastery Path</span>
+<span class="font-mono text-2xl font-bold text-solar-orange">$15k - $25k/mo</span>
+</div>
+<div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-solar-orange to-amber-highlight w-[85%] shadow-[0_0_15px_rgba(249,115,22,0.4)]"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="hud-border hud-corner-tl bg-white/[0.02] p-8 border border-white/5 text-center">
+<div class="text-4xl font-mono font-bold text-white mb-2">312%</div>
+<div class="text-[9px] font-montserrat font-black uppercase tracking-widest text-slate-500">Close Rate Lift</div>
+</div>
+<div class="hud-border hud-corner-tr bg-white/[0.02] p-8 border border-white/5 text-center">
+<div class="text-4xl font-mono font-bold text-amber-highlight mb-2">48h</div>
+<div class="text-[9px] font-montserrat font-black uppercase tracking-widest text-slate-500">Ramp Velocity</div>
+</div>
+<div class="hud-border hud-corner-bl bg-white/[0.02] p-8 border border-white/5 text-center">
+<div class="text-4xl font-mono font-bold text-solar-orange mb-2">94%</div>
+<div class="text-[9px] font-montserrat font-black uppercase tracking-widest text-slate-500">Retention Rate</div>
+</div>
+<div class="hud-border hud-corner-br bg-white/[0.02] p-8 border border-white/5 text-center">
+<div class="text-4xl font-mono font-bold text-white mb-2">12x</div>
+<div class="text-[9px] font-montserrat font-black uppercase tracking-widest text-slate-500">Avg First Year ROI</div>
+</div>
+</div>
+</div>
+</section>
+<div class="mt-32 text-center">
+<div class="max-w-3xl mx-auto glass-card p-16 hud-border hud-corner-tl hud-corner-tr hud-corner-bl hud-corner-br">
+<h2 class="text-3xl lg:text-4xl font-black font-montserrat tracking-tight uppercase italic mb-8">Ready for <span class="text-solar-orange">Peak Voltage?</span></h2>
+<div class="flex flex-wrap justify-center gap-6">
+<button class="solar-glow-btn px-10 py-5 text-xs rounded-sm">Initiate Organization Training</button>
+<button class="px-10 py-5 text-xs border border-white/10 hover:bg-white/5 transition-all font-montserrat font-black uppercase tracking-widest">Request Live Demo</button>
+</div>
+</div>
+</div>
+</main>
+<footer class="border-t border-white/5 py-16 bg-deep-dark mt-20">
+<div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12">
+<div class="flex items-center gap-4">
+<div class="size-8 flex items-center justify-center bg-solar-orange rounded-sm shadow-[0_0_10px_rgba(249,115,22,0.3)]">
+<span class="material-symbols-outlined text-deep-dark text-sm font-bold">bolt</span>
+</div>
+<span class="font-black font-montserrat uppercase italic tracking-widest text-lg">SeptiVolt</span>
+</div>
+<div class="flex gap-8 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
+<a class="hover:text-solar-orange transition-colors" href="#">Architecture</a>
+<a class="hover:text-solar-orange transition-colors" href="#">Simulations</a>
+<a class="hover:text-solar-orange transition-colors" href="#">Enterprise</a>
+<a class="hover:text-solar-orange transition-colors" href="#">Security</a>
+</div>
+<div class="text-[10px] font-mono text-slate-600 tracking-tighter uppercase">
+                © 2024 SeptiVolt AI Systems // v.4.0.1 PRM
+            </div>
+</div>
+</footer>
+</div>
+
+</body></html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+    * { box-sizing: border-box; }
+        body {
+            width: 720pt;
+            height: 405pt;
+            margin: 0;
+            padding: 20pt;
+            background: #FFFFFF;
+            font-family: Arial, sans-serif;
+            color: #2C3E50;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-box {
+            width: 100%;
+            border-bottom: 3px solid #34495E;
+            padding-bottom: 10pt;
+            margin-bottom: 10pt;
+        }
+
+        h1 {
+            font-size: 32pt;
+            margin: 0;
+            color: #2C3E50;
+        }
+
+        .steps {
+            margin-top: 10pt;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .step {
+            width: 18%;
+            background: #ECF0F1;
+            padding: 10pt;
+            text-align: center;
+            border-radius: 5pt;
+        }
+
+        .number {
+            font-size: 30pt;
+            font-weight: bold;
+            color: #BDC3C7;
+        }
+
+        .title {
+            font-size: 14pt;
+            font-weight: bold;
+            margin-top: 10pt;
+        }
+
+        .active {
+            background: #3498DB;
+            color: white;
+        }
+
+        .active .number {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-box">
+        <h1>Next Steps</h1>
+    </div>
+    <div class="steps">
+        <div class="step active">
+            <div class="number">
+                <p>1</p>
+            </div>
+            <div class="title">
+                <p>Qualify</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="number">
+                <p>2</p>
+            </div>
+            <div class="title">
+                <p>Site Survey</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="number">
+                <p>3</p>
+            </div>
+            <div class="title">
+                <p>Design</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="number">
+                <p>4</p>
+            </div>
+            <div class="title">
+                <p>Permit</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="number">
+                <p>5</p>
+            </div>
+            <div class="title">
+                <p>Install</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

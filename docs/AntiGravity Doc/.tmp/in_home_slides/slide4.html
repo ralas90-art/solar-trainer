@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+    * { box-sizing: border-box; }
+        body {
+            width: 720pt;
+            height: 405pt;
+            margin: 0;
+            padding: 20pt;
+            background: #FFFFFF;
+            font-family: Arial, sans-serif;
+            color: #2C3E50;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-box {
+            width: 100%;
+            border-bottom: 3px solid #F39C12;
+            padding-bottom: 10pt;
+            margin-bottom: 10pt;
+        }
+
+        h1 {
+            font-size: 32pt;
+            margin: 0;
+            color: #F39C12;
+        }
+
+        .content {
+            margin-top: 10pt;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .card {
+            width: 30%;
+            background: #FDEDEC;
+            padding: 15pt;
+            border-radius: 8pt;
+            text-align: center;
+        }
+
+        .card h3 {
+            color: #E67E22;
+            margin-bottom: 10pt;
+        }
+
+        .card p {
+            font-size: 14pt;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-box">
+        <h1>How Net Metering Works</h1>
+    </div>
+    <p style="font-size: 18pt; color: #7F8C8D;">Your roof acts as your battery.</p>
+    <div class="content">
+        <div class="card">
+            <h3>Daytime</h3>
+            <p>Produce excess energy.</p>
+            <p style="font-weight: bold; font-size: 20pt;">Send to Grid</p>
+        </div>
+        <div class="card" style="background: #EBF5FB;">
+            <h3>Nighttime</h3>
+            <p>Sun is down.</p>
+            <p style="font-weight: bold; font-size: 20pt;">Pull Credits</p>
+        </div>
+        <div class="card" style="background: #EAFAF1;">
+            <h3>Result</h3>
+            <p>You only pay the difference.</p>
+            <p style="font-weight: bold; font-size: 20pt;">Net Zero</p>
+        </div>
+    </div>
+</body>
+
+</html>

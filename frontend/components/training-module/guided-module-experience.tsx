@@ -14,7 +14,7 @@ import {
   updateTrainingModuleProgress,
 } from "@/lib/training-module-progress"
 import { buildModuleAudioLesson } from "@/lib/training-audio"
-import { SLIDE_START_PAGES, WHITE_LABEL } from "@/lib/white-label.config"
+import { SLIDE_START_PAGES, WHITE_LABEL, getGoogleSlidesEmbedUrl } from "@/lib/white-label.config"
 import { 
   SkipForward, 
   Zap, 
@@ -32,7 +32,8 @@ import {
   ChevronUp,
   ShieldAlert,
   Compass,
-  Menu
+  Menu,
+  AlertTriangle
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
@@ -65,7 +66,7 @@ export function GuidedModuleExperience({
   onModuleSelect?: (moduleId: string) => void
 }) {
   const { user } = useAuth()
-  const { language: lang } = useLanguage()
+  const { language: lang, setLanguage } = useLanguage()
 
   const [activeAudioSectionId, setActiveAudioSectionId] = useState("")
   const [audioProgress, setAudioProgress] = useState(0)
@@ -157,34 +158,8 @@ export function GuidedModuleExperience({
 
   // Dynamic Spanish/English slide resolution
   const slideUrl = useMemo(() => {
-    if (WHITE_LABEL.presentationMode !== "google_slides") return null
-
-    const esUrls = WHITE_LABEL.slideEmbedUrls_es || {}
-    const enUrls = WHITE_LABEL.slideEmbedUrls || {}
-
-    const isPlaceholder = (url?: string) => !url || url.trim() === "" || url.startsWith("PASTE_")
-
-    if (lang === "es") {
-      let url = esUrls[moduleView.id]
-      if (!isPlaceholder(url)) return url
-
-      if (Number.isFinite(dayNumber)) {
-        url = esUrls[dayNumber]
-        if (!isPlaceholder(url)) return url
-      }
-    }
-
-    // Fallback to English
-    let url = enUrls[moduleView.id]
-    if (!isPlaceholder(url)) return url
-
-    if (Number.isFinite(dayNumber)) {
-      url = enUrls[dayNumber]
-      if (!isPlaceholder(url)) return url
-    }
-
-    return null
-  }, [lang, moduleView.id, dayNumber])
+    return getGoogleSlidesEmbedUrl(moduleView.id, lang)
+  }, [lang, moduleView.id])
 
   const activeSegment = useMemo(() => {
     const sectionMatch = moduleView.instructionalSegments.find((segment) => segment.id === activeAudioSectionId)
@@ -345,19 +320,33 @@ export function GuidedModuleExperience({
 
   return (
     <div className="space-y-6 pb-32 sm:pb-36">
-      {/* Admin control panel button */}
-      {canBypassTrainingLocks(user) && (
-        <div className="flex justify-end -mb-2">
+      {/* Top Actions Row */}
+      <div className="flex flex-wrap items-center justify-between gap-3 -mb-2">
+        {/* Language Selection Toggle */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setLanguage(lang === "es" ? "en" : "es")}
+            className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-[#FFD54F] transition-colors hover:bg-white/10 font-hud"
+          >
+            {lang === "es" ? "Training in English" : "Entrenamiento en Español"}
+          </button>
+          <span className="text-[10px] text-[#94A3B8] hidden sm:inline">
+            {lang === "es" ? "Cambiar diapositivas y narración a inglés" : "Switch slides and narration to Spanish"}
+          </span>
+        </div>
+
+        {/* Admin control panel button */}
+        {canBypassTrainingLocks(user) && (
           <button
             type="button"
             onClick={() => setAdminDrawerOpen(true)}
-            className="flex items-center gap-2 rounded-xl border border-[#FF5722]/40 bg-[#FF5722]/10 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#FFD54F] shadow-[0_0_15px_rgba(255,87,34,0.15)] transition-all hover:bg-[#FF5722]/20"
+            className="flex items-center gap-2 rounded-xl border border-[#FF5722]/40 bg-[#FF5722]/10 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-[#FFD54F] shadow-[0_0_15px_rgba(255,87,34,0.15)] transition-all hover:bg-[#FF5722]/20 font-hud"
           >
             <ShieldAlert className="h-4 w-4 animate-pulse text-[#FF5722]" />
             {lang === "es" ? "Panel de Admin / Demo" : "Admin / Demo Panel"}
           </button>
-        </div>
-      )}
+        )}
+      </div>
 
       <TrainingModuleHeader
         title={moduleView.title}
@@ -613,17 +602,29 @@ export function GuidedModuleExperience({
             </span>
           </div>
 
-          {WHITE_LABEL.presentationMode === "google_slides" && slideUrl ? (
-            <div className="overflow-hidden rounded-2xl border border-white/10">
-              <iframe
-                src={slideUrl}
-                title={`${moduleView.title} presentation`}
-                width="100%"
-                style={{ aspectRatio: "16/9", border: 0 }}
-                allowFullScreen
-              />
-            </div>
-          ) : null}
+          {WHITE_LABEL.presentationMode === "google_slides" && (
+            slideUrl ? (
+              <div className="overflow-hidden rounded-2xl border border-white/10">
+                <iframe
+                  src={slideUrl}
+                  title={`${moduleView.title} presentation`}
+                  width="100%"
+                  style={{ aspectRatio: "16/9", border: 0 }}
+                  allowFullScreen
+                />
+              </div>
+            ) : (
+              <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#1A1A1A] p-8 flex flex-col items-center justify-center text-center">
+                  <div className="w-16 h-16 rounded-full bg-slate-800/50 flex items-center justify-center mb-4">
+                      <AlertTriangle className="w-8 h-8 text-amber-500" />
+                  </div>
+                  <h3 className="text-xl font-display font-bold text-white mb-2">Training Slides Unavailable</h3>
+                  <p className="text-slate-400 max-w-md mx-auto">
+                      The presentation deck for this module is currently being updated. You can still proceed with the audio narration and simulation below.
+                  </p>
+              </div>
+            )
+          )}
 
           {WHITE_LABEL.presentationMode === "local_pdf" && pdfUrl ? (
             <PdfSlideViewer

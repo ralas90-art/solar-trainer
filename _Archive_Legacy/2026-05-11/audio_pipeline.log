@@ -1,0 +1,223 @@
+2026-03-10 21:45:25,797 [INFO] Starting SeptiVolt Audio Pipeline │ Mode: TEST — Module 1.1 only
+2026-03-10 21:45:25,798 [INFO] Voice: Rachel (21m00Tcm4TlvDq8ikWAM) │ Model: eleven_monolingual_v1
+2026-03-10 21:45:25,800 [INFO] Output directory: C:\Users\12132\Desktop\Antigravity Solar Sales Trainer Agent\audio
+
+2026-03-10 21:45:25,802 [INFO] 
+Loading narration_transcripts_part1.json…
+2026-03-10 21:45:25,805 [INFO] 
+────────────────────────────────────────────────────────────
+2026-03-10 21:45:25,805 [INFO] Day 1 │ Module 1.1 — Welcome & Vision Casting
+2026-03-10 21:45:25,806 [INFO] ────────────────────────────────────────────────────────────
+2026-03-10 21:45:25,806 [INFO]   [GEN ] Module 1.1 │ Slide 1 │ ~29s
+2026-03-10 21:45:26,590 [ERROR] HTTP error from ElevenLabs: 401 Client Error: Unauthorized for url: https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM — {"detail":{"status":"missing_permissions","message":"The API key you used is missing the permission text_to_speech to execute this operation."}}
+2026-03-10 21:45:26,592 [ERROR]   [FAIL] Module 1.1 Slide 1 — ElevenLabs returned no audio.
+2026-03-10 21:45:26,593 [INFO]   [GEN ] Module 1.1 │ Slide 2 │ ~37s
+2026-03-10 21:45:27,343 [ERROR] HTTP error from ElevenLabs: 401 Client Error: Unauthorized for url: https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM — {"detail":{"status":"missing_permissions","message":"The API key you used is missing the permission text_to_speech to execute this operation."}}
+2026-03-10 21:45:27,346 [ERROR]   [FAIL] Module 1.1 Slide 2 — ElevenLabs returned no audio.
+2026-03-10 21:45:27,347 [INFO]   [GEN ] Module 1.1 │ Slide 3 │ ~34s
+2026-03-10 21:45:27,958 [ERROR] HTTP error from ElevenLabs: 401 Client Error: Unauthorized for url: https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM — {"detail":{"status":"missing_permissions","message":"The API key you used is missing the permission text_to_speech to execute this operation."}}
+2026-03-10 21:45:27,960 [ERROR]   [FAIL] Module 1.1 Slide 3 — ElevenLabs returned no audio.
+2026-03-10 21:45:27,961 [INFO]   [GEN ] Module 1.1 │ Slide 4 │ ~40s
+2026-03-10 21:45:28,644 [ERROR] HTTP error from ElevenLabs: 401 Client Error: Unauthorized for url: https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM — {"detail":{"status":"missing_permissions","message":"The API key you used is missing the permission text_to_speech to execute this operation."}}
+2026-03-10 21:45:28,647 [ERROR]   [FAIL] Module 1.1 Slide 4 — ElevenLabs returned no audio.
+2026-03-10 21:45:28,647 [INFO]   [GEN ] Module 1.1 │ Slide 5 │ ~26s
+2026-03-10 21:45:29,194 [ERROR] HTTP error from ElevenLabs: 401 Client Error: Unauthorized for url: https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM — {"detail":{"status":"missing_permissions","message":"The API key you used is missing the permission text_to_speech to execute this operation."}}
+2026-03-10 21:45:29,196 [ERROR]   [FAIL] Module 1.1 Slide 5 — ElevenLabs returned no audio.
+2026-03-10 21:45:29,197 [INFO] 
+════════════════════════════════════════════════════════════
+2026-03-10 21:45:29,197 [INFO] Pipeline complete │ Generated: 0 │ Skipped: 0 │ Failed: 5
+2026-03-10 21:45:29,197 [INFO] ════════════════════════════════════════════════════════════
+
+2026-03-10 21:45:29,204 [INFO] Updated JSON saved → narration_transcripts_part1_updated.json
+2026-03-10 21:45:29,204 [INFO] 
+Loading narration_transcripts_part2.json…
+2026-03-10 21:45:29,206 [INFO] 
+════════════════════════════════════════════════════════════
+2026-03-10 21:45:29,207 [INFO] Pipeline complete │ Generated: 0 │ Skipped: 0 │ Failed: 0
+2026-03-10 21:45:29,207 [INFO] ════════════════════════════════════════════════════════════
+
+2026-03-10 21:45:29,212 [INFO] Updated JSON saved → narration_transcripts_part2_updated.json
+2026-03-10 21:45:29,212 [INFO] All done. Audio files are in /audio/
+2026-03-10 22:00:26,018 [INFO] Starting SeptiVolt Audio Pipeline │ Mode: TEST — Module 1.1 only
+2026-03-10 22:00:26,019 [INFO] Voice: Rachel (21m00Tcm4TlvDq8ikWAM) │ Model: eleven_turbo_v2_5
+2026-03-10 22:00:26,020 [INFO] Output directory: C:\Users\12132\Desktop\Antigravity Solar Sales Trainer Agent\audio
+
+2026-03-10 22:00:26,021 [INFO] 
+Loading narration_transcripts_part1.json…
+2026-03-10 22:00:26,025 [INFO] 
+────────────────────────────────────────────────────────────
+2026-03-10 22:00:26,025 [INFO] Day 1 │ Module 1.1 — Welcome & Vision Casting
+2026-03-10 22:00:26,026 [INFO] ────────────────────────────────────────────────────────────
+2026-03-10 22:00:26,026 [INFO]   [GEN ] Module 1.1 │ Slide 1 │ ~29s
+2026-03-10 22:00:26,619 [ERROR] HTTP error from ElevenLabs: 401 Client Error: Unauthorized for url: https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM — {"detail":{"status":"invalid_api_key","message":"Invalid API key"}}
+2026-03-10 22:00:26,621 [ERROR]   [FAIL] Module 1.1 Slide 1 — ElevenLabs returned no audio.
+2026-03-10 22:00:26,622 [INFO]   [GEN ] Module 1.1 │ Slide 2 │ ~37s
+2026-03-10 22:00:27,198 [ERROR] HTTP error from ElevenLabs: 401 Client Error: Unauthorized for url: https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM — {"detail":{"status":"invalid_api_key","message":"Invalid API key"}}
+2026-03-10 22:00:27,200 [ERROR]   [FAIL] Module 1.1 Slide 2 — ElevenLabs returned no audio.
+2026-03-10 22:00:27,201 [INFO]   [GEN ] Module 1.1 │ Slide 3 │ ~34s
+2026-03-10 22:00:27,838 [ERROR] HTTP error from ElevenLabs: 401 Client Error: Unauthorized for url: https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM — {"detail":{"status":"invalid_api_key","message":"Invalid API key"}}
+2026-03-10 22:00:27,841 [ERROR]   [FAIL] Module 1.1 Slide 3 — ElevenLabs returned no audio.
+2026-03-10 22:00:27,842 [INFO]   [GEN ] Module 1.1 │ Slide 4 │ ~40s
+2026-03-10 22:00:28,413 [ERROR] HTTP error from ElevenLabs: 401 Client Error: Unauthorized for url: https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM — {"detail":{"status":"invalid_api_key","message":"Invalid API key"}}
+2026-03-10 22:00:28,415 [ERROR]   [FAIL] Module 1.1 Slide 4 — ElevenLabs returned no audio.
+2026-03-10 22:00:28,416 [INFO]   [GEN ] Module 1.1 │ Slide 5 │ ~26s
+2026-03-10 22:00:29,068 [ERROR] HTTP error from ElevenLabs: 401 Client Error: Unauthorized for url: https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM — {"detail":{"status":"invalid_api_key","message":"Invalid API key"}}
+2026-03-10 22:00:29,070 [ERROR]   [FAIL] Module 1.1 Slide 5 — ElevenLabs returned no audio.
+2026-03-10 22:00:29,071 [INFO] 
+════════════════════════════════════════════════════════════
+2026-03-10 22:00:29,071 [INFO] Pipeline complete │ Generated: 0 │ Skipped: 0 │ Failed: 5
+2026-03-10 22:00:29,072 [INFO] ════════════════════════════════════════════════════════════
+
+2026-03-10 22:00:29,077 [INFO] Updated JSON saved → narration_transcripts_part1_updated.json
+2026-03-10 22:00:29,078 [INFO] 
+Loading narration_transcripts_part2.json…
+2026-03-10 22:00:29,080 [INFO] 
+════════════════════════════════════════════════════════════
+2026-03-10 22:00:29,081 [INFO] Pipeline complete │ Generated: 0 │ Skipped: 0 │ Failed: 0
+2026-03-10 22:00:29,081 [INFO] ════════════════════════════════════════════════════════════
+
+2026-03-10 22:00:29,085 [INFO] Updated JSON saved → narration_transcripts_part2_updated.json
+2026-03-10 22:00:29,085 [INFO] All done. Audio files are in /audio/
+2026-03-10 22:01:14,239 [INFO] Starting SeptiVolt Audio Pipeline │ Mode: TEST — Module 1.1 only
+2026-03-10 22:01:14,240 [INFO] Voice: Rachel (21m00Tcm4TlvDq8ikWAM) │ Model: eleven_turbo_v2_5
+2026-03-10 22:01:14,241 [INFO] Output directory: C:\Users\12132\Desktop\Antigravity Solar Sales Trainer Agent\audio
+
+2026-03-10 22:01:14,241 [INFO] 
+Loading narration_transcripts_part1.json…
+2026-03-10 22:01:14,242 [INFO] 
+────────────────────────────────────────────────────────────
+2026-03-10 22:01:14,242 [INFO] Day 1 │ Module 1.1 — Welcome & Vision Casting
+2026-03-10 22:01:14,243 [INFO] ────────────────────────────────────────────────────────────
+2026-03-10 22:01:14,243 [INFO]   [GEN ] Module 1.1 │ Slide 1 │ ~29s
+2026-03-10 22:01:15,539 [INFO]   [SAVE] audio\day-1\module-1.1\slide-1.mp3 (336.4 KB)
+2026-03-10 22:01:17,040 [INFO]   [GEN ] Module 1.1 │ Slide 2 │ ~37s
+2026-03-10 22:01:18,500 [INFO]   [SAVE] audio\day-1\module-1.1\slide-2.mp3 (413.9 KB)
+2026-03-10 22:01:20,001 [INFO]   [GEN ] Module 1.1 │ Slide 3 │ ~34s
+2026-03-10 22:01:21,430 [INFO]   [SAVE] audio\day-1\module-1.1\slide-3.mp3 (376.8 KB)
+2026-03-10 22:01:22,932 [INFO]   [GEN ] Module 1.1 │ Slide 4 │ ~40s
+2026-03-10 22:01:24,494 [INFO]   [SAVE] audio\day-1\module-1.1\slide-4.mp3 (477.6 KB)
+2026-03-10 22:01:25,995 [INFO]   [GEN ] Module 1.1 │ Slide 5 │ ~26s
+2026-03-10 22:01:27,216 [INFO]   [SAVE] audio\day-1\module-1.1\slide-5.mp3 (266.6 KB)
+2026-03-10 22:01:28,717 [INFO] 
+════════════════════════════════════════════════════════════
+2026-03-10 22:01:28,718 [INFO] Pipeline complete │ Generated: 5 │ Skipped: 0 │ Failed: 0
+2026-03-10 22:01:28,718 [INFO] ════════════════════════════════════════════════════════════
+
+2026-03-10 22:01:28,723 [INFO] Updated JSON saved → narration_transcripts_part1_updated.json
+2026-03-10 22:01:28,723 [INFO] 
+Loading narration_transcripts_part2.json…
+2026-03-10 22:01:28,725 [INFO] 
+════════════════════════════════════════════════════════════
+2026-03-10 22:01:28,725 [INFO] Pipeline complete │ Generated: 0 │ Skipped: 0 │ Failed: 0
+2026-03-10 22:01:28,725 [INFO] ════════════════════════════════════════════════════════════
+
+2026-03-10 22:01:28,729 [INFO] Updated JSON saved → narration_transcripts_part2_updated.json
+2026-03-10 22:01:28,730 [INFO] All done. Audio files are in /audio/
+2026-03-11 16:39:56,647 [INFO] Starting SeptiVolt Audio Pipeline │ Mode: ALL MODULES
+2026-03-11 16:39:56,647 [INFO] Voice: Rachel (21m00Tcm4TlvDq8ikWAM) │ Model: eleven_turbo_v2_5
+2026-03-11 16:39:56,648 [INFO] Output directory: C:\Users\12132\Desktop\Antigravity Solar Sales Trainer Agent\audio
+
+2026-03-11 16:39:56,648 [INFO] 
+Loading narration_transcripts_part1.json…
+2026-03-11 16:39:56,666 [INFO] 
+────────────────────────────────────────────────────────────
+2026-03-11 16:39:56,667 [INFO] Day 1 │ Module 1.1 — Welcome & Vision Casting
+2026-03-11 16:39:56,667 [INFO] ────────────────────────────────────────────────────────────
+2026-03-11 16:39:56,668 [INFO]   [SKIP] audio\day-1\module-1.1\slide-1.mp3 already exists.
+2026-03-11 16:39:56,668 [INFO]   [SKIP] audio\day-1\module-1.1\slide-2.mp3 already exists.
+2026-03-11 16:39:56,669 [INFO]   [SKIP] audio\day-1\module-1.1\slide-3.mp3 already exists.
+2026-03-11 16:39:56,670 [INFO]   [SKIP] audio\day-1\module-1.1\slide-4.mp3 already exists.
+2026-03-11 16:39:56,672 [INFO]   [SKIP] audio\day-1\module-1.1\slide-5.mp3 already exists.
+2026-03-11 16:39:56,672 [INFO] 
+────────────────────────────────────────────────────────────
+2026-03-11 16:39:56,672 [INFO] Day 1 │ Module 1.2 — Administrative Onboarding
+2026-03-11 16:39:56,673 [INFO] ────────────────────────────────────────────────────────────
+2026-03-11 16:39:56,674 [INFO]   [GEN ] Module 1.2 │ Slide 1 │ ~29s
+2026-03-11 16:40:09,243 [INFO] Starting SeptiVolt Audio Pipeline │ Mode: ALL MODULES
+2026-03-11 16:40:09,243 [INFO] Voice: Rachel (21m00Tcm4TlvDq8ikWAM) │ Model: eleven_turbo_v2_5
+2026-03-11 16:40:09,244 [INFO] Output directory: C:\Users\12132\Desktop\Antigravity Solar Sales Trainer Agent\audio
+
+2026-03-11 16:40:09,245 [INFO] 
+Loading narration_transcripts_part1.json…
+2026-03-11 16:40:09,246 [INFO] 
+────────────────────────────────────────────────────────────
+2026-03-11 16:40:09,247 [INFO] Day 1 │ Module 1.1 — Welcome & Vision Casting
+2026-03-11 16:40:09,247 [INFO] ────────────────────────────────────────────────────────────
+2026-03-11 16:40:09,247 [INFO]   [SKIP] audio\day-1\module-1.1\slide-1.mp3 already exists.
+2026-03-11 16:40:09,248 [INFO]   [SKIP] audio\day-1\module-1.1\slide-2.mp3 already exists.
+2026-03-11 16:40:09,248 [INFO]   [SKIP] audio\day-1\module-1.1\slide-3.mp3 already exists.
+2026-03-11 16:40:09,249 [INFO]   [SKIP] audio\day-1\module-1.1\slide-4.mp3 already exists.
+2026-03-11 16:40:09,249 [INFO]   [SKIP] audio\day-1\module-1.1\slide-5.mp3 already exists.
+2026-03-11 16:40:09,250 [INFO] 
+────────────────────────────────────────────────────────────
+2026-03-11 16:40:09,250 [INFO] Day 1 │ Module 1.2 — Administrative Onboarding
+2026-03-11 16:40:09,250 [INFO] ────────────────────────────────────────────────────────────
+2026-03-11 16:40:09,251 [INFO]   [GEN ] Module 1.2 │ Slide 1 │ ~29s
+2026-03-11 16:40:10,970 [INFO]   [SAVE] audio\day-1\module-1.2\slide-1.mp3 (326.2 KB)
+2026-03-11 16:40:12,471 [INFO]   [GEN ] Module 1.2 │ Slide 2 │ ~30s
+2026-03-11 16:40:13,823 [INFO]   [SAVE] audio\day-1\module-1.2\slide-2.mp3 (358.8 KB)
+2026-03-11 16:40:15,324 [INFO] 
+────────────────────────────────────────────────────────────
+2026-03-11 16:40:15,324 [INFO] Day 1 │ Module 1.3 — Company Culture & Expectations
+2026-03-11 16:40:15,324 [INFO] ────────────────────────────────────────────────────────────
+2026-03-11 16:40:15,325 [INFO]   [GEN ] Module 1.3 │ Slide 1 │ ~35s
+2026-03-11 16:40:16,836 [INFO]   [SAVE] audio\day-1\module-1.3\slide-1.mp3 (416.8 KB)
+2026-03-11 16:40:18,337 [INFO]   [GEN ] Module 1.3 │ Slide 2 │ ~34s
+2026-03-11 16:40:19,750 [INFO]   [SAVE] audio\day-1\module-1.3\slide-2.mp3 (368.2 KB)
+2026-03-11 16:40:21,251 [INFO]   [GEN ] Module 1.3 │ Slide 3 │ ~32s
+2026-03-11 16:40:22,596 [INFO]   [SAVE] audio\day-1\module-1.3\slide-3.mp3 (313.9 KB)
+2026-03-11 16:40:24,098 [INFO]   [GEN ] Module 1.3 │ Slide 4 │ ~33s
+2026-03-11 16:40:25,647 [INFO]   [SAVE] audio\day-1\module-1.3\slide-4.mp3 (400.9 KB)
+2026-03-11 16:40:27,148 [INFO] 
+────────────────────────────────────────────────────────────
+2026-03-11 16:40:27,149 [INFO] Day 1 │ Module 1.4 — Solar Industry Overview
+2026-03-11 16:40:27,149 [INFO] ────────────────────────────────────────────────────────────
+2026-03-11 16:40:27,150 [INFO]   [GEN ] Module 1.4 │ Slide 1 │ ~36s
+2026-03-11 16:40:28,748 [INFO]   [SAVE] audio\day-1\module-1.4\slide-1.mp3 (425.3 KB)
+2026-03-11 16:40:30,249 [INFO]   [GEN ] Module 1.4 │ Slide 2 │ ~35s
+2026-03-11 16:40:31,813 [INFO]   [SAVE] audio\day-1\module-1.4\slide-2.mp3 (456.8 KB)
+2026-03-11 16:40:33,315 [INFO]   [GEN ] Module 1.4 │ Slide 3 │ ~42s
+2026-03-11 16:40:34,893 [INFO]   [SAVE] audio\day-1\module-1.4\slide-3.mp3 (528.6 KB)
+2026-03-11 16:40:36,394 [INFO] 
+────────────────────────────────────────────────────────────
+2026-03-11 16:40:36,394 [INFO] Day 1 │ Module 1.5 — Solar Technology Fundamentals
+2026-03-11 16:40:36,394 [INFO] ────────────────────────────────────────────────────────────
+2026-03-11 16:40:36,395 [INFO]   [GEN ] Module 1.5 │ Slide 1 │ ~41s
+2026-03-11 16:40:37,844 [INFO]   [SAVE] audio\day-1\module-1.5\slide-1.mp3 (446.6 KB)
+2026-03-11 16:40:39,346 [INFO]   [GEN ] Module 1.5 │ Slide 2 │ ~34s
+2026-03-11 16:40:40,801 [INFO]   [SAVE] audio\day-1\module-1.5\slide-2.mp3 (439.2 KB)
+2026-03-11 16:40:42,302 [INFO]   [GEN ] Module 1.5 │ Slide 3 │ ~35s
+2026-03-11 16:40:43,851 [INFO]   [SAVE] audio\day-1\module-1.5\slide-3.mp3 (440.9 KB)
+2026-03-11 16:40:45,352 [INFO]   [GEN ] Module 1.5 │ Slide 4 │ ~35s
+2026-03-11 16:40:46,961 [INFO]   [SAVE] audio\day-1\module-1.5\slide-4.mp3 (423.3 KB)
+2026-03-11 16:40:48,462 [INFO] 
+────────────────────────────────────────────────────────────
+2026-03-11 16:40:48,462 [INFO] Day 1 │ Module 1.6 — Identity Shift — Consultant vs. Salesperson
+2026-03-11 16:40:48,463 [INFO] ────────────────────────────────────────────────────────────
+2026-03-11 16:40:48,463 [INFO]   [GEN ] Module 1.6 │ Slide 1 │ ~37s
+2026-03-11 16:40:49,962 [INFO]   [SAVE] audio\day-1\module-1.6\slide-1.mp3 (448.2 KB)
+2026-03-11 16:40:51,464 [INFO]   [GEN ] Module 1.6 │ Slide 2 │ ~35s
+2026-03-11 16:40:52,939 [INFO]   [SAVE] audio\day-1\module-1.6\slide-2.mp3 (418.8 KB)
+2026-03-11 16:40:54,440 [INFO]   [GEN ] Module 1.6 │ Slide 3 │ ~43s
+2026-03-11 16:40:55,977 [INFO]   [SAVE] audio\day-1\module-1.6\slide-3.mp3 (476.4 KB)
+2026-03-11 16:40:57,478 [INFO]   [GEN ] Module 1.6 │ Slide 4 │ ~37s
+2026-03-11 16:40:59,042 [INFO]   [SAVE] audio\day-1\module-1.6\slide-4.mp3 (432.7 KB)
+2026-03-11 16:41:00,543 [INFO] 
+────────────────────────────────────────────────────────────
+2026-03-11 16:41:00,543 [INFO] Day 1 │ Module 1.7 — Utility Bill Mastery — Introduction
+2026-03-11 16:41:00,544 [INFO] ────────────────────────────────────────────────────────────
+2026-03-11 16:41:00,545 [INFO]   [GEN ] Module 1.7 │ Slide 1 │ ~37s
+2026-03-11 16:41:02,066 [INFO]   [SAVE] audio\day-1\module-1.7\slide-1.mp3 (447.4 KB)
+2026-03-11 16:41:03,567 [INFO]   [GEN ] Module 1.7 │ Slide 2 │ ~30s
+2026-03-11 16:41:04,983 [INFO]   [SAVE] audio\day-1\module-1.7\slide-2.mp3 (373.1 KB)
+2026-03-11 16:41:06,484 [INFO]   [GEN ] Module 1.7 │ Slide 3 │ ~39s
+2026-03-11 16:41:07,999 [INFO]   [SAVE] audio\day-1\module-1.7\slide-3.mp3 (440.0 KB)
+2026-03-11 16:41:09,500 [INFO]   [GEN ] Module 1.7 │ Slide 4 │ ~38s
+2026-03-11 16:41:11,004 [INFO]   [SAVE] audio\day-1\module-1.7\slide-4.mp3 (453.1 KB)
+2026-03-11 16:41:12,505 [INFO] 
+────────────────────────────────────────────────────────────
+2026-03-11 16:41:12,506 [INFO] Day 1 │ Module 1.8 — Day 1 Wrap-Up & Preview
+2026-03-11 16:41:12,506 [INFO] ────────────────────────────────────────────────────────────
+2026-03-11 16:41:12,506 [INFO]   [GEN ] Module 1.8 │ Slide 1 │ ~30s
+2026-03-11 16:41:13,966 [INFO]   [SAVE] audio\day-1\module-1.8\slide-1.mp3 (358.0 KB)
+2026-03-11 16:41:15,467 [INFO]   [GEN ] Module 1.8 │ Slide 2 │ ~32s

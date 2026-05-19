@@ -49,7 +49,13 @@ export function LeaderboardUI() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
-                        {leaders.map((user, index) => (
+                        {leaders.length === 0 ? (
+                            <tr>
+                                <td colSpan={4} className="px-4 py-8 text-center text-sm text-slate-500">
+                                    No rankings yet — complete simulations to appear on the board.
+                                </td>
+                            </tr>
+                        ) : leaders.map((user, index) => (
                             <tr key={user.user_id} className="hover:bg-white/5 transition-colors group">
                                 <td className="px-4 py-3">
                                     <div className="w-8 h-8 rounded-full bg-slate-900/50 flex items-center justify-center border border-white/5 group-hover:border-yellow-500/30 transition-colors">
@@ -57,7 +63,7 @@ export function LeaderboardUI() {
                                     </div>
                                 </td>
                                 <td className="px-4 py-3 font-medium text-slate-200 group-hover:text-white transition-colors">{user.user_id}</td>
-                                <td className="px-4 py-3 text-right font-bold text-blue-400 group-hover:text-blue-300 text-glow">{user.total_score}</td>
+                                <td className="px-4 py-3 text-right font-bold text-blue-400 group-hover:text-blue-300 text-glow">{Number(user.total_score) || 0}</td>
                                 <td className="px-4 py-3 text-right">
                                     <div className="flex justify-end items-center gap-1.5 opacity-80 group-hover:opacity-100">
                                         {user.current_streak > 0 && <Flame className="w-3.5 h-3.5 text-orange-500 fill-orange-500 animate-pulse" />}

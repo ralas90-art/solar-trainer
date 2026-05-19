@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Septivolt//Enterprise Scheduler//EN
+BEGIN:VEVENT
+UID:enterprise_20260316T223700Z
+DTSTAMP:20260316T223700Z
+DTSTART:20260319T083700Z
+DTEND:20260319T090700Z
+SUMMARY:Septivolt Demo: Jane Solar (Turbo Solar Inc)
+DESCRIPTION:Enterprise Demo and Discovery Call for Septivolt OS.
+LOCATION:Google Meet (Link to be provided)
+END:VEVENT
+END:VCALENDAR

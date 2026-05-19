@@ -1,8 +1,10 @@
 import React from 'react';
+import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle2, XCircle, TrendingUp, Lightbulb, RotateCcw, ArrowRight, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
+import { CheckCircle2, XCircle, TrendingUp, Lightbulb, RotateCcw, ArrowRight, ChevronDown, ChevronUp, Sparkles, History } from 'lucide-react';
+
 
 interface SimulationFeedbackProps {
     passed: boolean;
@@ -201,23 +203,30 @@ export function SimulationFeedback({
             </Card>
 
             {/* Action Buttons */}
-            <div className="flex gap-4 justify-center pt-4">
-                <Button
-                    onClick={onRetry}
-                    variant="outline"
-                    className="gap-2"
-                >
-                    <RotateCcw className="w-4 h-4" />
-                    Try Again
-                </Button>
-                <Button
-                    onClick={onContinue}
-                    className="gap-2 bg-indigo-600 hover:bg-indigo-700"
-                >
-                    {passed ? 'Continue' : 'Next Scenario'}
-                    <ArrowRight className="w-4 h-4" />
-                </Button>
+            <div className="flex flex-col items-center gap-3 pt-4">
+                <div className="flex gap-4">
+                    <Button
+                        onClick={onRetry}
+                        variant="outline"
+                        className="gap-2"
+                    >
+                        <RotateCcw className="w-4 h-4" />
+                        Try Again
+                    </Button>
+                    <Button
+                        onClick={onContinue}
+                        className="gap-2 bg-indigo-600 hover:bg-indigo-700"
+                    >
+                        {passed ? 'Continue' : 'Next Scenario'}
+                        <ArrowRight className="w-4 h-4" />
+                    </Button>
+                </div>
+                <Link href="/analytics/debriefs" className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-indigo-300 transition-colors mt-1">
+                    <History className="w-3.5 h-3.5" />
+                    View Past Debriefs
+                </Link>
             </div>
         </div>
     );
 }
+

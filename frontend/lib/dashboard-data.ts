@@ -74,7 +74,7 @@ export function getDashboardStats(): DashboardStats {
   // For MVP, we'll keep the mock streak if we don't have enough data, 
   // or calculate based on the number of active days.
   const activeDays = new Set(moduleProgress.map(p => p.updatedAt.split("T")[0])).size
-  const streak = activeDays > 0 ? activeDays : 18 // Fallback to 18 for demo feel
+  const streak = activeDays > 0 ? activeDays : 0
 
   // 3. Calculate Skill Score (Average of coaching scores)
   const scores = moduleProgress.filter(p => p.coachingScore !== null).map(p => p.coachingScore!)
@@ -100,7 +100,7 @@ export function getDashboardStats(): DashboardStats {
   // 6. Milestones
   const completedMilestones = moduleProgress.filter(p => p.moduleCompleted).length
   const totalMilestones = Object.keys(MODULES).length
-  const certificationProgress = Math.round((completedMilestones / totalMilestones) * 100)
+  const certificationProgress = totalMilestones > 0 ? Math.round((completedMilestones / totalMilestones) * 100) : 0
 
   // 7. Recent Simulations
   const recentSimulations = moduleProgress

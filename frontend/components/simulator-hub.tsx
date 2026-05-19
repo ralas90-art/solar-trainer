@@ -11,6 +11,12 @@ import { canBypassTrainingLocks } from "@/lib/auth-bypass"
 import { SCENARIO_LOCK_RULES } from "@/lib/scenario-lock-mapping"
 import { getLanguagePreference } from "@/lib/i18n"
 import {
+    buildScenarioProgressMap,
+    getScenarioStatus,
+    getCompletedCount,
+    ScenarioProgressMap,
+} from "@/lib/simulation-progress"
+import {
     Trophy,
     Lock,
     Play,
@@ -48,8 +54,15 @@ export function SimulatorHub({ tenant, stateCode, onBack }: SimulatorHubProps) {
     
     const [scenarios, setScenarios] = useState<Scenario[]>([])
     const [selectedScenario, setSelectedScenario] = useState<Scenario | null>(null)
-    const [scenarioProgress, setScenarioProgress] = useState<Record<string, any>>({})
+    const [progressMap, setProgressMap] = useState<ScenarioProgressMap>({})
+    const [progressLoading, setProgressLoading] = useState(true)
     const [filter, setFilter] = useState<'all' | 'completed' | 'available' | 'locked'>('all')
+
+    // Initialize from localStorage immediately — no network wait
+    useEffect(() => {
+        setProgressMap(buildScenarioProgressMap({}))
+        setProgressLoading(false)
+    }, [])
 
     useEffect(() => {
         if (userId) {
@@ -57,6 +70,7 @@ export function SimulatorHub({ tenant, stateCode, onBack }: SimulatorHubProps) {
             fetchProgress()
         }
     }, [userId])
+
 
     const fetchScenarios = async () => {
         try {
@@ -71,23 +85,24 @@ export function SimulatorHub({ tenant, stateCode, onBack }: SimulatorHubProps) {
     }
 
     const fetchProgress = async () => {
+        setProgressLoading(true)
+        let backendRaw: Record<string, any> = {}
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/stats`)
-            const data = await response.json()
-            if (data.scenario_progress) {
-                setScenarioProgress(JSON.parse(data.scenario_progress))
+            if (response.ok) {
+                const data = await response.json()
+                if (data.scenario_progress) {
+                    backendRaw = JSON.parse(data.scenario_progress)
+                }
             }
-        } catch (error) {
-            console.error("Failed to fetch progress:", error)
+        } catch {
+            // Backend unavailable — continue with localStorage sources
         }
+        setProgressMap(buildScenarioProgressMap(backendRaw))
+        setProgressLoading(false)
     }
 
-    const getScenarioStatus = (scenarioId: string) => {
-        const progress = scenarioProgress[scenarioId]
-        if (!progress) return 'available'
-        if (progress.passed) return 'completed'
-        return 'attempted'
-    }
+    const getScenarioStatusLocal = (scenarioId: string) => getScenarioStatus(progressMap, scenarioId)
 
     const getDifficultyColor = (difficulty: string) => {
         switch (difficulty.toLowerCase()) {
@@ -106,7 +121,7 @@ export function SimulatorHub({ tenant, stateCode, onBack }: SimulatorHubProps) {
     }
 
     const getStatusIcon = (scenarioId: string) => {
-        const status = getScenarioStatus(scenarioId)
+        const status = getScenarioStatusLocal(scenarioId)
         switch (status) {
             case 'completed':
                 return <CheckCircle className="w-5 h-5 text-green-400" />
@@ -120,17 +135,21 @@ export function SimulatorHub({ tenant, stateCode, onBack }: SimulatorHubProps) {
     }
 
     const filteredScenarios = scenarios.filter(scenario => {
-        const status = getScenarioStatus(scenario.id)
+        const status = getScenarioStatusLocal(scenario.id)
         if (filter === 'all') return true
         if (filter === 'completed') return status === 'completed'
         if (filter === 'available') return status === 'available' || status === 'attempted'
         return true
     })
 
+    const completedCount = getCompletedCount(progressMap)
     const stats = {
         total: scenarios.length,
-        completed: scenarios.filter(s => getScenarioStatus(s.id) === 'completed').length,
-        available: scenarios.filter(s => getScenarioStatus(s.id) === 'available' || getScenarioStatus(s.id) === 'attempted').length
+        completed: completedCount,
+        available: scenarios.filter(s => {
+            const st = getScenarioStatusLocal(s.id)
+            return st === 'available' || st === 'attempted'
+        }).length
     }
 
     if (selectedScenario) {
@@ -143,6 +162,9 @@ export function SimulatorHub({ tenant, stateCode, onBack }: SimulatorHubProps) {
                     scenario={selectedScenario}
                     onComplete={() => {
                         setSelectedScenario(null)
+                        // Rebuild from localStorage immediately (instant feedback),
+                        // then also kick off backend sync in case scores need persisting
+                        setProgressMap(buildScenarioProgressMap({}))
                         fetchProgress()
                     }}
                 />
@@ -181,9 +203,13 @@ export function SimulatorHub({ tenant, stateCode, onBack }: SimulatorHubProps) {
                         <div className="bg-[#FF5722]/10 border border-[#FF5722]/20 px-4 py-2 rounded-lg text-sm">
                             <span className="text-[#FF5722] font-hud text-[10px] uppercase tracking-widest leading-none">Status: {userTier.toUpperCase()}</span>
                         </div>
-                        <div className="bg-slate-800/50 border border-slate-700 px-4 py-2 rounded-lg text-sm">
+                        <div className="bg-slate-800/50 border border-slate-700 px-4 py-2 rounded-lg text-sm flex items-center gap-2">
                             <span className="text-slate-400">Completed:</span>
-                            <span className="text-white font-bold ml-2">{stats.completed}/{stats.total}</span>
+                            {progressLoading ? (
+                                <span className="text-slate-500 font-mono text-xs animate-pulse">syncing...</span>
+                            ) : (
+                                <span className="text-white font-bold">{stats.completed}/{stats.total}</span>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -271,8 +297,8 @@ export function SimulatorHub({ tenant, stateCode, onBack }: SimulatorHubProps) {
                                 
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {tierScenarios.map((scenario) => {
-                                        const status = getScenarioStatus(scenario.id)
-                                        const progress = scenarioProgress[scenario.id]
+                                        const status = getScenarioStatusLocal(scenario.id)
+                                        const prog = progressMap[scenario.id]
                                         const isAdvanced = ['Hard', 'Expert'].includes(scenario.difficulty)
                                         
                                         // Locking Logic Based on Tiers
@@ -371,16 +397,23 @@ export function SimulatorHub({ tenant, stateCode, onBack }: SimulatorHubProps) {
                                                     <p className="text-sm text-slate-400 mt-2 line-clamp-2">{scenario.description}</p>
                                                 </CardHeader>
                                                 <CardContent>
-                                                    {progress && (
-                                                        <div className="mb-4 p-3 bg-slate-800/50 rounded-lg">
-                                                            <div className="flex justify-between text-sm mb-1">
-                                                                 <span className="text-slate-400">Best Score:</span>
-                                                                 <span className="text-white font-bold">{progress.best_score || 0}</span>
+                                                    {prog && (
+                                                        <div className="mb-4 p-3 bg-slate-800/50 rounded-lg space-y-1.5">
+                                                            <div className="flex justify-between text-sm">
+                                                                <span className="text-slate-400">Best Score:</span>
+                                                                <span className={`font-bold ${prog.bestScore >= 70 ? 'text-green-400' : 'text-yellow-400'}`}>{prog.bestScore}/100</span>
                                                             </div>
                                                             <div className="flex justify-between text-sm">
-                                                                 <span className="text-slate-400">Attempts:</span>
-                                                                 <span className="text-white font-bold">{progress.attempts || 0}</span>
+                                                                <span className="text-slate-400">Attempts:</span>
+                                                                <span className="text-white font-bold">{prog.attempts}</span>
                                                             </div>
+                                                            {prog.lastAttemptAt && (
+                                                                <div className="flex justify-between text-sm">
+                                                                    <span className="text-slate-400">Last Attempt:</span>
+                                                                    <span className="text-slate-300 text-xs">{new Date(prog.lastAttemptAt).toLocaleDateString()}</span>
+                                                                </div>
+                                                            )}
+                                                            <div className="text-[10px] text-slate-600 uppercase tracking-widest mt-1">{prog.source}</div>
                                                         </div>
                                                     )}
                                                     <Button

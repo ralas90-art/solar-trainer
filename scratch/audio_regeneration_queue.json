@@ -1,0 +1,2711 @@
+{
+  "keep": [
+    {
+      "module_id": "mod_1_5a",
+      "file": "section_1.mp3",
+      "path": "mod_1_5a/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_5a",
+      "file": "section_2.mp3",
+      "path": "mod_1_5a/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_5a",
+      "file": "section_3.mp3",
+      "path": "mod_1_5a/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_5a",
+      "file": "section_4.mp3",
+      "path": "mod_1_5a/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_5a",
+      "file": "section_5.mp3",
+      "path": "mod_1_5a/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_5a",
+      "file": "section_6.mp3",
+      "path": "mod_1_5a/section_6.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_5a",
+      "file": "section_7.mp3",
+      "path": "mod_1_5a/section_7.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_5b",
+      "file": "section_1.mp3",
+      "path": "mod_1_5b/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_5b",
+      "file": "section_2.mp3",
+      "path": "mod_1_5b/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_5b",
+      "file": "section_3.mp3",
+      "path": "mod_1_5b/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_5b",
+      "file": "section_4.mp3",
+      "path": "mod_1_5b/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_5b",
+      "file": "section_5.mp3",
+      "path": "mod_1_5b/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_5b",
+      "file": "section_6.mp3",
+      "path": "mod_1_5b/section_6.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_7a",
+      "file": "section_1.mp3",
+      "path": "mod_1_7a/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_7a",
+      "file": "section_2.mp3",
+      "path": "mod_1_7a/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_7a",
+      "file": "section_3.mp3",
+      "path": "mod_1_7a/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_7a",
+      "file": "section_4.mp3",
+      "path": "mod_1_7a/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_7a",
+      "file": "section_5.mp3",
+      "path": "mod_1_7a/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_7a",
+      "file": "section_6.mp3",
+      "path": "mod_1_7a/section_6.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_1_7a",
+      "file": "section_7.mp3",
+      "path": "mod_1_7a/section_7.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_3_7a",
+      "file": "section_1.mp3",
+      "path": "mod_3_7a/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_3_7a",
+      "file": "section_2.mp3",
+      "path": "mod_3_7a/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_3_7a",
+      "file": "section_3.mp3",
+      "path": "mod_3_7a/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_3_7a",
+      "file": "section_4.mp3",
+      "path": "mod_3_7a/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_3_7a",
+      "file": "section_5.mp3",
+      "path": "mod_3_7a/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_3_7a",
+      "file": "section_6.mp3",
+      "path": "mod_3_7a/section_6.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_3_7b",
+      "file": "section_1.mp3",
+      "path": "mod_3_7b/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_3_7b",
+      "file": "section_2.mp3",
+      "path": "mod_3_7b/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_3_7b",
+      "file": "section_3.mp3",
+      "path": "mod_3_7b/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_3_7b",
+      "file": "section_4.mp3",
+      "path": "mod_3_7b/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_3_7b",
+      "file": "section_5.mp3",
+      "path": "mod_3_7b/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_3_7b",
+      "file": "section_6.mp3",
+      "path": "mod_3_7b/section_6.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_1a",
+      "file": "section_1.mp3",
+      "path": "mod_4_1a/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_1a",
+      "file": "section_2.mp3",
+      "path": "mod_4_1a/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_1a",
+      "file": "section_3.mp3",
+      "path": "mod_4_1a/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_1a",
+      "file": "section_4.mp3",
+      "path": "mod_4_1a/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_1a",
+      "file": "section_5.mp3",
+      "path": "mod_4_1a/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_1a",
+      "file": "section_6.mp3",
+      "path": "mod_4_1a/section_6.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_1a",
+      "file": "section_7.mp3",
+      "path": "mod_4_1a/section_7.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_2a",
+      "file": "section_1.mp3",
+      "path": "mod_4_2a/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_2a",
+      "file": "section_2.mp3",
+      "path": "mod_4_2a/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_2a",
+      "file": "section_3.mp3",
+      "path": "mod_4_2a/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_2a",
+      "file": "section_4.mp3",
+      "path": "mod_4_2a/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_2a",
+      "file": "section_5.mp3",
+      "path": "mod_4_2a/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_2a",
+      "file": "section_6.mp3",
+      "path": "mod_4_2a/section_6.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_2b",
+      "file": "section_1.mp3",
+      "path": "mod_4_2b/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_2b",
+      "file": "section_2.mp3",
+      "path": "mod_4_2b/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_2b",
+      "file": "section_3.mp3",
+      "path": "mod_4_2b/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_2b",
+      "file": "section_4.mp3",
+      "path": "mod_4_2b/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_2b",
+      "file": "section_5.mp3",
+      "path": "mod_4_2b/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_4a",
+      "file": "section_1.mp3",
+      "path": "mod_4_4a/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_4a",
+      "file": "section_2.mp3",
+      "path": "mod_4_4a/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_4a",
+      "file": "section_3.mp3",
+      "path": "mod_4_4a/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_4a",
+      "file": "section_4.mp3",
+      "path": "mod_4_4a/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_4a",
+      "file": "section_5.mp3",
+      "path": "mod_4_4a/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_4_4a",
+      "file": "section_6.mp3",
+      "path": "mod_4_4a/section_6.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5a",
+      "file": "section_1.mp3",
+      "path": "mod_5_5a/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5a",
+      "file": "section_2.mp3",
+      "path": "mod_5_5a/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5a",
+      "file": "section_3.mp3",
+      "path": "mod_5_5a/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5a",
+      "file": "section_4.mp3",
+      "path": "mod_5_5a/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5a",
+      "file": "section_5.mp3",
+      "path": "mod_5_5a/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5a",
+      "file": "section_6.mp3",
+      "path": "mod_5_5a/section_6.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5a",
+      "file": "section_7.mp3",
+      "path": "mod_5_5a/section_7.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5b",
+      "file": "section_1.mp3",
+      "path": "mod_5_5b/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5b",
+      "file": "section_2.mp3",
+      "path": "mod_5_5b/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5b",
+      "file": "section_3.mp3",
+      "path": "mod_5_5b/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5b",
+      "file": "section_4.mp3",
+      "path": "mod_5_5b/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5b",
+      "file": "section_5.mp3",
+      "path": "mod_5_5b/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5c",
+      "file": "section_1.mp3",
+      "path": "mod_5_5c/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5c",
+      "file": "section_2.mp3",
+      "path": "mod_5_5c/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5c",
+      "file": "section_3.mp3",
+      "path": "mod_5_5c/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5c",
+      "file": "section_4.mp3",
+      "path": "mod_5_5c/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5c",
+      "file": "section_5.mp3",
+      "path": "mod_5_5c/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5d",
+      "file": "section_1.mp3",
+      "path": "mod_5_5d/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5d",
+      "file": "section_2.mp3",
+      "path": "mod_5_5d/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5d",
+      "file": "section_3.mp3",
+      "path": "mod_5_5d/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5d",
+      "file": "section_4.mp3",
+      "path": "mod_5_5d/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5d",
+      "file": "section_5.mp3",
+      "path": "mod_5_5d/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_5_5d",
+      "file": "section_6.mp3",
+      "path": "mod_5_5d/section_6.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_1a",
+      "file": "section_1.mp3",
+      "path": "mod_6_1a/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_1a",
+      "file": "section_2.mp3",
+      "path": "mod_6_1a/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_1a",
+      "file": "section_3.mp3",
+      "path": "mod_6_1a/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_1a",
+      "file": "section_4.mp3",
+      "path": "mod_6_1a/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_1a",
+      "file": "section_5.mp3",
+      "path": "mod_6_1a/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_1a",
+      "file": "section_6.mp3",
+      "path": "mod_6_1a/section_6.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_2a",
+      "file": "section_1.mp3",
+      "path": "mod_6_2a/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_2a",
+      "file": "section_2.mp3",
+      "path": "mod_6_2a/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_2a",
+      "file": "section_3.mp3",
+      "path": "mod_6_2a/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_2a",
+      "file": "section_4.mp3",
+      "path": "mod_6_2a/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_2a",
+      "file": "section_5.mp3",
+      "path": "mod_6_2a/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_2a",
+      "file": "section_6.mp3",
+      "path": "mod_6_2a/section_6.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_3a",
+      "file": "section_1.mp3",
+      "path": "mod_6_3a/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_3a",
+      "file": "section_2.mp3",
+      "path": "mod_6_3a/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_3a",
+      "file": "section_3.mp3",
+      "path": "mod_6_3a/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_3a",
+      "file": "section_4.mp3",
+      "path": "mod_6_3a/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_3a",
+      "file": "section_5.mp3",
+      "path": "mod_6_3a/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_4a",
+      "file": "section_1.mp3",
+      "path": "mod_6_4a/section_1.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_4a",
+      "file": "section_2.mp3",
+      "path": "mod_6_4a/section_2.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_4a",
+      "file": "section_3.mp3",
+      "path": "mod_6_4a/section_3.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_4a",
+      "file": "section_4.mp3",
+      "path": "mod_6_4a/section_4.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    },
+    {
+      "module_id": "mod_6_4a",
+      "file": "section_5.mp3",
+      "path": "mod_6_4a/section_5.mp3",
+      "current_voice": "Tom",
+      "target_voice": "Tom",
+      "reason": "Standardized Tom voice narration. Keep."
+    }
+  ],
+  "regenerate": [
+    {
+      "module_id": "mod_1_1",
+      "file": "mod_1_1_intro.mp3",
+      "path": "mod_1_1/mod_1_1_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_1",
+      "file": "mod_1_1_segment_1.mp3",
+      "path": "mod_1_1/mod_1_1_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_1",
+      "file": "mod_1_1_segment_2.mp3",
+      "path": "mod_1_1/mod_1_1_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_1",
+      "file": "mod_1_1_segment_3.mp3",
+      "path": "mod_1_1/mod_1_1_segment_3.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_1",
+      "file": "mod_1_1_segment_4.mp3",
+      "path": "mod_1_1/mod_1_1_segment_4.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_1",
+      "file": "mod_1_1_transition.mp3",
+      "path": "mod_1_1/mod_1_1_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_2",
+      "file": "mod_1_2_intro.mp3",
+      "path": "mod_1_2/mod_1_2_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_2",
+      "file": "mod_1_2_segment_1.mp3",
+      "path": "mod_1_2/mod_1_2_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_2",
+      "file": "mod_1_2_segment_2.mp3",
+      "path": "mod_1_2/mod_1_2_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_2",
+      "file": "mod_1_2_transition.mp3",
+      "path": "mod_1_2/mod_1_2_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_3",
+      "file": "mod_1_3_intro.mp3",
+      "path": "mod_1_3/mod_1_3_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_3",
+      "file": "mod_1_3_segment_1.mp3",
+      "path": "mod_1_3/mod_1_3_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_3",
+      "file": "mod_1_3_segment_2.mp3",
+      "path": "mod_1_3/mod_1_3_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_3",
+      "file": "mod_1_3_segment_3.mp3",
+      "path": "mod_1_3/mod_1_3_segment_3.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_3",
+      "file": "mod_1_3_segment_4.mp3",
+      "path": "mod_1_3/mod_1_3_segment_4.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_3",
+      "file": "mod_1_3_transition.mp3",
+      "path": "mod_1_3/mod_1_3_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_4",
+      "file": "mod_1_4_intro.mp3",
+      "path": "mod_1_4/mod_1_4_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_4",
+      "file": "mod_1_4_segment_1.mp3",
+      "path": "mod_1_4/mod_1_4_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_4",
+      "file": "mod_1_4_segment_2.mp3",
+      "path": "mod_1_4/mod_1_4_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_4",
+      "file": "mod_1_4_segment_3.mp3",
+      "path": "mod_1_4/mod_1_4_segment_3.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_4",
+      "file": "mod_1_4_transition.mp3",
+      "path": "mod_1_4/mod_1_4_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_5",
+      "file": "mod_1_5_intro.mp3",
+      "path": "mod_1_5/mod_1_5_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_5",
+      "file": "mod_1_5_segment_1.mp3",
+      "path": "mod_1_5/mod_1_5_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_5",
+      "file": "mod_1_5_segment_2.mp3",
+      "path": "mod_1_5/mod_1_5_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_5",
+      "file": "mod_1_5_segment_3.mp3",
+      "path": "mod_1_5/mod_1_5_segment_3.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_5",
+      "file": "mod_1_5_segment_4.mp3",
+      "path": "mod_1_5/mod_1_5_segment_4.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_5",
+      "file": "mod_1_5_transition.mp3",
+      "path": "mod_1_5/mod_1_5_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_6",
+      "file": "mod_1_6_intro.mp3",
+      "path": "mod_1_6/mod_1_6_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_6",
+      "file": "mod_1_6_segment_1.mp3",
+      "path": "mod_1_6/mod_1_6_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_6",
+      "file": "mod_1_6_segment_2.mp3",
+      "path": "mod_1_6/mod_1_6_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_6",
+      "file": "mod_1_6_segment_3.mp3",
+      "path": "mod_1_6/mod_1_6_segment_3.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_6",
+      "file": "mod_1_6_segment_4.mp3",
+      "path": "mod_1_6/mod_1_6_segment_4.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_6",
+      "file": "mod_1_6_transition.mp3",
+      "path": "mod_1_6/mod_1_6_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_7",
+      "file": "mod_1_7_intro.mp3",
+      "path": "mod_1_7/mod_1_7_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_7",
+      "file": "mod_1_7_segment_1.mp3",
+      "path": "mod_1_7/mod_1_7_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_7",
+      "file": "mod_1_7_segment_2.mp3",
+      "path": "mod_1_7/mod_1_7_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_7",
+      "file": "mod_1_7_segment_3.mp3",
+      "path": "mod_1_7/mod_1_7_segment_3.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_7",
+      "file": "mod_1_7_segment_4.mp3",
+      "path": "mod_1_7/mod_1_7_segment_4.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_7",
+      "file": "mod_1_7_transition.mp3",
+      "path": "mod_1_7/mod_1_7_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_8",
+      "file": "mod_1_8_intro.mp3",
+      "path": "mod_1_8/mod_1_8_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_8",
+      "file": "mod_1_8_segment_1.mp3",
+      "path": "mod_1_8/mod_1_8_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_8",
+      "file": "mod_1_8_segment_2.mp3",
+      "path": "mod_1_8/mod_1_8_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_8",
+      "file": "mod_1_8_segment_3.mp3",
+      "path": "mod_1_8/mod_1_8_segment_3.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_1_8",
+      "file": "mod_1_8_transition.mp3",
+      "path": "mod_1_8/mod_1_8_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_1",
+      "file": "mod_2_1_intro.mp3",
+      "path": "mod_2_1/mod_2_1_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_1",
+      "file": "mod_2_1_segment_1.mp3",
+      "path": "mod_2_1/mod_2_1_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_1",
+      "file": "mod_2_1_segment_2.mp3",
+      "path": "mod_2_1/mod_2_1_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_1",
+      "file": "mod_2_1_segment_3.mp3",
+      "path": "mod_2_1/mod_2_1_segment_3.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_1",
+      "file": "mod_2_1_segment_4.mp3",
+      "path": "mod_2_1/mod_2_1_segment_4.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_1",
+      "file": "mod_2_1_segment_5.mp3",
+      "path": "mod_2_1/mod_2_1_segment_5.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_1",
+      "file": "mod_2_1_segment_6.mp3",
+      "path": "mod_2_1/mod_2_1_segment_6.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_1",
+      "file": "mod_2_1_transition.mp3",
+      "path": "mod_2_1/mod_2_1_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_10",
+      "file": "mod_2_10_intro.mp3",
+      "path": "mod_2_10/mod_2_10_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_10",
+      "file": "mod_2_10_segment_1.mp3",
+      "path": "mod_2_10/mod_2_10_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_10",
+      "file": "mod_2_10_transition.mp3",
+      "path": "mod_2_10/mod_2_10_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_11",
+      "file": "mod_2_11_intro.mp3",
+      "path": "mod_2_11/mod_2_11_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_11",
+      "file": "mod_2_11_segment_1.mp3",
+      "path": "mod_2_11/mod_2_11_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_11",
+      "file": "mod_2_11_transition.mp3",
+      "path": "mod_2_11/mod_2_11_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_2",
+      "file": "mod_2_2_intro.mp3",
+      "path": "mod_2_2/mod_2_2_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_2",
+      "file": "mod_2_2_segment_1.mp3",
+      "path": "mod_2_2/mod_2_2_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_2",
+      "file": "mod_2_2_segment_2.mp3",
+      "path": "mod_2_2/mod_2_2_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_2",
+      "file": "mod_2_2_segment_3.mp3",
+      "path": "mod_2_2/mod_2_2_segment_3.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_2",
+      "file": "mod_2_2_transition.mp3",
+      "path": "mod_2_2/mod_2_2_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_3",
+      "file": "mod_2_3_intro.mp3",
+      "path": "mod_2_3/mod_2_3_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_3",
+      "file": "mod_2_3_segment_1.mp3",
+      "path": "mod_2_3/mod_2_3_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_3",
+      "file": "mod_2_3_segment_2.mp3",
+      "path": "mod_2_3/mod_2_3_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_3",
+      "file": "mod_2_3_transition.mp3",
+      "path": "mod_2_3/mod_2_3_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_4",
+      "file": "mod_2_4_intro.mp3",
+      "path": "mod_2_4/mod_2_4_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_4",
+      "file": "mod_2_4_segment_1.mp3",
+      "path": "mod_2_4/mod_2_4_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_4",
+      "file": "mod_2_4_segment_2.mp3",
+      "path": "mod_2_4/mod_2_4_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_4",
+      "file": "mod_2_4_transition.mp3",
+      "path": "mod_2_4/mod_2_4_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_5",
+      "file": "mod_2_5_intro.mp3",
+      "path": "mod_2_5/mod_2_5_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_5",
+      "file": "mod_2_5_segment_1.mp3",
+      "path": "mod_2_5/mod_2_5_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_5",
+      "file": "mod_2_5_segment_2.mp3",
+      "path": "mod_2_5/mod_2_5_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_5",
+      "file": "mod_2_5_segment_3.mp3",
+      "path": "mod_2_5/mod_2_5_segment_3.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_5",
+      "file": "mod_2_5_transition.mp3",
+      "path": "mod_2_5/mod_2_5_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_6",
+      "file": "mod_2_6_intro.mp3",
+      "path": "mod_2_6/mod_2_6_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_6",
+      "file": "mod_2_6_segment_1.mp3",
+      "path": "mod_2_6/mod_2_6_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_6",
+      "file": "mod_2_6_segment_2.mp3",
+      "path": "mod_2_6/mod_2_6_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_6",
+      "file": "mod_2_6_segment_3.mp3",
+      "path": "mod_2_6/mod_2_6_segment_3.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_6",
+      "file": "mod_2_6_segment_4.mp3",
+      "path": "mod_2_6/mod_2_6_segment_4.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_6",
+      "file": "mod_2_6_transition.mp3",
+      "path": "mod_2_6/mod_2_6_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_7",
+      "file": "mod_2_7_intro.mp3",
+      "path": "mod_2_7/mod_2_7_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_7",
+      "file": "mod_2_7_segment_1.mp3",
+      "path": "mod_2_7/mod_2_7_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_7",
+      "file": "mod_2_7_segment_2.mp3",
+      "path": "mod_2_7/mod_2_7_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_7",
+      "file": "mod_2_7_transition.mp3",
+      "path": "mod_2_7/mod_2_7_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_8",
+      "file": "mod_2_8_intro.mp3",
+      "path": "mod_2_8/mod_2_8_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_8",
+      "file": "mod_2_8_segment_1.mp3",
+      "path": "mod_2_8/mod_2_8_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_8",
+      "file": "mod_2_8_segment_2.mp3",
+      "path": "mod_2_8/mod_2_8_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_8",
+      "file": "mod_2_8_transition.mp3",
+      "path": "mod_2_8/mod_2_8_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_9",
+      "file": "mod_2_9_intro.mp3",
+      "path": "mod_2_9/mod_2_9_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_9",
+      "file": "mod_2_9_segment_1.mp3",
+      "path": "mod_2_9/mod_2_9_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_9",
+      "file": "mod_2_9_segment_2.mp3",
+      "path": "mod_2_9/mod_2_9_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_2_9",
+      "file": "mod_2_9_transition.mp3",
+      "path": "mod_2_9/mod_2_9_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_1",
+      "file": "mod_3_1_intro.mp3",
+      "path": "mod_3_1/mod_3_1_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_1",
+      "file": "mod_3_1_segment_1.mp3",
+      "path": "mod_3_1/mod_3_1_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_1",
+      "file": "mod_3_1_segment_2.mp3",
+      "path": "mod_3_1/mod_3_1_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_1",
+      "file": "mod_3_1_transition.mp3",
+      "path": "mod_3_1/mod_3_1_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_10",
+      "file": "mod_3_10_intro.mp3",
+      "path": "mod_3_10/mod_3_10_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_10",
+      "file": "mod_3_10_segment_1.mp3",
+      "path": "mod_3_10/mod_3_10_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_10",
+      "file": "mod_3_10_transition.mp3",
+      "path": "mod_3_10/mod_3_10_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_2",
+      "file": "mod_3_2_intro.mp3",
+      "path": "mod_3_2/mod_3_2_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_2",
+      "file": "mod_3_2_segment_1.mp3",
+      "path": "mod_3_2/mod_3_2_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_2",
+      "file": "mod_3_2_segment_2.mp3",
+      "path": "mod_3_2/mod_3_2_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_2",
+      "file": "mod_3_2_transition.mp3",
+      "path": "mod_3_2/mod_3_2_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_3",
+      "file": "mod_3_3_intro.mp3",
+      "path": "mod_3_3/mod_3_3_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_3",
+      "file": "mod_3_3_segment_1.mp3",
+      "path": "mod_3_3/mod_3_3_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_3",
+      "file": "mod_3_3_segment_2.mp3",
+      "path": "mod_3_3/mod_3_3_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_3",
+      "file": "mod_3_3_segment_3.mp3",
+      "path": "mod_3_3/mod_3_3_segment_3.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_3",
+      "file": "mod_3_3_segment_4.mp3",
+      "path": "mod_3_3/mod_3_3_segment_4.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_3",
+      "file": "mod_3_3_segment_5.mp3",
+      "path": "mod_3_3/mod_3_3_segment_5.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_3",
+      "file": "mod_3_3_transition.mp3",
+      "path": "mod_3_3/mod_3_3_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_4",
+      "file": "mod_3_4_intro.mp3",
+      "path": "mod_3_4/mod_3_4_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_4",
+      "file": "mod_3_4_segment_1.mp3",
+      "path": "mod_3_4/mod_3_4_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_4",
+      "file": "mod_3_4_segment_2.mp3",
+      "path": "mod_3_4/mod_3_4_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_4",
+      "file": "mod_3_4_transition.mp3",
+      "path": "mod_3_4/mod_3_4_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_5",
+      "file": "mod_3_5_intro.mp3",
+      "path": "mod_3_5/mod_3_5_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_5",
+      "file": "mod_3_5_segment_1.mp3",
+      "path": "mod_3_5/mod_3_5_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_5",
+      "file": "mod_3_5_segment_2.mp3",
+      "path": "mod_3_5/mod_3_5_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_5",
+      "file": "mod_3_5_transition.mp3",
+      "path": "mod_3_5/mod_3_5_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_6",
+      "file": "mod_3_6_intro.mp3",
+      "path": "mod_3_6/mod_3_6_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_6",
+      "file": "mod_3_6_segment_1.mp3",
+      "path": "mod_3_6/mod_3_6_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_6",
+      "file": "mod_3_6_segment_2.mp3",
+      "path": "mod_3_6/mod_3_6_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_6",
+      "file": "mod_3_6_transition.mp3",
+      "path": "mod_3_6/mod_3_6_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_7",
+      "file": "mod_3_7_intro.mp3",
+      "path": "mod_3_7/mod_3_7_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_7",
+      "file": "mod_3_7_segment_1.mp3",
+      "path": "mod_3_7/mod_3_7_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_7",
+      "file": "mod_3_7_segment_2.mp3",
+      "path": "mod_3_7/mod_3_7_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_7",
+      "file": "mod_3_7_transition.mp3",
+      "path": "mod_3_7/mod_3_7_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_8",
+      "file": "mod_3_8_intro.mp3",
+      "path": "mod_3_8/mod_3_8_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_8",
+      "file": "mod_3_8_segment_1.mp3",
+      "path": "mod_3_8/mod_3_8_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_8",
+      "file": "mod_3_8_transition.mp3",
+      "path": "mod_3_8/mod_3_8_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_9",
+      "file": "mod_3_9_intro.mp3",
+      "path": "mod_3_9/mod_3_9_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_9",
+      "file": "mod_3_9_segment_1.mp3",
+      "path": "mod_3_9/mod_3_9_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_3_9",
+      "file": "mod_3_9_transition.mp3",
+      "path": "mod_3_9/mod_3_9_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_1",
+      "file": "mod_4_1_intro.mp3",
+      "path": "mod_4_1/mod_4_1_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_1",
+      "file": "mod_4_1_segment_1.mp3",
+      "path": "mod_4_1/mod_4_1_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_1",
+      "file": "mod_4_1_segment_2.mp3",
+      "path": "mod_4_1/mod_4_1_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_1",
+      "file": "mod_4_1_segment_3.mp3",
+      "path": "mod_4_1/mod_4_1_segment_3.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_1",
+      "file": "mod_4_1_segment_4.mp3",
+      "path": "mod_4_1/mod_4_1_segment_4.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_1",
+      "file": "mod_4_1_transition.mp3",
+      "path": "mod_4_1/mod_4_1_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_2",
+      "file": "mod_4_2_intro.mp3",
+      "path": "mod_4_2/mod_4_2_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_2",
+      "file": "mod_4_2_segment_1.mp3",
+      "path": "mod_4_2/mod_4_2_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_2",
+      "file": "mod_4_2_segment_2.mp3",
+      "path": "mod_4_2/mod_4_2_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_2",
+      "file": "mod_4_2_segment_3.mp3",
+      "path": "mod_4_2/mod_4_2_segment_3.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_2",
+      "file": "mod_4_2_transition.mp3",
+      "path": "mod_4_2/mod_4_2_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_3",
+      "file": "mod_4_3_intro.mp3",
+      "path": "mod_4_3/mod_4_3_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_3",
+      "file": "mod_4_3_segment_1.mp3",
+      "path": "mod_4_3/mod_4_3_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_3",
+      "file": "mod_4_3_segment_2.mp3",
+      "path": "mod_4_3/mod_4_3_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_3",
+      "file": "mod_4_3_transition.mp3",
+      "path": "mod_4_3/mod_4_3_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_4",
+      "file": "mod_4_4_intro.mp3",
+      "path": "mod_4_4/mod_4_4_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_4",
+      "file": "mod_4_4_segment_1.mp3",
+      "path": "mod_4_4/mod_4_4_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_4",
+      "file": "mod_4_4_segment_2.mp3",
+      "path": "mod_4_4/mod_4_4_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_4",
+      "file": "mod_4_4_transition.mp3",
+      "path": "mod_4_4/mod_4_4_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_5",
+      "file": "mod_4_5_intro.mp3",
+      "path": "mod_4_5/mod_4_5_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_5",
+      "file": "mod_4_5_segment_1.mp3",
+      "path": "mod_4_5/mod_4_5_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_5",
+      "file": "mod_4_5_segment_2.mp3",
+      "path": "mod_4_5/mod_4_5_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_5",
+      "file": "mod_4_5_transition.mp3",
+      "path": "mod_4_5/mod_4_5_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_6",
+      "file": "mod_4_6_intro.mp3",
+      "path": "mod_4_6/mod_4_6_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_6",
+      "file": "mod_4_6_segment_1.mp3",
+      "path": "mod_4_6/mod_4_6_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_6",
+      "file": "mod_4_6_segment_2.mp3",
+      "path": "mod_4_6/mod_4_6_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_6",
+      "file": "mod_4_6_transition.mp3",
+      "path": "mod_4_6/mod_4_6_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_7",
+      "file": "mod_4_7_intro.mp3",
+      "path": "mod_4_7/mod_4_7_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_7",
+      "file": "mod_4_7_segment_1.mp3",
+      "path": "mod_4_7/mod_4_7_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_4_7",
+      "file": "mod_4_7_transition.mp3",
+      "path": "mod_4_7/mod_4_7_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_1",
+      "file": "mod_5_1_intro.mp3",
+      "path": "mod_5_1/mod_5_1_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_1",
+      "file": "mod_5_1_segment_1.mp3",
+      "path": "mod_5_1/mod_5_1_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_1",
+      "file": "mod_5_1_segment_2.mp3",
+      "path": "mod_5_1/mod_5_1_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_1",
+      "file": "mod_5_1_transition.mp3",
+      "path": "mod_5_1/mod_5_1_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_2",
+      "file": "mod_5_2_intro.mp3",
+      "path": "mod_5_2/mod_5_2_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_2",
+      "file": "mod_5_2_segment_1.mp3",
+      "path": "mod_5_2/mod_5_2_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_2",
+      "file": "mod_5_2_segment_2.mp3",
+      "path": "mod_5_2/mod_5_2_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_2",
+      "file": "mod_5_2_segment_3.mp3",
+      "path": "mod_5_2/mod_5_2_segment_3.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_2",
+      "file": "mod_5_2_transition.mp3",
+      "path": "mod_5_2/mod_5_2_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_3",
+      "file": "mod_5_3_intro.mp3",
+      "path": "mod_5_3/mod_5_3_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_3",
+      "file": "mod_5_3_segment_1.mp3",
+      "path": "mod_5_3/mod_5_3_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_3",
+      "file": "mod_5_3_transition.mp3",
+      "path": "mod_5_3/mod_5_3_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_4",
+      "file": "mod_5_4_intro.mp3",
+      "path": "mod_5_4/mod_5_4_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_4",
+      "file": "mod_5_4_segment_1.mp3",
+      "path": "mod_5_4/mod_5_4_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_4",
+      "file": "mod_5_4_transition.mp3",
+      "path": "mod_5_4/mod_5_4_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_5",
+      "file": "mod_5_5_intro.mp3",
+      "path": "mod_5_5/mod_5_5_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_5",
+      "file": "mod_5_5_segment_1.mp3",
+      "path": "mod_5_5/mod_5_5_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_5",
+      "file": "mod_5_5_segment_2.mp3",
+      "path": "mod_5_5/mod_5_5_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_5",
+      "file": "mod_5_5_transition.mp3",
+      "path": "mod_5_5/mod_5_5_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_6",
+      "file": "mod_5_6_intro.mp3",
+      "path": "mod_5_6/mod_5_6_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_6",
+      "file": "mod_5_6_segment_1.mp3",
+      "path": "mod_5_6/mod_5_6_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_5_6",
+      "file": "mod_5_6_transition.mp3",
+      "path": "mod_5_6/mod_5_6_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_1",
+      "file": "mod_6_1_intro.mp3",
+      "path": "mod_6_1/mod_6_1_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_1",
+      "file": "mod_6_1_segment_1.mp3",
+      "path": "mod_6_1/mod_6_1_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_1",
+      "file": "mod_6_1_segment_2.mp3",
+      "path": "mod_6_1/mod_6_1_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_1",
+      "file": "mod_6_1_transition.mp3",
+      "path": "mod_6_1/mod_6_1_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_2",
+      "file": "mod_6_2_intro.mp3",
+      "path": "mod_6_2/mod_6_2_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_2",
+      "file": "mod_6_2_segment_1.mp3",
+      "path": "mod_6_2/mod_6_2_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_2",
+      "file": "mod_6_2_transition.mp3",
+      "path": "mod_6_2/mod_6_2_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_3",
+      "file": "mod_6_3_intro.mp3",
+      "path": "mod_6_3/mod_6_3_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_3",
+      "file": "mod_6_3_segment_1.mp3",
+      "path": "mod_6_3/mod_6_3_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_3",
+      "file": "mod_6_3_transition.mp3",
+      "path": "mod_6_3/mod_6_3_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_4",
+      "file": "mod_6_4_intro.mp3",
+      "path": "mod_6_4/mod_6_4_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_4",
+      "file": "mod_6_4_segment_1.mp3",
+      "path": "mod_6_4/mod_6_4_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_4",
+      "file": "mod_6_4_transition.mp3",
+      "path": "mod_6_4/mod_6_4_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_5",
+      "file": "mod_6_5_intro.mp3",
+      "path": "mod_6_5/mod_6_5_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_5",
+      "file": "mod_6_5_segment_1.mp3",
+      "path": "mod_6_5/mod_6_5_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_5",
+      "file": "mod_6_5_segment_2.mp3",
+      "path": "mod_6_5/mod_6_5_segment_2.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_5",
+      "file": "mod_6_5_segment_3.mp3",
+      "path": "mod_6_5/mod_6_5_segment_3.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_5",
+      "file": "mod_6_5_transition.mp3",
+      "path": "mod_6_5/mod_6_5_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_6",
+      "file": "mod_6_6_intro.mp3",
+      "path": "mod_6_6/mod_6_6_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_6",
+      "file": "mod_6_6_segment_1.mp3",
+      "path": "mod_6_6/mod_6_6_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_6",
+      "file": "mod_6_6_transition.mp3",
+      "path": "mod_6_6/mod_6_6_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_7",
+      "file": "mod_6_7_intro.mp3",
+      "path": "mod_6_7/mod_6_7_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_7",
+      "file": "mod_6_7_segment_1.mp3",
+      "path": "mod_6_7/mod_6_7_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_6_7",
+      "file": "mod_6_7_transition.mp3",
+      "path": "mod_6_7/mod_6_7_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_1",
+      "file": "mod_7_1_intro.mp3",
+      "path": "mod_7_1/mod_7_1_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_1",
+      "file": "mod_7_1_segment_1.mp3",
+      "path": "mod_7_1/mod_7_1_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_1",
+      "file": "mod_7_1_transition.mp3",
+      "path": "mod_7_1/mod_7_1_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_2",
+      "file": "mod_7_2_intro.mp3",
+      "path": "mod_7_2/mod_7_2_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_2",
+      "file": "mod_7_2_segment_1.mp3",
+      "path": "mod_7_2/mod_7_2_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_2",
+      "file": "mod_7_2_transition.mp3",
+      "path": "mod_7_2/mod_7_2_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_3",
+      "file": "mod_7_3_intro.mp3",
+      "path": "mod_7_3/mod_7_3_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_3",
+      "file": "mod_7_3_segment_1.mp3",
+      "path": "mod_7_3/mod_7_3_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_3",
+      "file": "mod_7_3_transition.mp3",
+      "path": "mod_7_3/mod_7_3_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_4",
+      "file": "mod_7_4_intro.mp3",
+      "path": "mod_7_4/mod_7_4_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_4",
+      "file": "mod_7_4_segment_1.mp3",
+      "path": "mod_7_4/mod_7_4_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_4",
+      "file": "mod_7_4_transition.mp3",
+      "path": "mod_7_4/mod_7_4_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_5",
+      "file": "mod_7_5_intro.mp3",
+      "path": "mod_7_5/mod_7_5_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_5",
+      "file": "mod_7_5_segment_1.mp3",
+      "path": "mod_7_5/mod_7_5_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_5",
+      "file": "mod_7_5_transition.mp3",
+      "path": "mod_7_5/mod_7_5_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_6",
+      "file": "mod_7_6_intro.mp3",
+      "path": "mod_7_6/mod_7_6_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_6",
+      "file": "mod_7_6_segment_1.mp3",
+      "path": "mod_7_6/mod_7_6_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_6",
+      "file": "mod_7_6_transition.mp3",
+      "path": "mod_7_6/mod_7_6_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_7",
+      "file": "mod_7_7_intro.mp3",
+      "path": "mod_7_7/mod_7_7_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_7",
+      "file": "mod_7_7_segment_1.mp3",
+      "path": "mod_7_7/mod_7_7_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_7",
+      "file": "mod_7_7_transition.mp3",
+      "path": "mod_7_7/mod_7_7_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_8",
+      "file": "mod_7_8_intro.mp3",
+      "path": "mod_7_8/mod_7_8_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_8",
+      "file": "mod_7_8_segment_1.mp3",
+      "path": "mod_7_8/mod_7_8_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_8",
+      "file": "mod_7_8_transition.mp3",
+      "path": "mod_7_8/mod_7_8_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_9",
+      "file": "mod_7_9_intro.mp3",
+      "path": "mod_7_9/mod_7_9_intro.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_9",
+      "file": "mod_7_9_segment_1.mp3",
+      "path": "mod_7_9/mod_7_9_segment_1.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    },
+    {
+      "module_id": "mod_7_9",
+      "file": "mod_7_9_transition.mp3",
+      "path": "mod_7_9/mod_7_9_transition.mp3",
+      "current_voice": "Rachel",
+      "target_voice": "Tom",
+      "reason": "Legacy core narration audio generated with Rachel. Needs standardization to Tom."
+    }
+  ],
+  "manual_review": []
+}

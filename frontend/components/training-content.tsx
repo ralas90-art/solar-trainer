@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import dynamic from "next/dynamic"
 import { SlideDeck } from "@/components/slide-deck"
 import { QuizModule } from "@/components/quiz"
@@ -6,10 +6,15 @@ import { SimulationWindow } from "@/components/simulation-ui"
 import { SequentialSimulation } from "@/components/sequential-simulation"
 import { WorkbookPromptBlock } from "@/components/workbook-prompt"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Download, BookOpen, Crown, AlertTriangle, CheckCircle, Zap, PenLine } from "lucide-react"
+import { ArrowLeft, Download, BookOpen, Crown, AlertTriangle, CheckCircle, Zap, PenLine, Lock } from "lucide-react"
 import { MODULES, MODULE_SCENARIOS } from "@/lib/modules"
-import { WHITE_LABEL, SLIDE_START_PAGES } from "@/lib/white-label.config"
+import { WHITE_LABEL, SLIDE_START_PAGES, getGoogleSlidesEmbedUrl } from "@/lib/white-label.config"
 import { useLanguage } from "@/hooks/use-language"
+import { cn } from "@/lib/utils"
+import { getTrainingModuleView } from "@/lib/training-module-view"
+import { buildModuleAudioLesson, ModuleAudioLesson } from "@/lib/training-audio"
+import { LessonAudioPlayer } from "@/components/training-audio/lesson-audio-player"
+import { loadAudioProgress } from "@/lib/audio-progress-storage"
 
 // Dynamically import to avoid SSR issues with react-pdf
 const PdfSlideViewer = dynamic(
@@ -29,8 +34,46 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
     // Sequential Simulation State
     const [showSequentialSim, setShowSequentialSim] = useState(false)
+    
+    // Audio Integration State
+    const [audioLesson, setAudioLesson] = useState<ModuleAudioLesson | null>(null)
+    const [audioStatus, setAudioStatus] = useState<"checking" | "available" | "unavailable">("checking")
+    const [audioComplete, setAudioComplete] = useState(false)
+
     const moduleData = MODULES[moduleId]
     const moduleScenarios = MODULE_SCENARIOS[moduleId] || []
+
+    useEffect(() => {
+        if (!moduleData) return
+
+        // Restore persisted completion first (before any async work)
+        const progress = loadAudioProgress(moduleId)
+        if (progress?.lessonCompleted) {
+            setAudioComplete(true)
+        }
+
+        const view = getTrainingModuleView(moduleId)
+        if (!view) {
+            // No curriculum data for this module — auto-unlock so users aren't blocked
+            setAudioStatus("unavailable")
+            setAudioComplete(true)
+            return
+        }
+
+        const lesson = buildModuleAudioLesson(view)
+
+        if (!lesson.sections.length) {
+            // Empty lesson (shouldn't happen, but be safe)
+            setAudioStatus("unavailable")
+            setAudioComplete(true)
+            return
+        }
+
+        setAudioLesson(lesson)
+        // Always render the player — it handles static MP3 → ElevenLabs → browser TTS internally
+        setAudioStatus("available")
+    }, [moduleId, moduleData])
+
 
     if (!moduleData) {
         return (
@@ -126,17 +169,56 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
                             <Button
                                 onClick={() => setShowSequentialSim(true)}
                                 size="lg"
-                                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold shadow-lg shadow-purple-900/50 hover:scale-105 transition-all"
+                                disabled={!audioComplete}
+                                className={cn("text-white font-bold transition-all", audioComplete ? "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 shadow-lg shadow-purple-900/50 hover:scale-105" : "bg-slate-800 text-slate-400 cursor-not-allowed")}
                             >
-                                <Zap className="mr-2 h-5 w-5" />
+                                {audioComplete ? <Zap className="mr-2 h-5 w-5" /> : <Lock className="mr-2 h-5 w-5" />}
                                 Launch AI Simulator ({moduleScenarios.length} Scenarios)
                             </Button>
-                            <p className="text-sm text-slate-400 mt-3">
-                                Complete all scenarios sequentially to master this module
+                            <p className="text-sm mt-3 font-medium flex items-center justify-center gap-2">
+                                {audioComplete ? <span className="text-slate-400">Complete all scenarios sequentially to master this module</span> : <span className="text-amber-500 flex items-center gap-1.5"><AlertTriangle className="w-4 h-4"/> Listen to the module audio to unlock the simulator</span>}
                             </p>
                         </div>
                     )}
                 </div>
+
+                {/* ── Audio Player Integration ── */}
+                {audioStatus === "checking" && (
+                    <div className="mb-12 rounded-2xl border border-slate-700/50 bg-slate-800/30 animate-pulse p-6 flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-full bg-slate-700/60" />
+                        <div className="flex-1 space-y-2">
+                            <div className="h-4 bg-slate-700/60 rounded w-1/3" />
+                            <div className="h-3 bg-slate-700/40 rounded w-1/2" />
+                        </div>
+                    </div>
+                )}
+                {audioStatus === "available" && audioLesson && (
+                    <div className="mb-12 relative z-10">
+                        <LessonAudioPlayer
+                            moduleId={moduleId}
+                            lesson={audioLesson}
+                            onLessonComplete={() => setAudioComplete(true)}
+                            onProgressChange={(snap) => {
+                                if (snap.lessonCompleted && !audioComplete) setAudioComplete(true)
+                            }}
+                            variant="default"
+                        />
+                    </div>
+                )}
+                {audioStatus === "unavailable" && (
+                    <div className="mb-12 rounded-xl border border-slate-700/40 bg-slate-800/20 p-6 flex items-start gap-4">
+                        <div className="w-10 h-10 rounded-full bg-slate-700/50 flex items-center justify-center shrink-0 mt-0.5">
+                            <CheckCircle className="w-5 h-5 text-slate-500" />
+                        </div>
+                        <div>
+                            <h3 className="text-base font-semibold text-slate-300 mb-1">Audio Narration Coming Soon</h3>
+                            <p className="text-slate-500 text-sm leading-relaxed">
+                                AI-generated audio for this module is currently in production. This stage has been auto-unlocked — continue through the content below.
+                            </p>
+                        </div>
+                    </div>
+                )}
+
 
                 {/* ── PDF Slide Viewer ── */}
                 {(() => {
@@ -145,41 +227,22 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
                     if (!dayNum) return null
 
                     if (WHITE_LABEL.presentationMode === "google_slides") {
-                        const esUrls = WHITE_LABEL.slideEmbedUrls_es || {}
-                        const enUrls = WHITE_LABEL.slideEmbedUrls || {}
-                        const isPlaceholder = (url?: string) => !url || url.trim() === "" || url.startsWith("PASTE_")
-
-                        let embedUrl: string | null = null
-                        if (language === "es") {
-                            // 1. Try Spanish module-specific URL
-                            let url = esUrls[moduleId as keyof typeof esUrls]
-                            if (!isPlaceholder(url)) {
-                                embedUrl = url
-                            } else if (Number.isFinite(dayNum)) {
-                                // 2. Try Spanish day-level URL
-                                url = esUrls[dayNum as keyof typeof esUrls]
-                                if (!isPlaceholder(url)) {
-                                    embedUrl = url
-                                }
-                            }
-                        }
+                        const embedUrl = getGoogleSlidesEmbedUrl(moduleId, language)
 
                         if (!embedUrl) {
-                            // Fallback to English
-                            // 1. Try English module-specific URL
-                            let url = enUrls[moduleId as keyof typeof enUrls]
-                            if (!isPlaceholder(url)) {
-                                embedUrl = url
-                            } else if (Number.isFinite(dayNum)) {
-                                // 2. Try English day-level URL
-                                url = enUrls[dayNum as keyof typeof enUrls]
-                                if (!isPlaceholder(url)) {
-                                    embedUrl = url
-                                }
-                            }
+                            return (
+                                <div className="mb-12 rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-[#1A1A1A] p-8 flex flex-col items-center justify-center text-center">
+                                    <div className="w-16 h-16 rounded-full bg-slate-800/50 flex items-center justify-center mb-4">
+                                        <AlertTriangle className="w-8 h-8 text-amber-500" />
+                                    </div>
+                                    <h3 className="text-xl font-display font-bold text-white mb-2">Training Slides Unavailable</h3>
+                                    <p className="text-slate-400 max-w-md mx-auto">
+                                        The presentation deck for this module is currently being updated. You can still proceed with the audio narration and simulation below.
+                                    </p>
+                                </div>
+                            )
                         }
 
-                        if (!embedUrl) return null
                         return (
                             <div className="mb-12 rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
                                 <iframe
@@ -353,7 +416,7 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
 
             {/* Quiz Section */}
             {moduleData.quiz && (
-                <div className="mt-24 mb-12">
+                <div className={cn("mt-24 mb-12 transition-all duration-500", !audioComplete && "opacity-50 pointer-events-none grayscale")}>
                     <div className="flex items-center gap-4 mb-8">
                         <div className="h-px flex-1 bg-gradient-to-r from-transparent to-blue-500/50"></div>
                         <h2 className="text-xl font-bold text-blue-400 uppercase tracking-widest">Mission Certification</h2>
@@ -375,11 +438,12 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
                     <Button
                         onClick={onComplete}
                         size="lg"
-                        className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xl px-12 py-8 h-auto rounded-2xl shadow-2xl shadow-blue-900/50 hover:scale-105 transition-all w-full md:w-auto"
+                        disabled={!audioComplete}
+                        className={cn("text-white font-bold text-xl px-12 py-8 h-auto rounded-2xl transition-all w-full md:w-auto", audioComplete ? "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-2xl shadow-blue-900/50 hover:scale-105" : "bg-slate-800 text-slate-500 cursor-not-allowed")}
                     >
                         <span className="flex flex-col items-center">
-                            <span>Complete Mission</span>
-                            <span className="text-xs font-normal text-blue-200 mt-1 uppercase tracking-widest">Collect XP & Proceed</span>
+                            <span className="flex items-center gap-2">{audioComplete ? "Complete Mission" : <><Lock className="w-5 h-5"/> Audio Required</>}</span>
+                            <span className="text-xs font-normal mt-1 uppercase tracking-widest text-blue-200/70">{audioComplete ? "Collect XP & Proceed" : "Finish listening to unlock"}</span>
                         </span>
                     </Button>
                 </div>

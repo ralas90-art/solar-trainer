@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Link from "next/link"
 import { AppShell } from "@/components/platform/app-shell"
 import {
   CoachingAndRecommendations,
@@ -15,7 +16,8 @@ import {
 } from "@/components/platform/analytics-components"
 import { SectionEyebrow, WidgetCard } from "@/components/platform/dashboard-widgets"
 import { AnalyticsSnapshot, ScenarioType, SkillCategory, TimeRange, fetchAnalyticsSnapshot } from "@/lib/analytics-api"
-import { Award, BarChart3, Flame, Gauge, Target } from "lucide-react"
+import { Award, BarChart3, Flame, Gauge, History, Target } from "lucide-react"
+
 
 const timeOptions: Array<{ value: TimeRange; label: string }> = [
   { value: "daily", label: "Daily" },
@@ -86,6 +88,25 @@ export default function AnalyticsPage() {
       subheading="Rep performance intelligence for skill growth, coaching priorities, and team deployment readiness."
     >
       <div className="space-y-6">
+        {/* ── Debrief History CTA ── */}
+        <Link
+          href="/analytics/debriefs"
+          className="flex items-center justify-between rounded-2xl border border-indigo-500/20 bg-indigo-950/20 px-6 py-4 transition-all hover:border-indigo-400/40 hover:bg-indigo-950/30 group"
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-indigo-500/15 flex items-center justify-center">
+              <History className="w-5 h-5 text-indigo-400" />
+            </div>
+            <div>
+              <p className="font-semibold text-white text-sm">AI Coaching Reports</p>
+              <p className="text-xs text-slate-400">View your full simulation debrief history — scores, tone analysis, and script recommendations.</p>
+            </div>
+          </div>
+          <span className="text-indigo-400 text-sm font-medium group-hover:text-indigo-300 transition-colors shrink-0 ml-4">
+            View Debriefs →
+          </span>
+        </Link>
+
         <SummaryHeader
           title="Rep Performance Analytics Dashboard"
           subtitle="Answer how performance is trending, what skills need work, and which reps are deployment-ready with one operational view."

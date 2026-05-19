@@ -14,6 +14,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import vapi from "@/lib/vapi"
 import { AudioVisualizer } from "@/components/audio-visualizer"
 import { SimulationFeedback } from "@/components/simulation-feedback"
+import { saveDebrief } from "@/lib/debrief-storage"
 
 const API_URL = getApiUrl()
 
@@ -100,6 +101,24 @@ export function SimulationWindow({ tenant, stateCode, scenario, userId, difficul
             if (response.ok) {
                 const data = await response.json()
                 setFeedbackData(data)
+
+                // Persist debrief to localStorage for history page
+                saveDebrief({
+                    scenarioId: scenario.id ?? "unknown",
+                    scenarioName: scenario.name ?? "Unnamed Scenario",
+                    completedAt: new Date().toISOString(),
+                    passed: !!data.passed,
+                    score: data.score ?? 0,
+                    feedbackSummary: data.summary ?? data.feedback_summary,
+                    toneRating: data.tone_rating,
+                    toneFeedback: data.tone_feedback,
+                    strengths: data.pros ?? data.strengths ?? [],
+                    improvements: data.cons ?? data.improvements ?? [],
+                    suggestedScript: data.better_response ?? data.suggested_script ?? data.suggestedScript,
+                    transcript: messages
+                        .filter((m) => m.role !== "system")
+                        .map((m) => ({ role: m.role === "agent" ? "Homeowner" : "You", content: m.content })),
+                })
 
                 // If passed, update user stats/progress
                 if (data.passed) {
@@ -462,13 +481,30 @@ After saying this success phrase, DO NOT continue the conversation. The simulati
         setMode('feedback')
 
         // Auto-fail feedback
-        setFeedbackData({
+        const timeoutPayload = {
             passed: false,
             score: 0,
             feedback_summary: "Time's Up! You took too long to overcome the objection. In sales, speed and precision matter. Keep your response under 60 seconds.",
             strengths: [],
             improvements: ["Time Management", "Conciseness"],
             suggested_script: "Focus on the '3 Reasons' framework to answer quicker.",
+        }
+        setFeedbackData(timeoutPayload)
+
+        // Persist timeout debrief
+        saveDebrief({
+            scenarioId: scenario.id ?? "unknown",
+            scenarioName: scenario.name ?? "Unnamed Scenario",
+            completedAt: new Date().toISOString(),
+            passed: false,
+            score: 0,
+            feedbackSummary: timeoutPayload.feedback_summary,
+            strengths: [],
+            improvements: timeoutPayload.improvements,
+            suggestedScript: timeoutPayload.suggested_script,
+            transcript: messages
+                .filter((m) => m.role !== "system")
+                .map((m) => ({ role: m.role === "agent" ? "Homeowner" : "You", content: m.content })),
         })
     }
 

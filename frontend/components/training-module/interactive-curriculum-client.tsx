@@ -17,9 +17,11 @@ import {
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/context/AuthContext"
 import { canBypassTrainingLocks } from "@/lib/auth-bypass"
+import { useLanguage } from "@/hooks/use-language"
 
 export function InteractiveCurriculumClient({ moduleCatalog }: { moduleCatalog: TrainingModuleView[] }) {
   const { user } = useAuth()
+  const { language, setLanguage, isSpanish } = useLanguage()
   const hasBypass = useMemo(() => canBypassTrainingLocks(user), [user])
 
   // Group modules by day, excluding placeholder noisy modules
@@ -131,12 +133,36 @@ export function InteractiveCurriculumClient({ moduleCatalog }: { moduleCatalog: 
 
   return (
     <div className="flex flex-col gap-6">
-      {/* ── Curriculum Map Banner ── */}
-      <div className="relative z-40">
+      {/* Language Preference Banner / Banner de Preferencia de Idioma */}
+      <div className="glass-circuit hud-border rounded-[20px] p-6 flex flex-col sm:flex-row items-center justify-between gap-4 relative overflow-hidden transition-all duration-300">
+        {/* Top orange ambient line */}
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#FF5722]/10 via-[#FF5722]/50 to-[#FF5722]/10" />
+        
+        <div className="space-y-1 text-left">
+          <h3 className="font-display font-bold text-white text-sm">
+            {isSpanish ? "Preferencia de Idioma" : "Language Preference"}
+          </h3>
+          <p className="text-xs text-[#94A3B8]">
+            {isSpanish ? "Cambiar diapositivas y narración a inglés" : "Switch slides and narration to Spanish"}
+          </p>
+        </div>
+        
         <button
-          onClick={() => setIsDropdownOpen((prev) => !prev)}
-          className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white transition-colors hover:bg-white/10 w-full sm:w-auto"
+          onClick={() => setLanguage(isSpanish ? "en" : "es")}
+          className="rounded-xl border border-[#FF5722]/30 bg-gradient-to-r from-[#FF5722]/10 to-[#FFB300]/10 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-[#FFD54F] hover:bg-[#FF5722]/20 transition-all shrink-0 shadow-[0_0_15px_rgba(255,87,34,0.1)] font-hud"
         >
+          {isSpanish ? "Training in English" : "Entrenamiento en Español"}
+        </button>
+      </div>
+
+      {/* ── Curriculum Map Controls Row ── */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 relative z-40">
+        {/* Dropdown Container */}
+        <div className="relative flex-1 sm:flex-initial">
+          <button
+            onClick={() => setIsDropdownOpen((prev) => !prev)}
+            className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white transition-colors hover:bg-white/10 w-full sm:w-auto"
+          >
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#FF5722]/20 text-[#FF5722] shrink-0">
             <BookOpen className="h-4 w-4" />
           </div>
@@ -362,6 +388,25 @@ export function InteractiveCurriculumClient({ moduleCatalog }: { moduleCatalog: 
             </div>
           </div>
         )}
+        </div>
+
+        {/* Small adjacent Language Toggle */}
+        <div className="flex items-center gap-3 justify-between sm:justify-end shrink-0">
+          <div className="text-right hidden lg:block">
+            <p className="text-[9px] uppercase font-hud tracking-wider text-[#94A3B8]">
+              {isSpanish ? "Preferencia" : "Language Preference"}
+            </p>
+            <p className="text-[10px] text-[#64748B]">
+              {isSpanish ? "Cambiar a inglés" : "Switch to Spanish"}
+            </p>
+          </div>
+          <button
+            onClick={() => setLanguage(isSpanish ? "en" : "es")}
+            className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs font-bold uppercase tracking-wider text-[#FFD54F] transition-colors hover:bg-white/10 font-hud"
+          >
+            {isSpanish ? "Training in English" : "Entrenamiento en Español"}
+          </button>
+        </div>
       </div>
 
       {/* Main Content Area */}

@@ -1,0 +1,23 @@
+2026-05-16 09:10:48,559 [INFO] Loaded 76 modules from C:\Users\12132\Desktop\Antigravity Solar Sales Trainer Agent\scripts\modules_es.json
+2026-05-16 09:10:48,559 [INFO] 
+Processing Module: mod_1_1 - M├│dulo 1.1: Bienvenida y Visi├│n
+2026-05-16 09:10:48,602 [INFO]   [GEN] Generating section_1.mp3 (652 chars)
+2026-05-16 09:11:23,111 [INFO]   [SAVE] section_1.mp3 (606.2 KB)
+2026-05-16 09:11:24,112 [INFO]   [GEN] Generating section_2.mp3 (33 chars)
+2026-05-16 09:11:26,976 [INFO]   [SAVE] section_2.mp3 (32.3 KB)
+2026-05-16 09:11:27,977 [INFO]   [GEN] Generating section_3.mp3 (151 chars)
+2026-05-16 09:11:35,327 [INFO] Loaded 76 modules from C:\Users\12132\Desktop\Antigravity Solar Sales Trainer Agent\scripts\modules_es.json
+2026-05-16 09:11:35,328 [INFO] 
+Processing Module: mod_1_1 - M├│dulo 1.1: Bienvenida y Visi├│n
+2026-05-16 09:11:35,328 [INFO]   [SKIP] section_1.mp3 already exists.
+2026-05-16 09:11:35,328 [INFO]   [SKIP] section_2.mp3 already exists.
+2026-05-16 09:11:35,329 [INFO]   [GEN] Generating section_3.mp3 (151 chars)
+2026-05-16 09:11:40,543 [INFO]   [SAVE] section_3.mp3 (118.4 KB)
+2026-05-16 09:11:41,545 [INFO]   [GEN] Generating section_4.mp3 (86 chars)
+2026-05-16 09:11:45,370 [INFO]   [SAVE] section_4.mp3 (68.6 KB)
+2026-05-16 09:11:46,371 [INFO] 
+════════════════════════════════════════════════════════════
+2026-05-16 09:11:46,371 [INFO] Pipeline complete | Generated: 2 | Skipped: 2 | Failed: 0
+2026-05-16 09:11:46,371 [INFO] Estimated character usage (generated only): 922
+2026-05-16 09:11:46,372 [INFO] ════════════════════════════════════════════════════════════
+

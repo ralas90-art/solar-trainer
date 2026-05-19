@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+    * { box-sizing: border-box; }
+        body {
+            width: 720pt;
+            height: 405pt;
+            margin: 0;
+            padding: 20pt;
+            background: #FFFFFF;
+            font-family: Arial, sans-serif;
+            color: #2C3E50;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-box {
+            width: 100%;
+            border-bottom: 3px solid #F1C40F;
+            padding-bottom: 10pt;
+            margin-bottom: 10pt;
+        }
+
+        h1 {
+            font-size: 32pt;
+            margin: 0;
+            color: #F39C12;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10pt;
+            font-size: 24pt;
+        }
+
+        td,
+        th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            background-color: #2C3E50;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-box">
+        <h1>Day 1 Savings</h1>
+    </div>
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Monthly Cost</th>
+        </tr>
+        <tr>
+            <td>Old Utility Bill</td>
+            <td style="color: #C0392B;">$250</td>
+        </tr>
+        <tr>
+            <td>New Solar Payment</td>
+            <td style="color: #27AE60;">$180</td>
+        </tr>
+        <tr style="font-weight: bold; background: #D5F5E3;">
+            <td>SAVINGS</td>
+            <td>$70 / mo</td>
+        </tr>
+    </table>
+</body>
+
+</html>
