@@ -51,9 +51,9 @@ def add_column_sqlite(conn, table: str, column: str, col_type: str, default: str
             sql += f" DEFAULT {default}"
         cur.execute(sql)
         conn.commit()
-        print(f"  ✅ Added column `{column}` to `{table}`")
+        print(f"  [OK] Added column `{column}` to `{table}`")
     else:
-        print(f"  ✔  Column `{column}` already exists in `{table}`")
+        print(f"  [SKIP] Column `{column}` already exists in `{table}`")
 
 
 def add_column_postgres(conn, table: str, column: str, col_type: str, default: str = "NULL"):
@@ -72,9 +72,9 @@ def add_column_postgres(conn, table: str, column: str, col_type: str, default: s
             sql += f" DEFAULT {default}"
         cur.execute(sql)
         conn.commit()
-        print(f"  ✅ Added column `{column}` to `{table}`")
+        print(f"  [OK] Added column `{column}` to `{table}`")
     else:
-        print(f"  ✔  Column `{column}` already exists in `{table}`")
+        print(f"  [SKIP] Column `{column}` already exists in `{table}`")
 
 
 def add_col(conn, table: str, column: str, col_type: str, default: str = "NULL"):
@@ -127,7 +127,7 @@ import models  # noqa: F401 — ensures all SQLModel table classes are registere
 from sqlmodel import SQLModel
 
 SQLModel.metadata.create_all(engine, checkfirst=True)
-print("  ✅ Table creation pass complete (Team, SimulationSession, Debrief, CoachingFlag).")
+print("  [OK] Table creation pass complete (Team, SimulationSession, Debrief, CoachingFlag).")
 
 
 # ---------------------------------------------------------------------------
@@ -155,12 +155,12 @@ with Session(engine) as session:
                 payment_status="active",
             )
             session.add(company)
-            print(f"  ✅ Seeded company: {tc['id']} ({tc['name']})")
+            print(f"  [OK] Seeded company: {tc['id']} ({tc['name']})")
         else:
-            print(f"  ✔  Company `{tc['id']}` already exists.")
+            print(f"  [SKIP] Company `{tc['id']}` already exists.")
     session.commit()
 
 
 print("\n" + "=" * 60)
-print("✅ Phase 6A Migration Complete.")
+print("[SUCCESS] Phase 6A Migration Complete.")
 print("=" * 60)
