@@ -2,7 +2,7 @@ const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
 
-const STAGING_URL = 'https://solar-trainer-2rbtucb8g-ralas90-arts-projects.vercel.app';
+const STAGING_URL = 'https://solar-trainer-66xxh0dzq-ralas90-arts-projects.vercel.app';
 const SCREENSHOT_DIR = path.join(__dirname, 'screenshots');
 
 if (!fs.existsSync(SCREENSHOT_DIR)) {
@@ -22,7 +22,7 @@ async function run() {
   
   // Helper to set admin session in localStorage
   async function setupAdminSession(demoActive = false, lang = 'en') {
-    await page.goto(STAGING_URL);
+    await page.goto(STAGING_URL + '?x-vercel-protection-bypass=qQZ8QvU2KoKLQ3QBvm8s3oTTMBMLIwU5&x-vercel-set-bypass-cookie=true');
     await page.evaluate(({ demoActive, lang }) => {
       localStorage.setItem('septivolt_user', JSON.stringify({
         username: 'admin',
