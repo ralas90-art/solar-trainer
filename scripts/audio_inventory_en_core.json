@@ -1,0 +1,529 @@
+{
+  "mod_1_1": {
+    "count": 6,
+    "files": [
+      "mod_1_1_intro.mp3",
+      "mod_1_1_segment_1.mp3",
+      "mod_1_1_segment_2.mp3",
+      "mod_1_1_segment_3.mp3",
+      "mod_1_1_segment_4.mp3",
+      "mod_1_1_transition.mp3"
+    ]
+  },
+  "mod_1_2": {
+    "count": 4,
+    "files": [
+      "mod_1_2_intro.mp3",
+      "mod_1_2_segment_1.mp3",
+      "mod_1_2_segment_2.mp3",
+      "mod_1_2_transition.mp3"
+    ]
+  },
+  "mod_1_3": {
+    "count": 6,
+    "files": [
+      "mod_1_3_intro.mp3",
+      "mod_1_3_segment_1.mp3",
+      "mod_1_3_segment_2.mp3",
+      "mod_1_3_segment_3.mp3",
+      "mod_1_3_segment_4.mp3",
+      "mod_1_3_transition.mp3"
+    ]
+  },
+  "mod_1_4": {
+    "count": 5,
+    "files": [
+      "mod_1_4_intro.mp3",
+      "mod_1_4_segment_1.mp3",
+      "mod_1_4_segment_2.mp3",
+      "mod_1_4_segment_3.mp3",
+      "mod_1_4_transition.mp3"
+    ]
+  },
+  "mod_1_5": {
+    "count": 6,
+    "files": [
+      "mod_1_5_intro.mp3",
+      "mod_1_5_segment_1.mp3",
+      "mod_1_5_segment_2.mp3",
+      "mod_1_5_segment_3.mp3",
+      "mod_1_5_segment_4.mp3",
+      "mod_1_5_transition.mp3"
+    ]
+  },
+  "mod_1_6": {
+    "count": 6,
+    "files": [
+      "mod_1_6_intro.mp3",
+      "mod_1_6_segment_1.mp3",
+      "mod_1_6_segment_2.mp3",
+      "mod_1_6_segment_3.mp3",
+      "mod_1_6_segment_4.mp3",
+      "mod_1_6_transition.mp3"
+    ]
+  },
+  "mod_1_7": {
+    "count": 6,
+    "files": [
+      "mod_1_7_intro.mp3",
+      "mod_1_7_segment_1.mp3",
+      "mod_1_7_segment_2.mp3",
+      "mod_1_7_segment_3.mp3",
+      "mod_1_7_segment_4.mp3",
+      "mod_1_7_transition.mp3"
+    ]
+  },
+  "mod_1_8": {
+    "count": 5,
+    "files": [
+      "mod_1_8_intro.mp3",
+      "mod_1_8_segment_1.mp3",
+      "mod_1_8_segment_2.mp3",
+      "mod_1_8_segment_3.mp3",
+      "mod_1_8_transition.mp3"
+    ]
+  },
+  "mod_2_1": {
+    "count": 8,
+    "files": [
+      "mod_2_1_intro.mp3",
+      "mod_2_1_segment_1.mp3",
+      "mod_2_1_segment_2.mp3",
+      "mod_2_1_segment_3.mp3",
+      "mod_2_1_segment_4.mp3",
+      "mod_2_1_segment_5.mp3",
+      "mod_2_1_segment_6.mp3",
+      "mod_2_1_transition.mp3"
+    ]
+  },
+  "mod_2_10": {
+    "count": 3,
+    "files": [
+      "mod_2_10_intro.mp3",
+      "mod_2_10_segment_1.mp3",
+      "mod_2_10_transition.mp3"
+    ]
+  },
+  "mod_2_11": {
+    "count": 3,
+    "files": [
+      "mod_2_11_intro.mp3",
+      "mod_2_11_segment_1.mp3",
+      "mod_2_11_transition.mp3"
+    ]
+  },
+  "mod_2_2": {
+    "count": 5,
+    "files": [
+      "mod_2_2_intro.mp3",
+      "mod_2_2_segment_1.mp3",
+      "mod_2_2_segment_2.mp3",
+      "mod_2_2_segment_3.mp3",
+      "mod_2_2_transition.mp3"
+    ]
+  },
+  "mod_2_3": {
+    "count": 4,
+    "files": [
+      "mod_2_3_intro.mp3",
+      "mod_2_3_segment_1.mp3",
+      "mod_2_3_segment_2.mp3",
+      "mod_2_3_transition.mp3"
+    ]
+  },
+  "mod_2_4": {
+    "count": 4,
+    "files": [
+      "mod_2_4_intro.mp3",
+      "mod_2_4_segment_1.mp3",
+      "mod_2_4_segment_2.mp3",
+      "mod_2_4_transition.mp3"
+    ]
+  },
+  "mod_2_5": {
+    "count": 5,
+    "files": [
+      "mod_2_5_intro.mp3",
+      "mod_2_5_segment_1.mp3",
+      "mod_2_5_segment_2.mp3",
+      "mod_2_5_segment_3.mp3",
+      "mod_2_5_transition.mp3"
+    ]
+  },
+  "mod_2_6": {
+    "count": 6,
+    "files": [
+      "mod_2_6_intro.mp3",
+      "mod_2_6_segment_1.mp3",
+      "mod_2_6_segment_2.mp3",
+      "mod_2_6_segment_3.mp3",
+      "mod_2_6_segment_4.mp3",
+      "mod_2_6_transition.mp3"
+    ]
+  },
+  "mod_2_7": {
+    "count": 4,
+    "files": [
+      "mod_2_7_intro.mp3",
+      "mod_2_7_segment_1.mp3",
+      "mod_2_7_segment_2.mp3",
+      "mod_2_7_transition.mp3"
+    ]
+  },
+  "mod_2_8": {
+    "count": 4,
+    "files": [
+      "mod_2_8_intro.mp3",
+      "mod_2_8_segment_1.mp3",
+      "mod_2_8_segment_2.mp3",
+      "mod_2_8_transition.mp3"
+    ]
+  },
+  "mod_2_9": {
+    "count": 4,
+    "files": [
+      "mod_2_9_intro.mp3",
+      "mod_2_9_segment_1.mp3",
+      "mod_2_9_segment_2.mp3",
+      "mod_2_9_transition.mp3"
+    ]
+  },
+  "mod_3_1": {
+    "count": 4,
+    "files": [
+      "mod_3_1_intro.mp3",
+      "mod_3_1_segment_1.mp3",
+      "mod_3_1_segment_2.mp3",
+      "mod_3_1_transition.mp3"
+    ]
+  },
+  "mod_3_10": {
+    "count": 3,
+    "files": [
+      "mod_3_10_intro.mp3",
+      "mod_3_10_segment_1.mp3",
+      "mod_3_10_transition.mp3"
+    ]
+  },
+  "mod_3_2": {
+    "count": 4,
+    "files": [
+      "mod_3_2_intro.mp3",
+      "mod_3_2_segment_1.mp3",
+      "mod_3_2_segment_2.mp3",
+      "mod_3_2_transition.mp3"
+    ]
+  },
+  "mod_3_3": {
+    "count": 7,
+    "files": [
+      "mod_3_3_intro.mp3",
+      "mod_3_3_segment_1.mp3",
+      "mod_3_3_segment_2.mp3",
+      "mod_3_3_segment_3.mp3",
+      "mod_3_3_segment_4.mp3",
+      "mod_3_3_segment_5.mp3",
+      "mod_3_3_transition.mp3"
+    ]
+  },
+  "mod_3_4": {
+    "count": 4,
+    "files": [
+      "mod_3_4_intro.mp3",
+      "mod_3_4_segment_1.mp3",
+      "mod_3_4_segment_2.mp3",
+      "mod_3_4_transition.mp3"
+    ]
+  },
+  "mod_3_5": {
+    "count": 4,
+    "files": [
+      "mod_3_5_intro.mp3",
+      "mod_3_5_segment_1.mp3",
+      "mod_3_5_segment_2.mp3",
+      "mod_3_5_transition.mp3"
+    ]
+  },
+  "mod_3_6": {
+    "count": 4,
+    "files": [
+      "mod_3_6_intro.mp3",
+      "mod_3_6_segment_1.mp3",
+      "mod_3_6_segment_2.mp3",
+      "mod_3_6_transition.mp3"
+    ]
+  },
+  "mod_3_7": {
+    "count": 4,
+    "files": [
+      "mod_3_7_intro.mp3",
+      "mod_3_7_segment_1.mp3",
+      "mod_3_7_segment_2.mp3",
+      "mod_3_7_transition.mp3"
+    ]
+  },
+  "mod_3_8": {
+    "count": 3,
+    "files": [
+      "mod_3_8_intro.mp3",
+      "mod_3_8_segment_1.mp3",
+      "mod_3_8_transition.mp3"
+    ]
+  },
+  "mod_3_9": {
+    "count": 3,
+    "files": [
+      "mod_3_9_intro.mp3",
+      "mod_3_9_segment_1.mp3",
+      "mod_3_9_transition.mp3"
+    ]
+  },
+  "mod_4_1": {
+    "count": 6,
+    "files": [
+      "mod_4_1_intro.mp3",
+      "mod_4_1_segment_1.mp3",
+      "mod_4_1_segment_2.mp3",
+      "mod_4_1_segment_3.mp3",
+      "mod_4_1_segment_4.mp3",
+      "mod_4_1_transition.mp3"
+    ]
+  },
+  "mod_4_2": {
+    "count": 5,
+    "files": [
+      "mod_4_2_intro.mp3",
+      "mod_4_2_segment_1.mp3",
+      "mod_4_2_segment_2.mp3",
+      "mod_4_2_segment_3.mp3",
+      "mod_4_2_transition.mp3"
+    ]
+  },
+  "mod_4_3": {
+    "count": 4,
+    "files": [
+      "mod_4_3_intro.mp3",
+      "mod_4_3_segment_1.mp3",
+      "mod_4_3_segment_2.mp3",
+      "mod_4_3_transition.mp3"
+    ]
+  },
+  "mod_4_4": {
+    "count": 4,
+    "files": [
+      "mod_4_4_intro.mp3",
+      "mod_4_4_segment_1.mp3",
+      "mod_4_4_segment_2.mp3",
+      "mod_4_4_transition.mp3"
+    ]
+  },
+  "mod_4_5": {
+    "count": 4,
+    "files": [
+      "mod_4_5_intro.mp3",
+      "mod_4_5_segment_1.mp3",
+      "mod_4_5_segment_2.mp3",
+      "mod_4_5_transition.mp3"
+    ]
+  },
+  "mod_4_6": {
+    "count": 4,
+    "files": [
+      "mod_4_6_intro.mp3",
+      "mod_4_6_segment_1.mp3",
+      "mod_4_6_segment_2.mp3",
+      "mod_4_6_transition.mp3"
+    ]
+  },
+  "mod_4_7": {
+    "count": 3,
+    "files": [
+      "mod_4_7_intro.mp3",
+      "mod_4_7_segment_1.mp3",
+      "mod_4_7_transition.mp3"
+    ]
+  },
+  "mod_5_1": {
+    "count": 4,
+    "files": [
+      "mod_5_1_intro.mp3",
+      "mod_5_1_segment_1.mp3",
+      "mod_5_1_segment_2.mp3",
+      "mod_5_1_transition.mp3"
+    ]
+  },
+  "mod_5_2": {
+    "count": 5,
+    "files": [
+      "mod_5_2_intro.mp3",
+      "mod_5_2_segment_1.mp3",
+      "mod_5_2_segment_2.mp3",
+      "mod_5_2_segment_3.mp3",
+      "mod_5_2_transition.mp3"
+    ]
+  },
+  "mod_5_3": {
+    "count": 3,
+    "files": [
+      "mod_5_3_intro.mp3",
+      "mod_5_3_segment_1.mp3",
+      "mod_5_3_transition.mp3"
+    ]
+  },
+  "mod_5_4": {
+    "count": 3,
+    "files": [
+      "mod_5_4_intro.mp3",
+      "mod_5_4_segment_1.mp3",
+      "mod_5_4_transition.mp3"
+    ]
+  },
+  "mod_5_5": {
+    "count": 4,
+    "files": [
+      "mod_5_5_intro.mp3",
+      "mod_5_5_segment_1.mp3",
+      "mod_5_5_segment_2.mp3",
+      "mod_5_5_transition.mp3"
+    ]
+  },
+  "mod_5_6": {
+    "count": 3,
+    "files": [
+      "mod_5_6_intro.mp3",
+      "mod_5_6_segment_1.mp3",
+      "mod_5_6_transition.mp3"
+    ]
+  },
+  "mod_6_1": {
+    "count": 4,
+    "files": [
+      "mod_6_1_intro.mp3",
+      "mod_6_1_segment_1.mp3",
+      "mod_6_1_segment_2.mp3",
+      "mod_6_1_transition.mp3"
+    ]
+  },
+  "mod_6_2": {
+    "count": 3,
+    "files": [
+      "mod_6_2_intro.mp3",
+      "mod_6_2_segment_1.mp3",
+      "mod_6_2_transition.mp3"
+    ]
+  },
+  "mod_6_3": {
+    "count": 3,
+    "files": [
+      "mod_6_3_intro.mp3",
+      "mod_6_3_segment_1.mp3",
+      "mod_6_3_transition.mp3"
+    ]
+  },
+  "mod_6_4": {
+    "count": 3,
+    "files": [
+      "mod_6_4_intro.mp3",
+      "mod_6_4_segment_1.mp3",
+      "mod_6_4_transition.mp3"
+    ]
+  },
+  "mod_6_5": {
+    "count": 5,
+    "files": [
+      "mod_6_5_intro.mp3",
+      "mod_6_5_segment_1.mp3",
+      "mod_6_5_segment_2.mp3",
+      "mod_6_5_segment_3.mp3",
+      "mod_6_5_transition.mp3"
+    ]
+  },
+  "mod_6_6": {
+    "count": 3,
+    "files": [
+      "mod_6_6_intro.mp3",
+      "mod_6_6_segment_1.mp3",
+      "mod_6_6_transition.mp3"
+    ]
+  },
+  "mod_6_7": {
+    "count": 3,
+    "files": [
+      "mod_6_7_intro.mp3",
+      "mod_6_7_segment_1.mp3",
+      "mod_6_7_transition.mp3"
+    ]
+  },
+  "mod_7_1": {
+    "count": 3,
+    "files": [
+      "mod_7_1_intro.mp3",
+      "mod_7_1_segment_1.mp3",
+      "mod_7_1_transition.mp3"
+    ]
+  },
+  "mod_7_2": {
+    "count": 3,
+    "files": [
+      "mod_7_2_intro.mp3",
+      "mod_7_2_segment_1.mp3",
+      "mod_7_2_transition.mp3"
+    ]
+  },
+  "mod_7_3": {
+    "count": 3,
+    "files": [
+      "mod_7_3_intro.mp3",
+      "mod_7_3_segment_1.mp3",
+      "mod_7_3_transition.mp3"
+    ]
+  },
+  "mod_7_4": {
+    "count": 3,
+    "files": [
+      "mod_7_4_intro.mp3",
+      "mod_7_4_segment_1.mp3",
+      "mod_7_4_transition.mp3"
+    ]
+  },
+  "mod_7_5": {
+    "count": 3,
+    "files": [
+      "mod_7_5_intro.mp3",
+      "mod_7_5_segment_1.mp3",
+      "mod_7_5_transition.mp3"
+    ]
+  },
+  "mod_7_6": {
+    "count": 3,
+    "files": [
+      "mod_7_6_intro.mp3",
+      "mod_7_6_segment_1.mp3",
+      "mod_7_6_transition.mp3"
+    ]
+  },
+  "mod_7_7": {
+    "count": 3,
+    "files": [
+      "mod_7_7_intro.mp3",
+      "mod_7_7_segment_1.mp3",
+      "mod_7_7_transition.mp3"
+    ]
+  },
+  "mod_7_8": {
+    "count": 3,
+    "files": [
+      "mod_7_8_intro.mp3",
+      "mod_7_8_segment_1.mp3",
+      "mod_7_8_transition.mp3"
+    ]
+  },
+  "mod_7_9": {
+    "count": 3,
+    "files": [
+      "mod_7_9_intro.mp3",
+      "mod_7_9_segment_1.mp3",
+      "mod_7_9_transition.mp3"
+    ]
+  }
+}
