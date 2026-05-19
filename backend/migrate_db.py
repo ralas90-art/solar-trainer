@@ -25,8 +25,29 @@ def run_migration():
     print(f"Target: {'Postgres (cloud)' if IS_POSTGRES else 'SQLite (local)'}")
     print("=" * 60)
 
+    def table_exists(conn, table: str) -> bool:
+        cur = conn.cursor()
+        if IS_POSTGRES:
+            cur.execute(
+                """
+                SELECT EXISTS (
+                    SELECT FROM information_schema.tables 
+                    WHERE table_schema = 'public'
+                    AND table_name = %s
+                )
+                """,
+                (table,),
+            )
+            return cur.fetchone()[0]
+        else:
+            cur.execute("SELECT count(*) FROM sqlite_master WHERE type='table' AND name=?", (table,))
+            return cur.fetchone()[0] > 0
+
     # Helper: safe column addition
     def add_column_sqlite(conn, table: str, column: str, col_type: str, default: str = "NULL"):
+        if not table_exists(conn, table):
+            print(f"  [SKIP] Table `{table}` does not exist yet. Column `{column}` will be created by SQLModel.")
+            return
         cur = conn.cursor()
         cur.execute(f"PRAGMA table_info({table})")
         existing = [row[1] for row in cur.fetchall()]
@@ -41,6 +62,9 @@ def run_migration():
             print(f"  [SKIP] Column `{column}` already exists in `{table}`")
 
     def add_column_postgres(conn, table: str, column: str, col_type: str, default: str = "NULL"):
+        if not table_exists(conn, table):
+            print(f"  [SKIP] Table `{table}` does not exist yet. Column `{column}` will be created by SQLModel.")
+            return
         cur = conn.cursor()
         cur.execute(
             """
