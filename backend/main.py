@@ -68,10 +68,12 @@ service = TrainingService()
 
 @app.get("/")
 def read_root():
+    from database import engine
     return {
         "status": "online", 
         "version": "1.1.0-FIX", 
         "timestamp": datetime.now().isoformat(),
+        "database_type": engine.url.drivername,
         "cors_debug": {
             "allowed_origins": allow_origins,
             "regex": "https://.*.vercel.app|https://.*.onrender.com|http://localhost:*"
