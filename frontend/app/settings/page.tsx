@@ -47,6 +47,9 @@ export default function ProfilePage() {
       const avg = debriefs.reduce((s, d) => s + d.score, 0) / debriefs.length
       setAvgScore(Math.round(avg))
     }
+    try {
+      localStorage.setItem("septivolt_settings_visited", "true")
+    } catch (e) {}
   }, [])
 
   const initials = (user?.username ?? "SO")

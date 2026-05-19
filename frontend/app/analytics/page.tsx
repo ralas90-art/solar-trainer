@@ -57,6 +57,9 @@ export default function AnalyticsPage() {
 
   useEffect(() => {
     setIsDemo(isDemoModeActive())
+    try {
+      localStorage.setItem("septivolt_analytics_visited", "true")
+    } catch (e) {}
   }, [])
 
   useEffect(() => {

@@ -15,6 +15,7 @@ import vapi from "@/lib/vapi"
 import { AudioVisualizer } from "@/components/audio-visualizer"
 import { SimulationFeedback } from "@/components/simulation-feedback"
 import { saveDebrief } from "@/lib/debrief-storage"
+import { useLanguage } from "@/hooks/use-language"
 
 const API_URL = getApiUrl()
 
@@ -37,6 +38,31 @@ const getInitialTime = (diff: string) => {
 }
 
 export function SimulationWindow({ tenant, stateCode, scenario, userId, difficulty = 'beginner', onComplete }: SimulationProps) {
+    const { isSpanish } = useLanguage()
+    const t = (en: string, es: string) => isSpanish ? es : en
+
+    const getAvatarGradient = (style?: string) => {
+        switch (style) {
+            case 'hostile':
+                return 'from-rose-600 to-red-950 text-rose-100 border-rose-500/30 ring-red-500/10'
+            case 'analytical':
+                return 'from-amber-600 to-yellow-950 text-amber-100 border-amber-500/30 ring-amber-500/10'
+            case 'reluctant':
+                return 'from-teal-600 to-emerald-950 text-teal-100 border-teal-500/30 ring-teal-500/10'
+            case 'friendly':
+                return 'from-sky-600 to-indigo-950 text-sky-100 border-sky-500/30 ring-sky-500/10'
+            default:
+                return 'from-blue-600 to-indigo-950 text-blue-100 border-blue-500/30 ring-blue-500/10'
+        }
+    }
+
+    const getInitials = (nameStr?: string) => {
+        if (!nameStr) return "?"
+        const parts = nameStr.trim().split(/\s+/)
+        if (parts.length === 1) return parts[0].charAt(0).toUpperCase()
+        return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase()
+    }
+
     if (!scenario) {
         return (
             <div className="h-[650px] flex items-center justify-center bg-slate-950 border border-white/10 rounded-xl">
@@ -319,7 +345,113 @@ export function SimulationWindow({ tenant, stateCode, scenario, userId, difficul
             try {
                 // 1. Get difficulty-based personality
                 const getDifficultyPrompt = () => {
-                    const basePrompt = `You are a homeowner in ${stateCode}. A ${WHITE_LABEL.industry.toLowerCase()} salesperson is calling you.
+                    const personaName = isSpanish ? (scenario.personaNameEs || scenario.personaNameEn || scenario.name) : (scenario.personaNameEn || scenario.name);
+                    const buyerType = isSpanish ? (scenario.buyerTypeEs || scenario.buyerTypeEn) : scenario.buyerTypeEn;
+                    const emotionalState = isSpanish ? (scenario.emotionalStateEs || scenario.emotionalStateEn) : scenario.emotionalStateEn;
+                    const objectionStyle = isSpanish ? (scenario.objectionStyleEs || scenario.objectionStyleEn) : scenario.objectionStyleEn;
+                    const commStyle = isSpanish ? (scenario.communicationStyleEs || scenario.communicationStyleEn) : scenario.communicationStyleEn;
+                    const escalations = isSpanish ? (scenario.personaEscalationEs || scenario.personaEscalationEn) : scenario.personaEscalationEn;
+                    const stage = isSpanish ? (scenario.salesStageEs || scenario.salesStageEn) : scenario.salesStageEn;
+
+                    let basePrompt = "";
+                    if (isSpanish) {
+                        basePrompt = `Eres un propietario de una casa en ${stateCode}. Un vendedor de la industria de ${WHITE_LABEL.industry.toLowerCase()} te está llamando por teléfono.
+
+Escenario: ${scenario.name}
+Descripción: ${scenario.description}
+Instrucciones: ${scenario.briefing}
+
+IMPORTANTE: Eres el PROPIETARIO de la casa, NO el vendedor. El usuario que te llama es el vendedor que intenta ofrecerte ${WHITE_LABEL.productName.toLowerCase()}.
+
+RESTRICCIONES NEGATIVAS CRÍTICAS:
+- NO eres un profesional de la industria. Eres un propietario común y corriente.
+- BAJO NINGUNA CIRCUNSTANCIA debes identificarte como representante de una empresa de ${WHITE_LABEL.industry.toLowerCase()}.
+- Si el usuario se presenta como vendedor, DEBES responder como cliente potencial.
+- NO generes discursos de venta. Eres quien recibe la oferta.
+
+TU CONTEXTO:
+1. Tienes una objeción específica: "${scenario.opening_line}"
+2. Comenzarás la conversación con esta objeción.
+3. Tu objetivo es ver si el vendedor puede manejarla de manera efectiva.`;
+
+                        if (personaName) {
+                            basePrompt += `
+
+DETALLES DE TU PERSONAJE (Asegúrate de actuar exactamente bajo esta personalidad):
+- Nombre: ${personaName}
+- Tipo de Comprador: ${buyerType || "Normal"}
+- Estado Emocional: ${emotionalState || "Escéptico"}
+- Estilo de Objeción: ${objectionStyle || "Pasivo"}
+- Estilo de Comunicación: ${commStyle || "Normal"}
+- Nivel de Confianza Inicial: ${scenario.trustLevel || 50}/100
+- Nivel de Dificultad: ${scenario.difficultyWeight || 5}/10
+${escalations ? `- Objeciones Secundarias / Disparadores: ${escalations.join(', ')}` : ''}
+- Etapa de Venta: ${stage || "Descubrimiento"}`;
+                        }
+
+                        if (difficulty === 'beginner') {
+                            return `${basePrompt}
+
+DIFICULTAD: PRINCIPIANTE (Fácil)
+PERSONALIDAD:
+- Amigable y receptivo.
+- Grado de amabilidad: ALTO.
+- Si el vendedor responde a tu duda con lógica o valor, ACEPTA de inmediato.
+- No seas difícil ni agregues objeciones interminables.
+- Si responden bien, di algo como: "Eso tiene sentido. Cuéntame más." o "Está bien, ¿cuándo pueden venir?"
+
+IMPORTANTE: Cuando el vendedor explique claramente los beneficios y responda bien tus dudas, di una de estas frases de éxito y QUÉDATE EN SILENCIO (no digas nada más):
+- "¡Esto suena excelente! Me gustaría recibir más información."
+- "Tiene sentido. ¿Cuándo puede venir alguien a revisar mi casa?"
+- "De acuerdo, me interesa. ¿Cuáles son los siguientes pasos?"`;
+                        } else if (difficulty === 'intermediate') {
+                            return `${basePrompt}
+
+DIFICULTAD: INTERMEDIO (Medio)
+PERSONALIDAD:
+- Escéptico pero razonable.
+- Grado de amabilidad: MODERADO.
+- Necesitas datos claros y números.
+- No aceptes de inmediato; pregunta "¿Cómo funciona eso?" o "¿Estás seguro?".
+- Si la lógica es sólida, admítelo: "Entiendo tu punto."
+
+OBJECIONES A PLANTEAR SI NO SE MENCIONAN:
+1. "¿No es esto muy caro?"
+2. "¿Qué pasa si me mudo en unos años?"
+3. "He escuchado que el mantenimiento es complicado."
+
+IMPORTANTE: Si el vendedor maneja las objeciones profesionalmente, responde con una de estas frases de éxito y QUÉDATE EN SILENCIO (no digas nada más):
+- "Bien, respondiste mis dudas. Me gustaría una cotización."
+- "Tiene sentido. ¿Cuándo programamos la inspección?"
+- "De acuerdo, estoy interesado. ¿Cuál es el siguiente paso?"`;
+                        } else {
+                            return `${basePrompt}
+
+DIFICULTAD: AVANZADO (Difícil)
+PERSONALIDAD:
+- Muy ocupado, cínico y difícil de convencer.
+- Grado de amabilidad: BAJO.
+- Sospechas que esto es una estafa o pérdida de tiempo.
+- Interrumpe al vendedor si habla demasiado o se desvía del tema.
+- Sé directo: "No te creo" o "Pruébalo".
+
+OBJECIONES FUERTES:
+1. "No tengo tiempo para esto."
+2. "Esto de la energía es una estafa."
+3. "Estoy conforme con mi factura de luz actual."
+4. "Quítame de tu lista de llamadas."
+
+IMPORTANTE: Solo acepta si el vendedor:
+- Maneja el rechazo profesionalmente (sin ponerse nervioso).
+- Genera confianza genuina a pesar de tu resistencia.
+- Proporciona valor específico y convincente.
+
+Si lo logra (lo cual es raro), di una de estas frases de éxito y QUÉDATE EN SILENCIO:
+- "Bien. Te has ganado mi atención. Cuéntame más."
+- "De acuerdo, te doy 2 minutos. Sé breve."`;
+                        }
+                    } else {
+                        basePrompt = `You are a homeowner in ${stateCode}. A ${WHITE_LABEL.industry.toLowerCase()} salesperson is calling you.
 
 Scenario: ${scenario.name}
 Description: ${scenario.description}
@@ -338,8 +470,23 @@ YOUR CONTEXT:
 2. You will start the conversation with this objection.
 3. Your goal is to see if the salesperson can handle it.`;
 
-                    if (difficulty === 'beginner') {
-                        return `${basePrompt}
+                        if (personaName) {
+                            basePrompt += `
+
+YOUR PERSONA DETAILS (Make sure to stay strictly in character):
+- Name: ${personaName}
+- Buyer Type: ${buyerType || "Standard"}
+- Emotional State: ${emotionalState || "Skeptical"}
+- Objection Style: ${objectionStyle || "Passive"}
+- Communication Style: ${commStyle || "Standard"}
+- Starting Trust: ${scenario.trustLevel || 50}/100
+- Difficulty Rating: ${scenario.difficultyWeight || 5}/10
+${escalations ? `- Secondary Objections / Escalations: ${escalations.join(', ')}` : ''}
+- Sales Stage: ${stage || "Discovery"}`;
+                        }
+
+                        if (difficulty === 'beginner') {
+                            return `${basePrompt}
 
 DIFFICULTY: BEGINNER (Easy)
 PERSONALITY:
@@ -357,8 +504,8 @@ IMPORTANT: When the salesperson explains ${WHITE_LABEL.industry.toLowerCase()} b
 - "Okay, I'm interested. What are the next steps?"
 
 After saying this success phrase, DO NOT continue the conversation. The simulation will end automatically.`;
-                    } else if (difficulty === 'intermediate') {
-                        return `${basePrompt}
+                        } else if (difficulty === 'intermediate') {
+                            return `${basePrompt}
 
 DIFFICULTY: INTERMEDIATE (Medium)
 PERSONALITY:
@@ -379,8 +526,8 @@ IMPORTANT: If the salesperson handles your objections professionally, respond wi
 - "Alright, I'm interested. What's the next step?"
 
 After saying this success phrase, DO NOT continue the conversation. The simulation will end automatically.`;
-                    } else { // advanced
-                        return `${basePrompt}
+                        } else { // advanced
+                            return `${basePrompt}
 
 DIFFICULTY: ADVANCED (Hard)
 PERSONALITY:
@@ -406,6 +553,7 @@ If they achieve this (rare), respond with ONE phrase and STOP TALKING:
 - "Alright, I'll give you 2 minutes. Make it quick."
 
 After saying this success phrase, DO NOT continue the conversation. The simulation will end automatically.`;
+                        }
                     }
                 };
 
@@ -544,7 +692,7 @@ After saying this success phrase, DO NOT continue the conversation. The simulati
     }
 
     return (
-        <Card className="h-[650px] flex flex-col overflow-hidden shadow-2xl border border-white/10 bg-slate-950 relative">
+        <Card className="min-h-[580px] h-[calc(100vh-120px)] md:h-[650px] flex flex-col overflow-hidden shadow-2xl border border-white/10 bg-slate-950 relative">
             {/* Rules Overlay */}
             <AnimatePresence>
                 {showRules && (
@@ -689,27 +837,118 @@ After saying this success phrase, DO NOT continue the conversation. The simulati
                     >
                         {/* Avatar */}
                         <div className="relative mx-auto w-32 h-32">
-                            <div className="absolute inset-0 bg-blue-500/20 rounded-full animate-ping opacity-75"></div>
-                            <div className="relative w-32 h-32 bg-slate-800 rounded-full flex items-center justify-center shadow-2xl border-4 border-slate-700 overflow-hidden">
-                                <img src={scenario.avatar || "/images/avatar-placeholder.png"} className="w-full h-full object-cover" />
+                            <div className={`absolute inset-0 rounded-full animate-ping opacity-25 bg-gradient-to-r ${
+                                scenario.avatarStyle === 'hostile' ? 'from-red-500 to-rose-500' :
+                                scenario.avatarStyle === 'analytical' ? 'from-amber-500 to-yellow-500' :
+                                scenario.avatarStyle === 'reluctant' ? 'from-teal-500 to-emerald-500' :
+                                'from-blue-500 to-indigo-500'
+                            }`}></div>
+                            <div className={`relative w-32 h-32 rounded-full flex flex-col items-center justify-center shadow-2xl border-4 overflow-hidden bg-gradient-to-br ${getAvatarGradient(scenario.avatarStyle)}`}>
+                                {scenario.avatar && !scenario.avatar.includes("placeholder") ? (
+                                    <img src={scenario.avatar} alt={scenario.name} className="w-full h-full object-cover" />
+                                ) : (
+                                    <div className="text-center p-2">
+                                        <div className="text-4xl font-extrabold tracking-wider">
+                                            {getInitials(isSpanish ? (scenario.personaNameEs || scenario.personaNameEn || scenario.name) : (scenario.personaNameEn || scenario.name))}
+                                        </div>
+                                        {scenario.buyerTypeEn && (
+                                            <div className="text-[9px] uppercase font-bold tracking-widest mt-1 opacity-80 leading-none">
+                                                {isSpanish ? (scenario.buyerTypeEs || scenario.buyerTypeEn) : scenario.buyerTypeEn}
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </div>
 
                         <div className="space-y-2">
                             <h2 className="text-3xl font-bold text-white tracking-tight">{scenario?.name}</h2>
-                            <p className="text-slate-400">{scenario?.description}</p>
+                            <p className="text-slate-400 text-sm">{scenario?.description}</p>
                         </div>
 
+                        {/* Persona Dossier Grid */}
+                        {(scenario.personaNameEn || scenario.buyerTypeEn) && (
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-left bg-slate-900/60 p-4 rounded-xl border border-white/5 text-xs">
+                                <div className="space-y-0.5">
+                                    <span className="text-[#64748B] block uppercase tracking-wider font-semibold text-[9px]">{t("Name", "Nombre")}</span>
+                                    <span className="text-white font-bold text-sm">
+                                        {isSpanish ? (scenario.personaNameEs || scenario.personaNameEn) : (scenario.personaNameEn)}
+                                    </span>
+                                </div>
+                                <div className="space-y-0.5">
+                                    <span className="text-[#64748B] block uppercase tracking-wider font-semibold text-[9px]">{t("Buyer Profile", "Perfil")}</span>
+                                    <span className={`font-bold text-sm ${
+                                        scenario.avatarStyle === 'hostile' ? 'text-rose-400' :
+                                        scenario.avatarStyle === 'analytical' ? 'text-amber-400' :
+                                        scenario.avatarStyle === 'reluctant' ? 'text-teal-400' :
+                                        'text-blue-400'
+                                    }`}>
+                                        {isSpanish ? (scenario.buyerTypeEs || scenario.buyerTypeEn) : (scenario.buyerTypeEn)}
+                                    </span>
+                                </div>
+                                <div className="space-y-0.5">
+                                    <span className="text-[#64748B] block uppercase tracking-wider font-semibold text-[9px]">{t("Sales Stage", "Etapa de Venta")}</span>
+                                    <span className="text-slate-200 font-bold text-sm">
+                                        {isSpanish ? (scenario.salesStageEs || scenario.salesStageEn || "Descubrimiento") : (scenario.salesStageEn || "Discovery")}
+                                    </span>
+                                </div>
+                                <div className="space-y-0.5">
+                                    <span className="text-[#64748B] block uppercase tracking-wider font-semibold text-[9px]">{t("Emotional State", "Estado Emocional")}</span>
+                                    <span className="text-slate-200 font-bold text-sm">
+                                        {isSpanish ? (scenario.emotionalStateEs || scenario.emotionalStateEn) : (scenario.emotionalStateEn)}
+                                    </span>
+                                </div>
+                                <div className="space-y-0.5">
+                                    <span className="text-[#64748B] block uppercase tracking-wider font-semibold text-[9px]">{t("Starting Trust", "Confianza Inicial")}</span>
+                                    <div className="flex items-center gap-1.5 mt-0.5">
+                                        <div className="w-12 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                            <div 
+                                                className={`h-full rounded-full ${
+                                                    (scenario.trustLevel ?? 50) < 40 ? 'bg-red-500' :
+                                                    (scenario.trustLevel ?? 50) < 60 ? 'bg-amber-500' :
+                                                    'bg-green-500'
+                                                }`} 
+                                                style={{ width: `${scenario.trustLevel ?? 50}%` }}
+                                            />
+                                        </div>
+                                        <span className="text-slate-200 font-bold text-[10px]">{scenario.trustLevel ?? 50}%</span>
+                                    </div>
+                                </div>
+                                <div className="space-y-0.5">
+                                    <span className="text-[#64748B] block uppercase tracking-wider font-semibold text-[9px]">{t("Objection Level", "Nivel Objeción")}</span>
+                                    <span className="text-slate-200 font-bold text-sm">
+                                        {scenario.difficultyWeight ?? 5}/10
+                                    </span>
+                                </div>
+                            </div>
+                        )}
+
                         <div className="bg-slate-800/50 p-6 rounded-2xl border border-white/5 text-left shadow-xl relative overflow-hidden space-y-4">
+                            {scenario.objectionStyleEn && (
+                                <div className="grid grid-cols-2 gap-4 pb-4 border-b border-white/5">
+                                    <div>
+                                        <span className="text-[#64748B] block uppercase tracking-wider font-semibold text-[9px] mb-0.5">{t("Objection Style", "Estilo de Objeción")}</span>
+                                        <p className="text-slate-300 font-semibold text-xs leading-tight">
+                                            {isSpanish ? (scenario.objectionStyleEs || scenario.objectionStyleEn) : scenario.objectionStyleEn}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <span className="text-[#64748B] block uppercase tracking-wider font-semibold text-[9px] mb-0.5">{t("Comm. Style", "Estilo de Comunicación")}</span>
+                                        <p className="text-slate-300 font-semibold text-xs leading-tight">
+                                            {isSpanish ? (scenario.communicationStyleEs || scenario.communicationStyleEn) : scenario.communicationStyleEn}
+                                        </p>
+                                    </div>
+                                </div>
+                            )}
                             <div>
                                 <h3 className="flex items-center gap-2 font-bold text-blue-300 text-xs uppercase tracking-widest mb-2">
-                                    <Shield className="w-3 h-3" /> Mission Objectives
+                                    <Shield className="w-3 h-3" /> {t("Mission Objectives", "Objetivos de la Misión")}
                                 </h3>
-                                <p className="text-slate-300 leading-relaxed font-medium text-sm">{scenario?.briefing || "Convince the homeowner to book an appointment."}</p>
+                                <p className="text-slate-300 leading-relaxed font-medium text-sm">{scenario?.briefing || t("Convince the homeowner to book an appointment.", "Convince al propietario de programar una cita.")}</p>
                             </div>
                             <div className="pt-4 border-t border-white/10">
                                 <h3 className="flex items-center gap-2 font-bold text-indigo-300 text-xs uppercase tracking-widest mb-2">
-                                    <Bot className="w-3 h-3" /> Homeowner's Opening Context
+                                    <Bot className="w-3 h-3" /> {t("Homeowner's Opening Context", "Contexto de Apertura")}
                                 </h3>
                                 <div className="bg-slate-900/50 p-3 rounded-lg border border-indigo-500/20">
                                     <p className="text-indigo-200 italic font-medium text-sm">
@@ -723,7 +962,7 @@ After saying this success phrase, DO NOT continue the conversation. The simulati
                             onClick={handleStartSimulation}
                             className="w-full h-14 text-lg font-bold shadow-lg shadow-blue-500/25 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 rounded-xl"
                         >
-                            <Phone className="w-5 h-5 mr-2" /> Start Voice Call
+                            <Phone className="w-5 h-5 mr-2" /> {t("Start Voice Call", "Iniciar Llamada de Voz")}
                         </Button>
                     </motion.div>
                 </CardContent>
@@ -788,10 +1027,19 @@ After saying this success phrase, DO NOT continue the conversation. The simulati
                                     )}
 
                                     <div className={`relative w-28 h-28 rounded-full transition-all duration-500 ${callStatus === 'connected' ? 'shadow-[0_0_40px_rgba(79,70,229,0.4)] ring-4 ring-indigo-500/20' : 'grayscale opacity-60'}`}>
-                                        <img
-                                            src={scenario.avatar || "/images/avatar-placeholder.png"}
-                                            className="w-full h-full object-cover rounded-full border-2 border-slate-700/50"
-                                        />
+                                        {scenario.avatar && !scenario.avatar.includes("placeholder") ? (
+                                            <img
+                                                src={scenario.avatar}
+                                                className="w-full h-full object-cover rounded-full border-2 border-slate-700/50"
+                                                alt={scenario.name}
+                                            />
+                                        ) : (
+                                            <div className={`w-full h-full rounded-full flex flex-col items-center justify-center border-2 border-slate-700/50 bg-gradient-to-br ${getAvatarGradient(scenario.avatarStyle)}`}>
+                                                <span className="text-3xl font-extrabold tracking-wider">
+                                                    {getInitials(isSpanish ? (scenario.personaNameEs || scenario.personaNameEn || scenario.name) : (scenario.personaNameEn || scenario.name))}
+                                                </span>
+                                            </div>
+                                        )}
 
                                         {/* Speaking Overlay (Pulsing Glow when volume is high) */}
                                         <motion.div
@@ -913,12 +1161,12 @@ After saying this success phrase, DO NOT continue the conversation. The simulati
 
                         {/* Finish Mission Button */}
                         {callStatus === 'disconnected' && messages.length > 2 && (
-                            <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-30 animate-in fade-in slide-in-from-bottom-4">
+                            <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-30 animate-in fade-in slide-in-from-bottom-4 w-auto max-w-[95%] flex justify-center">
                                 <Button
                                     onClick={handleFinishMission}
-                                    className="bg-green-600 hover:bg-green-500 text-white font-bold shadow-lg shadow-green-900/50 rounded-full px-8 py-6 text-lg border-2 border-green-400/20"
+                                    className="bg-green-600 hover:bg-green-500 text-white font-bold shadow-lg shadow-green-900/50 rounded-full px-6 md:px-8 py-5 md:py-6 text-sm md:text-lg border-2 border-green-400/20 whitespace-nowrap"
                                 >
-                                    Finish Mission & Collect XP
+                                    {t("Finish Mission & Collect XP", "Finalizar Misión y Cobrar XP")}
                                 </Button>
                             </div>
                         )}

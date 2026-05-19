@@ -22,13 +22,19 @@ import {
   Image as ImageIcon,
   Award
 } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 
 export default function DashboardSettingsPage() {
   const { user } = useAuth()
   const { language, setLanguage, isSpanish } = useLanguage()
   const [activeTab, setActiveTab] = useState<"profile" | "team" | "white-label" | "rules">("profile")
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("septivolt_settings_visited", "true")
+    } catch (e) {}
+  }, [])
   
   // Simulated configuration state
   const [lockoutThreshold, setLockoutThreshold] = useState(80)

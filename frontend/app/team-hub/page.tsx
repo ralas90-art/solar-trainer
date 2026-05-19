@@ -24,6 +24,89 @@ const TEAM_ROSTER = [
   { id: "5", name: "Ana Gutierrez",   email: "ana@septivolt.com",    role: "Trainee",  dayProgress: 7, totalDays: 7, lastScore: 93, active: true,  needsAttention: false },
 ]
 
+const REP_FLAGS_DETAILS = {
+  "2": {
+    issueEn: "Defensive tone during Lease vs Purchase objections",
+    issueEs: "Tono defensivo durante objeciones de Arrendamiento vs Compra",
+    reasonEn: "Completed Day 5 Objection Stack with 64% (below target). Defensive tone rated, customer interrupted.",
+    reasonEs: "Completó la pila de objeciones del día 5 con 64%. Tono calificado como defensivo, interrumpió al cliente.",
+    actionsEn: [
+      "Practice lease-rebuttal simulation with Guarded Gloria",
+      "Review utility price locking guidelines",
+      "Review active listening scripts on lease objections"
+    ],
+    actionsEs: [
+      "Practicar simulación de refutación con Guarded Gloria",
+      "Revisar directrices de bloqueo de tarifas de servicios públicos",
+      "Revisar guiones de escucha activa sobre objeciones de arrendamiento"
+    ]
+  },
+  "demo-rep-2": {
+    issueEn: "Defensive tone during Lease vs Purchase objections",
+    issueEs: "Tono defensivo durante objeciones de Arrendamiento vs Compra",
+    reasonEn: "Completed Day 5 Objection Stack with 64% (below target). Defensive tone rated, customer interrupted.",
+    reasonEs: "Completó la pila de objeciones del día 5 con 64%. Tono calificado como defensivo, interrumpió al cliente.",
+    actionsEn: [
+      "Practice lease-rebuttal simulation with Guarded Gloria",
+      "Review utility price locking guidelines",
+      "Review active listening scripts on lease objections"
+    ],
+    actionsEs: [
+      "Practicar simulación de refutación con Guarded Gloria",
+      "Revisar directrices de bloqueo de tarifas de servicios públicos",
+      "Revisar guiones de escucha activa sobre objeciones de arrendamiento"
+    ]
+  },
+  "4": {
+    issueEn: "Foundations lesson quiz lockout",
+    issueEs: "Bloqueo por examen de lección de Fundamentos",
+    reasonEn: "Scored 52% on Day 1 Foundations Quiz. Currently locked out of simulator scenarios.",
+    reasonEs: "Obtuvo 52% en el examen de Fundamentos del Día 1. Bloqueado de los escenarios del simulador.",
+    actionsEn: [
+      "Review Day 1 Video Materials in curriculum",
+      "Retake Day 1 Foundations Quiz to reach 80% passing",
+      "Complete introductory workbook exercises"
+    ],
+    actionsEs: [
+      "Revisar materiales de video del Día 1 en el currículo",
+      "Volver a tomar el examen del Día 1 para alcanzar el 80%",
+      "Completar ejercicios de introducción del libro de trabajo"
+    ]
+  },
+  "demo-rep-4": {
+    issueEn: "Foundations lesson quiz lockout",
+    issueEs: "Bloqueo por examen de lección de Fundamentos",
+    reasonEn: "Scored 52% on Day 1 Foundations Quiz. Currently locked out of simulator scenarios.",
+    reasonEs: "Obtuvo 52% en el examen de Fundamentos del Día 1. Bloqueado de los escenarios del simulador.",
+    actionsEn: [
+      "Review Day 1 Video Materials in curriculum",
+      "Retake Day 1 Foundations Quiz to reach 80% passing",
+      "Complete introductory workbook exercises"
+    ],
+    actionsEs: [
+      "Revisar materiales de video del Día 1 en el currículo",
+      "Volver a tomar el examen del Día 1 para alcanzar el 80%",
+      "Completar ejercicios de introducción del libro de trabajo"
+    ]
+  },
+  "demo-rep-7": {
+    issueEn: "Roof layout site qualification failure",
+    issueEs: "Fallo de calificación de sitio y diseño de techo",
+    reasonEn: "Completed Day 3 Consultative Discovery with 60%. Failed roof shading and site qualification criteria.",
+    reasonEs: "Completó Descubrimiento Consultivo del Día 3 con 60%. Falló criterios de sombreado y calificación del sitio.",
+    actionsEn: [
+      "Practice discovery drills with Busy Brian",
+      "Review roof shade & decision-maker scripts",
+      "Complete site analysis diagnostic module"
+    ],
+    actionsEs: [
+      "Practicar simulacros de descubrimiento con Busy Brian",
+      "Revisar guiones de sombreado y tomadores de decisiones",
+      "Completar módulo de diagnóstico de análisis de sitio"
+    ]
+  }
+}
+
 export default function ManagerCommandCenterPage() {
   const { user } = useAuth()
   const { isSpanish } = useLanguage()
@@ -36,6 +119,41 @@ export default function ManagerCommandCenterPage() {
   const [savedNote, setSavedNote] = useState(false)
   const [roster, setRoster] = useState(TEAM_ROSTER)
   const [isDemo, setIsDemo] = useState(false)
+
+  // Expandable flags states
+  const [expandedRepId, setExpandedRepId] = useState<string | null>(null)
+  const [repNotes, setRepNotes] = useState<Record<string, string>>({})
+  const [savedReps, setSavedReps] = useState<Record<string, boolean>>({})
+
+  // Load saved notes from localStorage
+  useEffect(() => {
+    try {
+      const loadedNotes: Record<string, string> = {}
+      roster.forEach(rep => {
+        const note = localStorage.getItem(`septivolt_coaching_note_${rep.id}`)
+        if (note) {
+          loadedNotes[rep.id] = note
+        }
+      })
+      setRepNotes(loadedNotes)
+    } catch (e) {
+      console.error(e)
+    }
+  }, [roster])
+
+  const saveRepNote = (repId: string, text: string) => {
+    setRepNotes(prev => ({ ...prev, [repId]: text }))
+    setSavedReps(prev => ({ ...prev, [repId]: true }))
+    try {
+      localStorage.setItem(`septivolt_coaching_note_${repId}`, text)
+    } catch (e) {
+      console.error(e)
+    }
+    setTimeout(() => {
+      setSavedReps(prev => ({ ...prev, [repId]: false }))
+    }, 2000)
+  }
+
 
   useEffect(() => {
     const activeDemo = isDemoModeActive()
@@ -173,24 +291,93 @@ export default function ManagerCommandCenterPage() {
                   <AlertTriangle className="h-4 w-4 text-red-400" /> {t("Focus Flags", "Alertas de Atención")}
                 </h3>
                 <div className="space-y-2">
-                  {flagged.map((rep) => (
-                    <div key={rep.id} className="flex items-center justify-between rounded-xl border border-red-500/15 bg-red-500/5 p-3 gap-3">
-                      <div className="flex items-center gap-3 min-w-0">
-                        <div className="h-7 w-7 rounded-full bg-gradient-to-br from-[#FF5722] to-[#FFB300] flex items-center justify-center text-[9px] font-black text-white shrink-0">
-                          {rep.name.split(" ").map(n => n[0]).join("")}
-                        </div>
-                        <div className="min-w-0">
-                          <p className="font-semibold text-sm text-white truncate">{rep.name}</p>
-                          <p className="text-[10px] text-[#94A3B8]">
-                            {rep.lastScore > 0 ? `Score: ${rep.lastScore}% — below target` : "Not started — Day 1 incomplete"}
-                          </p>
-                        </div>
+                  {flagged.map((rep) => {
+                    const isExpanded = expandedRepId === rep.id
+                    const details = REP_FLAGS_DETAILS[rep.id as keyof typeof REP_FLAGS_DETAILS] || {
+                      issueEn: "Needs simulator practice",
+                      issueEs: "Requiere práctica en simulador",
+                      reasonEn: "Recent performance scores are below the team benchmark of 80%.",
+                      reasonEs: "Los puntajes de rendimiento recientes están por debajo del estándar del equipo del 80%.",
+                      actionsEn: ["Complete pending modules", "Practice with Busy Brian or Guarded Gloria", "Review performance diagnostics"],
+                      actionsEs: ["Completar módulos pendientes", "Practicar con Busy Brian o Guarded Gloria", "Revisar diagnósticos de rendimiento"]
+                    }
+
+                    return (
+                      <div key={rep.id} className="rounded-xl border border-red-500/15 bg-red-500/5 overflow-hidden transition-all duration-300">
+                        <button 
+                          onClick={() => setExpandedRepId(isExpanded ? null : rep.id)}
+                          className="w-full flex items-center justify-between p-4 gap-3 text-left hover:bg-red-500/10 transition-colors focus:outline-none"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="h-8 w-8 rounded-full bg-gradient-to-br from-[#FF5722] to-[#FFB300] flex items-center justify-center text-[10px] font-black text-white shrink-0">
+                              {rep.name.split(" ").map(n => n[0]).join("")}
+                            </div>
+                            <div className="min-w-0">
+                              <p className="font-semibold text-sm text-white truncate">{rep.name}</p>
+                              <p className="text-[11px] text-red-400 font-medium mt-0.5">
+                                {t(details.issueEn, details.issueEs)}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3 shrink-0">
+                            <span className="text-[10px] font-hud uppercase tracking-wider text-[#94A3B8]">
+                              {isExpanded ? t("Collapse", "Contraer") : t("Expand", "Expandir")}
+                            </span>
+                            <ChevronRight className={cn("h-4 w-4 text-[#94A3B8] transition-transform duration-200", isExpanded ? "rotate-90 text-[#FF5722]" : "")} />
+                          </div>
+                        </button>
+
+                        {isExpanded && (
+                          <div className="p-4 border-t border-red-500/10 bg-black/35 space-y-4 animate-in slide-in-from-top-2 duration-200">
+                            <div className="space-y-1">
+                              <p className="text-[10px] font-hud uppercase tracking-wider text-[#64748B]">{t("Reason for Flag", "Causa de la Alerta")}</p>
+                              <p className="text-xs text-[#CBD5E1] font-light leading-relaxed">{t(details.reasonEn, details.reasonEs)}</p>
+                            </div>
+
+                            <div className="space-y-2">
+                              <p className="text-[10px] font-hud uppercase tracking-wider text-[#64748B]">{t("Recommended Coaching Actions", "Acciones de Coaching Recomendadas")}</p>
+                              <div className="space-y-1.5">
+                                {(isSpanish ? details.actionsEs : details.actionsEn).map((action, i) => (
+                                  <div key={i} className="flex items-start gap-2 text-xs text-[#94A3B8]">
+                                    <div className="h-1.5 w-1.5 rounded-full bg-[#FFB300] mt-1.5 shrink-0" />
+                                    <span>{action}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="space-y-2 pt-2 border-t border-white/5">
+                              <div className="flex items-center justify-between">
+                                <label className="text-[10px] font-hud uppercase tracking-wider text-[#64748B]">{t("Coaching Notes", "Notas de Coaching")}</label>
+                                {savedReps[rep.id] && (
+                                  <span className="text-[9px] font-hud uppercase font-bold text-green-400 animate-pulse">{t("Saved", "Guardado")}</span>
+                                )}
+                              </div>
+                              <div className="flex gap-2">
+                                <textarea
+                                  value={repNotes[rep.id] ?? ""}
+                                  onChange={(e) => {
+                                    const val = e.target.value
+                                    setRepNotes(prev => ({ ...prev, [rep.id]: val }))
+                                  }}
+                                  onBlur={(e) => saveRepNote(rep.id, e.target.value)}
+                                  placeholder={t("Type private notes to guide your 1-on-1 session...", "Escriba notas privadas para guiar la sesión individual...")}
+                                  className="flex-1 rounded-xl border border-white/10 bg-[#121212] px-3 py-2 text-xs text-[#CBD5E1] placeholder:text-[#64748B] outline-none focus:border-[#FF5722]/50 resize-none min-h-[56px]"
+                                  rows={2}
+                                />
+                                <button
+                                  onClick={() => saveRepNote(rep.id, repNotes[rep.id] ?? "")}
+                                  className="px-3 rounded-xl border border-[#FF5722]/30 bg-[#FF5722]/10 hover:bg-[#FF5722]/20 text-[#FFD54F] hover:text-white transition-all text-xs font-hud uppercase tracking-wider shrink-0 font-bold"
+                                >
+                                  {t("Save", "Guardar")}
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                      <Link href="/analytics" className="text-xs font-hud uppercase tracking-wide text-[#FF5722] hover:text-[#FFB300] shrink-0 flex items-center gap-1">
-                        Coach <ChevronRight className="h-3.5 w-3.5" />
-                      </Link>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </div>
               </div>
             )}

@@ -22,6 +22,10 @@ import {
   Sparkles,
   Target,
   TrendingUp,
+  CheckCircle2,
+  Circle,
+  X,
+  Trophy,
 } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
@@ -29,12 +33,118 @@ import { getDashboardStats, DashboardStats } from "@/lib/dashboard-data"
 
 import { api } from "@/lib/api-client"
 import { useAuth } from "@/context/AuthContext"
+import { useLanguage } from "@/hooks/use-language"
 import { SCENARIO_TO_MODULE } from "@/lib/modules"
+import { cn } from "@/lib/utils"
+
+const onboardingTasks = [
+  {
+    key: "assessment" as const,
+    titleEn: "Profile Assessment",
+    titleEs: "Evaluación de Perfil",
+    descEn: "Complete your diagnostic profile assessment.",
+    descEs: "Complete su evaluación diagnóstica de perfil.",
+    link: "/solar-sales-training-assessment",
+  },
+  {
+    key: "roleplay" as const,
+    titleEn: "First Simulation",
+    titleEs: "Primera Simulación",
+    descEn: "Complete your first AI roleplay scenario.",
+    descEs: "Complete su primer escenario de juego de rol con IA.",
+    link: "/ai-simulator",
+  },
+  {
+    key: "leaderboard" as const,
+    titleEn: "View Leaderboards",
+    titleEs: "Ver Clasificaciones",
+    descEn: "Explore team performance and closers pacing.",
+    descEs: "Explore el rendimiento del equipo y el ritmo de cierres.",
+    link: "/leaderboards",
+  },
+  {
+    key: "analytics" as const,
+    titleEn: "Explore Analytics",
+    titleEs: "Explorar Analíticas",
+    descEn: "Review your detailed skill and objection feedback.",
+    descEs: "Revise su desglose de habilidades y objeciones.",
+    link: "/analytics",
+  },
+  {
+    key: "settings" as const,
+    titleEn: "Configure Settings",
+    titleEs: "Configurar Ajustes",
+    descEn: "Customize narration voices and simulation rules.",
+    descEs: "Personalice voces de narración y reglas de simulación.",
+    link: "/dashboard/settings",
+  },
+]
 
 export default function DashboardPage() {
   const { user } = useAuth()
+  const { isSpanish } = useLanguage()
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+
+  const [isDismissed, setIsDismissed] = useState(false)
+  const [taskStates, setTaskStates] = useState({
+    assessment: false,
+    roleplay: false,
+    leaderboard: false,
+    analytics: false,
+    settings: false,
+  })
+
+  const t = (en: string, es: string) => isSpanish ? es : en
+
+  useEffect(() => {
+    try {
+      const dismissed = localStorage.getItem("septivolt_onboarding_dismissed") === "true"
+      setIsDismissed(dismissed)
+
+      const hasAssessment = localStorage.getItem("septivolt_assessment_completed") === "true" ||
+                            localStorage.getItem("septivolt_funnel_state") !== null ||
+                            localStorage.getItem("septivolt_onboarding_task_assessment") === "true"
+
+      const hasRoleplay = (stats && stats.completedMilestones > 0) ||
+                          localStorage.getItem("septivolt_debrief_records") !== null ||
+                          localStorage.getItem("septivolt_onboarding_task_roleplay") === "true"
+
+      const hasLeaderboard = localStorage.getItem("septivolt_leaderboard_visited") === "true" ||
+                             localStorage.getItem("septivolt_onboarding_task_leaderboard") === "true"
+
+      const hasAnalytics = localStorage.getItem("septivolt_analytics_visited") === "true" ||
+                           localStorage.getItem("septivolt_onboarding_task_analytics") === "true"
+
+      const hasSettings = localStorage.getItem("septivolt_settings_visited") === "true" ||
+                          localStorage.getItem("septivolt_onboarding_task_settings") === "true"
+
+      setTaskStates({
+        assessment: !!hasAssessment,
+        roleplay: !!hasRoleplay,
+        leaderboard: !!hasLeaderboard,
+        analytics: !!hasAnalytics,
+        settings: !!hasSettings,
+      })
+    } catch (e) {
+      console.error("Failed to load onboarding states:", e)
+    }
+  }, [stats])
+
+  const toggleTask = (key: keyof typeof taskStates) => {
+    const newVal = !taskStates[key]
+    setTaskStates(prev => ({ ...prev, [key]: newVal }))
+    try {
+      localStorage.setItem(`septivolt_onboarding_task_${key}`, newVal ? "true" : "false")
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const completedCount = Object.values(taskStates).filter(Boolean).length
+  const totalTasks = 5
+  const progressPercent = Math.round((completedCount / totalTasks) * 100)
+
 
   useEffect(() => {
     async function fetchStats() {
@@ -92,6 +202,136 @@ export default function DashboardPage() {
       subheading="A daily operating view for training momentum, AI performance, and immediate coaching priorities."
     >
       <div className="space-y-6">
+        {isDismissed && progressPercent < 100 && (
+          <div className="flex justify-end -mb-2">
+            <button 
+              onClick={() => {
+                setIsDismissed(false);
+                try { localStorage.removeItem("septivolt_onboarding_dismissed"); } catch(e) {}
+              }}
+              className="text-[11px] font-hud uppercase tracking-wider text-[#94A3B8] hover:text-white flex items-center gap-1.5 transition-all bg-white/5 border border-white/5 px-3 py-1.5 rounded-full hover:border-[#FF5722]/30 hover:bg-[#FF5722]/10"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-[#FFB300]" />
+              {t("Show Onboarding Checklist", "Mostrar Lista de Incorporación")} ({progressPercent}%)
+            </button>
+          </div>
+        )}
+
+        {!isDismissed && (
+          <WidgetCard className="bg-[linear-gradient(135deg,rgba(18,18,18,0.95),rgba(255,87,34,0.05)_50%,rgba(18,18,18,0.95))] border border-white/5 shadow-2xl relative">
+            <div className="absolute top-4 right-4 z-10">
+              <button
+                onClick={() => {
+                  setIsDismissed(true)
+                  try {
+                    localStorage.setItem("septivolt_onboarding_dismissed", "true")
+                  } catch (e) {}
+                }}
+                className="rounded-full p-1.5 hover:bg-white/5 text-[#94A3B8] hover:text-white transition-colors"
+                title={t("Dismiss Onboarding", "Descartar Incorporación")}
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-4 border-b border-white/5">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#FF5722]/30 bg-[#FF5722]/10 px-2.5 py-0.5 font-hud text-[10px] uppercase tracking-widest text-[#FFB300]">
+                    <Sparkles className="h-3 w-3 text-[#FF5722]" />
+                    {t("ONBOARDING PATH", "RUTA DE INCORPORACIÓN")}
+                  </span>
+                  {progressPercent === 100 && (
+                    <span className="inline-flex items-center gap-1 rounded-full border border-green-500/30 bg-green-500/10 px-2.5 py-0.5 font-hud text-[10px] uppercase tracking-widest text-green-400 font-bold animate-pulse">
+                      <Trophy className="h-3 w-3" />
+                      {t("100% COMPLETE", "100% COMPLETADO")}
+                    </span>
+                  )}
+                </div>
+                <h2 className="font-display text-2xl font-black text-white tracking-tight">
+                  {t("First-Time Operator Setup", "Configuración Inicial de Operador")}
+                </h2>
+                <p className="text-sm text-[#94A3B8] max-w-2xl">
+                  {t("Accelerate your onboarding by exploring the core platforms, launching your first simulator, and configuring settings. Unlock +250 XP upon full completion.", 
+                     "Acelere su incorporación explorando las plataformas principales, iniciando su primer simulador y configurando los ajustes. Desbloquee +250 XP al completarlo todo.")}
+                </p>
+              </div>
+
+              <div className="flex flex-col items-start md:items-end justify-center min-w-[160px]">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="font-display text-3xl font-black text-white">{completedCount}</span>
+                  <span className="text-sm text-[#64748B]">/ {totalTasks} {t("tasks", "tareas")}</span>
+                  <span className="ml-3 font-hud text-xs text-[#FFB300] font-black">{progressPercent}%</span>
+                </div>
+                <div className="mt-2 w-full h-1.5 overflow-hidden rounded-full bg-white/5 min-w-[160px]">
+                  <div 
+                    className="h-full bg-gradient-to-r from-[#FF5722] to-[#FFB300] transition-all duration-500 ease-out" 
+                    style={{ width: `${progressPercent}%` }} 
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+              {onboardingTasks.map((task, idx) => {
+                const isCompleted = taskStates[task.key]
+                return (
+                  <div 
+                    key={task.key}
+                    className={cn(
+                      "group relative rounded-2xl border p-4 transition-all duration-200 flex flex-col justify-between min-h-[140px] text-left",
+                      isCompleted 
+                        ? "border-green-500/20 bg-green-500/[0.02] hover:bg-green-500/[0.04]" 
+                        : "border-white/5 bg-white/5 hover:border-white/10 hover:bg-white/[0.08]"
+                    )}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <button
+                        onClick={() => toggleTask(task.key)}
+                        className="rounded-lg p-1 hover:bg-white/5 transition-colors shrink-0"
+                        title={isCompleted ? t("Mark uncompleted", "Marcar como incompleto") : t("Mark completed", "Marcar como completado")}
+                      >
+                        {isCompleted ? (
+                          <CheckCircle2 className="h-5 w-5 text-green-400" />
+                        ) : (
+                          <Circle className="h-5 w-5 text-white/20 group-hover:text-white/40" />
+                        )}
+                      </button>
+                      <span className="font-hud text-[10px] text-[#64748B] uppercase tracking-wider font-bold">
+                        {t("Step", "Paso")} {idx + 1}
+                      </span>
+                    </div>
+
+                    <div className="mt-3 space-y-1 flex-1">
+                      <Link href={task.link} className="block group/link">
+                        <h4 className={cn(
+                          "font-display text-sm font-bold leading-tight group-hover/link:text-[#FFB300] transition-colors flex items-center gap-1",
+                          isCompleted ? "text-white/60 line-through decoration-white/20" : "text-white"
+                        )}>
+                          {t(task.titleEn, task.titleEs)}
+                          <ArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-all shrink-0 translate-x-[-4px] group-hover:translate-x-0" />
+                        </h4>
+                      </Link>
+                      <p className="text-xs text-[#64748B] leading-snug">
+                        {t(task.descEn, task.descEs)}
+                      </p>
+                    </div>
+
+                    <div className="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between text-[10px] font-hud tracking-wider">
+                      <span className={cn(isCompleted ? "text-green-400/70" : "text-[#FFB300]")}>
+                        +50 XP
+                      </span>
+                      <Link href={task.link} className="text-[#94A3B8] hover:text-white transition-colors uppercase font-bold">
+                        {t("Go", "Ir")}
+                      </Link>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </WidgetCard>
+        )}
+
         <section className="grid gap-6 xl:grid-cols-[1.6fr_1fr]">
           <WidgetCard className="overflow-hidden bg-[linear-gradient(135deg,rgba(255,87,34,0.14),rgba(18,18,18,0.96)_38%,rgba(255,179,0,0.12))]">
             <div className="absolute inset-y-0 right-0 hidden w-1/2 bg-[radial-gradient(circle_at_top_right,rgba(255,87,34,0.18),transparent_55%)] lg:block" />

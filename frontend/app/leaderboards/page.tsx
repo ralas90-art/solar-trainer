@@ -339,6 +339,9 @@ export default function LeaderboardsPage() {
   useEffect(() => {
     const activeDemo = isDemoModeActive()
     setIsDemo(activeDemo)
+    try {
+      localStorage.setItem("septivolt_leaderboard_visited", "true")
+    } catch (e) {}
 
     async function fetchLeaderboard() {
       if (activeDemo) {

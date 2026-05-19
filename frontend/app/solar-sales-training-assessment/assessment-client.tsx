@@ -94,6 +94,9 @@ export default function AssessmentClient() {
         throw new Error(result.error || "Failed to submit. Please try again.")
       }
 
+      try {
+        localStorage.setItem("septivolt_assessment_completed", "true")
+      } catch (e) {}
       setResultTrack(track)
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.")

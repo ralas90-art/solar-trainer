@@ -15,6 +15,27 @@ export interface Scenario {
     briefing: string
     valid_responses: string[]
     requiredModule?: string // ID of the curriculum module required to unlock this scenario
+    
+    // Persona Details (Bilingual support)
+    personaNameEn?: string
+    personaNameEs?: string
+    buyerTypeEn?: string
+    buyerTypeEs?: string
+    emotionalStateEn?: string
+    emotionalStateEs?: string
+    objectionStyleEn?: string
+    objectionStyleEs?: string
+    communicationStyleEn?: string
+    communicationStyleEs?: string
+    avatarStyle?: string // Identifier for avatar color coding
+
+    // Progression Metadata
+    personaEscalationEn?: string[] // Objections triggered under pressure
+    personaEscalationEs?: string[]
+    trustLevel?: number          // Numeric starting trust level (1-100)
+    difficultyWeight?: number    // Difficulty scale weight (1-10)
+    salesStageEn?: string        // Stage of the sales cycle (English)
+    salesStageEs?: string        // Stage of the sales cycle (Spanish)
 }
 
 // Helper to recursively replace industry terms in the scenario object at runtime
@@ -57,7 +78,24 @@ const RAW_SCENARIOS: Record<string, Scenario> = {
         difficulty: "Medium",
         opening_line: "Solar is too expensive. I'll pass.",
         briefing: "Goal: Overcome the price objection.\n\nKey Concepts:\n1. Solar is a bill swap, not an extra cost.\n2. Focus on ROI (Return on Investment).\n3. Compare the rising cost of utility power vs. fixed solar payments.\n\nTip: Ask them 'How much did you pay for power last month?' to anchor the cost.",
-        valid_responses: ["ROI", "savings", "bill swap"]
+        valid_responses: ["ROI", "savings", "bill swap"],
+        personaNameEn: "Arthur Dent",
+        personaNameEs: "Arturo Dent",
+        buyerTypeEn: "Skeptical Shopper",
+        buyerTypeEs: "Comprador Escéptico",
+        emotionalStateEn: "Frustrated",
+        emotionalStateEs: "Frustrado",
+        objectionStyleEn: "Aggressive pricing pushback",
+        objectionStyleEs: "Rechazo agresivo de precios",
+        communicationStyleEn: "Blunt & impatient",
+        communicationStyleEs: "Cortante e impaciente",
+        avatarStyle: "hostile",
+        personaEscalationEn: ["Why are solar panels so expensive?", "I don't think we will save anything.", "Can you do it for half the price?"],
+        personaEscalationEs: ["¿Por qué los paneles son tan caros?", "No creo que ahorremos nada.", "¿Me lo puedes hacer a mitad de precio?"],
+        trustLevel: 35,
+        difficultyWeight: 5,
+        salesStageEn: "Door Knocking",
+        salesStageEs: "Toque de Puerta"
     },
     "eng_1": {
         id: "eng_1",
@@ -84,7 +122,24 @@ const RAW_SCENARIOS: Record<string, Scenario> = {
         difficulty: "Expert",
         opening_line: "I've talked to 3 other companies, and frankly, I'm not convinced any of you are telling the truth about these 'savings'. It sounds like a scam.",
         briefing: "⚠️ CERTIFICATION EXAM ⚠️\n\nThis is your final test. The homeowner is hostile and skeptical.\n\nYou must:\n1. Build Trust (Empathy/Validation).\n2. Address the 'Scam' objection (Social Proof/Stats).\n3. Pivot to Value (ROI/Protection).\n\nTo PASS, you must address ALL three points in your response.",
-        valid_responses: ["trust", "scam", "neighbors", "ROI", "protection"]
+        valid_responses: ["trust", "scam", "neighbors", "ROI", "protection"],
+        personaNameEn: "Victor Vance",
+        personaNameEs: "Víctor Vance",
+        buyerTypeEn: "Hostile Cynic",
+        buyerTypeEs: "Cínico Hostil",
+        emotionalStateEn: "Combative",
+        emotionalStateEs: "Combativo",
+        objectionStyleEn: "High-pressure scam accusation",
+        objectionStyleEs: "Acusación de estafa a alta presión",
+        communicationStyleEn: "Aggressive & confrontational",
+        communicationStyleEs: "Agresivo y confrontativo",
+        avatarStyle: "hostile",
+        personaEscalationEn: ["This sounds like a complete scam.", "Why should I trust a door knocker?", "You guys just want to lock me in a lease."],
+        personaEscalationEs: ["Esto suena a estafa total.", "¿Por qué confiaría en alguien que toca puertas?", "Ustedes solo quieren atraparme en un contrato."],
+        trustLevel: 20,
+        difficultyWeight: 9,
+        salesStageEn: "Closing",
+        salesStageEs: "Cierre"
     },
     "discovery_1": {
         id: "discovery_1",
@@ -93,7 +148,24 @@ const RAW_SCENARIOS: Record<string, Scenario> = {
         difficulty: "Easy",
         opening_line: "I don't have much time. What are you selling?",
         briefing: "Goal: Switch from 'Selling' to 'Consulting'.\n\nKey Concepts:\n1. Use the '3 Reasons' framework to anchor the conversation.\n2. Ask open-ended questions (Who, What, How).\n3. Do NOT mention product/panels yet.\n\nTip: Say 'I'm not here to sell panels. I'm here to see if your home qualifies for the 3 Reasons...'",
-        valid_responses: ["3 reasons", "consulting", "qualify"]
+        valid_responses: ["3 reasons", "consulting", "qualify"],
+        personaNameEn: "Greg Miller",
+        personaNameEs: "Gregorio Miller",
+        buyerTypeEn: "Guarded Homeowner",
+        buyerTypeEs: "Propietario Reservado",
+        emotionalStateEn: "Skeptical",
+        emotionalStateEs: "Escéptico",
+        objectionStyleEn: "Time-wasting redirection",
+        objectionStyleEs: "Redirección evasiva",
+        communicationStyleEn: "Brief & defensive",
+        communicationStyleEs: "Breve y defensivo",
+        avatarStyle: "skeptical",
+        personaEscalationEn: ["I don't want to answer that.", "Just tell me what you want.", "Is this going to take long?"],
+        personaEscalationEs: ["No quiero responder eso.", "Solo dime qué quieres.", "¿Esto va a tardar mucho?"],
+        trustLevel: 45,
+        difficultyWeight: 3,
+        salesStageEn: "Discovery",
+        salesStageEs: "Descubrimiento"
     },
     "referral_ask": {
         id: "referral_ask",
@@ -184,7 +256,24 @@ const RAW_SCENARIOS: Record<string, Scenario> = {
         difficulty: "Medium",
         opening_line: "No offense, but you're the third solar guy this month. The last one lied about our savings. I'm not falling for it again.",
         briefing: "Goal: Recognize distrust signals and reframe without pressure.\n\nKey Concepts:\n1. She's been burned — lead with empathy, not pitch.\n2. Acknowledge past bad experiences before discussing your offer.\n3. Use consultant language: 'I'm not here to sell you anything.'\n\nTip: Say 'I don't blame you at all. Can I ask — what specifically happened?'",
-        valid_responses: ["empathy", "understand", "what happened", "not here to sell", "makes sense", "different"]
+        valid_responses: ["empathy", "understand", "what happened", "not here to sell", "makes sense", "different"],
+        personaNameEn: "Gloria Vance",
+        personaNameEs: "Gloria Vance",
+        buyerTypeEn: "Turtle (Reluctant)",
+        buyerTypeEs: "Tortuga (Reticente)",
+        emotionalStateEn: "Defensive / Distrustful",
+        emotionalStateEs: "Defensiva / Desconfiada",
+        objectionStyleEn: "Contractor integrity doubts",
+        objectionStyleEs: "Dudas sobre la integridad de contratistas",
+        communicationStyleEn: "Highly guarded, interrupts details",
+        communicationStyleEs: "Muy reservada, interrumpe los detalles",
+        avatarStyle: "reluctant",
+        personaEscalationEn: ["The other company lied to us.", "You all say the same thing.", "How do I know you're different?"],
+        personaEscalationEs: ["La otra empresa nos mintió.", "Todos dicen lo mismo.", "¿Cómo sé que son diferentes?"],
+        trustLevel: 40,
+        difficultyWeight: 6,
+        salesStageEn: "Discovery",
+        salesStageEs: "Descubrimiento"
     },
     "busy_brian": {
         id: "busy_brian",
@@ -193,7 +282,24 @@ const RAW_SCENARIOS: Record<string, Scenario> = {
         difficulty: "Easy",
         opening_line: "Look, I've got exactly 30 seconds before my Uber gets here. Make it quick or leave a card.",
         briefing: "Goal: Handle micro objection and set appointment rapidly.\n\nKey Concepts:\n1. Do NOT pitch — deliver a 10-second value hook.\n2. Immediately pivot to scheduling: 'Thursday at 6 or Saturday at 10?'\n3. Respect his time — being brief builds more trust.\n\nTip: 'Totally get it — just helping your neighbor save $150/month. When's a better time?'",
-        valid_responses: ["quick", "neighbor", "thursday", "saturday", "when works", "better time", "appointment"]
+        valid_responses: ["quick", "neighbor", "thursday", "saturday", "when works", "better time", "appointment"],
+        personaNameEn: "Brian Taylor",
+        personaNameEs: "Brian Taylor",
+        buyerTypeEn: "Bull (Impatient)",
+        buyerTypeEs: "Toro (Impaciente)",
+        emotionalStateEn: "Hurried / Rushed",
+        emotionalStateEs: "Apurado / Con Prisa",
+        objectionStyleEn: "Time brush-off",
+        objectionStyleEs: "Descarte por falta de tiempo",
+        communicationStyleEn: "Terse & blunt",
+        communicationStyleEs: "Seco y tajante",
+        avatarStyle: "hostile",
+        personaEscalationEn: ["I don't have time for this.", "Just email me something.", "Uber is pulling up."],
+        personaEscalationEs: ["No tengo tiempo para esto.", "Solo envíame un correo.", "El Uber ya está llegando."],
+        trustLevel: 30,
+        difficultyWeight: 4,
+        salesStageEn: "Door Knocking",
+        salesStageEs: "Toque de Puerta"
     },
     "burned_beth": {
         id: "burned_beth",
@@ -211,7 +317,24 @@ const RAW_SCENARIOS: Record<string, Scenario> = {
         difficulty: "Hard",
         opening_line: "I've been researching this for 6 months. I have a spreadsheet comparing 5 companies. Can you explain your panel degradation coefficient and how your production estimates account for soiling losses?",
         briefing: "Goal: Establish technical credibility, then redirect toward a decision.\n\nKey Concepts:\n1. Validate his research — 'That's thorough.'\n2. Answer with specifics: degradation ~0.5%/yr, soiling loss 2-5%.\n3. Pivot: 'You clearly know the tech. The real question is — which option gives you the best financial outcome?'\n\nTip: Don't compete on specs — compete on decision clarity.",
-        valid_responses: ["degradation", "0.5%", "soiling", "thorough", "financial outcome", "decision", "spreadsheet"]
+        valid_responses: ["degradation", "0.5%", "soiling", "thorough", "financial outcome", "decision", "spreadsheet"],
+        personaNameEn: "Alan Chen",
+        personaNameEs: "Alan Chen",
+        buyerTypeEn: "Owl (Analytical)",
+        buyerTypeEs: "Búho (Analítico)",
+        emotionalStateEn: "Intellectually skeptical",
+        emotionalStateEs: "Intelectualmente escéptico",
+        objectionStyleEn: "Deep technical cross-examination",
+        objectionStyleEs: "Interrogatorio técnico profundo",
+        communicationStyleEn: "Highly detailed, precise",
+        communicationStyleEs: "Altamente detallado y preciso",
+        avatarStyle: "analytical",
+        personaEscalationEn: ["Show me the degradation curves.", "What inverter models do you install?", "Explain your weather shading model."],
+        personaEscalationEs: ["Muéstrame las curvas de degradación.", "¿Qué modelos de inversor instalan?", "Explica tu modelo de sombreado por clima."],
+        trustLevel: 55,
+        difficultyWeight: 7,
+        salesStageEn: "Presentation",
+        salesStageEs: "Presentación"
     },
     "busy_bob": {
         id: "busy_bob",
