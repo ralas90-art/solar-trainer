@@ -22,7 +22,7 @@ async function run() {
   
   // Helper to set admin session in localStorage
   async function setupAdminSession(demoActive = false, lang = 'en') {
-    await page.goto(STAGING_URL);
+    await page.goto(STAGING_URL + '?x-vercel-protection-bypass=qQZ8QvU2KoKLQ3QBvm8s3oTTMBMLIwU5&x-vercel-set-bypass-cookie=true');
     await page.evaluate(({ demoActive, lang }) => {
       localStorage.setItem('septivolt_user', JSON.stringify({
         username: 'admin',
