@@ -71,7 +71,7 @@ async function run() {
 
     console.log('Testing modal Cancel button...');
     await page.click('button:text-is("Cancel")');
-    await page.waitForTimeout(500); // Wait for transition
+    await page.waitForSelector('h3:has-text("Report an Issue")', { state: 'detached', timeout: 5000 });
     
     const isModalVisibleAfterCancel = await page.isVisible('h3:has-text("Report an Issue")');
     console.log(`Modal header visible after cancel: ${isModalVisibleAfterCancel}`);
@@ -109,7 +109,7 @@ async function run() {
 
     // Close spanish modal
     await page.click('button:text-is("Cancelar")');
-    await page.waitForTimeout(500);
+    await page.waitForSelector('h3:has-text("Reportar un Problema")', { state: 'detached', timeout: 5000 });
 
     // ----------------------------------------------------
     // PHASE 3: Form Input Validation & Submission
@@ -182,7 +182,7 @@ async function run() {
     
     console.log('Dismissing success screen...');
     await page.click('button:text-is("Close")');
-    await page.waitForTimeout(500);
+    await page.waitForSelector('h3:has-text("Report an Issue")', { state: 'detached', timeout: 5000 });
 
     const isModalVisibleEnd = await page.isVisible('h3:has-text("Report an Issue")');
     console.log(`Modal visible at end: ${isModalVisibleEnd}`);
