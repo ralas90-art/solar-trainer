@@ -25,7 +25,14 @@ else:
     engine = create_engine(sqlite_url, connect_args={"check_same_thread": False})
 
 def create_db_and_tables():
-    SQLModel.metadata.create_all(engine)
+    # 0. Run programmatic migrations (adds new columns & seeds test companies)
+    try:
+        from migrate_db import run_migration
+        run_migration()
+    except Exception as e:
+        print(f"Error running programmatic migration: {e}")
+        # Run standard metadata creation as a fallback
+        SQLModel.metadata.create_all(engine)
     
     # 1. Seed default company if it doesn't exist
     from models.user import Company, PlanTier, User, UserRole, UserStats
