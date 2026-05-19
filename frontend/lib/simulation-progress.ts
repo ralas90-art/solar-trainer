@@ -18,7 +18,7 @@
  *  - The rest of the consumer API (`getScenarioProgress`, `getCompletedCount`) stays the same.
  */
 
-import { loadDebriefs, DebriefRecord } from "./debrief-storage"
+import { loadDebriefsSync as loadDebriefs, DebriefRecord } from "./debrief-storage"
 
 export type ScenarioProgressRecord = {
   scenarioId: string

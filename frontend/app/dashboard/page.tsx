@@ -98,27 +98,65 @@ export default function DashboardPage() {
   const t = (en: string, es: string) => isSpanish ? es : en
 
   useEffect(() => {
+    const username = user?.username
+    if (!username) {
+      // Unauthenticated / demo fallback: read from localStorage
+      _loadOnboardingFromLocal()
+      return
+    }
+    // Try backend first, fall back to localStorage on error
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || ""}/api/v1/user/${encodeURIComponent(username)}/onboarding`, {
+      credentials: "include",
+    })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.tasks) {
+          const tasks = data.tasks as Record<string, boolean>
+          // Merge with localStorage visit signals (parens required when mixing ?? with ||)
+          const hasAssessment = tasks.assessment ?? (
+            localStorage.getItem("septivolt_assessment_completed") === "true" ||
+            localStorage.getItem("septivolt_funnel_state") !== null
+          )
+          const hasRoleplay = tasks.roleplay ??
+            (localStorage.getItem("septivolt_debrief_records") !== null)
+          const hasLeaderboard = tasks.leaderboard ??
+            (localStorage.getItem("septivolt_leaderboard_visited") === "true")
+          const hasAnalytics = tasks.analytics ??
+            (localStorage.getItem("septivolt_analytics_visited") === "true")
+          const hasSettings = tasks.settings ??
+            (localStorage.getItem("septivolt_settings_visited") === "true")
+          setTaskStates({
+            assessment: !!hasAssessment,
+            roleplay: !!hasRoleplay,
+            leaderboard: !!hasLeaderboard,
+            analytics: !!hasAnalytics,
+            settings: !!hasSettings,
+          })
+          const dismissed = localStorage.getItem("septivolt_onboarding_dismissed") === "true"
+          setIsDismissed(dismissed)
+        } else {
+          _loadOnboardingFromLocal()
+        }
+      })
+      .catch(() => _loadOnboardingFromLocal())
+  }, [user?.username])
+
+  function _loadOnboardingFromLocal() {
     try {
       const dismissed = localStorage.getItem("septivolt_onboarding_dismissed") === "true"
       setIsDismissed(dismissed)
-
       const hasAssessment = localStorage.getItem("septivolt_assessment_completed") === "true" ||
                             localStorage.getItem("septivolt_funnel_state") !== null ||
                             localStorage.getItem("septivolt_onboarding_task_assessment") === "true"
-
       const hasRoleplay = (stats && stats.completedMilestones > 0) ||
                           localStorage.getItem("septivolt_debrief_records") !== null ||
                           localStorage.getItem("septivolt_onboarding_task_roleplay") === "true"
-
       const hasLeaderboard = localStorage.getItem("septivolt_leaderboard_visited") === "true" ||
                              localStorage.getItem("septivolt_onboarding_task_leaderboard") === "true"
-
       const hasAnalytics = localStorage.getItem("septivolt_analytics_visited") === "true" ||
                            localStorage.getItem("septivolt_onboarding_task_analytics") === "true"
-
       const hasSettings = localStorage.getItem("septivolt_settings_visited") === "true" ||
                           localStorage.getItem("septivolt_onboarding_task_settings") === "true"
-
       setTaskStates({
         assessment: !!hasAssessment,
         roleplay: !!hasRoleplay,
@@ -129,11 +167,22 @@ export default function DashboardPage() {
     } catch (e) {
       console.error("Failed to load onboarding states:", e)
     }
-  }, [stats])
+  }
 
   const toggleTask = (key: keyof typeof taskStates) => {
     const newVal = !taskStates[key]
     setTaskStates(prev => ({ ...prev, [key]: newVal }))
+    // Persist to backend if authenticated
+    const username = user?.username
+    if (username) {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL || ""}/api/v1/user/${encodeURIComponent(username)}/onboarding`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tasks: { [key]: newVal } }),
+      }).catch(() => {})
+    }
+    // Always also persist to localStorage as fallback
     try {
       localStorage.setItem(`septivolt_onboarding_task_${key}`, newVal ? "true" : "false")
     } catch (e) {

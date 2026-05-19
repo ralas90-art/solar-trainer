@@ -144,6 +144,20 @@ export default function ManagerCommandCenterPage() {
   const saveRepNote = (repId: string, text: string) => {
     setRepNotes(prev => ({ ...prev, [repId]: text }))
     setSavedReps(prev => ({ ...prev, [repId]: true }))
+    // Persist note to backend API (repId may be username or numeric id)
+    if (user?.username && !isDemo) {
+      fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || ""}/api/v1/user/${encodeURIComponent(repId)}/coaching-note`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json", "X-User-Id": user.username },
+          body: JSON.stringify({ notes: text }),
+        }
+      ).catch(() => {
+        // Silent fail — localStorage is still written below
+      })
+    }
     try {
       localStorage.setItem(`septivolt_coaching_note_${repId}`, text)
     } catch (e) {
@@ -158,17 +172,57 @@ export default function ManagerCommandCenterPage() {
   useEffect(() => {
     const activeDemo = isDemoModeActive()
     setIsDemo(activeDemo)
-    const debriefs = loadDebriefs()
-    setRecentDebriefs(debriefs.slice(0, 3))
+    const debriefs = loadDebriefs(user?.username)
+    debriefs.then((records) => setRecentDebriefs(records.slice(0, 3))).catch(() => {})
     const map = buildScenarioProgressMap({})
     if (activeDemo) {
       setRoster(getDemoRoster())
       setTeamSimCount(142)
+    } else if (user?.companyId) {
+      // Load live roster from backend
+      fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || ""}/api/v1/companies/${encodeURIComponent(user.companyId)}/roster`,
+        { credentials: "include", headers: { "X-User-Id": user.username } }
+      )
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (data?.roster) {
+            // Map API roster to the local shape the page expects
+            const mapped = data.roster.map((m: any) => ({
+              id: String(m.id ?? m.username),
+              name: m.username,
+              email: m.email ?? "",
+              role: m.role ?? "Trainee",
+              dayProgress: m.completed_sims ?? 0,
+              totalDays: 7,
+              lastScore: m.last_score ?? 0,
+              active: m.active ?? true,
+              needsAttention: m.needs_attention ?? false,
+            }))
+            setRoster(mapped)
+            // Pre-load coaching notes from API response
+            const notes: Record<string, string> = {}
+            data.roster.forEach((m: any) => {
+              if (m.coaching_notes) notes[String(m.id ?? m.username)] = m.coaching_notes
+            })
+            setRepNotes(notes)
+            setTeamSimCount(
+              data.roster.reduce((sum: number, m: any) => sum + (m.completed_sims ?? 0), 0)
+            )
+          } else {
+            setRoster(TEAM_ROSTER)
+            setTeamSimCount(getCompletedCount(map))
+          }
+        })
+        .catch(() => {
+          setRoster(TEAM_ROSTER)
+          setTeamSimCount(getCompletedCount(map))
+        })
     } else {
       setRoster(TEAM_ROSTER)
       setTeamSimCount(getCompletedCount(map))
     }
-  }, [])
+  }, [user?.username])
 
   const today = new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })
   const activeReps = roster.filter(r => r.active).length

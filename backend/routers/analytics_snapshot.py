@@ -14,6 +14,7 @@ from sqlmodel import Session, select
 from data import SCENARIOS
 from database import get_session
 from models import UserStats
+from models.user import User
 from models.kpi import KPIDefinition, KPIEntry
 from routers.kpis import get_analytics
 
@@ -245,7 +246,27 @@ async def get_analytics_snapshot(
     Canonical analytics snapshot for the rep performance analytics dashboard.
     """
     stats = session.get(UserStats, user_id)
-    leaderboard = session.exec(select(UserStats).order_by(UserStats.total_score.desc()).limit(20)).all()
+
+    # ── Company-scoped leaderboard (tenant isolation) ──────────────────────────
+    # Resolve the requesting user's company_id from the DB, not from query params.
+    requesting_user = session.exec(select(User).where(User.username == user_id)).first()
+    company_id = requesting_user.company_id if requesting_user else None
+
+    if company_id:
+        # Only show reps from the same company — join User on username == UserStats.user_id
+        company_user_ids = [
+            u.username for u in session.exec(
+                select(User).where(User.company_id == company_id)
+            ).all()
+        ]
+        leaderboard = session.exec(
+            select(UserStats)
+            .where(UserStats.user_id.in_(company_user_ids))
+            .order_by(UserStats.total_score.desc())
+            .limit(20)
+        ).all()
+    else:
+        leaderboard = session.exec(select(UserStats).order_by(UserStats.total_score.desc()).limit(20)).all()
 
     if not stats:
         stats = UserStats(user_id=user_id, total_score=0, current_streak=0, highest_streak=0, lives=3)

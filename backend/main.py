@@ -17,7 +17,7 @@ from fastapi.responses import StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from certificate import generate_certificate_pdf
 from voice import text_to_speech_stream
-from routers import vapi, analysis, kpis, certifications, analytics_snapshot, billing, enterprise
+from routers import vapi, analysis, kpis, certifications, analytics_snapshot, billing, enterprise, organization
 
 from routers.analytics_snapshot import invalidate_analytics_cache_for_user
 import os
@@ -328,6 +328,8 @@ app.include_router(certifications.router)
 app.include_router(analytics_snapshot.router)
 app.include_router(billing.router)
 app.include_router(enterprise.router)
+app.include_router(organization.router)   # Phase 6A: multi-tenant persistence
+
 
 if __name__ == "__main__":
     import uvicorn

@@ -128,13 +128,14 @@ export function SimulationWindow({ tenant, stateCode, scenario, userId, difficul
                 const data = await response.json()
                 setFeedbackData(data)
 
-                // Persist debrief to localStorage for history page
+                // Persist debrief — routes to backend API when userId is set (Phase 6A)
                 saveDebrief({
                     scenarioId: scenario.id ?? "unknown",
                     scenarioName: scenario.name ?? "Unnamed Scenario",
                     completedAt: new Date().toISOString(),
                     passed: !!data.passed,
                     score: data.score ?? 0,
+                    difficulty,
                     feedbackSummary: data.summary ?? data.feedback_summary,
                     toneRating: data.tone_rating,
                     toneFeedback: data.tone_feedback,
@@ -144,7 +145,7 @@ export function SimulationWindow({ tenant, stateCode, scenario, userId, difficul
                     transcript: messages
                         .filter((m) => m.role !== "system")
                         .map((m) => ({ role: m.role === "agent" ? "Homeowner" : "You", content: m.content })),
-                })
+                }, userId || undefined)
 
                 // If passed, update user stats/progress
                 if (data.passed) {
@@ -639,13 +640,14 @@ After saying this success phrase, DO NOT continue the conversation. The simulati
         }
         setFeedbackData(timeoutPayload)
 
-        // Persist timeout debrief
+        // Persist timeout debrief — routes to backend API when userId is set (Phase 6A)
         saveDebrief({
             scenarioId: scenario.id ?? "unknown",
             scenarioName: scenario.name ?? "Unnamed Scenario",
             completedAt: new Date().toISOString(),
             passed: false,
             score: 0,
+            difficulty,
             feedbackSummary: timeoutPayload.feedback_summary,
             strengths: [],
             improvements: timeoutPayload.improvements,
@@ -653,7 +655,7 @@ After saying this success phrase, DO NOT continue the conversation. The simulati
             transcript: messages
                 .filter((m) => m.role !== "system")
                 .map((m) => ({ role: m.role === "agent" ? "Homeowner" : "You", content: m.content })),
-        })
+        }, userId || undefined)
     }
 
     const handleContinue = () => {

@@ -42,15 +42,17 @@ export default function ProfilePage() {
   useEffect(() => {
     const map = buildScenarioProgressMap({})
     setCompletedSims(getCompletedCount(map))
-    const debriefs = loadDebriefs()
-    if (debriefs.length > 0) {
-      const avg = debriefs.reduce((s, d) => s + d.score, 0) / debriefs.length
-      setAvgScore(Math.round(avg))
-    }
+    // Load debriefs async — hits backend API when userId is set, localStorage otherwise
+    loadDebriefs(user?.username).then((debriefs) => {
+      if (debriefs.length > 0) {
+        const avg = debriefs.reduce((s, d) => s + d.score, 0) / debriefs.length
+        setAvgScore(Math.round(avg))
+      }
+    }).catch(() => {})
     try {
       localStorage.setItem("septivolt_settings_visited", "true")
     } catch (e) {}
-  }, [])
+  }, [user?.username])
 
   const initials = (user?.username ?? "SO")
     .split(/[\s_-]/).map((w: string) => w[0]?.toUpperCase()).join("").slice(0, 2)

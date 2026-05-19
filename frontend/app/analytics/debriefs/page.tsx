@@ -5,6 +5,7 @@ import Link from "next/link"
 import { AppShell } from "@/components/platform/app-shell"
 import { loadDebriefs, DebriefRecord } from "@/lib/debrief-storage"
 import { isDemoModeActive } from "@/lib/demo-mode"
+import { useAuth } from "@/context/AuthContext"
 import {
   CheckCircle2,
   XCircle,
@@ -226,15 +227,22 @@ function DebriefCard({ debrief }: { debrief: DebriefRecord }) {
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function DebriefHistoryPage() {
+  const { user } = useAuth()
   const [debriefs, setDebriefs] = useState<DebriefRecord[]>([])
   const [mounted, setMounted] = useState(false)
   const [isDemo, setIsDemo] = useState(false)
 
   useEffect(() => {
-    setIsDemo(isDemoModeActive())
-    setDebriefs(loadDebriefs())
-    setMounted(true)
-  }, [])
+    const demo = isDemoModeActive()
+    setIsDemo(demo)
+    loadDebriefs(user?.username).then((records) => {
+      setDebriefs(records)
+      setMounted(true)
+    }).catch(() => {
+      setDebriefs([])
+      setMounted(true)
+    })
+  }, [user?.username])
 
   const passedCount = debriefs.filter((d) => d.passed).length
   const avgScore =
