@@ -7,6 +7,7 @@ import {
   teamCertificationProgress as seedTeamProgress,
 } from "@/lib/certifications"
 import { getApiUrl } from "@/lib/utils"
+import { isDemoModeActive, getDemoCertificationSnapshot } from "./demo-mode"
 
 type UserStatsResponse = {
   user_id: string
@@ -180,6 +181,9 @@ function deriveTracksFromLive(
 }
 
 export async function fetchCertificationSnapshot(userId: string): Promise<CertificationSnapshot> {
+  if (isDemoModeActive()) {
+    return getDemoCertificationSnapshot()
+  }
   const apiUrl = getApiUrl()
   const snapshotRes = await fetch(`${apiUrl}/api/v1/certifications/snapshot?user_id=${encodeURIComponent(userId)}`, {
     credentials: "include",

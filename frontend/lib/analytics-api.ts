@@ -1,4 +1,5 @@
 import { getApiUrl } from "@/lib/utils"
+import { isDemoModeActive, getDemoAnalyticsSnapshot } from "./demo-mode"
 
 export type TimeRange = "daily" | "weekly" | "monthly" | "all-time"
 export type SkillCategory = "all" | "prospecting" | "discovery" | "presentation" | "objections" | "closing"
@@ -245,6 +246,9 @@ export async function fetchAnalyticsSnapshot(
     skillCategory: "all",
   }
 ): Promise<AnalyticsSnapshot> {
+  if (isDemoModeActive()) {
+    return getDemoAnalyticsSnapshot()
+  }
   const apiUrl = getApiUrl()
   const query = new URLSearchParams({
     user_id: userId,

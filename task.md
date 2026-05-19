@@ -106,3 +106,10 @@
     - [x] **Advanced Analytics & Reporting** <!-- id: adv_reports -->
         - [x] Update Analytics to track Weekly/Monthly/Quarterly Goals <!-- id: period_tracking -->
         - [x] Create "End of Period" Report View <!-- id: period_report -->
+
+- [x] **Safe Enterprise Demo Mode** <!-- id: demo_mode -->
+    - [x] Create `frontend/lib/demo-mode.ts` with mock data and activation hooks <!-- id: demo_lib -->
+    - [x] Integrate runtime checks in data layer (debriefs, analytics, certifications) <!-- id: demo_integration -->
+    - [x] Gate toggle in Admin Page for admin-only use <!-- id: demo_admin_gate -->
+    - [x] Implement global unified banner in AppShell and remove local page banners <!-- id: demo_global_banner -->
+    - [x] Verify production build and environment variable configurations <!-- id: demo_verify_build -->

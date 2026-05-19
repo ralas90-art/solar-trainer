@@ -12,6 +12,8 @@ import {
 import { useAuth } from "@/context/AuthContext"
 import { LogOut } from "lucide-react"
 import { FeatureGate } from "@/components/auth/FeatureGate"
+import { isDemoModeActive } from "@/lib/demo-mode"
+import { useLanguage } from "@/hooks/use-language"
 
 export function AppShell({
   children,
@@ -23,12 +25,16 @@ export function AppShell({
   subheading: string
 }) {
   const { user, logout } = useAuth()
+  const { isSpanish } = useLanguage()
+  const t = (en: string, es: string) => isSpanish ? es : en
   const [notificationsOpen, setNotificationsOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activities, setActivities] = useState<RecentActivity[]>([])
+  const [isDemo, setIsDemo] = useState(false)
 
   useEffect(() => {
     setActivities(getRecentActivity())
+    setIsDemo(isDemoModeActive())
   }, [])
 
   // Lock body scroll when mobile menu is active
@@ -215,7 +221,23 @@ export function AppShell({
             </div>
           </header>
 
-          <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">{children}</main>
+          <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+            {isDemo && (
+              <div className="mb-6 rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 flex items-center justify-between gap-3 text-xs text-amber-400">
+                <div className="flex items-center gap-2">
+                  <div className="h-2 w-2 rounded-full bg-amber-500 animate-pulse" />
+                  <span>
+                    <strong>{t("Safe Demo Mode Active", "Modo de Demostración Seguro Activo")}:</strong>{" "}
+                    {t(
+                      "Sample enterprise data is being displayed. Real user data remains untouched.",
+                      "Se muestran datos de muestra de la empresa. Los datos de usuarios reales no se modifican."
+                    )}
+                  </span>
+                </div>
+              </div>
+            )}
+            {children}
+          </main>
         </div>
       </div>
 

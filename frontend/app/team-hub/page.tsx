@@ -5,6 +5,7 @@ import { useAuth } from "@/context/AuthContext"
 import { useLanguage } from "@/hooks/use-language"
 import { cn } from "@/lib/utils"
 import { loadDebriefs, DebriefRecord } from "@/lib/debrief-storage"
+import { isDemoModeActive, getDemoRoster } from "@/lib/demo-mode"
 import { buildScenarioProgressMap, getCompletedCount } from "@/lib/simulation-progress"
 import {
   Users, Zap, Award, BarChart3, AlertTriangle,
@@ -33,18 +34,30 @@ export default function ManagerCommandCenterPage() {
   const [challengeText, setChallengeText] = useState("")
   const [coachNote, setCoachNote] = useState("")
   const [savedNote, setSavedNote] = useState(false)
+  const [roster, setRoster] = useState(TEAM_ROSTER)
+  const [isDemo, setIsDemo] = useState(false)
 
   useEffect(() => {
+    const activeDemo = isDemoModeActive()
+    setIsDemo(activeDemo)
     const debriefs = loadDebriefs()
     setRecentDebriefs(debriefs.slice(0, 3))
     const map = buildScenarioProgressMap({})
-    setTeamSimCount(getCompletedCount(map))
+    if (activeDemo) {
+      setRoster(getDemoRoster())
+      setTeamSimCount(142)
+    } else {
+      setRoster(TEAM_ROSTER)
+      setTeamSimCount(getCompletedCount(map))
+    }
   }, [])
 
   const today = new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })
-  const activeReps = TEAM_ROSTER.filter(r => r.active).length
-  const flagged = TEAM_ROSTER.filter(r => r.needsAttention)
-  const avgScore = Math.round(TEAM_ROSTER.filter(r => r.lastScore > 0).reduce((s, r) => s + r.lastScore, 0) / TEAM_ROSTER.filter(r => r.lastScore > 0).length)
+  const activeReps = roster.filter(r => r.active).length
+  const flagged = roster.filter(r => r.needsAttention)
+  const avgScore = roster.filter(r => r.lastScore > 0).length
+    ? Math.round(roster.filter(r => r.lastScore > 0).reduce((s, r) => s + r.lastScore, 0) / roster.filter(r => r.lastScore > 0).length)
+    : 0
 
   return (
     <AppShell
@@ -52,6 +65,7 @@ export default function ManagerCommandCenterPage() {
       subheading={t("Daily rep overview, team KPIs, coaching flags, and challenge management.", "Visión diaria de representantes, KPIs del equipo y gestión de coaching.")}
     >
       <div className="space-y-6 max-w-6xl">
+
 
         {/* Daily Briefing Strip */}
         <div className="rounded-2xl border border-[#FF5722]/20 bg-gradient-to-r from-[#FF5722]/8 via-[#1A1A1A] to-[#1A1A1A] p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -95,7 +109,7 @@ export default function ManagerCommandCenterPage() {
                   <h3 className="font-display font-black text-base text-white flex items-center gap-2">
                     <Users className="h-4 w-4 text-[#FF5722]" /> {t("Rep Roster", "Lista de Representantes")}
                   </h3>
-                  <p className="text-[10px] text-[#94A3B8] mt-0.5">{TEAM_ROSTER.length} reps under your workspace</p>
+                  <p className="text-[10px] text-[#94A3B8] mt-0.5">{roster.length} reps under your workspace</p>
                 </div>
               </div>
               <div className="overflow-x-auto">
@@ -109,7 +123,7 @@ export default function ManagerCommandCenterPage() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5">
-                    {TEAM_ROSTER.map((rep) => {
+                    {roster.map((rep) => {
                       const pct = Math.round((rep.dayProgress / rep.totalDays) * 100)
                       return (
                         <tr key={rep.id} className="hover:bg-white/[0.03] transition-colors">

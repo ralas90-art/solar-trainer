@@ -10,7 +10,8 @@ import {
   ToggleLeft, Trash2, AlertTriangle, CheckCircle,
   Copy, RotateCcw, Globe, Zap, Lock, ChevronDown
 } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { isDemoModeActive, toggleDemoMode } from "@/lib/demo-mode"
 
 // Audit log — placeholder entries (replace with backend GET /admin/audit-log)
 const AUDIT_LOG = [
@@ -48,6 +49,19 @@ export default function AdminControlCenterPage() {
   const [elevenLabsEnabled, setElevenLabsEnabled] = useState(false)
   const [dangerConfirm, setDangerConfirm] = useState<string | null>(null)
   const [apiKeyRevealed, setApiKeyRevealed] = useState(false)
+  const [demoMode, setDemoMode] = useState(false)
+
+  useEffect(() => {
+    setDemoMode(isDemoModeActive())
+  }, [])
+
+  const handleToggleDemoMode = (enabled: boolean) => {
+    toggleDemoMode(enabled)
+    setDemoMode(enabled)
+    if (typeof window !== "undefined") {
+      window.location.reload()
+    }
+  }
 
   return (
     <FeatureGate allowedRoles={["admin"]}>
@@ -222,6 +236,7 @@ export default function AdminControlCenterPage() {
                     { label: "Spanish Language Mode", sub: "Enable bilingual training across all modules", val: spanishMode, set: setSpanishMode },
                     { label: "Strict Curriculum Gating", sub: "Require quiz pass before sim access", val: strictGating, set: setStrictGating },
                     { label: "ElevenLabs AI Narration", sub: "Use ElevenLabs API for audio fallback", val: elevenLabsEnabled, set: setElevenLabsEnabled },
+                    { label: "Safe Demo Mode", sub: "Populate sample enterprise training data", val: demoMode, set: handleToggleDemoMode },
                   ].map(({ label, sub, val, set }) => (
                     <div key={label} className="flex items-center justify-between gap-3 p-3 rounded-xl border border-white/5 bg-white/5">
                       <div className="min-w-0">

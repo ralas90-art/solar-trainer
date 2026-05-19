@@ -7,6 +7,8 @@
  * functions below for fetch() calls.
  */
 
+import { isDemoModeActive, getDemoDebriefs } from "./demo-mode"
+
 export type DebriefRecord = {
   id: string                       // uuid-style timestamp key
   scenarioId: string
@@ -48,6 +50,10 @@ export function saveDebrief(record: Omit<DebriefRecord, "id">): DebriefRecord {
     ...record,
     id: `debrief_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
   }
+  if (isDemoModeActive()) {
+    // In demo mode, do not commit new runs to localStorage
+    return full
+  }
   const existing = readAll()
   const updated = [full, ...existing].slice(0, MAX_DEBRIEFS)
   writeAll(updated)
@@ -56,11 +62,17 @@ export function saveDebrief(record: Omit<DebriefRecord, "id">): DebriefRecord {
 
 /** Return all saved debriefs, newest first. */
 export function loadDebriefs(): DebriefRecord[] {
+  if (isDemoModeActive()) {
+    return getDemoDebriefs()
+  }
   return readAll()
 }
 
 /** Return a single debrief by id, or null. */
 export function loadDebriefById(id: string): DebriefRecord | null {
+  if (isDemoModeActive()) {
+    return getDemoDebriefs().find((d) => d.id === id) ?? null
+  }
   return readAll().find((d) => d.id === id) ?? null
 }
 
@@ -70,3 +82,4 @@ export function clearDebriefs() {
     window.localStorage.removeItem(STORAGE_KEY)
   }
 }
+

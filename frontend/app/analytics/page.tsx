@@ -43,6 +43,7 @@ const skillOptions: Array<{ value: SkillCategory; label: string }> = [
 ]
 
 import { useAuth } from "@/context/AuthContext"
+import { isDemoModeActive } from "@/lib/demo-mode"
 
 export default function AnalyticsPage() {
   const { user } = useAuth()
@@ -52,6 +53,11 @@ export default function AnalyticsPage() {
   const [snapshot, setSnapshot] = useState<AnalyticsSnapshot | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isDemo, setIsDemo] = useState(false)
+
+  useEffect(() => {
+    setIsDemo(isDemoModeActive())
+  }, [])
 
   useEffect(() => {
     if (!user) return
@@ -88,6 +94,8 @@ export default function AnalyticsPage() {
       subheading="Rep performance intelligence for skill growth, coaching priorities, and team deployment readiness."
     >
       <div className="space-y-6">
+
+
         {/* ── Debrief History CTA ── */}
         <Link
           href="/analytics/debriefs"

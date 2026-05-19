@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { AppShell } from "@/components/platform/app-shell"
 import { loadDebriefs, DebriefRecord } from "@/lib/debrief-storage"
+import { isDemoModeActive } from "@/lib/demo-mode"
 import {
   CheckCircle2,
   XCircle,
@@ -227,8 +228,10 @@ function DebriefCard({ debrief }: { debrief: DebriefRecord }) {
 export default function DebriefHistoryPage() {
   const [debriefs, setDebriefs] = useState<DebriefRecord[]>([])
   const [mounted, setMounted] = useState(false)
+  const [isDemo, setIsDemo] = useState(false)
 
   useEffect(() => {
+    setIsDemo(isDemoModeActive())
     setDebriefs(loadDebriefs())
     setMounted(true)
   }, [])
@@ -245,6 +248,7 @@ export default function DebriefHistoryPage() {
       subheading="Your full simulation debrief history — coaching breakdowns, tone analysis, and script recommendations."
     >
       <div className="space-y-6 max-w-3xl">
+
 
         {/* Back to Analytics */}
         <Link

@@ -21,6 +21,7 @@ import {
 import { NotificationPill, SectionEyebrow, WidgetCard } from "@/components/platform/dashboard-widgets"
 import { Crown, Sparkles, Trophy, Zap } from "lucide-react"
 import Link from "next/link"
+import { isDemoModeActive, getDemoLeaderboard } from "@/lib/demo-mode"
 
 type SkillKey = Exclude<SkillCategory, "overall">
 
@@ -333,9 +334,18 @@ export default function LeaderboardsPage() {
   const [skill, setSkill] = useState<SkillCategory>("overall")
   const [leaderboardData, setLeaderboardData] = useState<LeaderboardRep[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [isDemo, setIsDemo] = useState(false)
 
   useEffect(() => {
+    const activeDemo = isDemoModeActive()
+    setIsDemo(activeDemo)
+
     async function fetchLeaderboard() {
+      if (activeDemo) {
+        setLeaderboardData(getDemoLeaderboard(user?.username))
+        setIsLoading(false)
+        return
+      }
       try {
         const data = await api.get<any[]>("/leaderboard")
         // Map backend UserStats to LeaderboardRep
@@ -416,6 +426,8 @@ export default function LeaderboardsPage() {
       subheading="Competitive ranking for reps, teams, and skill mastery across training modules and AI simulations."
     >
       <div className="space-y-6">
+
+
         <WidgetCard className="bg-[linear-gradient(135deg,rgba(255,87,34,0.14),rgba(18,18,18,0.95)_44%,rgba(255,179,0,0.1))]">
           <NotificationPill icon={Trophy} label="Competitive performance loop" tone="cyan" />
           <div className="mt-4 flex flex-wrap items-center gap-2">
