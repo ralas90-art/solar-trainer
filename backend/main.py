@@ -71,7 +71,7 @@ def read_root():
     from database import engine
     return {
         "status": "online", 
-        "version": "1.1.1-MIGRATION-FIX", 
+        "version": "1.1.2-DB-FIX", 
         "timestamp": datetime.now().isoformat(),
         "database_type": engine.url.drivername,
         "cors_debug": {

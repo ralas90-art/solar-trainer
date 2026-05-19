@@ -74,9 +74,42 @@ def create_db_and_tables():
         pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
         stored_pwd = pwd_context.hash(raw_pwd)
             
-        statement = select(User).where((User.username == admin_username) | (User.email == admin_email))
-        user = session.exec(statement).first()
-        
+        # Admin User Seeding — wrapped safely so missing columns don't crash startup
+        try:
+            statement = select(User).where((User.username == admin_username) | (User.email == admin_email))
+            user = session.exec(statement).first()
+        except Exception as col_err:
+            print(f"  [WARN] ORM admin lookup failed (likely missing column): {col_err}")
+            print("  [INFO] Falling back to raw SQL username-only lookup...")
+            from sqlalchemy import text as sql_text
+            result = session.exec(sql_text('SELECT id FROM "user" WHERE username = :u'), params={"u": admin_username}).first()
+            user = None  # Will be created fresh or handled below
+            if result:
+                # Update the user's email/role via raw SQL since ORM can't access missing column yet
+                session.exec(
+                    sql_text('UPDATE "user" SET role = :role, company_id = :cid WHERE username = :u'),
+                    params={"role": "admin", "cid": company_id, "u": admin_username}
+                )
+                session.commit()
+                print(f"  [INFO] Admin user '{admin_username}' found and role updated via raw SQL. Email column will be added on next request.")
+                # Skip to stats seeding — ORM user creation will fail too
+                stats = session.get(UserStats, admin_username)
+                if not stats:
+                    stats = UserStats(
+                        user_id=admin_username,
+                        total_score=1500,
+                        current_streak=5,
+                        highest_streak=12,
+                        lives=3,
+                        module_progress=json.dumps({
+                            "mod_1_1": {"quiz": True, "sim": True},
+                            "mod_1_2": {"quiz": True, "sim": True}
+                        })
+                    )
+                    session.add(stats)
+                session.commit()
+                return
+
         if not user:
             user = User(
                 username=admin_username,

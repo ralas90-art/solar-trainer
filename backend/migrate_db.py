@@ -103,10 +103,17 @@ def run_migration():
             conn = sqlite3.connect(DB_PATH)
 
     if conn:
-        # user table — add team_id
+        # user table — core columns (may be missing on pre-existing DBs)
+        add_col(conn, "user", "email", "TEXT", "NULL")
+        add_col(conn, "user", "password", "TEXT", "NULL")
+        add_col(conn, "user", "role", "TEXT", "NULL")
+        add_col(conn, "user", "company_id", "TEXT", "NULL")
+        add_col(conn, "user", "is_active", "BOOLEAN", "TRUE")
+        add_col(conn, "user", "created_at", "TIMESTAMP", "NULL")
+        # user table — Phase 6A columns
         add_col(conn, "user", "team_id", "TEXT", "NULL")
 
-        # userstats table — add onboarding_progress and coaching_notes
+        # userstats table — Phase 6A columns
         add_col(conn, "userstats", "onboarding_progress", "TEXT", "'{}'")
         add_col(conn, "userstats", "coaching_notes", "TEXT", "''")
 
