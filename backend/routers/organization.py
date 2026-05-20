@@ -668,19 +668,16 @@ async def get_roster(
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
-    """
-    Return all members of the company with stats and active coaching flags.
-    Manager/Admin only. Company isolation enforced server-side.
-    """
-    company = session.get(Company, company_id)
-    if not company:
-        raise HTTPException(status_code=404, detail="Company not found.")
+    try:
+        company = session.get(Company, company_id)
+        if not company:
+            raise HTTPException(status_code=404, detail="Company not found.")
 
-    if requesting_username:
-        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
-        if req_user:
-            _require_manager_or_admin(req_user)
-            _require_same_company(req_user, company_id)
+        if requesting_username:
+            req_user = session.exec(select(User).where(User.username == requesting_username)).first()
+            if req_user:
+                _require_manager_or_admin(req_user)
+                _require_same_company(req_user, company_id)
 
     members = session.exec(
         select(User).where(User.company_id == company_id, User.is_active == True)
@@ -729,7 +726,12 @@ async def get_roster(
             "coaching_notes": stats.coaching_notes if stats else "",
         })
 
-    return {"company_id": company_id, "member_count": len(roster), "roster": roster}
+        return {"company_id": company_id, "member_count": len(roster), "roster": roster}
+    except Exception as e:
+        import traceback
+        tb = traceback.format_exc()
+        print(f"Error in get_roster: {tb}")
+        return {"error": str(e), "traceback": tb}
 
 
 @router.post("/api/v1/companies/{company_id}/members")
