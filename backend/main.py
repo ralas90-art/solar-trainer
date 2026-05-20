@@ -71,13 +71,10 @@ service = TrainingService()
 
 @app.get("/")
 def read_root():
-    enc_key = os.getenv("INTEGRATION_ENCRYPTION_KEY")
     return {
         "status": "online", 
         "version": "1.2.1-STABLE", 
         "timestamp": datetime.now().isoformat(),
-        "has_encryption_key": enc_key is not None,
-        "encryption_key_length": len(enc_key) if enc_key else 0,
         "cors_debug": {
             "allowed_origins": allow_origins,
             "regex": "https://.*.vercel.app|https://.*.onrender.com|http://localhost:*"
