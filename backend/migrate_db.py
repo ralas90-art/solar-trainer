@@ -9,6 +9,16 @@ import json
 import sys
 
 def run_migration():
+    # Load env variables safely
+    try:
+        from dotenv import load_dotenv
+        load_dotenv()
+        # Also try backend/.env specifically
+        backend_dir = os.path.dirname(os.path.abspath(__file__))
+        load_dotenv(os.path.join(backend_dir, ".env"))
+    except ImportError:
+        pass
+
     # Determine dialect
     DATABASE_URL = os.getenv("DATABASE_URL", "")
     IS_POSTGRES = DATABASE_URL.startswith("postgres")
@@ -171,6 +181,50 @@ def run_migration():
             else:
                 print(f"  [SKIP] Company `{tc['id']}` already exists.")
         session.commit()
+
+        # Step 4 — Sanitize Test Credentials & Mark Test Profiles
+        print("\n[4/4] Sanitizing test credentials and marking test profiles in database…")
+        try:
+            from services.integration_service import IntegrationService
+            from models.company_settings import CompanyIntegration, CompanyProfile
+            from sqlmodel import select
+
+            sanitized_val = IntegrationService.encrypt_credential("sanitized_test_key")
+
+            # 4.1 Sanitize Integrations
+            statement_integration = select(CompanyIntegration)
+            integrations = session.exec(statement_integration).all()
+            sanitized_count = 0
+            for integration in integrations:
+                cid = integration.company_id
+                if cid == "cresca_test" or cid.startswith("cresca_test_") or cid == "rival_corp_test" or cid.startswith("rival_corp_test_"):
+                    integration.encrypted_credentials = sanitized_val
+                    integration.sync_enabled = False
+                    integration.connection_status = "disabled"
+                    session.add(integration)
+                    sanitized_count += 1
+
+            # 4.2 Mark Profiles
+            statement_profile = select(CompanyProfile)
+            profiles = session.exec(statement_profile).all()
+            profile_count = 0
+            for profile in profiles:
+                cid = profile.company_id
+                if cid == "cresca_test" or cid.startswith("cresca_test_") or cid == "rival_corp_test" or cid.startswith("rival_corp_test_"):
+                    desc = profile.company_overview or ""
+                    if "[TEST DEMO]" not in desc:
+                        profile.company_overview = f"[TEST DEMO] {desc}".strip()
+                        session.add(profile)
+                        profile_count += 1
+
+            session.commit()
+            print(f"  [OK] Sanitized {sanitized_count} test integration credentials.")
+            print(f"  [OK] Marked {profile_count} test company profiles as TEST DEMO.")
+        except Exception as e:
+            session.rollback()
+            import traceback
+            traceback.print_exc()
+            print(f"  [ERROR] Failed to sanitize/mark test data: {e}")
 
     print("\n" + "=" * 60)
     print("[SUCCESS] Phase 6A Migration Complete.")

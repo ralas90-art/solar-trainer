@@ -3,6 +3,8 @@ from sqlmodel import Session
 from models import ChatRequest, ChatResponse, StateProfile, Scenario, UserStats
 from data import STATE_KNOWLEDGE_BASE, SCENARIOS
 from llm_client import LLMClient
+from services.profile_service import ProfileService
+
 
 class TrainingService:
     def __init__(self):
@@ -21,14 +23,22 @@ class TrainingService:
             print(debug_info)
             return ChatResponse(agent_message=f"Error: Invalid ID. {debug_info}")
 
+        # Resolve company context
+        company_id = request.tenant_id
+        company_context = None
+        if company_id:
+            company_context = ProfileService.build_company_training_context(company_id, session)
+
         # 2. Call LLM for Analysis
         try:
             llm_result_json = self.llm.evaluate_submission(
                 user_text=request.user_message,
                 state=state_profile,
                 scenario=scenario,
-                language=request.language
+                language=request.language,
+                company_context=company_context
             )
+
             # Parse the JSON response from LLM
             result = json.loads(llm_result_json)
             

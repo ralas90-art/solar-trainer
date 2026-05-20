@@ -1,3 +1,4 @@
+import os
 import json
 from datetime import datetime
 from typing import Any, Dict, List, Optional
@@ -7,9 +8,10 @@ from sqlmodel import Session, select
 
 from database import get_session
 from models.user import User, UserRole, Company
-from models.company_settings import CompanyProfile, CompanyIntegration
+from models.company_settings import CompanyProfile, CompanyIntegration, CompanySalesAsset
 from services.integration_service import IntegrationService
 from services.profile_service import ProfileService
+
 
 router = APIRouter(tags=["company_settings"])
 
@@ -524,3 +526,281 @@ def test_company_integration_endpoint(
     session.commit()
 
     return test_result
+
+
+# ─── Company Sales Assets API Endpoints ────────────────────────────────────────
+
+class CompanySalesAssetRequest(BaseModel):
+    title: str
+    asset_type: str  # "door_knock" | "cold_call" | "zoom_in_home"
+    language: str = "en"  # "en" | "es"
+    content: str
+    status: str = "draft"  # "draft" | "approved" | "archived"
+
+class AssetGenerationRequest(BaseModel):
+    asset_type: str  # "door_knock" | "cold_call" | "zoom_in_home"
+    language: str = "en"  # "en" | "es"
+
+@router.get("/api/v1/companies/{company_id}/assets")
+def get_company_assets(
+    company_id: str,
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session)
+):
+    """Retrieve company sales assets (scripts/rebuttals) with role-based access control."""
+    user = _require_auth_user(session, x_user_id)
+    _require_same_company(user, company_id)
+
+    # Demo mode check
+    if company_id == "sales_accelerator_demo" or user.username == "demo":
+        # Return some mock assets
+        return [
+            {
+                "id": 101,
+                "company_id": "sales_accelerator_demo",
+                "asset_type": "door_knock",
+                "title": "Standard D2D Opener",
+                "language": "en",
+                "content": "Hi, I am with Sales Accelerator. We are chatting with neighbors about the recent utility price hikes. Do you know how much your bill went up last month?",
+                "source_profile_version": "v1",
+                "status": "approved",
+                "created_at": datetime.utcnow().isoformat(),
+                "updated_at": datetime.utcnow().isoformat()
+            },
+            {
+                "id": 102,
+                "company_id": "sales_accelerator_demo",
+                "asset_type": "cold_call",
+                "title": "Spanish Cold Call Outreach",
+                "language": "es",
+                "content": "Hola, le llamo de Sales Accelerator para ver si califica para el programa de tarifas netas bajas...",
+                "source_profile_version": "v1",
+                "status": "draft",
+                "created_at": datetime.utcnow().isoformat(),
+                "updated_at": datetime.utcnow().isoformat()
+            }
+        ]
+
+    # Query DB
+    query = select(CompanySalesAsset).where(CompanySalesAsset.company_id == company_id)
+    # If sales rep, only show approved assets
+    if user.role == UserRole.SALES_REP:
+        query = query.where(CompanySalesAsset.status == "approved")
+        
+    assets = session.exec(query).all()
+    return assets
+
+@router.post("/api/v1/companies/{company_id}/assets")
+def create_company_asset(
+    company_id: str,
+    body: CompanySalesAssetRequest,
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session)
+):
+    """Manually create a new company sales asset."""
+    user = _require_auth_user(session, x_user_id)
+    _require_same_company(user, company_id)
+
+    # Only admin/manager can create
+    if user.role not in (UserRole.ADMIN, UserRole.MANAGER):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied: only Admins and Managers can create assets."
+        )
+
+    if company_id == "sales_accelerator_demo" or user.username == "demo":
+        return {"status": "success", "id": 103, "message": "Demo Mode: Created asset mocked."}
+
+    new_asset = CompanySalesAsset(
+        company_id=company_id,
+        asset_type=body.asset_type,
+        title=body.title,
+        language=body.language,
+        content=body.content,
+        status=body.status,
+        source_profile_version="manual"
+    )
+    session.add(new_asset)
+    session.commit()
+    session.refresh(new_asset)
+    return new_asset
+
+@router.put("/api/v1/companies/{company_id}/assets/{asset_id}")
+def update_company_asset(
+    company_id: str,
+    asset_id: int,
+    body: CompanySalesAssetRequest,
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session)
+):
+    """Modify/Approve/Archive an existing sales asset."""
+    user = _require_auth_user(session, x_user_id)
+    _require_same_company(user, company_id)
+
+    if user.role not in (UserRole.ADMIN, UserRole.MANAGER):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied: only Admins and Managers can modify assets."
+        )
+
+    if company_id == "sales_accelerator_demo" or user.username == "demo":
+        return {"status": "success", "message": "Demo Mode: Updated asset mocked."}
+
+    asset = session.exec(select(CompanySalesAsset).where(
+        CompanySalesAsset.id == asset_id,
+        CompanySalesAsset.company_id == company_id
+    )).first()
+
+    if not asset:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Sales asset not found."
+        )
+
+    asset.title = body.title
+    asset.asset_type = body.asset_type
+    asset.language = body.language
+    asset.content = body.content
+    asset.status = body.status
+    asset.updated_at = datetime.utcnow()
+
+    session.add(asset)
+    session.commit()
+    session.refresh(asset)
+    return asset
+
+@router.delete("/api/v1/companies/{company_id}/assets/{asset_id}")
+def delete_company_asset(
+    company_id: str,
+    asset_id: int,
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session)
+):
+    """Remove or archive a sales asset."""
+    user = _require_auth_user(session, x_user_id)
+    _require_same_company(user, company_id)
+
+    if user.role not in (UserRole.ADMIN, UserRole.MANAGER):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied: only Admins and Managers can delete assets."
+        )
+
+    if company_id == "sales_accelerator_demo" or user.username == "demo":
+        return {"status": "success", "message": "Demo Mode: Deleted asset mocked."}
+
+    asset = session.exec(select(CompanySalesAsset).where(
+        CompanySalesAsset.id == asset_id,
+        CompanySalesAsset.company_id == company_id
+    )).first()
+
+    if not asset:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Sales asset not found."
+        )
+
+    session.delete(asset)
+    session.commit()
+    return {"status": "success", "message": "Asset deleted successfully."}
+
+@router.post("/api/v1/companies/{company_id}/assets/generate")
+def generate_company_asset(
+    company_id: str,
+    body: AssetGenerationRequest,
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session)
+):
+    """Auto-generate a personalized sales script based on the Company Profile context."""
+    user = _require_auth_user(session, x_user_id)
+    _require_same_company(user, company_id)
+
+    if user.role not in (UserRole.ADMIN, UserRole.MANAGER):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied: only Admins and Managers can trigger asset generation."
+        )
+
+    # 1. Fetch Company Context
+    context = ProfileService.build_company_training_context(company_id, session)
+
+    # Demo mode bypass / Fallback if OpenAI not configured
+    is_demo = (company_id == "sales_accelerator_demo" or user.username == "demo")
+    
+    if is_demo or not os.getenv("OPENAI_API_KEY"):
+        # Return a nice mocked generated asset
+        title = f"AI Generated {body.asset_type.replace('_', ' ').title()} Script ({body.language.upper()})"
+        content = f"""# {title}
+
+**Target Audience:** Suburban homeowners in NEM 3.0 / high-tariff utility territories.
+**Language:** {body.language.upper()}
+
+## Opener & Pattern Interrupt
+- **Representative:** "Hola, buenas tardes. ¿Usted es el dueño de la casa? Excelente. Mi nombre es [Nombre] y estoy con SeptiVolt..." if body.language == "es" else "Hi, good afternoon! Are you the homeowner? Awesome, my name is [Name] with SeptiVolt..."
+- **Core Value:** Mention local utility rate increases (e.g., NEM 3.0 or import rate increases).
+- **Compliance Rules:** Under no circumstances state that solar panels are "free" or "fully paid by the government".
+
+## Structured Pitch (A.R.T. Framework)
+1. **Acknowledge:** Validate objections regarding price or timing.
+2. **Respond:** Contrast utility bill raises with fixed financing payment options.
+3. **Transition:** Ask a control question (e.g. "Do you have 5 minutes to see a visual calculation, or would tomorrow work better?").
+"""
+        return {
+            "title": title,
+            "asset_type": body.asset_type,
+            "language": body.language,
+            "content": content,
+            "status": "draft"
+        }
+
+    # 2. Invoke OpenAI to generate script
+    from llm_client import client as openai_client
+    if not openai_client:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="AI client is not initialized. Please verify OPENAI_API_KEY."
+        )
+
+    prompt = f"""You are an elite Solar Sales Consultant and copywriter.
+Generate a highly effective solar sales script or objection rebuttal of type "{body.asset_type}" in language "{body.language}" for a sales representative.
+
+COMPANY PROFILE & SALES INTEL:
+{context}
+
+SCRIPT REQUIREMENTS:
+1. Incorporate the company overview, products offered, financing options, and equipment brands if relevant.
+2. Maintain the preferred brand voice.
+3. Incorporate the common objections and approved rebuttals.
+4. STRICT COMPLIANCE: Do NOT use any "Words/Claims to Avoid" listed in the company profile (e.g. 'free solar', 'no cost', 'government paid'). Focus on fixed-loan savings, PPA vs utility bills, NEM 3.0 batteries, etc.
+5. Use markdown formatting. Include headings, bullet points, and speaker cues (e.g. "Rep:", "Homeowner:").
+
+Provide the response in JSON format matching this schema:
+{{
+    "title": "A short, compelling title for the script",
+    "content": "The full markdown script content"
+}}
+"""
+    try:
+        response = openai_client.chat.completions.create(
+            model="gpt-4o",
+            messages=[
+                {"role": "system", "content": "You are a professional solar copywriter. Respond with valid JSON only."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.7,
+            response_format={"type": "json_object"}
+        )
+        result = json.loads(response.choices[0].message.content)
+        return {
+            "title": result.get("title", f"Generated {body.asset_type.replace('_', ' ').title()} Script"),
+            "asset_type": body.asset_type,
+            "language": body.language,
+            "content": result.get("content", ""),
+            "status": "draft"
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to generate asset via AI: {str(e)}"
+        )
+

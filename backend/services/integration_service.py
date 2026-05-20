@@ -81,6 +81,13 @@ class IntegrationService:
                 "error": f"Failed to decrypt credentials. Verify server configuration: {str(e)}"
             }
 
+        # Safe Guard: Block sanitized/placeholder keys from making external calls
+        if not raw_credentials or "sanitized" in raw_credentials or raw_credentials == "sanitized_test_key":
+            return {
+                "status": "disabled",
+                "message": "Integration is configured with an inactive or sanitized credential."
+            }
+
         if provider == "gohighlevel":
             if not raw_credentials or not integration.location_id:
                 return {

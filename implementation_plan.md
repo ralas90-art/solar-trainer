@@ -1,87 +1,109 @@
-# Interactive Curriculum Gating & Custom Simulator Unlock System
+# Implementation Plan: SeptiVolt Phase 6B — Company Intelligence Profile + Integration Hub
 
-This plan details the implementation of a secure, production-grade gating system, adaptive quiz thresholds, custom celebratory modals, expert coaching tips, and an admin/demo player drawer.
+This plan details the design, models, APIs, security, and UI components to add the Company Intelligence Profile and the Company Integration Hub.
+
+---
 
 ## User Review Required
 
 > [!IMPORTANT]
-> - **Central Gating Mapping**: Locked simulators will now display exactly what day, module, and skill is required to unlock them.
-> - **Adaptive Thresholds**: Quiz completion requires meeting a configurable threshold (default `80%`), with explicit certification overrides (e.g. `100%` for `mod_6_8`).
-> - **Secure Admin/Demo Bypass**: Explicit bypass checks are used (allowed roles: `admin`, `demo_admin`, `manager`, and username `demo_admin`). No risky `username.includes("admin")` regex or broad patterns.
-> - **Player Drawer**: Admin/demo users can jump directly to any day, module, or additive module via a bilingual mobile-friendly drawer inside the training player.
-> - **Dynamic Spanish Slides**: Training player dynamically loads Spanish deck URLs and automatically falls back to English if the Spanish URL is empty or matches configuration placeholders.
+> **Environment Variables**: A new environment variable, `INTEGRATION_ENCRYPTION_KEY`, is required for the production backend on Render. If it is missing or invalid, credential saves will be blocked with a safe error.
+> 
+> **Role & Tenant Enforcement**: 
+> - Company Profiles: Readable by all roles within the company, but editable only by `admin` (company_admin/super_admin) and `manager` (if allowed).
+> - Company Integrations: Accessible (read/write/test) only by `admin` (company_admin/super_admin). Managers can only view connection status. Sales reps are completely blocked.
+> - Demo Mode: The company `sales_accelerator_demo` (and demo user sessions) will run entirely on isolated mock logic. No real database operations or external API calls will be executed.
+
+---
 
 ## Proposed Changes
 
-We will create/modify the following files:
+### Database & Models
 
-### 1. Unified Locking Rules Mapping
+#### [NEW] [company_settings.py](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/backend/models/company_settings.py)
+Create SQLModel definitions for the two new tables:
+1. **`CompanyProfile`**: Stores company details (overview, markets, financing, brand voice, objections, rebuttals, etc.). Arrays are persisted as JSON strings.
+2. **`CompanyIntegration`**: Stores integration settings (provider, auth type, encrypted credentials, location/account ID, webhook URL, sync preferences as JSON, status details).
 
-#### [NEW] [scenario-lock-mapping.ts](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/frontend/lib/scenario-lock-mapping.ts)
-- Define a central interface `ScenarioLockRule` with `scenarioId`, `requiredModuleId`, `requiredQuizThreshold`, `unlockLabel`, `relatedSkill`, `unlockLabelEs`, and bilingual `expertTips` (`en` and `es`).
-- Create and export a comprehensive rules mapping `SCENARIO_TO_MODULE` covering all scenarios from Days 2 to 6, including specific additive modules and certifications.
+#### [MODIFY] [user.py](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/backend/models/user.py) / [__init__.py](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/backend/models/__init__.py)
+Register the new models in the database metadata so they are recognized by SQLModel.
 
-### 2. Secure Admin/Demo Bypass Helper
+#### [MODIFY] [migrate_db.py](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/backend/migrate_db.py)
+Ensure the startup migration script executes `SQLModel.metadata.create_all` safely to auto-generate `companyprofile` and `companyintegration` tables on database initialization.
 
-#### [NEW] [auth-bypass.ts](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/frontend/lib/auth-bypass.ts)
-- Implement `canBypassTrainingLocks(user)` which returns true if:
-  - `user.role` is explicitly `'admin'`, `'demo_admin'`, or `'manager'`.
-  - `user.username` is explicitly `'demo_admin'`.
-- This helper will be imported by both the Simulator Hub and the training module experience.
+---
 
-### 3. Simulator Hub Gating UI
+### Service Layer
 
-#### [MODIFY] [simulator-hub.tsx](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/frontend/components/simulator-hub.tsx)
-- Import `SCENARIO_TO_MODULE` and `canBypassTrainingLocks`.
-- Refactor how locks are calculated and visual states rendered:
-  - For standard trainees, check if `canBypassTrainingLocks` is false.
-  - Look up the lock rule for the card.
-  - If locked, render a premium glassmorphic overlay detailing the required module name, target score threshold, and skill focus, along with a direct "Learn Skill" link navigating back to the respective module.
-  - If unlocked, render standard interactive rep cards.
+#### [NEW] [integration_service.py](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/backend/services/integration_service.py)
+Create service class to manage encryption, decryption, credentials masking, and test connections:
+- **Encryption**: Uses AES-gcm or Fernet (`cryptography` library) using `INTEGRATION_ENCRYPTION_KEY`. If key is missing, throws `ValueError`.
+- **Masking**: Replaces sensitive tokens with `••••••••••••{last_4_chars}`.
+- **Testing GoHighLevel**: Validates fields and mocks or makes a lightweight check.
+- **Testing Custom Webhook**: Sends the test payload to the configured webhook URL and verifies the response status code.
 
-### 4. Custom Celebrations & Retry Modals in training player
+#### [NEW] [profile_service.py](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/backend/services/profile_service.py)
+- Utility to fetch, save, or update `CompanyProfile`.
+- Exposes `build_company_training_context(company_id)` which generates a clean, structured text profile of the company for future AI consumption.
 
-#### [MODIFY] [guided-module-experience.tsx](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/frontend/components/training-module/guided-module-experience.tsx)
-- Import `SCENARIO_TO_MODULE` and `canBypassTrainingLocks`.
-- Dynamically calculate Spanish Google Slide URLs with English fallbacks.
-- Update `handleQuizComplete` to check quiz score percentage:
-  - If `scorePercent >= threshold`: mark quiz complete.
-    - If `scorePercent === 100%`: show luxury "Perfect Score" celebration with bouncing trophy, gold pulsing ring, and custom CTA to launch simulator.
-    - If `scorePercent < 100%`: show success modal themed around "Simulator Unlocked / High Score" with green badge and pro coaching tip.
-  - If `scorePercent < threshold`: mark quiz incomplete, show retry guidance and "The Closer's Edge" Expert Tip to help them prepare for the next attempt.
-- Embed bilingual "Expert Pro Tips" inside both celebratory states and the retry guidance.
-- Gating curriculum navigation: standard trainees cannot navigate to locked modules in the sidebar/dropdown (visual locks on non-completed and non-next modules), while admin/demo users bypass this.
-- Add an "Admin Drawer" button inside the player visible ONLY to admin/demo users that opens a clean, mobile-friendly list of all days, modules, and additive modules for immediate teleportation.
+---
+
+### API Routers
+
+#### [NEW] [company_settings.py](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/backend/routers/company_settings.py)
+Define API endpoints under tags `company_settings`:
+- `GET /api/v1/companies/{company_id}/profile`
+- `POST /api/v1/companies/{company_id}/profile`
+- `PUT /api/v1/companies/{company_id}/profile`
+- `GET /api/v1/companies/{company_id}/integrations`
+- `POST /api/v1/companies/{company_id}/integrations`
+- `PUT /api/v1/companies/{company_id}/integrations/{integration_id}`
+- `POST /api/v1/companies/{company_id}/integrations/{integration_id}/test`
+
+*Enforces strict user header `X-User-Id` role checks and matches company_id to prevent cross-tenant access. Masks credentials before returning integration records.*
+
+#### [MODIFY] [main.py](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/backend/main.py)
+Register the new company settings router.
+
+---
+
+### Frontend UI
+
+#### [NEW] [settings/company/page.tsx](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/frontend/app/settings/company/page.tsx)
+Create the company settings dashboard page featuring:
+- Role guard: redirects or blocks standard reps.
+- **Tab 1: Company Intelligence**: Detailed forms for Basics, Offer Details, Sales Process, Brand Voice, Scripts, and Training preferences.
+- **Tab 2: Integrations Hub**: Integrations Tab: Provider selector (GoHighLevel, Webhooks, Cresca CRM, HubSpot), CRM/API credential inputs, connection sync trigger switches, masked credential display, and live test connection feedback.
+
+#### [MODIFY] [app-shell.tsx](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/frontend/components/platform/app-shell.tsx)
+Add the "Company Settings" navigation link visible only to `admin` and `manager` roles.
+
+---
 
 ## Verification Plan
 
-### Automated Tests
-- Build and run Next.js compilation via command line to verify zero TypeScript errors:
-  `npm run build` or `npx tsc --noEmit` within `frontend/`.
+### Automated & Manual Tests (Local Sandbox)
+1. **Migrations**: Verify that running database initialization creates the `companyprofile` and `companyintegration` tables.
+2. **API Verification**:
+   - Verify reading and writing Company Profile works for admins.
+   - Verify reading/writing/testing Integrations works for admins.
+   - Verify credentials in DB are encrypted and verified masked in endpoint responses.
+   - Verify missing `INTEGRATION_ENCRYPTION_KEY` rejects credential saves.
+3. **Tenant Isolation**: Confirm that an admin of `cresca_test` cannot query or modify profiles/integrations of `rival_corp_test`.
+4. **Demo Mode Isolation**: Verify that `sales_accelerator_demo` serves fake settings and accepts fake credentials without database writes or external API requests.
+5. **Frontend smoke test**: Test component rendering, responsive UI layouts, tabs functionality, and masking displays.
 
-### Manual Verification (Browser Subagent)
-1. **Curriculum Gating for Trainees**:
-   - Log in as a trainee user.
-   - Go to Simulator Hub.
-   - Verify Day 3 cards show premium visual locks with exact module and quiz passing percentage requirements (e.g. "Requires Day 3 - Discovery Framework Quiz (Score: 80%+)").
-   - Click "Learn Skill" -> verify it redirects to the exact training module page.
+---
 
-2. **Adaptive Quiz Unlocking**:
-   - Navigate to a module.
-   - Take the knowledge check quiz.
-   - Scenarios to verify:
-     - **Perfect Score (100%)**: Verify luxury modal with gold trophy, particle glowing style, and direct "Launch Simulator" link displays.
-     - **Passing Score (80%-99%)**: Verify standard unlock success modal displays.
-     - **Failing Score (<80%)**: Verify retry modal displays with clear score feedback and retry guidance.
+🚀 Deployment Recommendations
 
-3. **Bilingual Google Slide Rendering**:
-   - Toggle language preference to Spanish.
-   - Load training player.
-   - Verify Spanish slide URL is rendered in the iframe.
-   - Delete/mock a slide URL to verify fallback renders English slides instead of blank placeholders.
-
-4. **Admin Module Library Drawer & Bypass**:
-   - Log in as `demo_admin` / admin role.
-   - Verify the "Module Library" button appears in the player.
-   - Click it to verify drawer opens with all modules. Click `mod_1_5a` -> verify it loads the correct slide, audio, workbook, and quiz immediately.
-   - Go to Simulator Hub and verify all cards are unlocked.
+1. Push these changes to staging.
+2. Configure INTEGRATION_ENCRYPTION_KEY as a secure backend-only environment variable on Render.
+3. Do not configure INTEGRATION_ENCRYPTION_KEY in Vercel frontend settings.
+4. Do not expose the key as NEXT_PUBLIC_*.
+5. Validate database schema startup migrations on staging.
+6. Verify /settings/company is visible and accessible for authorized roles.
+7. Verify sales reps are blocked.
+8. Verify managers are view-only.
+9. Verify credentials are encrypted at rest and masked in API responses.
+10. Verify Demo Mode does not save real credentials or call external APIs.

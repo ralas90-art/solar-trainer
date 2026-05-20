@@ -1,6 +1,9 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from typing import List, Optional
+from sqlmodel import Session
+from database import get_session
+
 from openai import AsyncOpenAI
 import os
 import json
@@ -392,6 +395,7 @@ class SimulationAnalysisRequest(BaseModel):
     scenario_objective: str
     difficulty: str
     duration_seconds: int
+    company_id: Optional[str] = None
 
 class SimulationAnalysisResponse(BaseModel):
     passed: bool
@@ -404,22 +408,31 @@ class SimulationAnalysisResponse(BaseModel):
     tone_feedback: Optional[str] = None # Specific feedback on tone
 
 @router.post("/api/v1/analyze-simulation", response_model=SimulationAnalysisResponse)
-async def analyze_simulation(request: SimulationAnalysisRequest):
+async def analyze_simulation(request: SimulationAnalysisRequest, session: Session = Depends(get_session)):
     """
     Comprehensive post-call analysis with AI-powered feedback.
     """
     
+    # Resolve company context
+    company_context = None
+    if request.company_id:
+        from services.profile_service import ProfileService
+        company_context = ProfileService.build_company_training_context(request.company_id, session)
+
     # Format transcript
     transcript_text = "\n".join([
         f"{'Salesperson' if msg.role == 'user' else 'Homeowner'}: {msg.content}"
         for msg in request.transcript
     ])
     
-    analysis_prompt = f"""You are an expert solar sales coach providing detailed feedback on a roleplay simulation.
+    company_info = f"\nCOMPANY SPECIFIC SALES RULES & PROFILE:\n{company_context}\n" if company_context else ""
 
+    analysis_prompt = f"""You are an expert solar sales coach providing detailed feedback on a roleplay simulation.
+{company_info}
 SCENARIO: {request.scenario_name}
 OBJECTIVE: {request.scenario_objective}
 DIFFICULTY: {request.difficulty.upper()}
+
 DURATION: {request.duration_seconds} seconds
 
 FULL TRANSCRIPT:
@@ -443,6 +456,7 @@ SCORING CRITERIA:
 - Objection handling (30 points)
 - Value communication (25 points)
 - Closing/next steps (25 points)
+- Company Guidelines & Compliance (If company specific sales rules are provided, check if the rep followed them, e.g. avoiding words to avoid, using correct products/financing, and aligning with brand voice.)
 
 Be specific, actionable, and encouraging. Focus on teaching, not criticizing."""
 

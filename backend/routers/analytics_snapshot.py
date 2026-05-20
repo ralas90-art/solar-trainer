@@ -590,12 +590,46 @@ async def get_analytics_snapshot(
     # 8. RECOMMENDATIONS
     recommendations = []
     
+    # Load Company Profile for personalization
+    company_profile = None
+    if company_id:
+        from models.company_settings import CompanyProfile
+        company_profile = session.exec(
+            select(CompanyProfile).where(CompanyProfile.company_id == company_id)
+        ).first()
+
+    if company_profile:
+        # 1. Custom focus recommendation
+        try:
+            focus_areas = json.loads(company_profile.training_focus or "[]")
+        except Exception:
+            focus_areas = []
+        if focus_areas:
+            recommendations.append({
+                "title": f"Focus on: {focus_areas[0].title().replace('_', ' ')}",
+                "rationale": f"Your company has prioritized '{focus_areas[0]}' in their training intelligence profile.",
+                "action": "Select a simulation matching this training focus under the training lobby."
+            })
+        
+        # 2. Common objections recommendation
+        try:
+            objections = json.loads(company_profile.common_objections or "[]")
+        except Exception:
+            objections = []
+        if objections:
+            recommendations.append({
+                "title": "Master Team Objections",
+                "rationale": f"Handle common company blocker: '{objections[0]}'.",
+                "action": "Practice handling objections using custom company assets or simulation drills."
+            })
+
     if recent_entry and (date.today() - recent_entry.date).days >= 3:
         recommendations.append({
             "title": "Log Daily Field Activity",
             "rationale": "Consistent recording enables highly tailored pipeline diagnostic coaching.",
             "action": "Open the KPI Entry panel and log your activity for today."
         })
+
         
     if not kpis_active and not is_demo:
         recommendations.append({

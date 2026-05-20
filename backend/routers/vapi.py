@@ -2,6 +2,8 @@ from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 import os
 from typing import Optional
+from sqlmodel import Session
+from database import get_session
 
 router = APIRouter()
 
@@ -12,16 +14,22 @@ class VapiAssistantRequest(BaseModel):
     voice_id: Optional[str] = "21m00Tcm4TlvDq8ikWAM" # Default Voice
     first_message: Optional[str] = "Hello? Who is this?"
     system_prompt: str
+    company_id: Optional[str] = None
 
 @router.post("/api/v1/vapi/assistant")
-async def create_vapi_assistant(request: VapiAssistantRequest):
+async def create_vapi_assistant(request: VapiAssistantRequest, session: Session = Depends(get_session)):
     """
     Returns a configured Assistant JSON that the Frontend can pass to Vapi.start()
     This allows us to keep the system prompt hidden/dynamic on the server.
     """
-    
-    # In a production app, checking auth here is critical
-    # user = Depends(get_current_user)
+    final_prompt = request.system_prompt
+    if request.company_id:
+        from services.profile_service import ProfileService
+        company_context = ProfileService.build_company_training_context(request.company_id, session)
+        final_prompt = (
+            f"COMPANY SPECIFIC SALES RULES & PROFILE:\n{company_context}\n\n"
+            f"ROLEPLAY CHARACTER & INSTRUCTIONS:\n{request.system_prompt}"
+        )
 
     # Construct the ephemeral assistant config
     # Vapi allows passing this entire object to the start() method in the SDK
@@ -32,7 +40,7 @@ async def create_vapi_assistant(request: VapiAssistantRequest):
             "messages": [
                 {
                     "role": "system",
-                    "content": request.system_prompt
+                    "content": final_prompt
                 }
             ],
             "temperature": 0.7,

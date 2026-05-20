@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 from openai import OpenAI
 from models import StateProfile, Scenario
 
@@ -10,14 +11,16 @@ except:
     client = None
 
 class LLMClient:
-    def evaluate_submission(self, user_text: str, state: StateProfile, scenario: Scenario, language: str = "en") -> dict:
+    def evaluate_submission(self, user_text: str, state: StateProfile, scenario: Scenario, language: str = "en", company_context: Optional[str] = None) -> dict:
         """
         Sends the interaction to the LLM to get a critique and score.
         """
         
+        company_info = f"\nCOMPANY SPECIFIC SALES RULES & PROFILE:\n{company_context}\n" if company_context else ""
+        
         system_prompt = f"""
         You are an expert Solar Sales Manager and Roleplay Partner.
-        
+        {company_info}
         CONTEXT:
         - Scenario: {scenario.name} ("{scenario.description}")
         - State: {state.name} (Context only. Do NOT mention specific regulations like NEM 3.0 unless the User brings them up.)
@@ -25,6 +28,7 @@ class LLMClient:
         - Language: {language}
         
         TASK:
+
         Evaluate the Rep's response to the customer's objection: "{scenario.opening_line}"
         
         EVALUATION FRAMEWORK (The "A.R.T." of Sales):
@@ -36,8 +40,12 @@ class LLMClient:
         - Do NOT give generic advice about "State Incentives" or "Tax Credits" unless it fits the specific scenario.
         - If the Rep misses the "Transition", fail them.
         - The "better_response" must be natural, conversational, and follow the A.R.T. framework.
+        - If a Company Profile is provided, strictly enforce its constraints:
+          - If the Rep uses any words listed under "Words/Claims to Avoid", fail/penalize them and mention it in the critique.
+          - Align the better response and feedback with the company's brand voice, target customer, products, and financing options.
         
         IMPORTANT: YOU MUST RETURN VALID JSON.
+
         
         JSON FORMAT:
         {{

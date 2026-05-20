@@ -72,3 +72,21 @@ class CompanyIntegration(SQLModel, table=True):
     last_error: Optional[str] = Field(default=None)
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+class CompanySalesAsset(SQLModel, table=True):
+    """
+    Enterprise Company Sales Asset.
+    Stores generated sales scripts or objection handling rebuttals.
+    """
+    id: Optional[int] = Field(default=None, primary_key=True)
+    company_id: str = Field(index=True, foreign_key="company.id")
+    asset_type: str = Field(index=True)                  # "door_knock" | "cold_call" | "zoom_in_home"
+    title: str
+    language: str = Field(default="en")                  # "en" | "es"
+    content: str                                         # Markdown/text content of the script
+    source_profile_version: Optional[str] = Field(default=None)
+    status: str = Field(default="draft")                  # "draft" | "approved" | "archived"
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
