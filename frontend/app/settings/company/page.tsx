@@ -9,7 +9,7 @@ import {
   Building2, Sparkles, Link as LinkIcon, CheckCircle, AlertCircle,
   ShieldAlert, Key, Save, RefreshCw, Lock, SlidersHorizontal,
   Eye, Cpu, Layers, Globe, FileText, Check, AlertTriangle,
-  Phone, Video, Trash2, Plus, Edit3, BookOpen, ChevronDown, ChevronUp
+  Phone, Video, Trash2, Plus, Edit3, BookOpen, ChevronDown, ChevronUp, Copy
 } from "lucide-react"
 import { useState, useEffect } from "react"
 
@@ -56,6 +56,13 @@ export default function CompanySettingsPage() {
   const { user } = useAuth()
   const { isSpanish } = useLanguage()
   const [activeTab, setActiveTab] = useState<TabType>("profile")
+  const [copiedAssetId, setCopiedAssetId] = useState<number | null>(null)
+
+  const copyToClipboard = (text: string, id: number) => {
+    navigator.clipboard.writeText(text)
+    setCopiedAssetId(id)
+    setTimeout(() => setCopiedAssetId(null), 2000)
+  }
 
 
   // Profile Form States
@@ -1256,7 +1263,26 @@ export default function CompanySettingsPage() {
                         </div>
 
                         {isExpanded && (
-                          <div className="px-5 pb-5 pt-1 border-t border-white/5 bg-[#121212]/50">
+                          <div className="px-5 pb-5 pt-3 border-t border-white/5 bg-[#121212]/50 space-y-2">
+                            <div className="flex justify-end">
+                              <button
+                                type="button"
+                                onClick={() => asset.id && copyToClipboard(asset.content, asset.id)}
+                                className="rounded-lg bg-white/5 hover:bg-white/10 px-2.5 py-1.5 text-[10px] font-hud uppercase tracking-wider font-bold text-[#94A3B8] hover:text-white flex items-center gap-1 transition-all"
+                              >
+                                {copiedAssetId === asset.id ? (
+                                  <>
+                                    <Check className="h-3.5 w-3.5 text-green-400" />
+                                    {t("Copied!", "Copiado!")}
+                                  </>
+                                ) : (
+                                  <>
+                                    <Copy className="h-3.5 w-3.5 text-[#FF5722]" />
+                                    {t("Copy Script", "Copiar Guión")}
+                                  </>
+                                )}
+                              </button>
+                            </div>
                             <div className="rounded-xl border border-white/5 bg-[#121212] p-4 text-xs leading-relaxed text-[#94A3B8] whitespace-pre-wrap font-sans">
                               {asset.content}
                             </div>
