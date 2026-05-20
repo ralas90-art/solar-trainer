@@ -88,12 +88,13 @@ def get_tenant(tenant_id: str):
         raise HTTPException(status_code=404, detail="Tenant not found")
     return tenant
 
-@app.get("/states/{state_code}")
-def get_state(state_code: str):
-    state = STATE_KNOWLEDGE_BASE.get(state_code)
-    if not state:
-        raise HTTPException(status_code=404, detail="State not found")
-    return state
+@app.get("/api/diag-env")
+def diag_env():
+    import os
+    return {
+        "has_encryption_key": "INTEGRATION_ENCRYPTION_KEY" in os.environ,
+        "key_length": len(os.environ.get("INTEGRATION_ENCRYPTION_KEY", ""))
+    }
 
 # --- Auth Endpoints ---
 class UserAuth(BaseModel):
