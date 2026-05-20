@@ -35,26 +35,6 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Solar Sales Trainer API", lifespan=lifespan)
 
-import traceback
-from fastapi import Request
-from fastapi.responses import JSONResponse
-
-@app.exception_handler(Exception)
-async def global_exception_handler(request: Request, exc: Exception):
-    print("=" * 80)
-    print(f"UNHANDLED EXCEPTION on {request.url.path}: {exc}")
-    traceback.print_exc()
-    print("=" * 80)
-    return JSONResponse(
-        status_code=500,
-        content={
-            "detail": "Internal Server Error",
-            "error_message": str(exc),
-            "traceback": traceback.format_exc()
-        }
-    )
-
-
 # Enable CORS for Frontend - Robust Configuration
 # We allow both the main domain and common variants
 cors_origins = os.getenv("CORS_ORIGINS", "").split(",")
