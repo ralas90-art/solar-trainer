@@ -668,70 +668,64 @@ async def get_roster(
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
-    try:
-        company = session.get(Company, company_id)
-        if not company:
-            raise HTTPException(status_code=404, detail="Company not found.")
+    company = session.get(Company, company_id)
+    if not company:
+        raise HTTPException(status_code=404, detail="Company not found.")
 
-        if requesting_username:
-            req_user = session.exec(select(User).where(User.username == requesting_username)).first()
-            if req_user:
-                _require_manager_or_admin(req_user)
-                _require_same_company(req_user, company_id)
+    if requesting_username:
+        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
+        if req_user:
+            _require_manager_or_admin(req_user)
+            _require_same_company(req_user, company_id)
 
-        members = session.exec(
-            select(User).where(User.company_id == company_id, User.is_active == True)
+    members = session.exec(
+        select(User).where(User.company_id == company_id, User.is_active == True)
+    ).all()
+
+    roster = []
+    for member in members:
+        stats = session.get(UserStats, member.username)
+        flags = session.exec(
+            select(CoachingFlag).where(
+                CoachingFlag.user_id == member.username,
+                CoachingFlag.company_id == company_id,
+                CoachingFlag.is_active == True,
+            )
         ).all()
 
-        roster = []
-        for member in members:
-            stats = session.get(UserStats, member.username)
-            flags = session.exec(
-                select(CoachingFlag).where(
-                    CoachingFlag.user_id == member.username,
-                    CoachingFlag.company_id == company_id,
-                    CoachingFlag.is_active == True,
-                )
-            ).all()
+        try:
+            sp = json.loads(stats.scenario_progress if stats else "{}")
+        except Exception:
+            sp = {}
 
-            try:
-                sp = json.loads(stats.scenario_progress if stats else "{}")
-            except Exception:
-                sp = {}
+        completed_sims = sum(1 for v in sp.values() if isinstance(v, dict) and v.get("passed"))
+        last_score = 0
+        if sp:
+            latest = max(
+                (v for v in sp.values() if isinstance(v, dict) and v.get("last_attempt_at")),
+                key=lambda x: x.get("last_attempt_at", ""),
+                default=None,
+            )
+            if latest:
+                last_score = latest.get("best_score", 0)
 
-            completed_sims = sum(1 for v in sp.values() if isinstance(v, dict) and v.get("passed"))
-            last_score = 0
-            if sp:
-                latest = max(
-                    (v for v in sp.values() if isinstance(v, dict) and v.get("last_attempt_at")),
-                    key=lambda x: x.get("last_attempt_at", ""),
-                    default=None,
-                )
-                if latest:
-                    last_score = latest.get("best_score", 0)
+        roster.append({
+            "id": str(member.id),
+            "username": member.username,
+            "email": member.email,
+            "role": member.role,
+            "team_id": member.team_id,
+            "total_score": stats.total_score if stats else 0,
+            "current_streak": stats.current_streak if stats else 0,
+            "completed_sims": completed_sims,
+            "last_score": last_score,
+            "active": member.is_active,
+            "needs_attention": len(flags) > 0,
+            "coaching_flags": [_flag_to_dict(f) for f in flags],
+            "coaching_notes": stats.coaching_notes if stats else "",
+        })
 
-            roster.append({
-                "id": str(member.id),
-                "username": member.username,
-                "email": member.email,
-                "role": member.role,
-                "team_id": member.team_id,
-                "total_score": stats.total_score if stats else 0,
-                "current_streak": stats.current_streak if stats else 0,
-                "completed_sims": completed_sims,
-                "last_score": last_score,
-                "active": member.is_active,
-                "needs_attention": len(flags) > 0,
-                "coaching_flags": [_flag_to_dict(f) for f in flags],
-                "coaching_notes": stats.coaching_notes if stats else "",
-            })
-
-        return {"company_id": company_id, "member_count": len(roster), "roster": roster}
-    except Exception as e:
-        import traceback
-        tb = traceback.format_exc()
-        print(f"Error in get_roster: {tb}")
-        return {"error": str(e), "traceback": tb}
+    return {"company_id": company_id, "member_count": len(roster), "roster": roster}
 
 
 @router.post("/api/v1/companies/{company_id}/members")
