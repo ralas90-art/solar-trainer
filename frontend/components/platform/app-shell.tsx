@@ -15,6 +15,7 @@ import { FeatureGate } from "@/components/auth/FeatureGate"
 import { isDemoModeActive } from "@/lib/demo-mode"
 import { useLanguage } from "@/hooks/use-language"
 import { IssueReporter } from "./issue-reporter"
+import { PerformanceOverlay } from "./PerformanceOverlay"
 
 export function AppShell({
   children,
@@ -526,6 +527,7 @@ export function AppShell({
           </div>
         </div>
       )}
+      <PerformanceOverlay />
     </div>
   )
 }

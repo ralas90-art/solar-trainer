@@ -1,6 +1,7 @@
 "use client"
 
-import { Headphones, Target, PlayCircle, BarChart3, TrendingUp, Sparkles, UserCheck } from "lucide-react"
+import { Headphones, Target, PlayCircle, BarChart3 } from "lucide-react"
+import Link from "next/link"
 
 export function HowItWorksPreview() {
     return (
@@ -59,8 +60,12 @@ export function HowItWorksPreview() {
                 <h3 className="text-3xl font-black text-white mb-6 font-display italic uppercase">Master the Sale in <span className="text-[#F97316] underline decoration-[#F97316]/30 px-2">168 Hours</span></h3>
                 <p className="text-slate-400 mb-10 font-body">Stop wasting leads on untrained reps. Build a world-class sales army with the science of AI roleplay.</p>
                 <div className="flex flex-wrap items-center justify-center gap-6">
-                    <button className="btn-primary px-10 py-5 text-sm h-auto translate-y-0">Get Started Now</button>
-                    <button className="px-10 py-5 text-sm border border-white/10 bg-white/5 hover:bg-white/10 transition-all font-display font-black uppercase text-white tracking-widest">Schedule Training Audit</button>
+                    <Link href="/solar-sales-training-assessment?source=how_it_works&type=general">
+                        <button className="btn-primary px-10 py-5 text-sm h-auto translate-y-0">Find My Rep Training Path</button>
+                    </Link>
+                    <Link href="/solar-sales-training-assessment?source=how_it_works&type=team_growth">
+                        <button className="px-10 py-5 text-sm border border-white/10 bg-white/5 hover:bg-white/10 transition-all font-display font-black uppercase text-white tracking-widest">Start Team Readiness Audit</button>
+                    </Link>
                 </div>
             </div>
         </section>

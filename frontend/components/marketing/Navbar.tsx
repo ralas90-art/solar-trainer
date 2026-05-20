@@ -5,10 +5,15 @@ import { Button } from "@/components/ui/button"
 import { Menu, Zap, X } from "lucide-react"
 import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
+import { prewarmBackend } from "@/lib/prewarm"
 
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
     const pathname = usePathname()
+
+    useEffect(() => {
+        prewarmBackend()
+    }, [])
 
     // Close menu when route changes
     useEffect(() => {
@@ -49,8 +54,8 @@ export function Navbar() {
 
                     <div className="flex items-center gap-4">
                         <Link href="/login" className="hidden md:block text-[10px] font-black uppercase tracking-[0.2em] text-white hover:text-[#F97316] transition-colors font-display">Log In</Link>
-                        <Link href="/pricing" className="hidden md:block">
-                            <Button className="btn-primary h-10 px-6 text-[10px]">Get Started</Button>
+                        <Link href="/solar-sales-training-assessment?source=nav" className="hidden md:block">
+                            <Button className="btn-primary h-10 px-6 text-[10px]">Start Assessment</Button>
                         </Link>
                         <button 
                             className="md:hidden text-white min-w-[48px] min-h-[48px] flex items-center justify-center rounded-md hover:bg-white/5 active:bg-white/10 transition-colors"
@@ -97,8 +102,8 @@ export function Navbar() {
                         <Link href="/login" onClick={() => setIsOpen(false)} className="text-lg font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#F97316] transition-colors font-display py-2">Log In</Link>
                         
                         <div className="pt-8 pb-10 mt-auto">
-                            <Link href="/pricing" onClick={() => setIsOpen(false)} className="w-full">
-                                <Button variant="solar" className="w-full h-14 text-sm tracking-widest">Get Started</Button>
+                            <Link href="/solar-sales-training-assessment?source=mobile_nav" onClick={() => setIsOpen(false)} className="w-full">
+                                <Button variant="solar" className="w-full h-14 text-sm tracking-widest">Start Assessment</Button>
                             </Link>
                         </div>
                     </div>

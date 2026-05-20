@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState } from "react"
+import { useSearchParams } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { 
   Zap, 
@@ -15,10 +16,10 @@ import {
   Sparkles,
   BarChart3,
   Globe,
-  Rocket,
   ShieldCheck,
   ChevronRight,
-  Loader2
+  Loader2,
+  Info
 } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
@@ -157,14 +158,50 @@ const ASSESSMENT_VARIANT = "solar_sales_readiness_v2"
 // We will use a translation mapping in Phase 3. 
 // For now, the structure supports { id, text, options } which will be mapped to { id, text: { en, es } }
 
+// GHL tag mapping keyed by URL type param
+const GHL_TAG_MAP: Record<string, string> = {
+  rep_basic:    "septivolt_rep_basic_interest",
+  rep_voice_pro:"septivolt_voice_pro_interest",
+  partner_rep:  "septivolt_partner_rep_access",
+  dealer_pilot: "septivolt_dealer_pilot_interest",
+  team_growth:  "septivolt_team_growth_interest",
+  enterprise:   "septivolt_enterprise_interest",
+}
+
+// Pre-population map: urlType → { lead_type, team_size }
+const PREFILL_MAP: Record<string, { lead_type: string; team_size: string }> = {
+  rep_basic:    { lead_type: "rep",     team_size: "1" },
+  rep_voice_pro:{ lead_type: "rep",     team_size: "1" },
+  partner_rep:  { lead_type: "rep",     team_size: "1" },
+  dealer_pilot: { lead_type: "manager", team_size: "2-5" },
+  team_growth:  { lead_type: "manager", team_size: "6-15" },
+  enterprise:   { lead_type: "owner",   team_size: "50+" },
+}
+
+// Human-readable plan labels for the pre-fill banner
+const PLAN_LABEL_MAP: Record<string, string> = {
+  rep_basic:    "Rep Basic",
+  rep_voice_pro:"Rep Voice Pro",
+  partner_rep:  "Partner Onboarding",
+  dealer_pilot: "Founding Dealer Pilot",
+  team_growth:  "Team Growth",
+  enterprise:   "Enterprise",
+}
+
 // --- Main Component ---
 export function AssessmentFunnelClient() {
+  const searchParams = useSearchParams()
+  const urlType   = searchParams.get('type')   ?? ""
+  const urlSource = searchParams.get('source') ?? ""
+  const urlReps   = searchParams.get('reps')   ?? ""
+
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [showResumePrompt, setShowResumePrompt] = useState(false)
+  const [prefillApplied, setPrefillApplied] = useState(false)
   const [language, setLanguage] = useState<Language>('en')
   
   const [formData, setFormData] = useState({
@@ -185,7 +222,14 @@ export function AssessmentFunnelClient() {
 
     const saved = loadFunnelProgress();
     if (saved && saved.currentStep > 0 && !isSubmitted) {
+      // Existing session detected — show resume prompt, do NOT apply URL pre-fill
       setShowResumePrompt(true);
+    } else if (urlType && PREFILL_MAP[urlType]) {
+      // No saved session — apply URL-based pre-fill
+      const prefill = PREFILL_MAP[urlType];
+      setAnswers({ lead_type: prefill.lead_type, team_size: prefill.team_size });
+      setCurrentStep(2); // skip lead_type (step 0) and team_size (step 1)
+      setPrefillApplied(true);
     }
     
     // Initial page view event
@@ -193,8 +237,11 @@ export function AssessmentFunnelClient() {
       step: 0, 
       lang,
       language_preference: lang,
-      assessment_variant: ASSESSMENT_VARIANT
+      assessment_variant: ASSESSMENT_VARIANT,
+      url_type: urlType,
+      url_source: urlSource,
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleLanguageSwitch = (newLang: Language) => {
@@ -247,8 +294,17 @@ export function AssessmentFunnelClient() {
 
   const handleStartFresh = () => {
     clearFunnelProgress();
-    setCurrentStep(0);
-    setAnswers({});
+    // When starting fresh, re-apply URL pre-fill if present (don't lose context)
+    if (urlType && PREFILL_MAP[urlType]) {
+      const prefill = PREFILL_MAP[urlType];
+      setAnswers({ lead_type: prefill.lead_type, team_size: prefill.team_size });
+      setCurrentStep(2);
+      setPrefillApplied(true);
+    } else {
+      setCurrentStep(0);
+      setAnswers({});
+      setPrefillApplied(false);
+    }
     setShowResumePrompt(false);
     trackEvent('funnel_restart', {
       lang: language,
@@ -280,8 +336,28 @@ export function AssessmentFunnelClient() {
 
     const attribution = getAttribution();
 
+    // Build exact GHL tags array
+    const ghlTags: string[] = [
+      "SeptiVolt - Funnel Lead",
+      "SeptiVolt - Assessment Completed",
+      `SeptiVolt - ${winningTrack.charAt(0).toUpperCase() + winningTrack.slice(1)}`,
+      `SeptiVolt - ${maturity}`,
+    ];
+    // Append exact GHL intent tag if URL type is recognized
+    if (urlType && GHL_TAG_MAP[urlType]) {
+      ghlTags.push(GHL_TAG_MAP[urlType]);
+    }
+    // Append bilingual tag if applicable
+    if (answers.language === "es" || answers.language === "both") {
+      ghlTags.push("septivolt_bilingual_interest");
+    }
+
+    const teamSizeNum = answers.team_size
+      ? (answers.team_size === "50+" ? 50 : parseInt(answers.team_size) || 0)
+      : (urlReps ? parseInt(urlReps) || 0 : 0);
+
     const payload = {
-      lead_source: "septivolt_public_assessment",
+      lead_source: urlSource ? `septivolt_cta_${urlSource}` : "septivolt_public_assessment",
       assessment_variant: ASSESSMENT_VARIANT,
       funnel_type: "public_qualification",
       first_name: formData.firstName,
@@ -290,22 +366,22 @@ export function AssessmentFunnelClient() {
       phone: formData.phone,
       company_name: formData.company || "",
       role: answers.lead_type || "",
-      team_size: parseInt(answers.team_size) || 0,
+      team_size: teamSizeNum,
       language_preference: language,
       score: normalizedScore,
       maturity_class: maturity,
       recommended_path: winningTrack,
-      enterprise_interest: winningTrack === "enterprise",
-      requested_demo: winningTrack === "enterprise" || winningTrack === "team",
-      high_intent: normalizedScore > 80,
+      recommended_plan: urlType || winningTrack,
+      enterprise_interest: winningTrack === "enterprise" || urlType === "enterprise",
+      requested_demo: winningTrack === "enterprise" || winningTrack === "team" || urlType === "enterprise" || urlType === "team_growth" || urlType === "dealer_pilot",
+      high_intent: normalizedScore > 80 || urlType === "enterprise" || urlType === "team_growth" || urlType === "dealer_pilot",
       bilingual_interest: answers.language === "es" || answers.language === "both",
-      tags: [
-        "SeptiVolt - Funnel Lead",
-        "SeptiVolt - Assessment Completed",
-        `SeptiVolt - ${winningTrack.charAt(0).toUpperCase() + winningTrack.slice(1)}`,
-        `SeptiVolt - ${maturity}`
-      ],
-      summary: `Score: ${normalizedScore}% | Track: ${winningTrack} | Weaknesses: ${weaknesses.length} | Insights: ${insights.length}`
+      // Preserved query context for CRM routing
+      cta_source: urlSource || "direct",
+      cta_type: urlType || "general",
+      cta_reps: urlReps || "",
+      tags: ghlTags,
+      summary: `Score: ${normalizedScore}% | Track: ${winningTrack} | Plan: ${urlType || 'none'} | Source: ${urlSource || 'direct'} | Reps: ${urlReps || 'n/a'} | Weaknesses: ${weaknesses.length} | Insights: ${insights.length}`
     }
 
     try {
@@ -353,8 +429,29 @@ export function AssessmentFunnelClient() {
 
   const renderQuestion = () => {
     const q = QUESTIONS[currentStep]
+    // Show pre-fill banner if user arrived with a type param and is on the
+    // first two questions (which were pre-populated), so they know they can edit.
+    const showPrefillBanner = prefillApplied && currentStep <= 1 && urlType && PLAN_LABEL_MAP[urlType]
     return (
       <div className="space-y-8">
+        {showPrefillBanner && (
+          <div className="flex items-start gap-3 px-4 py-3 rounded-xl border border-amber-500/30 bg-amber-500/5 text-amber-400">
+            <Info className="w-4 h-4 shrink-0 mt-0.5" />
+            <p className="text-xs font-body leading-relaxed">
+              We started you on the <strong>{PLAN_LABEL_MAP[urlType]}</strong> path based on the page you came from.
+              {" "}You can change this anytime — just select a different answer below.
+            </p>
+          </div>
+        )}
+        {/* Partner rep notice */}
+        {urlType === "partner_rep" && currentStep === 0 && (
+          <div className="flex items-start gap-3 px-4 py-3 rounded-xl border border-[#F59E0B]/30 bg-[#F59E0B]/5 text-[#F59E0B]">
+            <Info className="w-4 h-4 shrink-0 mt-0.5" />
+            <p className="text-xs font-body leading-relaxed">
+              Free onboarding access is for <strong>approved partner and internal reps</strong> only (Rob's direct reps & Erick Sanchez's recruits). All others will be shown the appropriate paid plan.
+            </p>
+          </div>
+        )}
         <div className="space-y-4">
           <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#F97316] font-display">
             {t("funnel.module", language)} {currentStep + 1} / {totalSteps}
@@ -654,27 +751,47 @@ export function AssessmentFunnelClient() {
             Septivolt
           </span>
         </div>
+      </div>
 
-        <div className="flex items-center gap-1 bg-white/5 p-1 border border-white/10 hud-border hud-corner-tl hud-corner-br">
-          <button
-            onClick={() => handleLanguageSwitch('en')}
-            className={cn(
-              "px-3 py-1 text-[10px] font-black uppercase tracking-widest transition-all",
-              language === 'en' ? "bg-[#F97316] text-white" : "text-slate-500 hover:text-white"
-            )}
-          >
-            EN
-          </button>
-          <button
-            onClick={() => handleLanguageSwitch('es')}
-            className={cn(
-              "px-3 py-1 text-[10px] font-black uppercase tracking-widest transition-all",
-              language === 'es' ? "bg-[#F97316] text-white" : "text-slate-500 hover:text-white"
-            )}
-          >
-            ES
-          </button>
+      {/* Funnel Intro Header — only shown before any questions are answered */}
+      {currentStep === 0 && !isSubmitted && (
+        <div className="mb-16 text-center space-y-4">
+          <h1 className="text-3xl md:text-5xl font-black font-display uppercase italic tracking-tighter leading-tight">
+            Find the Right SeptiVolt Path
+            <br />
+            <span className="text-[#F97316]">for You or Your Solar Team</span>
+          </h1>
+          <p className="text-slate-400 font-body font-light max-w-2xl mx-auto text-base leading-relaxed">
+            Answer a few questions and SeptiVolt will recommend the right training, AI simulation, or team readiness plan based on your role, team size, and sales process.
+          </p>
+          <p className="text-slate-500 text-sm font-body">
+            ⏱ Takes about 2 minutes. Your answers help us recommend the right SeptiVolt path for your role, team size, and sales process.
+          </p>
         </div>
+      )}
+
+
+
+      {/* Language switcher — positioned absolutely top-right on the page */}
+      <div className="fixed top-6 right-6 z-40 flex items-center gap-1 bg-[#121212]/90 backdrop-blur-sm p-1 border border-white/10 hud-border hud-corner-tl hud-corner-br">
+        <button
+          onClick={() => handleLanguageSwitch('en')}
+          className={cn(
+            "px-3 py-1 text-[10px] font-black uppercase tracking-widest transition-all",
+            language === 'en' ? "bg-[#F97316] text-white" : "text-slate-500 hover:text-white"
+          )}
+        >
+          EN
+        </button>
+        <button
+          onClick={() => handleLanguageSwitch('es')}
+          className={cn(
+            "px-3 py-1 text-[10px] font-black uppercase tracking-widest transition-all",
+            language === 'es' ? "bg-[#F97316] text-white" : "text-slate-500 hover:text-white"
+          )}
+        >
+          ES
+        </button>
       </div>
 
       {currentStep < totalSteps && renderProgressBar()}

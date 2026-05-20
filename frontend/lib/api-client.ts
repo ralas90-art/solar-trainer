@@ -11,24 +11,40 @@ export async function apiFetch<T>(
 ): Promise<T> {
   const url = `${BASE_URL}${endpoint.startsWith("/") ? endpoint : `/${endpoint}`}`
 
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  })
+  const start = performance.now()
+  try {
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+        ...options.headers,
+      },
+    })
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}))
-    let errorMessage = errorData.detail;
-    if (typeof errorMessage === 'object') {
-        errorMessage = JSON.stringify(errorMessage);
+    const duration = performance.now() - start
+    if (typeof window !== "undefined") {
+      (window as any).__last_api_latency = duration;
+      window.dispatchEvent(new CustomEvent("septivolt_api_latency", { detail: { endpoint, duration } }))
     }
-    throw new Error(errorMessage || `API error: ${response.statusText}`)
-  }
 
-  return response.json() as Promise<T>
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}))
+      let errorMessage = errorData.detail;
+      if (typeof errorMessage === 'object') {
+          errorMessage = JSON.stringify(errorMessage);
+      }
+      throw new Error(errorMessage || `API error: ${response.statusText}`)
+    }
+
+    return response.json() as Promise<T>
+  } catch (error) {
+    const duration = performance.now() - start
+    if (typeof window !== "undefined") {
+      (window as any).__last_api_latency = duration;
+      window.dispatchEvent(new CustomEvent("septivolt_api_latency", { detail: { endpoint, duration, error: true } }))
+    }
+    throw error
+  }
 }
 
 export const api = {

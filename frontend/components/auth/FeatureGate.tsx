@@ -16,9 +16,9 @@ export function FeatureGate({
   allowedRoles, 
   allowedTiers 
 }: FeatureGateProps) {
-  const { user } = useAuth()
+  const { user, loading } = useAuth()
 
-  if (!user) return <>{fallback}</>
+  if (loading || !user) return <>{fallback}</>
 
   const isRoleAllowed = !allowedRoles || allowedRoles.includes(user.role)
   const isTierAllowed = !allowedTiers || allowedTiers.includes(user.planTier)

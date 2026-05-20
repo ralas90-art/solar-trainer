@@ -20,27 +20,27 @@ export function HeroSection() {
 
                 {/* Headline */}
                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight text-white mb-8 max-w-5xl mx-auto italic font-display">
-                    The 7-Day Path to <br />
-                    <span className="text-[var(--brand-primary)]">Solar Mastery.</span>
+                    Train Solar Reps Faster with <br />
+                    <span className="text-[var(--brand-primary)]">AI Sales Readiness.</span>
                 </h1>
 
                 {/* Subheadline */}
-                <p className="text-lg lg:text-2xl text-slate-400 max-w-3xl mx-auto mb-12 leading-relaxed font-light font-body">
-                    Restructured for <span className="text-white font-bold underline decoration-[var(--brand-accent)]/30 underline-offset-4">Maximum Speed-to-Revenue.</span> <br className="hidden md:block" />
-                    Transform from a salesperson into a Solar Consultant in one week.
+                <p className="text-lg lg:text-2xl text-slate-400 max-w-4xl mx-auto mb-12 leading-relaxed font-light font-body">
+                    SeptiVolt helps solar teams onboard reps, practice objections, generate company-specific scripts, <br className="hidden md:block" />
+                    and track who is ready to sell — all inside one <span className="text-white font-bold underline decoration-[var(--brand-accent)]/30 underline-offset-4">AI-powered sales readiness system.</span>
                 </p>
 
                 {/* CTAs */}
                 <div className="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-6 justify-center">
-                    <Link href="/solar-sales-training-assessment" className="w-full sm:w-auto">
+                    <Link href="/solar-sales-training-assessment?source=hero&type=general" className="w-full sm:w-auto">
                         <Button size="lg" variant="solar" className="w-full h-16 px-6 sm:px-10 text-lg sm:text-xl flex items-center justify-center gap-3 border-none group">
-                            Take Free Audit
+                            Find Your SeptiVolt Plan
                             <TrendingUp className="w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                         </Button>
                     </Link>
-                    <Link href="/curriculum-preview" className="w-full sm:w-auto">
+                    <Link href="/pricing" className="w-full sm:w-auto">
                         <Button size="lg" variant="solarOutline" className="w-full h-16 px-6 sm:px-10 text-lg sm:text-xl flex items-center justify-center gap-3">
-                            View Curriculum
+                            View Pricing
                         </Button>
                     </Link>
                 </div>

@@ -281,6 +281,13 @@ async def create_or_update_entry(
     
     session.commit()
     session.refresh(entry)
+
+    # Invalidate cache for near-real-time UX
+    try:
+        from routers.analytics_snapshot import invalidate_analytics_cache_for_user
+        invalidate_analytics_cache_for_user(user_id)
+    except Exception:
+        pass
     
     # Get KPI definition for response
     kpi_def = session.get(KPIDefinition, entry.kpi_definition_id)
@@ -338,6 +345,13 @@ async def bulk_create_entries(
             created_count += 1
     
     session.commit()
+
+    # Invalidate cache for near-real-time UX
+    try:
+        from routers.analytics_snapshot import invalidate_analytics_cache_for_user
+        invalidate_analytics_cache_for_user(user_id)
+    except Exception:
+        pass
     
     return {
         "message": "Entries saved successfully",

@@ -144,6 +144,18 @@ def run_migration():
         add_col(conn, "company", "payment_status", "TEXT", "'pending'")
         add_col(conn, "company", "created_at", "TIMESTAMP", "NULL")
 
+        # Ensure company_id index exists on user table
+        try:
+            cur = conn.cursor()
+            if IS_POSTGRES:
+                cur.execute('CREATE INDEX IF NOT EXISTS idx_user_company_id ON "user" (company_id);')
+            else:
+                cur.execute('CREATE INDEX IF NOT EXISTS idx_user_company_id ON user (company_id);')
+            conn.commit()
+            print("  [OK] Index idx_user_company_id verified/created.")
+        except Exception as e:
+            print(f"  [ERROR] Index idx_user_company_id creation failed: {e}")
+
         conn.close()
         print("  Column patching complete.")
 

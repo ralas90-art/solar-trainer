@@ -107,9 +107,47 @@
         - [x] Update Analytics to track Weekly/Monthly/Quarterly Goals <!-- id: period_tracking -->
         - [x] Create "End of Period" Report View <!-- id: period_report -->
 
-- [x] **Safe Enterprise Demo Mode** <!-- id: demo_mode -->
-    - [x] Create `frontend/lib/demo-mode.ts` with mock data and activation hooks <!-- id: demo_lib -->
-    - [x] Integrate runtime checks in data layer (debriefs, analytics, certifications) <!-- id: demo_integration -->
-    - [x] Gate toggle in Admin Page for admin-only use <!-- id: demo_admin_gate -->
-    - [x] Implement global unified banner in AppShell and remove local page banners <!-- id: demo_global_banner -->
-    - [x] Verify production build and environment variable configurations <!-- id: demo_verify_build -->
+- [x] **Safe Enterprise Demo Mode** <!-- id: demo_mode5 -->
+    - [x] Create `frontend/lib/demo-mode.ts` with mock data and activation hooks <!-- id: demo_lib5 -->
+    - [x] Integrate runtime checks in data layer (debriefs, analytics, certifications) <!-- id: demo_integration5 -->
+    - [x] Gate toggle in Admin Page for admin-only use <!-- id: demo_admin_gate5 -->
+    - [x] Implement global unified banner in AppShell and remove local page banners <!-- id: demo_global_banner5 -->
+    - [x] Verify production build and environment variable configurations <!-- id: demo_verify_build5 -->
+
+- [x] **SeptiVolt Login Performance Audit & Optimization Sprint** <!-- id: perf_sprint -->
+    - [x] **Phase A — Measure Login Timing & Instrumentation** <!-- id: perf_measure -->
+        - [x] Instantiate global `pwd_context` context in `auth_utils.py` <!-- id: perf_global_pwd -->
+        - [x] Implement lightweight `/api/v1/health` warming endpoint in backend <!-- id: perf_health_endpoint -->
+        - [x] Add database index `idx_user_company_id` to `User` and migrate database <!-- id: perf_db_index -->
+        - [x] Increase analytics cache TTL to 120s with precise cache invalidation on edits <!-- id: perf_analytics_cache -->
+    - [x] **Phase B — Non-blocking Eager Pre-warming** <!-- id: perf_prewarm -->
+        - [x] Create `frontend/lib/prewarm.ts` utility for throttled warming <!-- id: perf_prewarm_lib -->
+        - [x] Integrate pre-warming into `Navbar.tsx` and `login/page.tsx` <!-- id: perf_prewarm_ui -->
+        - [x] Add conditional "Waking up..." status indicator to login submit button <!-- id: perf_wakeup_indicator -->
+    - [x] **Phase C — Non-blocking Dashboard Rendering** <!-- id: perf_dashboard -->
+        - [x] Replace page-level blocking spinner in `dashboard/page.tsx` with animated skeletons <!-- id: perf_skeletons -->
+        - [x] Dynamically load non-critical widgets (StatCard, ProgressCard, ScoreDisplayCard, SkillProgressRow, ModuleCard) <!-- id: perf_lazy_widgets -->
+    - [x] **Phase D — Security Gates & Performance Overlay** <!-- id: perf_security_overlay -->
+        - [x] Make `old_password` optional in password reset gate to support password creation during forced onboarding reset <!-- id: perf_password_gate -->
+        - [x] Enforce `FeatureGate` hidden visibility during active authentication load <!-- id: perf_featuregate_gate -->
+        - [x] Create telemetry `PerformanceOverlay` (admin/dev-only, toggled by `septivolt_perf_debug=true`) <!-- id: perf_overlay -->
+    - [x] **Verification & Compliance** <!-- id: perf_verification -->
+        - [x] Compile frontend code via `npx tsc --noEmit` <!-- id: perf_tsc_check -->
+        - [x] Execute backend integration tests via python `test_onboarding_security.py` <!-- id: perf_pytest_check -->
+
+- [x] **SeptiVolt Website Copy + Pricing Page Rebuild** <!-- id: website_copy_pricing -->
+    - [x] **Landing Page Copy & Structure** <!-- id: landing_copy -->
+        - [x] Rebuild `HeroSection.tsx` with the new headline, subheadline, and stats <!-- id: hero_update -->
+        - [x] Update problem, solution, and capabilities messaging on landing page components <!-- id: landing_sections -->
+        - [x] Update `AudienceSplit.tsx` to clearly present the four buyer segments <!-- id: audience_split_update -->
+    - [x] **Pricing Page Overhaul** <!-- id: pricing_overhaul -->
+        - [x] Update `pricing/page.tsx` Hero and structure with new copy <!-- id: pricing_hero -->
+        - [x] Implement cards for the 5 tiers (Basic, Voice Pro, Pilot, Growth, Enterprise) and Partner access note <!-- id: pricing_cards -->
+        - [x] Add the "Why Setup Fee?" details section <!-- id: why_setup_fee -->
+        - [x] Add the "Seat-Based Scaling" info section <!-- id: seat_scaling_info -->
+        - [x] Create the interactive Team System interactive price calculator <!-- id: pricing_calculator -->
+        - [x] Implement the side-by-side feature comparison table with mobile responsive cards <!-- id: compare_table -->
+        - [x] Add ROI Framing and FAQ Accordion sections <!-- id: roi_faq -->
+    - [x] **Verification & Validation** <!-- id: rebuild_verification -->
+        - [x] Run `npx tsc --noEmit` to ensure zero typescript errors <!-- id: tsc_verification -->
+        - [x] Verify styling responsiveness and look-and-feel of updated pages <!-- id: visual_verification -->

@@ -23,6 +23,8 @@ from routers.analytics_snapshot import invalidate_analytics_cache_for_user
 import os
 import json
 from datetime import datetime, timedelta
+from auth_utils import pwd_context
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -80,6 +82,11 @@ def read_root():
             "regex": "https://.*.vercel.app|https://.*.onrender.com|http://localhost:*"
         }
     }
+
+@app.get("/api/v1/health")
+def read_health():
+    return {"status": "ok", "timestamp": datetime.utcnow().isoformat()}
+
 
 @app.get("/tenants/{tenant_id}")
 def get_tenant(tenant_id: str):
@@ -154,9 +161,7 @@ def login(login_data: LoginAuth, session: Session = Depends(get_session)):
     if not user:
         raise HTTPException(status_code=401, detail="Invalid credentials")
     
-    from auth_utils import CryptContext
-    pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-    
+
     try:
         valid_bcrypt = pwd_context.verify(login_data.password, user.password)
     except Exception:
@@ -253,7 +258,7 @@ def get_user_stats(user_id: str, session: Session = Depends(get_session)):
 
 class PasswordResetRequest(BaseModel):
     username: str
-    old_password: str
+    old_password: Optional[str] = None
     new_password: str
 
 @app.post("/api/v1/user/reset-password")
@@ -262,20 +267,20 @@ def reset_password(body: PasswordResetRequest, session: Session = Depends(get_se
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
         
-    from auth_utils import CryptContext
-    pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-    
-    # Verify old password
-    try:
-        valid_bcrypt = pwd_context.verify(body.old_password, user.password)
-    except Exception:
-        valid_bcrypt = False
-        
-    if not valid_bcrypt:
-        import hashlib
-        hashed_old = hashlib.sha256(body.old_password.encode()).hexdigest()
-        if user.password != hashed_old:
-            raise HTTPException(status_code=401, detail="Invalid old credentials")
+
+    # Verify old password if provided OR if user does not require temporary password reset
+    if body.old_password or not user.temporary_password_required:
+        old_pwd = body.old_password or ""
+        try:
+            valid_bcrypt = pwd_context.verify(old_pwd, user.password)
+        except Exception:
+            valid_bcrypt = False
+            
+        if not valid_bcrypt:
+            import hashlib
+            hashed_old = hashlib.sha256(old_pwd.encode()).hexdigest()
+            if user.password != hashed_old:
+                raise HTTPException(status_code=401, detail="Invalid old credentials")
             
     user.password = pwd_context.hash(body.new_password)
     user.temporary_password_required = False

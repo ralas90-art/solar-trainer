@@ -23,7 +23,7 @@ router = APIRouter()
 # Lightweight in-process cache for analytics snapshots.
 # Keyed by user + filter tuple with short TTL for near-real-time UX.
 ANALYTICS_CACHE: Dict[str, Dict[str, Any]] = {}
-ANALYTICS_CACHE_TTL_SECONDS = 30
+ANALYTICS_CACHE_TTL_SECONDS = 120
 
 
 def invalidate_analytics_cache_for_user(user_id: str) -> None:

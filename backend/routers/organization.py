@@ -17,8 +17,9 @@ from typing import Any, Dict, List, Optional
 from fastapi import APIRouter, Depends, Header, HTTPException, status
 from pydantic import BaseModel, validator
 from sqlmodel import Session, select
-
 from database import get_session
+from auth_utils import pwd_context
+
 from models.user import (
     CoachingFlag,
     Company,
@@ -841,8 +842,6 @@ async def add_or_create_member(
         import secrets
         temp_password = secrets.token_urlsafe(12) # Secure high-entropy random password
         
-        from auth_utils import CryptContext
-        pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
         hashed_password = pwd_context.hash(temp_password)
 
         new_user = User(

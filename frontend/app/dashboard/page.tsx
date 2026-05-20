@@ -2,16 +2,27 @@
 
 import { AppShell } from "@/components/platform/app-shell"
 import {
-  LeaderboardListItem,
-  ModuleCard,
   NotificationPill,
-  ProgressCard,
-  ScoreDisplayCard,
   SectionEyebrow,
-  SkillProgressRow,
-  StatCard,
   WidgetCard,
 } from "@/components/platform/dashboard-widgets"
+import dynamic from "next/dynamic"
+
+const StatCard = dynamic(() => import("@/components/platform/dashboard-widgets").then(mod => mod.StatCard), {
+  ssr: false
+})
+const ProgressCard = dynamic(() => import("@/components/platform/dashboard-widgets").then(mod => mod.ProgressCard), {
+  ssr: false
+})
+const ScoreDisplayCard = dynamic(() => import("@/components/platform/dashboard-widgets").then(mod => mod.ScoreDisplayCard), {
+  ssr: false
+})
+const SkillProgressRow = dynamic(() => import("@/components/platform/dashboard-widgets").then(mod => mod.SkillProgressRow), {
+  ssr: false
+})
+const ModuleCard = dynamic(() => import("@/components/platform/dashboard-widgets").then(mod => mod.ModuleCard), {
+  ssr: false
+})
 import {
   AlertTriangle,
   ArrowRight,
@@ -304,9 +315,59 @@ export default function DashboardPage() {
 
   if (isLoading || !stats) {
     return (
-      <AppShell heading="Dashboard" subheading="Loading your performance command center...">
-        <div className="flex h-[60vh] items-center justify-center">
-          <div className="animate-spin h-12 w-12 border-4 border-[#FF5722] border-t-transparent rounded-full" />
+      <AppShell
+        heading="Dashboard"
+        subheading={t(
+          "Loading your performance command center...",
+          "Cargando su centro de comando de rendimiento..."
+        )}
+      >
+        <div className="space-y-6 animate-pulse">
+          {/* Company/Rep Onboarding Checklist Skeleton */}
+          <div className="rounded-2xl border border-white/5 bg-white/5 p-6 space-y-4">
+            <div className="flex justify-between items-center">
+              <div className="space-y-2 w-2/3">
+                <div className="h-4 bg-white/10 rounded w-1/4" />
+                <div className="h-6 bg-white/10 rounded w-1/2" />
+                <div className="h-3 bg-white/10 rounded w-3/4" />
+              </div>
+              <div className="h-10 bg-white/10 rounded-xl w-32" />
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 mt-6">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="h-32 bg-white/10 rounded-2xl" />
+              ))}
+            </div>
+          </div>
+
+          {/* Main Content Grid Skeleton */}
+          <div className="grid gap-6 xl:grid-cols-[1.6fr_1fr]">
+            <div className="h-64 bg-white/5 border border-white/5 rounded-2xl p-6 space-y-4 flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="h-4 bg-white/10 rounded w-1/6" />
+                <div className="h-10 bg-white/10 rounded w-2/3" />
+                <div className="h-6 bg-white/10 rounded w-1/2" />
+              </div>
+              <div className="h-10 bg-white/10 rounded w-1/4" />
+            </div>
+            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-1">
+              <div className="h-[120px] bg-white/5 border border-white/5 rounded-2xl" />
+              <div className="h-[120px] bg-white/5 border border-white/5 rounded-2xl" />
+            </div>
+          </div>
+
+          {/* Stat Cards Skeleton */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="h-28 bg-white/5 border border-white/5 rounded-2xl" />
+            ))}
+          </div>
+
+          {/* Performance and Skill Progress Skeleton */}
+          <div className="grid gap-6 2xl:grid-cols-2">
+            <div className="h-72 bg-white/5 border border-white/5 rounded-2xl" />
+            <div className="h-72 bg-white/5 border border-white/5 rounded-2xl" />
+          </div>
         </div>
       </AppShell>
     )

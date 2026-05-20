@@ -51,7 +51,7 @@ class User(SQLModel, table=True):
     email: Optional[str] = Field(default=None, index=True)
     password: str  # Always bcrypt-hashed
     role: UserRole = Field(default=UserRole.SALES_REP)
-    company_id: Optional[str] = Field(default="septivolt", foreign_key="company.id")
+    company_id: Optional[str] = Field(default="septivolt", foreign_key="company.id", index=True)
     team_id: Optional[str] = Field(default=None, foreign_key="team.id")
     is_active: bool = Field(default=True)
     temporary_password_required: bool = Field(default=False)

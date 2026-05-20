@@ -1,10 +1,11 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useAuth } from "@/context/AuthContext"
 import { api } from "@/lib/api-client"
 import { Crown, Lock, Mail, User as UserIcon, Zap, ArrowLeft, CheckCircle, Loader2 } from "lucide-react"
 import Link from "next/link"
+import { prewarmBackend } from "@/lib/prewarm"
 
 type View = "login" | "forgot" | "forgot-success"
 
@@ -16,11 +17,21 @@ export default function LoginPage() {
     const [resetEmail, setResetEmail] = useState("")
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
+    const [showWakeUpIndicator, setShowWakeUpIndicator] = useState(false)
+
+    useEffect(() => {
+        prewarmBackend()
+    }, [])
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
         setError("")
         setIsLoading(true)
+        setShowWakeUpIndicator(false)
+
+        const timer = setTimeout(() => {
+            setShowWakeUpIndicator(true)
+        }, 1500)
 
         try {
             const response = await api.post<any>("/login", {
@@ -38,7 +49,9 @@ export default function LoginPage() {
         } catch (err: any) {
             setError(err.message || "Failed to login. Please check your credentials.")
         } finally {
+            clearTimeout(timer)
             setIsLoading(false)
+            setShowWakeUpIndicator(false)
         }
     }
 
@@ -209,6 +222,11 @@ export default function LoginPage() {
                                         <>ENTER SYSTEM<Crown className="h-4 w-4" /></>
                                     )}
                                 </button>
+                                {showWakeUpIndicator && (
+                                    <p className="text-[#FF5722] text-xs mt-3 text-center animate-pulse font-hud uppercase tracking-[0.1em]">
+                                        Waking up training environment server...
+                                    </p>
+                                )}
                             </form>
 
                             <div className="mt-8 pt-8 border-t border-white/5 text-center">

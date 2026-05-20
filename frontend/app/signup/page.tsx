@@ -10,7 +10,16 @@ import { useSearchParams } from "next/navigation"
 function SignupForm() {
     const { login } = useAuth()
     const searchParams = useSearchParams()
-    const initialTier = (searchParams.get("tier") as any) || "starter"
+    
+    // Map URL tiers (rep_basic, rep_voice_pro, pilot, growth, enterprise) to database PlanTier
+    const rawTier = searchParams.get("tier") || "starter"
+    let initialTier: "starter" | "growth" | "enterprise" = "starter"
+    if (rawTier === "rep_voice_pro" || rawTier === "growth" || rawTier === "team_growth") {
+        initialTier = "growth"
+    } else if (rawTier === "enterprise") {
+        initialTier = "enterprise"
+    }
+    
     const initialRepCount = parseInt(searchParams.get("reps") || "10")
 
     const [username, setUsername] = useState("")

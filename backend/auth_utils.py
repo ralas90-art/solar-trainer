@@ -30,3 +30,5 @@ class CustomCryptContext:
 
 # Drop-in replacement for passlib CryptContext
 CryptContext = CustomCryptContext
+pwd_context = CustomCryptContext()
+

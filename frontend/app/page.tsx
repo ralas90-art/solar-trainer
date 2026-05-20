@@ -1,6 +1,8 @@
 import { Navbar } from "@/components/marketing/Navbar"
 import { HeroSection } from "@/components/marketing/HeroSection"
 import { PhilosophySection } from "@/components/marketing/PhilosophySection"
+import { ProblemSection } from "@/components/marketing/ProblemSection"
+import { FeaturesSection } from "@/components/marketing/FeaturesSection"
 import { ConversationFramework } from "@/components/marketing/ConversationFramework"
 import { EarningProjections } from "@/components/marketing/EarningProjections"
 import { HowItWorksPreview } from "@/components/marketing/HowItWorksPreview"
@@ -15,9 +17,11 @@ export default function LandingPage() {
             <main>
                 <HeroSection />
                 <PhilosophySection />
-                <EarningProjections />
+                <ProblemSection />
+                <FeaturesSection />
                 <ConversationFramework />
                 <HowItWorksPreview />
+                <EarningProjections />
                 <AudienceSplit />
                 <CTASection />
             </main>
