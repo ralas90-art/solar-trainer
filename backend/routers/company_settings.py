@@ -959,8 +959,8 @@ async def get_company_readiness(
     profile_details = ""
     if profile:
         overview_len = len(profile.company_overview or "")
-        products_len = len(profile.products_services or "")
-        rebuttals_len = len(profile.objections_rebuttals or "")
+        products_len = len(profile.products_offered or "")
+        rebuttals_len = len(profile.approved_rebuttals or "")
         if overview_len > 10 and (products_len > 10 or rebuttals_len > 10):
             profile_ok = True
             profile_details = "Profile populated with overview, products, and objections."
