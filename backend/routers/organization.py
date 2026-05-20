@@ -150,6 +150,10 @@ class OnboardingUpdateRequest(BaseModel):
         return v
 
 
+class LanguagePreferenceRequest(BaseModel):
+    language: str
+
+
 class CoachingNoteRequest(BaseModel):
     notes: str
 
@@ -478,6 +482,42 @@ async def update_onboarding(
     stats.onboarding_progress = json.dumps(existing)
     session.commit()
     return {"status": "ok", "tasks": existing}
+
+
+@router.post("/api/v1/user/{username}/language")
+async def update_language_preference(
+    username: str,
+    body: LanguagePreferenceRequest,
+    requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session),
+):
+    """
+    Update user's language preference.
+    Stored inside UserStats.onboarding_progress as temporary technical debt
+    pending schema expansion to a first-class user preferences field.
+    """
+    user = _get_user_or_404(session, username)
+
+    # Role guard: reps can only update their own language preference
+    if requesting_username and requesting_username != username:
+        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
+        if req_user and req_user.role == UserRole.SALES_REP:
+            raise HTTPException(status_code=403, detail="Reps may only update their own language preference.")
+
+    stats = session.get(UserStats, username)
+    if not stats:
+        stats = UserStats(user_id=username)
+        session.add(stats)
+
+    try:
+        existing = json.loads(stats.onboarding_progress or "{}")
+    except Exception:
+        existing = {}
+
+    existing["language"] = body.language
+    stats.onboarding_progress = json.dumps(existing)
+    session.commit()
+    return {"status": "ok", "language": body.language}
 
 
 # ─── Coaching Note Endpoints ──────────────────────────────────────────────────

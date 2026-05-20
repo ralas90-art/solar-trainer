@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useMemo, useEffect, useCallback } from "react"
-import { TrainingModuleView } from "@/lib/training-module-view"
+import { TrainingModuleView, getTrainingModuleView } from "@/lib/training-module-view"
 import { GuidedModuleExperience } from "@/components/training-module/guided-module-experience"
 import { loadTrainingModuleProgress, saveTrainingModuleProgress } from "@/lib/training-module-progress"
 import { ModuleCatalogEntry } from "@/components/training-audio/lesson-audio-player"
@@ -19,10 +19,18 @@ import { useAuth } from "@/context/AuthContext"
 import { canBypassTrainingLocks } from "@/lib/auth-bypass"
 import { useLanguage } from "@/hooks/use-language"
 
-export function InteractiveCurriculumClient({ moduleCatalog }: { moduleCatalog: TrainingModuleView[] }) {
+export function InteractiveCurriculumClient({ moduleCatalog: initialCatalog }: { moduleCatalog: TrainingModuleView[] }) {
   const { user } = useAuth()
   const { language, setLanguage, isSpanish } = useLanguage()
   const hasBypass = useMemo(() => canBypassTrainingLocks(user), [user])
+
+  // Resolve dynamic language content for catalog entries on the client
+  const moduleCatalog = useMemo(() => {
+    return initialCatalog.map((mod) => {
+      const translated = getTrainingModuleView(mod.id, language)
+      return translated || mod
+    })
+  }, [initialCatalog, language])
 
   // Group modules by day, excluding placeholder noisy modules
   const groupedModules = useMemo(() => {
@@ -134,25 +142,37 @@ export function InteractiveCurriculumClient({ moduleCatalog }: { moduleCatalog: 
   return (
     <div className="flex flex-col gap-6">
       {/* Language Preference Banner / Banner de Preferencia de Idioma */}
-      <div className="glass-circuit hud-border rounded-[20px] p-6 flex flex-col sm:flex-row items-center justify-between gap-4 relative overflow-hidden transition-all duration-300">
-        {/* Top orange ambient line */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#FF5722]/10 via-[#FF5722]/50 to-[#FF5722]/10" />
+      <div className="glass-circuit hud-border rounded-[24px] p-6 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden transition-all duration-300 border border-white/10 bg-gradient-to-r from-white/[0.02] via-[#FF5722]/[0.02] to-white/[0.02]">
+        {/* Top orange glowing line */}
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#FF5722]/10 via-[#FF5722]/60 to-[#FF5722]/10" />
         
-        <div className="space-y-1 text-left">
-          <h3 className="font-display font-bold text-white text-sm">
-            {isSpanish ? "Preferencia de Idioma" : "Language Preference"}
-          </h3>
-          <p className="text-xs text-[#94A3B8]">
-            {isSpanish ? "Cambiar diapositivas y narración a inglés" : "Switch slides and narration to Spanish"}
-          </p>
+        <div className="flex items-center gap-4 min-w-0">
+          <div className="h-12 w-12 rounded-2xl bg-[#FF5722]/10 flex items-center justify-center shrink-0 border border-[#FF5722]/20">
+            <BookOpen className="h-6 w-6 text-[#FFD54F]" />
+          </div>
+          <div className="space-y-1 min-w-0">
+            <h3 className="font-display font-black text-white text-base tracking-wide flex items-center gap-2">
+              {isSpanish ? "ENTRENAMIENTO EN ESPAÑOL" : "ENGLISH SALES TRAINING"}
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-[#FF5722]/15 text-[#FFD54F] border border-[#FF5722]/30 font-hud tracking-widest uppercase animate-pulse">
+                {isSpanish ? "Activo" : "Active"}
+              </span>
+            </h3>
+            <p className="text-xs text-[#94A3B8] leading-relaxed max-w-xl">
+              {isSpanish 
+                ? "Complete su entrenamiento en español. Acceda a diapositivas traducidas, biblioteca de guiones y simulaciones de IA de SeptiVolt."
+                : "Complete your training in Spanish. Access translated slides, script libraries, and real-time AI simulations."}
+            </p>
+          </div>
         </div>
         
-        <button
-          onClick={() => setLanguage(isSpanish ? "en" : "es")}
-          className="rounded-xl border border-[#FF5722]/30 bg-gradient-to-r from-[#FF5722]/10 to-[#FFB300]/10 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-[#FFD54F] hover:bg-[#FF5722]/20 transition-all shrink-0 shadow-[0_0_15px_rgba(255,87,34,0.1)] font-hud"
-        >
-          {isSpanish ? "Training in English" : "Entrenamiento en Español"}
-        </button>
+        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto shrink-0">
+          <button
+            onClick={() => setLanguage(isSpanish ? "en" : "es")}
+            className="w-full sm:w-auto px-6 py-3 rounded-2xl border border-[#FF5722]/30 bg-gradient-to-r from-[#FF5722]/15 to-[#FFB300]/15 text-xs font-black uppercase tracking-widest text-[#FFD54F] hover:from-[#FF5722]/25 hover:to-[#FFB300]/25 hover:border-[#FF5722]/50 transition-all shadow-[0_0_20px_rgba(255,87,34,0.15)] font-hud"
+          >
+            {isSpanish ? "Switch to English Training" : "Ver entrenamiento en español"}
+          </button>
+        </div>
       </div>
 
       {/* ── Curriculum Map Controls Row ── */}
@@ -390,23 +410,6 @@ export function InteractiveCurriculumClient({ moduleCatalog }: { moduleCatalog: 
         )}
         </div>
 
-        {/* Small adjacent Language Toggle */}
-        <div className="flex items-center gap-3 justify-between sm:justify-end shrink-0">
-          <div className="text-right hidden lg:block">
-            <p className="text-[9px] uppercase font-hud tracking-wider text-[#94A3B8]">
-              {isSpanish ? "Preferencia" : "Language Preference"}
-            </p>
-            <p className="text-[10px] text-[#64748B]">
-              {isSpanish ? "Cambiar a inglés" : "Switch to Spanish"}
-            </p>
-          </div>
-          <button
-            onClick={() => setLanguage(isSpanish ? "en" : "es")}
-            className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs font-bold uppercase tracking-wider text-[#FFD54F] transition-colors hover:bg-white/10 font-hud"
-          >
-            {isSpanish ? "Training in English" : "Entrenamiento en Español"}
-          </button>
-        </div>
       </div>
 
       {/* Main Content Area */}

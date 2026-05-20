@@ -1,4 +1,5 @@
 import { DAY_MODULES, MODULES, MODULE_SCENARIOS, ModuleContent, WorkbookPrompt } from "@/lib/modules"
+import { resolveModuleContent } from "@/lib/i18n-resolver"
 
 export type KnowledgeCheckItem = {
   id: string
@@ -25,6 +26,11 @@ export type TrainingModuleView = {
   simulationScenarioIds: string[]
   nextModuleId: string | null
   nextModuleTitle: string | null
+  _meta?: {
+    resolvedLanguage: string
+    isTextFallback: boolean
+    missingFields: string[]
+  }
 }
 
 export type ModuleInstructionalSegment = {
@@ -285,6 +291,7 @@ function toView(module: ModuleContent): TrainingModuleView {
     simulationScenarioIds: MODULE_SCENARIOS[module.id] ?? [],
     nextModuleId: nextModule.nextModuleId,
     nextModuleTitle: nextModule.nextModuleTitle,
+    _meta: (module as any)._meta,
   }
 }
 
@@ -295,8 +302,8 @@ export function getInstructorModuleScript(moduleId: string) {
   return extractSpokenTeachingScript(module, keyConcepts)
 }
 
-export function getTrainingModuleView(moduleId: string) {
-  const module = MODULES[moduleId]
+export function getTrainingModuleView(moduleId: string, language: string = "en") {
+  const module = language === "es" ? resolveModuleContent(moduleId, "es") : MODULES[moduleId]
   return module ? toView(module) : null
 }
 

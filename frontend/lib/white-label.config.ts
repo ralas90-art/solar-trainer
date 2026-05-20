@@ -223,3 +223,30 @@ export function getGoogleSlidesEmbedUrl(moduleId: string, language: string): str
 
     return resolvedUrl;
 }
+
+export function isGoogleSlidesFallback(moduleId: string, language: string): boolean {
+    if (WHITE_LABEL.presentationMode !== "google_slides") return false;
+    if (language !== "es") return false;
+
+    const esUrls = WHITE_LABEL.slideEmbedUrls_es || {};
+    const dayNum = parseInt(moduleId.split("_")[1], 10);
+
+    const isPlaceholder = (url?: string) => {
+        if (!url || url.trim() === "") return true;
+        if (url.startsWith("PASTE_")) return true;
+        return false;
+    };
+
+    let url = esUrls[moduleId as keyof typeof esUrls];
+    if (!isPlaceholder(url)) {
+        return false;
+    }
+    if (Number.isFinite(dayNum)) {
+        url = esUrls[dayNum as keyof typeof esUrls];
+        if (!isPlaceholder(url)) {
+            return false;
+        }
+    }
+    return true; // Spanish requested but not found (so it falls back to English)
+}
+

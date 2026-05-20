@@ -124,7 +124,7 @@ export function AppShell({
           <nav className="p-4 space-y-1">
             {/* ── Core Navigation ── */}
             <Link href="/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
-              <Zap className="h-4 w-4" /> Dashboard
+              <Zap className="h-4 w-4" /> {t("Dashboard", "Panel de Control")}
             </Link>
             <Link href="/my-training" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
               <BookOpen className="h-4 w-4" /> {t("My Training", "Mi Entrenamiento")}
@@ -136,53 +136,53 @@ export function AppShell({
               <Sparkles className="h-4 w-4" /> {t("AI Simulator", "Simulador de IA")}
             </Link>
             <Link href="/certifications" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
-              <Award className="h-4 w-4" /> Certifications
+              <Award className="h-4 w-4" /> {t("Certifications", "Certificaciones")}
             </Link>
 
             {/* ── Account ── */}
             <div className="pt-4 pb-1 px-4">
-              <p className="font-hud text-[10px] uppercase tracking-[0.2em] text-[#64748B]">Account</p>
+              <p className="font-hud text-[10px] uppercase tracking-[0.2em] text-[#64748B]">{t("Account", "Cuenta")}</p>
             </div>
             <Link href="/settings" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
-              <User className="h-4 w-4" /> Profile
+              <User className="h-4 w-4" /> {t("Profile", "Perfil")}
             </Link>
             <Link href="/dashboard/settings" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
-              <Settings className="h-4 w-4" /> Settings
+              <Settings className="h-4 w-4" /> {t("Settings", "Configuración")}
             </Link>
             <FeatureGate allowedRoles={["admin", "manager"]}>
               <Link href="/settings/company" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
-                <Building2 className="h-4 w-4" /> Company Settings
+                <Building2 className="h-4 w-4" /> {t("Company Settings", "Configuración de Empresa")}
               </Link>
             </FeatureGate>
 
             {/* ── Management (tier-gated) ── */}
             <FeatureGate allowedTiers={["growth", "enterprise"]}>
               <div className="pt-4 pb-1 px-4">
-                <p className="font-hud text-[10px] uppercase tracking-[0.2em] text-[#64748B]">Management</p>
+                <p className="font-hud text-[10px] uppercase tracking-[0.2em] text-[#64748B]">{t("Management", "Gestión")}</p>
               </div>
               <Link href="/analytics" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
-                <Search className="h-4 w-4" /> Analytics
+                <Search className="h-4 w-4" /> {t("Analytics", "Analítica")}
               </Link>
               <Link href="/analytics/debriefs" className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-400 hover:text-white ml-3">
-                <History className="h-3.5 w-3.5" /> AI Coaching Reports
+                <History className="h-3.5 w-3.5" /> {t("AI Coaching Reports", "Informes de Coaching de IA")}
               </Link>
             </FeatureGate>
 
             <FeatureGate allowedRoles={["admin", "manager"]} allowedTiers={["growth", "enterprise"]}>
               <Link href="/leaderboards" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white text-[#FFB300]">
-                <Trophy className="h-4 w-4" /> Team Rankings
+                <Trophy className="h-4 w-4" /> {t("Team Rankings", "Clasificación del Equipo")}
               </Link>
             </FeatureGate>
 
             <FeatureGate allowedRoles={["admin", "manager"]} allowedTiers={["growth", "enterprise"]}>
               <Link href="/team-hub" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
-                <Users className="h-4 w-4 text-blue-400" /> Manager Command Center
+                <Users className="h-4 w-4 text-blue-400" /> {t("Manager Command Center", "Centro de Control del Gerente")}
               </Link>
             </FeatureGate>
 
             <FeatureGate allowedRoles={["admin"]}>
               <Link href="/admin" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-red-400 hover:text-white">
-                <ShieldAlert className="h-4 w-4" /> Admin Control Center
+                <ShieldAlert className="h-4 w-4" /> {t("Admin Control Center", "Centro de Control de Admin")}
               </Link>
             </FeatureGate>
           </nav>
@@ -208,7 +208,18 @@ export function AppShell({
                 <p className="mt-1 hidden text-sm text-[#94A3B8] sm:block">{subheading}</p>
               </div>
 
-              <div className="hidden min-w-[280px] flex-1 justify-center lg:flex">
+              {/* 
+                FUTURE TASK NOTE: Real Search Implementation
+                Future search should cover:
+                - modules
+                - scripts
+                - scenarios
+                - skills
+                - language
+                - category
+                Do not render placeholder search in the meantime.
+              */}
+              {/* <div className="hidden min-w-[280px] flex-1 justify-center lg:flex">
                 <label className="flex w-full max-w-md items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-[#94A3B8]">
                   <Search className="h-4 w-4" />
                   <input
@@ -217,7 +228,7 @@ export function AppShell({
                     className="w-full bg-transparent text-sm text-white outline-none placeholder:text-[#64748B]"
                   />
                 </label>
-              </div>
+              </div> */}
 
               <div className="flex items-center gap-2 sm:gap-3">
                 <div className="relative">
@@ -337,7 +348,7 @@ export function AppShell({
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
             >
-              <Zap className="h-5 w-5 text-[#FF5722]" /> Dashboard
+              <Zap className="h-5 w-5 text-[#FF5722]" /> {t("Dashboard", "Panel de Control")}
             </Link>
              <Link 
               href="/my-training" 
@@ -365,26 +376,26 @@ export function AppShell({
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
             >
-              <Award className="h-5 w-5 text-[#FFD54F]" /> Certifications
+              <Award className="h-5 w-5 text-[#FFD54F]" /> {t("Certifications", "Certificaciones")}
             </Link>
 
             <div className="h-px bg-white/5 w-full my-2" />
 
             {/* ── Account (all users) ── */}
-            <p className="px-4 py-1 font-hud text-[10px] uppercase tracking-[0.2em] text-[#64748B]">Account</p>
+            <p className="px-4 py-1 font-hud text-[10px] uppercase tracking-[0.2em] text-[#64748B]">{t("Account", "Cuenta")}</p>
             <Link 
               href="/settings" 
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
             >
-              <User className="h-5 w-5 text-[#94A3B8]" /> Profile
+              <User className="h-5 w-5 text-[#94A3B8]" /> {t("Profile", "Perfil")}
             </Link>
             <Link 
               href="/dashboard/settings" 
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
             >
-              <Settings className="h-5 w-5 text-[#FFD54F]" /> Settings
+              <Settings className="h-5 w-5 text-[#FFD54F]" /> {t("Settings", "Configuración")}
             </Link>
             <FeatureGate allowedRoles={["admin", "manager"]}>
               <Link 
@@ -392,7 +403,7 @@ export function AppShell({
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
               >
-                <Building2 className="h-5 w-5 text-[#FF5722]" /> Company Settings
+                <Building2 className="h-5 w-5 text-[#FF5722]" /> {t("Company Settings", "Configuración de Empresa")}
               </Link>
             </FeatureGate>
 
@@ -400,20 +411,20 @@ export function AppShell({
 
             {/* ── Management (tier-gated) ── */}
             <FeatureGate allowedTiers={["growth", "enterprise"]}>
-              <p className="px-4 py-1 font-hud text-[10px] uppercase tracking-[0.2em] text-[#64748B]">Management</p>
+              <p className="px-4 py-1 font-hud text-[10px] uppercase tracking-[0.2em] text-[#64748B]">{t("Management", "Gestión")}</p>
               <Link 
                 href="/analytics" 
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
               >
-                <Search className="h-5 w-5 text-[#22D3EE]" /> Analytics
+                <Search className="h-5 w-5 text-[#22D3EE]" /> {t("Analytics", "Analítica")}
               </Link>
               <Link 
                 href="/analytics/debriefs" 
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-base font-medium text-slate-400 hover:text-white ml-4"
               >
-                <History className="h-4 w-4 text-indigo-400" /> AI Coaching Reports
+                <History className="h-4 w-4 text-indigo-400" /> {t("AI Coaching Reports", "Informes de Coaching de IA")}
               </Link>
             </FeatureGate>
             <FeatureGate allowedRoles={["admin", "manager"]} allowedTiers={["growth", "enterprise"]}>
@@ -422,7 +433,7 @@ export function AppShell({
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-[#FFB300] hover:text-white"
               >
-                <Trophy className="h-5 w-5" /> Team Rankings
+                <Trophy className="h-5 w-5" /> {t("Team Rankings", "Clasificación del Equipo")}
               </Link>
             </FeatureGate>
             <FeatureGate allowedRoles={["admin", "manager"]} allowedTiers={["growth", "enterprise"]}>
@@ -431,7 +442,7 @@ export function AppShell({
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
               >
-                <Users className="h-5 w-5 text-blue-400" /> Manager Command Center
+                <Users className="h-5 w-5 text-blue-400" /> {t("Manager Command Center", "Centro de Control del Gerente")}
               </Link>
             </FeatureGate>
             <FeatureGate allowedRoles={["admin"]}>
@@ -440,7 +451,7 @@ export function AppShell({
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-red-400 hover:text-white"
               >
-                <ShieldAlert className="h-5 w-5" /> Admin Control Center
+                <ShieldAlert className="h-5 w-5" /> {t("Admin Control Center", "Centro de Control de Admin")}
               </Link>
             </FeatureGate>
           </nav>

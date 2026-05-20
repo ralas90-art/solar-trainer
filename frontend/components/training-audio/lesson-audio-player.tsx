@@ -8,6 +8,7 @@ import { AudioLessonSection, ModuleAudioLesson } from "@/lib/training-audio"
 import { resolveNarrationSource } from "@/lib/narration-service"
 import { AudioLessonProgress, loadAudioProgress, saveAudioProgress } from "@/lib/audio-progress-storage"
 import { cn } from "@/lib/utils"
+import { useLanguage } from "@/hooks/use-language"
 import {
   ChevronUp,
   ChevronDown,
@@ -18,6 +19,7 @@ import {
   ChevronRight,
   Zap,
   SkipForward,
+  AlertTriangle,
 } from "lucide-react"
 
 type SourceMode = "static_asset" | "elevenlabs_generated" | "speech_synthesis"
@@ -64,6 +66,8 @@ export function LessonAudioPlayer({
   className?: string
   autoAdvance?: boolean
 }) {
+  const { language } = useLanguage()
+  const [isLanguageFallback, setIsLanguageFallback] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const generatedUrlRef = useRef<string | null>(null)
   const ttsIntervalRef = useRef<number | null>(null)
@@ -250,9 +254,11 @@ export function LessonAudioPlayer({
       moduleId,
       sectionId: section.id,
       text: section.narrationText,
+      language,
     })
 
     setSourceMode(source.mode)
+    setIsLanguageFallback(!!source.isLanguageFallback)
 
     if (source.src && audioRef.current) {
       audioRef.current.src = source.src
@@ -382,7 +388,7 @@ export function LessonAudioPlayer({
       lesson.sections.find((section) => section.id === stored.activeSectionId) ?? activeSection
     void loadSectionAudio(sectionToLoad, stored.resumeTimeSec || 0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [moduleId])
+  }, [moduleId, language])
 
   useEffect(() => {
     if (audioRef.current) {
@@ -576,6 +582,18 @@ export function LessonAudioPlayer({
         ) : null}
       </div>
 
+      {language === "es" && isLanguageFallback && (
+        <div className="flex items-start gap-2.5 rounded-xl border border-blue-500/20 bg-blue-500/5 p-3.5 text-xs text-slate-300">
+          <AlertTriangle className="h-4 w-4 text-blue-400 shrink-0 mt-0.5" />
+          <div>
+            <p className="font-semibold text-white mb-0.5">Disponible próximamente en español</p>
+            <p className="text-slate-400 leading-relaxed">
+              Audio en español no disponible para esta lección. Reproduciendo audio en inglés por ahora.
+            </p>
+          </div>
+        </div>
+      )}
+
       <NarrationStatusCard
         isPlaying={isPlaying}
         currentSectionTitle={activeSection?.title ?? "Section"}
@@ -673,7 +691,14 @@ export function LessonAudioPlayer({
             {/* Centered Module Title */}
             <div className="hidden sm:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
               <p className="font-display font-bold text-white tracking-wide truncate max-w-xs">{moduleTitle ?? "Lesson Audio"}</p>
-              <p className="text-[10px] text-[#FFD54F] font-hud uppercase tracking-widest">{activeSection?.title ?? "Section"}</p>
+              <div className="flex items-center justify-center gap-1.5 mt-0.5">
+                <p className="text-[10px] text-[#FFD54F] font-hud uppercase tracking-widest">{activeSection?.title ?? "Section"}</p>
+                {language === "es" && isLanguageFallback && (
+                  <span className="rounded-full bg-amber-500/10 border border-amber-500/25 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-amber-400">
+                    Audio en inglés
+                  </span>
+                )}
+              </div>
             </div>
 
             <div className="flex items-center gap-2">
@@ -741,6 +766,18 @@ export function LessonAudioPlayer({
                 </button>
               </div>
             </div>
+
+            {language === "es" && isLanguageFallback && (
+              <div className="mb-4 flex items-start gap-2.5 rounded-xl border border-blue-500/20 bg-blue-500/5 p-3.5 text-xs text-slate-300">
+                <AlertTriangle className="h-4 w-4 text-blue-400 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-white mb-0.5">Disponible próximamente en español</p>
+                  <p className="text-slate-400 leading-relaxed">
+                    Audio en español no disponible para esta lección. Reproduciendo audio en inglés por ahora.
+                  </p>
+                </div>
+              </div>
+            )}
 
             <NarrationStatusCard
               isPlaying={isPlaying}

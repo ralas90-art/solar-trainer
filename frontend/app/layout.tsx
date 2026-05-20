@@ -47,6 +47,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 import { AuthProvider } from '@/context/AuthContext'
+import { LanguageProvider } from '@/context/LanguageContext'
 
 export default function RootLayout({
     children,
@@ -60,7 +61,9 @@ export default function RootLayout({
             </head>
             <body className="font-body antialiased bg-[#09090b] text-white overflow-x-hidden">
                 <AuthProvider>
-                    {children}
+                    <LanguageProvider>
+                        {children}
+                    </LanguageProvider>
                 </AuthProvider>
             </body>
         </html>

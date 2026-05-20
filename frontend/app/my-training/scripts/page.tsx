@@ -31,7 +31,7 @@ interface SalesAsset {
 
 export default function ScriptLibraryPage() {
   const { user } = useAuth()
-  const { isSpanish } = useLanguage()
+  const { language, isSpanish } = useLanguage()
   const t = (en: string, es: string) => (isSpanish ? es : en)
 
   const [assets, setAssets] = useState<SalesAsset[]>([])
@@ -43,6 +43,13 @@ export default function ScriptLibraryPage() {
   const [activeType, setActiveType] = useState<string>("all")
   const [activeLang, setActiveLang] = useState<string>("all")
   const [copiedId, setCopiedId] = useState<number | null>(null)
+
+  // Sync active language filter with global language state
+  useEffect(() => {
+    if (language) {
+      setActiveLang(language)
+    }
+  }, [language])
 
   useEffect(() => {
     if (!user || !user.companyId) return

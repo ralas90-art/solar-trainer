@@ -4,6 +4,9 @@ export type NarrationSource = {
   mode: "static_asset" | "elevenlabs_generated" | "speech_synthesis"
   src?: string
   error?: string
+  isLanguageFallback?: boolean
+  fallbackFrom?: string
+  fallbackTo?: string
 }
 
 export type NarrationRequest = {
@@ -11,12 +14,13 @@ export type NarrationRequest = {
   sectionId: string
   text: string
   voiceId?: string
+  language?: string
 }
 
 const API_URL = getApiUrl()
 
-async function tryStaticAsset(moduleId: string, sectionId: string) {
-  const staticUrl = `/audio/modules/${moduleId}/${sectionId}.mp3`
+async function tryStaticAsset(moduleId: string, assetName: string) {
+  const staticUrl = `/audio/modules/${moduleId}/${assetName}.mp3`
   try {
     const response = await fetch(staticUrl, { method: "HEAD" })
     return response.ok ? staticUrl : null
@@ -47,18 +51,46 @@ async function tryGeneratedNarration(text: string, voiceId?: string) {
 }
 
 export async function resolveNarrationSource(request: NarrationRequest): Promise<NarrationSource> {
-  const staticSrc = await tryStaticAsset(request.moduleId, request.sectionId)
-  if (staticSrc) {
-    return { mode: "static_asset", src: staticSrc }
+  const isEs = request.language === "es"
+
+  // 1. Spanish static audio asset
+  if (isEs) {
+    const spanishStatic = await tryStaticAsset(request.moduleId, `${request.sectionId}_es`)
+    if (spanishStatic) {
+      return {
+        mode: "static_asset",
+        src: spanishStatic,
+        isLanguageFallback: false
+      }
+    }
   }
 
+  // 2. English static audio asset with fallback flag
+  const englishStatic = await tryStaticAsset(request.moduleId, request.sectionId)
+  if (englishStatic) {
+    return {
+      mode: "static_asset",
+      src: englishStatic,
+      isLanguageFallback: isEs,
+      ...(isEs ? { fallbackFrom: "es", fallbackTo: "en" } : {})
+    }
+  }
+
+  // 3. Generated or speech synthesis fallback with fallback flag if language is Spanish
   const generatedSrc = await tryGeneratedNarration(request.text, request.voiceId)
   if (generatedSrc) {
-    return { mode: "elevenlabs_generated", src: generatedSrc }
+    return {
+      mode: "elevenlabs_generated",
+      src: generatedSrc,
+      isLanguageFallback: isEs,
+      ...(isEs ? { fallbackFrom: "es", fallbackTo: "en" } : {})
+    }
   }
 
   return {
     mode: "speech_synthesis",
     error: "Audio asset not available. Using browser speech fallback.",
+    isLanguageFallback: isEs,
+    ...(isEs ? { fallbackFrom: "es", fallbackTo: "en" } : {})
   }
 }

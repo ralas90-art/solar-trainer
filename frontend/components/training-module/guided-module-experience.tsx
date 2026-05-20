@@ -8,13 +8,13 @@ import { LessonAudioPlayer, ModuleCatalogEntry } from "@/components/training-aud
 import { QuizModule } from "@/components/quiz"
 import { WorkbookPromptBlock } from "@/components/workbook-prompt"
 import { AudioLessonProgress, loadAudioProgress } from "@/lib/audio-progress-storage"
-import { TrainingModuleView } from "@/lib/training-module-view"
+import { TrainingModuleView, getTrainingModuleView } from "@/lib/training-module-view"
 import {
   loadTrainingModuleProgress,
   updateTrainingModuleProgress,
 } from "@/lib/training-module-progress"
 import { buildModuleAudioLesson } from "@/lib/training-audio"
-import { SLIDE_START_PAGES, WHITE_LABEL, getGoogleSlidesEmbedUrl } from "@/lib/white-label.config"
+import { SLIDE_START_PAGES, WHITE_LABEL, getGoogleSlidesEmbedUrl, isGoogleSlidesFallback } from "@/lib/white-label.config"
 import { 
   SkipForward, 
   Zap, 
@@ -55,7 +55,7 @@ type WorkbookSummary = {
 }
 
 export function GuidedModuleExperience({
-  moduleView,
+  moduleView: initialModuleView,
   simulationHref,
   moduleCatalog,
   onModuleSelect,
@@ -67,6 +67,11 @@ export function GuidedModuleExperience({
 }) {
   const { user } = useAuth()
   const { language: lang, setLanguage } = useLanguage()
+
+  // Dynamically resolve module view for Spanish based on client state
+  const moduleView = useMemo(() => {
+    return getTrainingModuleView(initialModuleView.id, lang) || initialModuleView
+  }, [initialModuleView, lang])
 
   const [activeAudioSectionId, setActiveAudioSectionId] = useState("")
   const [audioProgress, setAudioProgress] = useState(0)
@@ -99,7 +104,7 @@ export function GuidedModuleExperience({
   // Reset quiz attempt state
   const [quizAttempt, setQuizAttempt] = useState(0)
 
-  const lesson = useMemo(() => buildModuleAudioLesson(moduleView), [moduleView])
+  const lesson = useMemo(() => buildModuleAudioLesson(moduleView, lang), [moduleView, lang])
 
   const quiz = useMemo(
     () => ({
@@ -321,22 +326,9 @@ export function GuidedModuleExperience({
   return (
     <div className="space-y-6 pb-32 sm:pb-36">
       {/* Top Actions Row */}
-      <div className="flex flex-wrap items-center justify-between gap-3 -mb-2">
-        {/* Language Selection Toggle */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setLanguage(lang === "es" ? "en" : "es")}
-            className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-[#FFD54F] transition-colors hover:bg-white/10 font-hud"
-          >
-            {lang === "es" ? "Training in English" : "Entrenamiento en Español"}
-          </button>
-          <span className="text-[10px] text-[#94A3B8] hidden sm:inline">
-            {lang === "es" ? "Cambiar diapositivas y narración a inglés" : "Switch slides and narration to Spanish"}
-          </span>
-        </div>
-
-        {/* Admin control panel button */}
-        {canBypassTrainingLocks(user) && (
+      {canBypassTrainingLocks(user) && (
+        <div className="flex flex-wrap items-center justify-end gap-3 -mb-2">
+          {/* Admin control panel button */}
           <button
             type="button"
             onClick={() => setAdminDrawerOpen(true)}
@@ -345,8 +337,8 @@ export function GuidedModuleExperience({
             <ShieldAlert className="h-4 w-4 animate-pulse text-[#FF5722]" />
             {lang === "es" ? "Panel de Admin / Demo" : "Admin / Demo Panel"}
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
       <TrainingModuleHeader
         title={moduleView.title}
@@ -358,6 +350,25 @@ export function GuidedModuleExperience({
         quizComplete={quizComplete}
         simulationComplete={simulationComplete}
       />
+
+      {moduleView._meta?.isTextFallback && lang === "es" && (
+        <div className="glass-circuit hud-border rounded-[20px] border-amber-500/30 bg-amber-500/5 p-4 flex items-start gap-3 text-xs text-amber-200 shadow-[0_0_15px_rgba(245,158,11,0.05)]">
+          <AlertTriangle className="h-5 w-5 text-[#FFB300] shrink-0 mt-0.5" />
+          <div>
+            <h4 className="font-display font-bold text-white mb-0.5 uppercase tracking-wide">
+              Módulo Parcial en Español (English Fallback)
+            </h4>
+            <p className="text-amber-200/80 leading-relaxed font-sans">
+              Este módulo o algunas de sus secciones no están disponibles actualmente en español. Se muestran en inglés como alternativa de respaldo para evitar bloquear su aprendizaje.
+            </p>
+            {moduleView._meta?.missingFields && moduleView._meta.missingFields.length > 0 && (
+              <span className="block mt-1 font-mono text-[10px] text-amber-300/60 uppercase">
+                Campos no traducidos: {moduleView._meta.missingFields.join(", ")}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Step-by-Step Instructions Panel */}
       <div className="glass-circuit hud-border rounded-[20px] p-4 sm:p-5 relative overflow-hidden transition-all duration-300">
@@ -604,14 +615,27 @@ export function GuidedModuleExperience({
 
           {WHITE_LABEL.presentationMode === "google_slides" && (
             slideUrl ? (
-              <div className="overflow-hidden rounded-2xl border border-white/10">
-                <iframe
-                  src={slideUrl}
-                  title={`${moduleView.title} presentation`}
-                  width="100%"
-                  style={{ aspectRatio: "16/9", border: 0 }}
-                  allowFullScreen
-                />
+              <div className="space-y-3">
+                {lang === "es" && isGoogleSlidesFallback(moduleView.id, lang) && (
+                  <div className="flex items-start gap-2.5 rounded-xl border border-blue-500/20 bg-blue-500/5 p-3 text-xs text-slate-300">
+                    <AlertTriangle className="h-4 w-4 text-blue-400 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-white mb-0.5">Mostrando versión en inglés</p>
+                      <p className="text-slate-400 leading-relaxed font-sans">
+                        Estas diapositivas todavía no están disponibles en español. Mostrando la versión en inglés por ahora.
+                      </p>
+                    </div>
+                  </div>
+                )}
+                <div className="overflow-hidden rounded-2xl border border-white/10">
+                  <iframe
+                    src={slideUrl}
+                    title={`${moduleView.title} presentation`}
+                    width="100%"
+                    style={{ aspectRatio: "16/9", border: 0 }}
+                    allowFullScreen
+                  />
+                </div>
               </div>
             ) : (
               <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#1A1A1A] p-8 flex flex-col items-center justify-center text-center">
