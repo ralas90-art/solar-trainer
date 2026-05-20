@@ -513,9 +513,7 @@ export function AssessmentFunnelClient() {
 
   const renderQuestion = () => {
     const q = QUESTIONS[currentStep]
-    // Show pre-fill banner if user arrived with a type param and is on the
-    // first two questions (which were pre-populated), so they know they can edit.
-    const showPrefillBanner = prefillApplied && currentStep <= 1 && urlType && PLAN_LABEL_MAP[urlType]
+    const showPrefillBanner = prefillApplied && currentStep <= 2 && urlType && PLAN_LABEL_MAP[urlType]
     return (
       <div className="space-y-8">
         {showPrefillBanner && (
