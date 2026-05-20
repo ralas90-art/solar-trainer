@@ -15,3 +15,5 @@ openpyxl
 jinja2
 passlib[bcrypt]
 bcrypt==3.2.2
+cryptography
+
