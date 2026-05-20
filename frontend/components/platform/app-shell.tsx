@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { Bell, BookOpen, History, Search, Sparkles, Trophy, X, Zap, Menu, Settings, Award, User, Users, ShieldAlert } from "lucide-react"
+import { Bell, BookOpen, History, Search, Sparkles, Trophy, X, Zap, Menu, Settings, Award, User, Users, ShieldAlert, Building2 } from "lucide-react"
 import Link from "next/link"
 import { ReactNode, useEffect, useState } from "react"
 import {
@@ -84,6 +84,11 @@ export function AppShell({
             <Link href="/dashboard/settings" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
               <Settings className="h-4 w-4" /> Settings
             </Link>
+            <FeatureGate allowedRoles={["admin", "manager"]}>
+              <Link href="/settings/company" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
+                <Building2 className="h-4 w-4" /> Company Settings
+              </Link>
+            </FeatureGate>
 
             {/* ── Management (tier-gated) ── */}
             <FeatureGate allowedTiers={["growth", "enterprise"]}>
@@ -309,6 +314,15 @@ export function AppShell({
             >
               <Settings className="h-5 w-5 text-[#FFD54F]" /> Settings
             </Link>
+            <FeatureGate allowedRoles={["admin", "manager"]}>
+              <Link 
+                href="/settings/company" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
+              >
+                <Building2 className="h-5 w-5 text-[#FF5722]" /> Company Settings
+              </Link>
+            </FeatureGate>
 
             <div className="h-px bg-white/5 w-full my-2" />
 
