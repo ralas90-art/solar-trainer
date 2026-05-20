@@ -6,6 +6,6 @@ from .user import (
     Team, SimulationSession, Debrief, CoachingFlag,
 )
 from .kpi import KPIDefinition, KPIEntry, KPITemplate, TemplateKPI, KPIAnalytics
-from .company_settings import CompanyProfile, CompanyIntegration, CompanySalesAsset
+from .company_settings import CompanyProfile, CompanyIntegration, CompanySalesAsset, CompanySetupState
 
 

@@ -90,3 +90,19 @@ class CompanySalesAsset(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
+
+class CompanySetupState(SQLModel, table=True):
+    """
+    Enterprise Company Setup State.
+    Stores the setup wizard step and manual checklist overrides.
+    """
+    id: Optional[int] = Field(default=None, primary_key=True)
+    company_id: str = Field(index=True, unique=True, foreign_key="company.id")
+    setup_completed: bool = Field(default=False)
+    setup_dismissed: bool = Field(default=False)
+    current_step: int = Field(default=1)
+    checklist_json: str = Field(default="{}")           # JSON string mapping checklist item -> completed boolean
+    readiness_score: int = Field(default=0)
+    last_updated_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+

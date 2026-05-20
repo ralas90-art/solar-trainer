@@ -10,7 +10,7 @@ import { buildScenarioProgressMap, getCompletedCount } from "@/lib/simulation-pr
 import {
   Users, Zap, Award, BarChart3, AlertTriangle,
   MessageSquare, Target, TrendingUp, Clock,
-  ChevronRight, CheckCircle, History
+  ChevronRight, CheckCircle, History, Plus, Trash2, Edit, Save, ShieldCheck
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import Link from "next/link"
@@ -120,10 +120,186 @@ export default function ManagerCommandCenterPage() {
   const [roster, setRoster] = useState(TEAM_ROSTER)
   const [isDemo, setIsDemo] = useState(false)
 
+  // Teams & Organization states
+  const [teams, setTeams] = useState<any[]>([])
+  const [loadingTeams, setLoadingTeams] = useState(false)
+  const [newTeamName, setNewTeamName] = useState("")
+  const [editingTeamId, setEditingTeamId] = useState<string | null>(null)
+  const [editingTeamName, setEditingTeamName] = useState("")
+
   // Expandable flags states
   const [expandedRepId, setExpandedRepId] = useState<string | null>(null)
   const [repNotes, setRepNotes] = useState<Record<string, string>>({})
   const [savedReps, setSavedReps] = useState<Record<string, boolean>>({})
+
+  const fetchTeams = (activeDemo: boolean) => {
+    if (!user || user.companyId === "demo" || activeDemo) {
+      // Mock teams for Demo Mode
+      setTeams([
+        {
+          id: "demo_team_1",
+          name: "Residential Sales",
+          company_id: "cresca_test",
+          manager_id: null,
+          stats: { rep_count: 3, started_count: 3, completed_count: 3, sims_count: 12 }
+        },
+        {
+          id: "demo_team_2",
+          name: "Commercial Closers",
+          company_id: "cresca_test",
+          manager_id: null,
+          stats: { rep_count: 2, started_count: 1, completed_count: 0, sims_count: 2 }
+        }
+      ])
+      return
+    }
+
+    setLoadingTeams(true)
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL || ""}/api/v1/companies/${encodeURIComponent(user.companyId)}/teams`,
+      { credentials: "include", headers: { "X-User-Id": user.username } }
+    )
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data) => {
+        setTeams(data)
+      })
+      .catch((err) => {
+        console.error("Failed to load teams:", err)
+      })
+      .finally(() => {
+        setLoadingTeams(false)
+      })
+  }
+
+  const handleCreateTeam = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!newTeamName.trim()) return
+
+    const activeDemo = isDemo || isDemoModeActive()
+    if (activeDemo) {
+      const mockNewTeam = {
+        id: `mock_team_${Date.now()}`,
+        name: newTeamName,
+        company_id: user?.companyId || "cresca_test",
+        manager_id: null,
+        stats: { rep_count: 0, started_count: 0, completed_count: 0, sims_count: 0 }
+      }
+      setTeams(prev => [...prev, mockNewTeam])
+      setNewTeamName("")
+      return
+    }
+
+    try {
+      const companyId = user?.companyId || "cresca_test"
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || ""}/api/v1/companies/${encodeURIComponent(companyId)}/teams`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-User-Id": user?.username || ""
+          },
+          body: JSON.stringify({ name: newTeamName })
+        }
+      )
+      if (!res.ok) throw new Error("Failed to create team")
+      setNewTeamName("")
+      fetchTeams(false)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleRenameTeam = async (teamId: string) => {
+    if (!editingTeamName.trim()) return
+
+    const activeDemo = isDemo || isDemoModeActive()
+    if (activeDemo) {
+      setTeams(prev => prev.map(t => t.id === teamId ? { ...t, name: editingTeamName } : t))
+      setEditingTeamId(null)
+      setEditingTeamName("")
+      return
+    }
+
+    try {
+      const companyId = user?.companyId || "cresca_test"
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || ""}/api/v1/companies/${encodeURIComponent(companyId)}/teams/${teamId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-User-Id": user?.username || ""
+          },
+          body: JSON.stringify({ name: editingTeamName })
+        }
+      )
+      if (!res.ok) throw new Error("Failed to rename team")
+      setEditingTeamId(null)
+      setEditingTeamName("")
+      fetchTeams(false)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleDeleteTeam = async (teamId: string) => {
+    if (!confirm(t("Are you sure you want to delete this team?", "¿Está seguro de que desea eliminar este equipo?"))) return
+
+    const activeDemo = isDemo || isDemoModeActive()
+    if (activeDemo) {
+      setTeams(prev => prev.filter(t => t.id !== teamId))
+      return
+    }
+
+    try {
+      const companyId = user?.companyId || "cresca_test"
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || ""}/api/v1/companies/${encodeURIComponent(companyId)}/teams/${teamId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "X-User-Id": user?.username || ""
+          }
+        }
+      )
+      if (!res.ok) throw new Error("Failed to delete team")
+      fetchTeams(false)
+      // Reload roster since users in deleted team are now unassigned
+      window.location.reload()
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleAssignTeam = async (username: string, teamId: string) => {
+    const activeDemo = isDemo || isDemoModeActive()
+    if (activeDemo) {
+      // In demo mode, update local roster state
+      setRoster(prev => prev.map(r => r.name === username ? { ...r, team_id: teamId } as any : r))
+      alert(t(`Assigned ${username} to team successfully (Demo Mode)`, `Representante ${username} asignado al equipo con éxito (Modo Demo)`))
+      return
+    }
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || ""}/api/v1/user/${encodeURIComponent(username)}/team`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-User-Id": user?.username || ""
+          },
+          body: JSON.stringify({ team_id: teamId })
+        }
+      )
+      if (!res.ok) throw new Error("Failed to assign team")
+      fetchTeams(false)
+      window.location.reload()
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   // Load saved notes from localStorage
   useEffect(() => {
@@ -172,6 +348,7 @@ export default function ManagerCommandCenterPage() {
   useEffect(() => {
     const activeDemo = isDemoModeActive()
     setIsDemo(activeDemo)
+    fetchTeams(activeDemo)
     const debriefs = loadDebriefs(user?.username)
     debriefs.then((records) => setRecentDebriefs(records.slice(0, 3))).catch(() => {})
     const map = buildScenarioProgressMap({})
@@ -198,6 +375,7 @@ export default function ManagerCommandCenterPage() {
               lastScore: m.last_score ?? 0,
               active: m.active ?? true,
               needsAttention: m.needs_attention ?? false,
+              team_id: m.team_id ?? null,
             }))
             setRoster(mapped)
             // Pre-load coaching notes from API response
@@ -289,20 +467,21 @@ export default function ManagerCommandCenterPage() {
                   <thead>
                     <tr className="border-b border-white/5 text-[10px] font-hud uppercase tracking-wider text-[#64748B]">
                       <th className="px-5 py-3 text-left">Rep</th>
+                      <th className="px-5 py-3 text-left">Team Assignment</th>
                       <th className="px-5 py-3 text-left">Day Progress</th>
                       <th className="px-5 py-3 text-left">Last Score</th>
                       <th className="px-5 py-3 text-left">Status</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5">
-                    {roster.map((rep) => {
+                    {roster.map((rep: any) => {
                       const pct = Math.round((rep.dayProgress / rep.totalDays) * 100)
                       return (
                         <tr key={rep.id} className="hover:bg-white/[0.03] transition-colors">
                           <td className="px-5 py-3.5">
                             <div className="flex items-center gap-3">
                               <div className="h-8 w-8 rounded-full bg-gradient-to-br from-[#FF5722] to-[#FFB300] flex items-center justify-center text-[10px] font-black text-white shrink-0">
-                                {rep.name.split(" ").map(n => n[0]).join("")}
+                                {rep.name.split(" ").map((n: string) => n[0]).join("")}
                               </div>
                               <div>
                                 <p className="font-semibold text-white text-sm">{rep.name}</p>
@@ -310,6 +489,20 @@ export default function ManagerCommandCenterPage() {
                               </div>
                               {rep.needsAttention && <AlertTriangle className="h-3.5 w-3.5 text-red-400 ml-1 shrink-0" />}
                             </div>
+                          </td>
+                          <td className="px-5 py-3.5">
+                            <select
+                              value={rep.team_id || ""}
+                              onChange={(e) => handleAssignTeam(rep.name, e.target.value)}
+                              className="bg-[#121212] text-xs text-[#CBD5E1] border border-white/10 rounded-xl px-3 py-1.5 outline-none focus:border-[#FF5722]/50 cursor-pointer"
+                            >
+                              <option value="" className="text-slate-400">-- {t("Unassigned", "Sin Asignar")} --</option>
+                              {teams.map((t) => (
+                                <option key={t.id} value={t.id} className="text-white">
+                                  {t.name}
+                                </option>
+                              ))}
+                            </select>
                           </td>
                           <td className="px-5 py-3.5">
                             <div className="flex items-center gap-2">
@@ -336,6 +529,131 @@ export default function ManagerCommandCenterPage() {
                   </tbody>
                 </table>
               </div>
+            </div>
+
+            {/* Teams & Organization */}
+            <div className="rounded-2xl border border-white/5 bg-[#1A1A1A] p-5 space-y-6">
+              <div className="flex items-center justify-between border-b border-white/5 pb-4">
+                <div>
+                  <h3 className="font-display font-black text-base text-white flex items-center gap-2">
+                    <Users className="h-4 w-4 text-[#FFB300]" /> {t("Teams & Organization", "Equipos y Organización")}
+                  </h3>
+                  <p className="text-[10px] text-[#94A3B8] mt-0.5">
+                    {teams.length} {teams.length === 1 ? t("team configured", "equipo configurado") : t("teams configured", "equipos configurados")}
+                  </p>
+                </div>
+              </div>
+
+              {/* Create Team Form */}
+              <form onSubmit={handleCreateTeam} className="flex gap-2">
+                <input
+                  type="text"
+                  required
+                  value={newTeamName}
+                  onChange={(e) => setNewTeamName(e.target.value)}
+                  placeholder={t("Enter new team name...", "Nombre del nuevo equipo...")}
+                  className="flex-1 rounded-xl border border-white/10 bg-[#121212] px-4 py-2 text-xs text-white outline-none focus:border-[#FF5722]/50 placeholder:text-[#64748B]"
+                />
+                <button
+                  type="submit"
+                  className="btn-primary px-4 py-2 text-xs font-bold font-hud uppercase tracking-wider flex items-center gap-1.5 shrink-0 rounded-xl"
+                >
+                  <Plus className="h-3.5 w-3.5" />
+                  {t("Create", "Crear")}
+                </button>
+              </form>
+
+              {/* Team list */}
+              {loadingTeams ? (
+                <p className="text-xs text-slate-400 animate-pulse">{t("Loading teams...", "Cargando equipos...")}</p>
+              ) : teams.length === 0 ? (
+                <div className="text-center py-6 border border-dashed border-white/10 rounded-xl">
+                  <Users className="h-8 w-8 text-[#64748B] mx-auto mb-2" />
+                  <p className="text-xs text-[#64748B]">{t("No teams defined yet.", "No hay equipos definidos aún.")}</p>
+                </div>
+              ) : (
+                <div className="grid gap-3">
+                  {teams.map((team) => {
+                    const stats = team.stats || { rep_count: 0, started_count: 0, completed_count: 0, sims_count: 0 }
+                    // Readiness criteria: if all reps in the team have completed training (at least 3 sims completed per rep)
+                    // If rep_count > 0 and completed_count == rep_count: Team is "Setup Complete"
+                    const isTeamReady = stats.rep_count > 0 && stats.completed_count >= stats.rep_count
+
+                    return (
+                      <div
+                        key={team.id}
+                        className="rounded-xl border border-white/5 bg-[#121212] p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-white/10 transition-colors"
+                      >
+                        <div className="space-y-2 flex-1">
+                          {editingTeamId === team.id ? (
+                            <div className="flex gap-2 items-center">
+                              <input
+                                type="text"
+                                value={editingTeamName}
+                                onChange={(e) => setEditingTeamName(e.target.value)}
+                                className="rounded-lg border border-white/10 bg-[#1A1A1A] px-2 py-1 text-xs text-white outline-none focus:border-[#FF5722]/50"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => handleRenameTeam(team.id)}
+                                className="text-green-400 hover:text-green-300 p-1"
+                              >
+                                <Save className="h-4 w-4" />
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="flex items-center gap-2">
+                              <h4 className="font-bold text-sm text-white">{team.name}</h4>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setEditingTeamId(team.id)
+                                  setEditingTeamName(team.name)
+                                }}
+                                className="text-slate-400 hover:text-white p-1 transition-colors"
+                              >
+                                <Edit className="h-3 w-3" />
+                              </button>
+                            </div>
+                          )}
+
+                          <div className="flex flex-wrap gap-2 items-center">
+                            {/* Readiness Badge */}
+                            {isTeamReady ? (
+                              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-green-500/10 text-green-400 border border-green-500/20">
+                                <ShieldCheck className="h-3 w-3" />
+                                {t("Setup Complete", "Instalación Completa")}
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">
+                                <AlertTriangle className="h-3 w-3" />
+                                {t("Pending setup", "Pendiente")}
+                              </span>
+                            )}
+
+                            {/* Rep count indicator */}
+                            <span className="text-[11px] text-[#94A3B8]">
+                              {stats.rep_count} {stats.rep_count === 1 ? t("rep", "rep") : t("reps", "reps")}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Action buttons */}
+                        <div className="flex items-center gap-2 shrink-0 self-end md:self-center">
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteTeam(team.id)}
+                            className="p-2 rounded-xl bg-red-500/5 hover:bg-red-500/10 border border-red-500/10 hover:border-red-500/20 text-red-400 hover:text-red-300 transition-all"
+                            title={t("Delete team", "Eliminar equipo")}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
             </div>
 
             {/* Focus Flags */}

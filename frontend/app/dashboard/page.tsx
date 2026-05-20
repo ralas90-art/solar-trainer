@@ -95,7 +95,74 @@ export default function DashboardPage() {
     settings: false,
   })
 
+  // Enterprise launch checklist states
+  const [readiness, setReadiness] = useState<any | null>(null)
+  const [isAdminDismissed, setIsAdminDismissed] = useState(false)
+  const [loadingReadiness, setLoadingReadiness] = useState(false)
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false)
+
   const t = (en: string, es: string) => isSpanish ? es : en
+
+  const isAdmin = user?.role === "admin"
+  const isManager = user?.role === "manager"
+  const hasAdminAccess = isAdmin || isManager
+
+  // Load admin checklist dismiss state on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const dismissed = localStorage.getItem("septivolt_admin_launch_dismissed") === "true"
+      setIsAdminDismissed(dismissed)
+    }
+  }, [])
+
+  // Fetch company launch readiness
+  useEffect(() => {
+    if (!user || (user.role !== "admin" && user.role !== "manager")) return
+    
+    async function fetchReadiness() {
+      if (!user) return
+      try {
+        setLoadingReadiness(true)
+        const companyId = user.companyId || "cresca_test"
+        const data = await api.get<any>(`/api/v1/companies/${companyId}/readiness`, {
+          headers: { "X-User-Id": user.username }
+        })
+        setReadiness(data)
+      } catch (err) {
+        console.error("Failed to fetch launch readiness score:", err)
+      } finally {
+        setLoadingReadiness(false)
+      }
+    }
+    
+    fetchReadiness()
+  }, [user])
+
+  // Open Welcome Modal if setup is not completed and welcome modal not dismissed
+  useEffect(() => {
+    if (hasAdminAccess && readiness && readiness.setup_completed === false && readiness.setup_dismissed === false) {
+      const localDismissed = localStorage.getItem(`welcome_dismissed_${user?.companyId}`) === "true"
+      if (!localDismissed) {
+        setShowWelcomeModal(true)
+      }
+    }
+  }, [readiness, hasAdminAccess, user?.companyId])
+
+  const handleDismissWelcomeModal = async () => {
+    setShowWelcomeModal(false)
+    try {
+      localStorage.setItem(`welcome_dismissed_${user?.companyId}`, "true")
+      const companyId = user?.companyId || "cresca_test"
+      await api.post(`/api/v1/companies/${companyId}/setup`, {
+        setup_dismissed: true
+      }, {
+        headers: { "X-User-Id": user?.username || "" }
+      })
+      setReadiness((prev: any) => prev ? { ...prev, setup_dismissed: true } : null)
+    } catch (e) {
+      console.error("Failed to dismiss welcome modal:", e)
+    }
+  }
 
   useEffect(() => {
     const username = user?.username
@@ -251,7 +318,187 @@ export default function DashboardPage() {
       subheading="A daily operating view for training momentum, AI performance, and immediate coaching priorities."
     >
       <div className="space-y-6">
-        {isDismissed && progressPercent < 100 && (
+        {/* Company Launch Checklist (Admins & Managers Only) */}
+        {hasAdminAccess && !isAdminDismissed && readiness && (
+          <WidgetCard className="bg-[linear-gradient(135deg,rgba(18,18,18,0.95),rgba(255,87,34,0.05)_50%,rgba(18,18,18,0.95))] border border-[#FF5722]/15 shadow-2xl relative">
+            <div className="absolute top-4 right-4 z-10">
+              <button
+                onClick={() => {
+                  setIsAdminDismissed(true)
+                  try {
+                    localStorage.setItem("septivolt_admin_launch_dismissed", "true")
+                  } catch (e) {}
+                }}
+                className="rounded-full p-1.5 hover:bg-white/5 text-[#94A3B8] hover:text-white transition-colors"
+                title={t("Dismiss Checklist", "Descartar Lista")}
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-4 border-b border-white/5">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#FF5722]/30 bg-[#FF5722]/10 px-2.5 py-0.5 font-hud text-[10px] uppercase tracking-widest text-[#FFB300]">
+                    <Sparkles className="h-3 w-3 text-[#FF5722]" />
+                    {t("COMPANY LAUNCH CHECKLIST", "LISTA DE LANZAMIENTO")}
+                  </span>
+                  {readiness.score === 100 && (
+                    <span className="inline-flex items-center gap-1 rounded-full border border-green-500/30 bg-green-500/10 px-2.5 py-0.5 font-hud text-[10px] uppercase tracking-widest text-green-400 font-bold animate-pulse">
+                      <ShieldCheck className="h-3 w-3" />
+                      {t("LAUNCH READY", "LISTO PARA EL LANZAMIENTO")}
+                    </span>
+                  )}
+                </div>
+                <h2 className="font-display text-2xl font-black text-white tracking-tight">
+                  {t("Enterprise Onboarding & Launch Plan", "Plan de Configuración y Lanzamiento")}
+                </h2>
+                <p className="text-sm text-[#94A3B8] max-w-2xl">
+                  {t(
+                    "Customize your company settings, establish API/webhook pipelines, and build your team. Achieve 100% readiness to go live.",
+                    "Personalice la configuración, establezca conexiones de API y cree su equipo. Obtenga 100% de preparación para comenzar."
+                  )}
+                </p>
+              </div>
+
+              <div className="flex flex-col items-start md:items-end justify-center min-w-[160px]">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="font-display text-3xl font-black text-white">{readiness.score}%</span>
+                  <span className="text-sm text-[#64748B]">{t("Ready", "Preparado")}</span>
+                </div>
+                <div className="mt-2 w-full h-1.5 overflow-hidden rounded-full bg-white/5 min-w-[160px]">
+                  <div 
+                    className="h-full bg-gradient-to-r from-[#FF5722] to-[#FFB300] transition-all duration-500 ease-out" 
+                    style={{ width: `${readiness.score}%` }} 
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                {
+                  key: "profile" as const,
+                  titleEn: "Intelligence Profile",
+                  titleEs: "Perfil de Inteligencia",
+                  descEn: "Define brand overview, tone, products, and objections.",
+                  descEs: "Defina el resumen de la marca, tono, productos y objeciones.",
+                  link: "/settings/company?tab=setup&step=1"
+                },
+                {
+                  key: "integration" as const,
+                  titleEn: "CRM Integrations",
+                  titleEs: "Integraciones CRM",
+                  descEn: "Connect GHL or custom webhooks for metric syncs.",
+                  descEs: "Conecte GHL o webhooks para sincronizar métricas.",
+                  link: "/settings/company?tab=setup&step=4"
+                },
+                {
+                  key: "roster" as const,
+                  titleEn: "Team Roster",
+                  titleEs: "Personal del Equipo",
+                  descEn: "Register managers and sales reps to the platform.",
+                  descEs: "Registre gerentes y representantes en la plataforma.",
+                  link: "/settings/company?tab=setup&step=6"
+                },
+                {
+                  key: "assets" as const,
+                  titleEn: "Sales Assets",
+                  titleEs: "Recursos de Venta",
+                  descEn: "Publish approved script templates for rep coaching.",
+                  descEs: "Publique guiones aprobados para representantes.",
+                  link: "/settings/company?tab=setup&step=5"
+                }
+              ].map((item, idx) => {
+                const cp = readiness.checkpoints[item.key]
+                const isCompleted = cp?.completed
+
+                return (
+                  <div 
+                    key={item.key}
+                    className={cn(
+                      "group relative rounded-2xl border p-4 transition-all duration-200 flex flex-col justify-between min-h-[140px] text-left",
+                      isCompleted 
+                        ? "border-green-500/20 bg-green-500/[0.02] hover:bg-green-500/[0.04]" 
+                        : "border-white/5 bg-white/5 hover:border-white/10 hover:bg-white/[0.08]"
+                    )}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-1.5">
+                        {isCompleted ? (
+                          <CheckCircle2 className="h-5 w-5 text-green-400 shrink-0" />
+                        ) : (
+                          <Circle className="h-5 w-5 text-white/20 shrink-0" />
+                        )}
+                        <span className="font-hud text-[10px] text-[#64748B] uppercase tracking-wider font-bold">
+                          {t("Task", "Tarea")} {idx + 1}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="mt-3 space-y-1 flex-1">
+                      <Link href={item.link} className="block group/link">
+                        <h4 className={cn(
+                          "font-display text-sm font-bold leading-tight group-hover/link:text-[#FFB300] transition-colors flex items-center gap-1",
+                          isCompleted ? "text-white/60 line-through decoration-white/20" : "text-white"
+                        )}>
+                          {t(item.titleEn, item.titleEs)}
+                          <ArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-all shrink-0 translate-x-[-4px] group-hover:translate-x-0" />
+                        </h4>
+                      </Link>
+                      <p className="text-xs text-[#64748B] leading-snug">
+                        {t(item.descEn, item.descEs)}
+                      </p>
+                      {cp?.details && (
+                        <p className="text-[10px] text-[#475569] font-mono leading-none mt-1">{cp.details}</p>
+                      )}
+                    </div>
+
+                    <div className="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between text-[10px] font-hud tracking-wider">
+                      <span className={cn(isCompleted ? "text-green-400" : "text-yellow-500")}>
+                        {isCompleted ? t("COMPLETE", "COMPLETADO") : t("PENDING", "PENDIENTE")}
+                      </span>
+                      <Link href={item.link} className="text-[#94A3B8] hover:text-white transition-colors uppercase font-bold">
+                        {t("Go", "Ir")}
+                      </Link>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+            
+            {/* Launch Setup Wizard Button */}
+            <div className="mt-4 pt-4 border-t border-white/5 flex justify-end">
+              <Link
+                href="/settings/company?tab=setup"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#FF5722] hover:bg-[#FF5722]/90 px-4 py-2.5 text-xs font-bold text-white transition-colors shadow-lg shadow-[#FF5722]/20"
+              >
+                <Sparkles className="h-4 w-4 text-[#FFB300]" />
+                {t("Launch Guided Setup Wizard", "Iniciar Asistente de Configuración")}
+                <ArrowRight className="h-3 w-3" />
+              </Link>
+            </div>
+          </WidgetCard>
+        )}
+
+        {/* Restore Admin Launch Checklist Trigger */}
+        {hasAdminAccess && isAdminDismissed && readiness && (
+          <div className="flex justify-end -mb-2">
+            <button 
+              onClick={() => {
+                setIsAdminDismissed(false);
+                try { localStorage.removeItem("septivolt_admin_launch_dismissed"); } catch(e) {}
+              }}
+              className="text-[11px] font-hud uppercase tracking-wider text-[#94A3B8] hover:text-white flex items-center gap-1.5 transition-all bg-white/5 border border-white/5 px-3 py-1.5 rounded-full hover:border-[#FF5722]/30 hover:bg-[#FF5722]/10"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-[#FFB300]" />
+              {t("Show Launch Checklist", "Mostrar Lista de Lanzamiento")} ({readiness.score}%)
+            </button>
+          </div>
+        )}
+
+        {/* Rep Onboarding Checklist */}
+        {!hasAdminAccess && isDismissed && progressPercent < 100 && (
           <div className="flex justify-end -mb-2">
             <button 
               onClick={() => {
@@ -266,7 +513,7 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {!isDismissed && (
+        {!hasAdminAccess && !isDismissed && (
           <WidgetCard className="bg-[linear-gradient(135deg,rgba(18,18,18,0.95),rgba(255,87,34,0.05)_50%,rgba(18,18,18,0.95))] border border-white/5 shadow-2xl relative">
             <div className="absolute top-4 right-4 z-10">
               <button

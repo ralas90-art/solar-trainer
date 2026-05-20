@@ -9,11 +9,12 @@ import {
   Building2, Sparkles, Link as LinkIcon, CheckCircle, AlertCircle,
   ShieldAlert, Key, Save, RefreshCw, Lock, SlidersHorizontal,
   Eye, Cpu, Layers, Globe, FileText, Check, AlertTriangle,
-  Phone, Video, Trash2, Plus, Edit3, BookOpen, ChevronDown, ChevronUp, Copy
+  Phone, Video, Trash2, Plus, Edit3, BookOpen, ChevronDown, ChevronUp, Copy,
+  Users, ArrowRight, ChevronLeft
 } from "lucide-react"
 import { useState, useEffect } from "react"
 
-type TabType = "profile" | "integrations" | "assets"
+type TabType = "setup" | "profile" | "integrations" | "assets"
 
 interface ProfileData {
   company_id: string
@@ -26,6 +27,38 @@ interface ProfileData {
   brand_voice?: string[]
   objections_handled?: string
   completeness_score: number
+}
+
+interface ReadinessCheckpoint {
+  completed: boolean
+  score: number
+  details: string
+}
+
+interface ReadinessData {
+  company_id: string
+  readiness_score: number
+  setup_completed: boolean
+  setup_dismissed: boolean
+  current_step: number
+  checkpoints: {
+    profile: ReadinessCheckpoint
+    integration: ReadinessCheckpoint
+    roster: ReadinessCheckpoint
+    assets: ReadinessCheckpoint
+  }
+  checklist_manual_overrides: Record<string, boolean>
+  last_calculated_at?: string
+}
+
+interface SetupState {
+  company_id: string
+  current_step: number
+  setup_completed: boolean
+  setup_dismissed: boolean
+  checklist_manual_overrides: Record<string, boolean>
+  readiness_score: number
+  last_updated_at?: string
 }
 
 interface IntegrationData {
@@ -55,7 +88,7 @@ interface CompanySalesAsset {
 export default function CompanySettingsPage() {
   const { user } = useAuth()
   const { isSpanish } = useLanguage()
-  const [activeTab, setActiveTab] = useState<TabType>("profile")
+  const [activeTab, setActiveTab] = useState<TabType>("setup")
   const [copiedAssetId, setCopiedAssetId] = useState<number | null>(null)
 
   const copyToClipboard = (text: string, id: number) => {
@@ -120,6 +153,27 @@ export default function CompanySettingsPage() {
   const [isGenerating, setIsGenerating] = useState(false)
   const [showAssetModal, setShowAssetModal] = useState(false)
   
+  // Setup Wizard States
+  const [wizardStep, setWizardStep] = useState<number>(1)
+  const [readiness, setReadiness] = useState<ReadinessData | null>(null)
+  const [setupState, setSetupState] = useState<SetupState | null>(null)
+  const [loadingReadiness, setLoadingReadiness] = useState(false)
+  const [updatingSetup, setUpdatingSetup] = useState(false)
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false)
+  
+  // Step 6: Member Creation States
+  const [newMemberUsername, setNewMemberUsername] = useState("")
+  const [newMemberEmail, setNewMemberEmail] = useState("")
+  const [newMemberRole, setNewMemberRole] = useState("sales_rep")
+  const [newMemberLang, setNewMemberLang] = useState("en")
+  const [createdMemberTempCreds, setCreatedMemberTempCreds] = useState<{ username: string; temp_password: string } | null>(null)
+  const [creatingMember, setCreatingMember] = useState(false)
+
+  // Step 5: Asset Generation States
+  const [generatingAssets, setGeneratingAssets] = useState(false)
+  const [duplicateAssetsWarning, setDuplicateAssetsWarning] = useState(false)
+  const [existingAssetsList, setExistingAssetsList] = useState<CompanySalesAsset[]>([])
+  
   // Form states for manual asset creation / edit / generation
   const [assetTitle, setAssetTitle] = useState("")
   const [assetType, setAssetType] = useState("door_knock")
@@ -136,10 +190,10 @@ export default function CompanySettingsPage() {
   const hasAccess = user !== null
   const companyId = user?.companyId || "cresca_test"
 
-  // If user is sales rep, default tab is assets
+  // Redirect sales reps away from /settings/company to their scripts library
   useEffect(() => {
     if (user && user.role === "sales_rep") {
-      setActiveTab("assets")
+      window.location.href = "/my-training/scripts"
     }
   }, [user])
 
@@ -161,6 +215,60 @@ export default function CompanySettingsPage() {
       setLoadingAssets(false)
     }
   }
+
+  const fetchReadinessAndSetup = async () => {
+    if (!hasAdminAccess) return
+    try {
+      setLoadingReadiness(true)
+      const readinessData = await api.get<ReadinessData>(`/api/v1/companies/${companyId}/readiness`, {
+        headers: { "X-User-Id": user?.username || "" }
+      })
+      setReadiness(readinessData)
+
+      const setupData = await api.get<SetupState>(`/api/v1/companies/${companyId}/setup`, {
+        headers: { "X-User-Id": user?.username || "" }
+      })
+      setSetupState(setupData)
+      
+      const params = new URLSearchParams(window.location.search)
+      if (!params.has("step")) {
+        setWizardStep(setupData.current_step || 1)
+      }
+
+      if (!setupData.setup_completed && !localStorage.getItem(`dismissed_welcome_${companyId}`)) {
+        setShowWelcomeModal(true)
+      }
+    } catch (err: any) {
+      console.error("Error fetching readiness & setup state:", err)
+    } finally {
+      setLoadingReadiness(false)
+    }
+  }
+
+  // Parse URL parameters for deep-linking
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search)
+      const tabParam = params.get("tab")
+      const stepParam = params.get("step")
+      if (tabParam === "setup" || tabParam === "profile" || tabParam === "integrations" || tabParam === "assets") {
+        setActiveTab(tabParam as TabType)
+      }
+      if (stepParam) {
+        const stepNum = parseInt(stepParam, 10)
+        if (stepNum >= 1 && stepNum <= 7) {
+          setWizardStep(stepNum)
+        }
+      }
+    }
+  }, [])
+
+  // Fetch readiness and setup state on mount & companyId changes
+  useEffect(() => {
+    if (user && hasAdminAccess) {
+      fetchReadinessAndSetup()
+    }
+  }, [user, companyId, hasAdminAccess])
 
   // Fetch initial profile & integrations data (only for admin/manager)
   useEffect(() => {
@@ -361,10 +469,303 @@ export default function CompanySettingsPage() {
     setTestResult(null)
   }
 
+  // Setup Wizard Handlers
+  const handleWizardStepChange = async (nextStep: number) => {
+    try {
+      setUpdatingSetup(true)
+      await api.post(`/api/v1/companies/${companyId}/setup`, {
+        current_step: nextStep
+      }, {
+        headers: { "X-User-Id": user?.username || "" }
+      })
+      setWizardStep(nextStep)
+      if (setupState) {
+        setSetupState({
+          ...setupState,
+          current_step: nextStep
+        })
+      }
+      if (typeof window !== "undefined") {
+        const url = new URL(window.location.href)
+        url.searchParams.set("tab", "setup")
+        url.searchParams.set("step", nextStep.toString())
+        window.history.pushState({}, "", url.pathname + url.search)
+      }
+      await fetchReadinessAndSetup()
+    } catch (err) {
+      console.error("Failed to update step:", err)
+    } finally {
+      setUpdatingSetup(false)
+    }
+  }
+
+  const handleToggleOverride = async (checkpoint: string, currentVal: boolean) => {
+    try {
+      setUpdatingSetup(true)
+      const currentOverrides = readiness?.checklist_manual_overrides || {}
+      const updatedOverrides = {
+        ...currentOverrides,
+        [checkpoint]: !currentVal
+      }
+      
+      await api.post(`/api/v1/companies/${companyId}/setup`, {
+        checklist_manual_overrides: updatedOverrides
+      }, {
+        headers: { "X-User-Id": user?.username || "" }
+      })
+      await fetchReadinessAndSetup()
+    } catch (err: any) {
+      console.error("Failed to toggle override:", err)
+    } finally {
+      setUpdatingSetup(false)
+    }
+  }
+
+  const handleStep1Save = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!hasAdminAccess) return
+    try {
+      setSavingProfile(true)
+      setAlert(null)
+      const payload = {
+        company_overview: profile.company_overview,
+        website_url: profile.website_url
+      }
+      const updated = await api.put<ProfileData>(`/api/v1/companies/${companyId}/profile`, payload, {
+        headers: { "X-User-Id": user?.username || "" }
+      })
+      setProfile(prev => ({ ...prev, ...updated }))
+      setAiContextPreview(null)
+      await handleWizardStepChange(2)
+    } catch (err: any) {
+      setAlert({
+        type: "error",
+        message: t(`Failed to save: ${err.message}`, `Error al guardar: ${err.message}`)
+      })
+    } finally {
+      setSavingProfile(false)
+    }
+  }
+
+  const handleStep2Save = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!hasAdminAccess) return
+    try {
+      setSavingProfile(true)
+      setAlert(null)
+      const payload = {
+        states_served: statesInput.split(",").map(s => s.trim()).filter(Boolean),
+        target_segments: segmentsInput.split(",").map(s => s.trim()).filter(Boolean),
+        brand_voice: voiceInput.split(",").map(s => s.trim()).filter(Boolean)
+      }
+      const updated = await api.put<ProfileData>(`/api/v1/companies/${companyId}/profile`, payload, {
+        headers: { "X-User-Id": user?.username || "" }
+      })
+      setProfile(prev => ({ ...prev, ...updated }))
+      setAiContextPreview(null)
+      await handleWizardStepChange(3)
+    } catch (err: any) {
+      setAlert({
+        type: "error",
+        message: t(`Failed to save: ${err.message}`, `Error al guardar: ${err.message}`)
+      })
+    } finally {
+      setSavingProfile(false)
+    }
+  }
+
+  const handleStep3Save = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!hasAdminAccess) return
+    try {
+      setSavingProfile(true)
+      setAlert(null)
+      const payload = {
+        key_products: productsInput.split(",").map(s => s.trim()).filter(Boolean),
+        objections_handled: profile.objections_handled
+      }
+      const updated = await api.put<ProfileData>(`/api/v1/companies/${companyId}/profile`, payload, {
+        headers: { "X-User-Id": user?.username || "" }
+      })
+      setProfile(prev => ({ ...prev, ...updated }))
+      setAiContextPreview(null)
+      await handleWizardStepChange(4)
+    } catch (err: any) {
+      setAlert({
+        type: "error",
+        message: t(`Failed to save: ${err.message}`, `Error al guardar: ${err.message}`)
+      })
+    } finally {
+      setSavingProfile(false)
+    }
+  }
+
+  const handleStep4Save = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!hasAdminAccess) return
+    try {
+      setSavingIntegration(true)
+      setAlert(null)
+      const payload = {
+        provider: selectedProvider,
+        auth_type: selectedProvider === "custom_webhook" ? "webhook" : "api_key",
+        credentials: integrationCreds,
+        webhook_url: integrationWebhookUrl,
+        sync_enabled: syncEnabled,
+        sync_preferences: syncPreferences
+      }
+      const existing = integrationsList.find(i => i.provider === selectedProvider)
+      if (existing && existing.id) {
+        await api.put(`/api/v1/companies/${companyId}/integrations/${existing.id}`, payload, {
+          headers: { "X-User-Id": user?.username || "" }
+        })
+      } else {
+        await api.post(`/api/v1/companies/${companyId}/integrations`, payload, {
+          headers: { "X-User-Id": user?.username || "" }
+        })
+      }
+      const integrationsRes = await api.get<IntegrationData[]>(`/api/v1/companies/${companyId}/integrations`, {
+        headers: { "X-User-Id": user?.username || "" }
+      })
+      setIntegrationsList(integrationsRes)
+      const newlySaved = integrationsRes.find(i => i.provider === selectedProvider)
+      if (newlySaved) {
+        setIntegrationCreds(newlySaved.credentials_preview || "")
+      }
+      await handleWizardStepChange(5)
+    } catch (err: any) {
+      setAlert({
+        type: "error",
+        message: t(`Failed to save: ${err.message}`, `Error al guardar: ${err.message}`)
+      })
+    } finally {
+      setSavingIntegration(false)
+    }
+  }
+
+  const handleGenerateAIScripts = async (force = false) => {
+    try {
+      setGeneratingAssets(true)
+      setAlert(null)
+      if (!force) {
+        const currentAssets = await api.get<CompanySalesAsset[]>(`/api/v1/companies/${companyId}/assets`, {
+          headers: { "X-User-Id": user?.username || "" }
+        })
+        const hasExisting = currentAssets.some(a => 
+          ["door_knock", "cold_call", "objection_library"].includes(a.asset_type)
+        )
+        if (hasExisting) {
+          setExistingAssetsList(currentAssets)
+          setDuplicateAssetsWarning(true)
+          setGeneratingAssets(false)
+          return
+        }
+      }
+      setDuplicateAssetsWarning(false)
+      const typesToGenerate = ["door_knock", "cold_call", "objection_library"]
+      for (const assetType of typesToGenerate) {
+        try {
+          await api.post(`/api/v1/companies/${companyId}/assets/generate`, {
+            asset_type: assetType,
+            language: isSpanish ? "es" : "en"
+          }, {
+            headers: { "X-User-Id": user?.username || "" }
+          })
+        } catch (genErr) {
+          console.error(`Failed to generate ${assetType}:`, genErr)
+        }
+      }
+      await fetchAssets()
+      setAlert({
+        type: "success",
+        message: t("AI sales scripts generated successfully!", "¡Guiones de ventas de IA generados exitosamente!")
+      })
+      await handleWizardStepChange(6)
+    } catch (err: any) {
+      setAlert({
+        type: "error",
+        message: t(`Failed to generate scripts: ${err.message}`, `Error al generar guiones: ${err.message}`)
+      })
+    } finally {
+      setGeneratingAssets(false)
+    }
+  }
+
+  const handleCreateMember = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!hasAdminAccess) return
+    try {
+      setCreatingMember(true)
+      setAlert(null)
+      setCreatedMemberTempCreds(null)
+      const payload = {
+        username: newMemberUsername.trim(),
+        email: newMemberEmail.trim() || undefined,
+        role: newMemberRole,
+        language_preference: newMemberLang
+      }
+      const res = await api.post<{ status: string; username: string; temp_password?: string; invite_code?: string }>(
+        `/api/v1/companies/${companyId}/members`,
+        payload,
+        {
+          headers: { "X-User-Id": user?.username || "" }
+        }
+      )
+      setAlert({
+        type: "success",
+        message: t("Member created successfully!", "¡Miembro creado con éxito!")
+      })
+      if (res.temp_password) {
+        setCreatedMemberTempCreds({
+          username: res.username,
+          temp_password: res.temp_password
+        })
+      }
+      setNewMemberUsername("")
+      setNewMemberEmail("")
+      fetchReadinessAndSetup()
+    } catch (err: any) {
+      setAlert({
+        type: "error",
+        message: t(`Failed to create member: ${err.message}`, `Error al crear miembro: ${err.message}`)
+      })
+    } finally {
+      setCreatingMember(false)
+    }
+  }
+
+  const handleLaunchCompany = async () => {
+    try {
+      setUpdatingSetup(true)
+      setAlert(null)
+      await api.post(`/api/v1/companies/${companyId}/setup`, {
+        setup_completed: true,
+        current_step: 7
+      }, {
+        headers: { "X-User-Id": user?.username || "" }
+      })
+      await fetchReadinessAndSetup()
+      setAlert({
+        type: "success",
+        message: t("Company launched successfully! Training Center is now live.", "¡Empresa lanzada con éxito! El Centro de Entrenamiento ya está activo.")
+      })
+      setTimeout(() => {
+        window.location.href = "/dashboard"
+      }, 1500)
+    } catch (err: any) {
+      setAlert({
+        type: "error",
+        message: t(`Failed to launch company: ${err.message}`, `Error al lanzar la empresa: ${err.message}`)
+      })
+    } finally {
+      setUpdatingSetup(false)
+    }
+  }
+
   // Handle Profile Save
   const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!isAdmin) return // Guard
+    if (!hasAdminAccess) return // Guard
 
     try {
       setSavingProfile(true)
@@ -634,6 +1035,19 @@ export default function CompanySettingsPage() {
             {hasAdminAccess && (
               <>
                 <button
+                  onClick={() => { setActiveTab("setup"); setAlert(null) }}
+                  className={cn(
+                    "flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 text-left w-full whitespace-nowrap shrink-0",
+                    activeTab === "setup"
+                      ? "bg-[#FF5722]/10 border border-[#FF5722]/30 text-[#FF5722]"
+                      : "border border-transparent text-[#CBD5E1] hover:bg-white/5 hover:text-white"
+                  )}
+                >
+                  <CheckCircle className="h-4 w-4 shrink-0 text-[#FF5722]" />
+                  {t("Enterprise Setup Wizard", "Asistente de Configuración")}
+                </button>
+
+                <button
                   onClick={() => { setActiveTab("profile"); setAlert(null) }}
                   className={cn(
                     "flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 text-left w-full whitespace-nowrap shrink-0",
@@ -674,6 +1088,812 @@ export default function CompanySettingsPage() {
               {t("Sales Assets & Scripts", "Recursos de Venta")}
             </button>
           </div>
+
+
+          {/* TAB CONTENT: SETUP WIZARD */}
+          {activeTab === "setup" && (
+            <div className="space-y-6">
+              {/* Wizard Progress Header */}
+              <div className="rounded-2xl border border-white/5 bg-[#1B1B1B]/80 backdrop-blur-md p-6">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                  <div>
+                    <h3 className="font-display font-black text-2xl text-white flex items-center gap-2">
+                      <Sparkles className="h-6 w-6 text-[#FF5722]" />
+                      {t("Enterprise Setup Wizard", "Asistente de Configuración")}
+                    </h3>
+                    <p className="text-sm text-[#94A3B8] mt-1">
+                      {t("Complete these 7 quick steps to configure your enterprise and launch training.", "Complete estos 7 pasos rápidos para configurar su empresa y lanzar el entrenamiento.")}
+                    </p>
+                  </div>
+                  
+                  {/* Premium Onboarding score card */}
+                  <div className="bg-[#121212]/90 border border-white/5 rounded-xl p-4 flex items-center gap-4">
+                    <div className="relative h-14 w-14 flex items-center justify-center">
+                      <svg className="absolute inset-0 h-full w-full transform -rotate-90" viewBox="0 0 36 36">
+                        <path
+                          className="text-white/5"
+                          strokeWidth="3.5"
+                          stroke="currentColor"
+                          fill="transparent"
+                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        />
+                        <path
+                          className="text-[#FF5722] transition-all duration-500 ease-out"
+                          strokeWidth="3.5"
+                          strokeDasharray={`${readiness?.readiness_score || 0}, 100`}
+                          strokeLinecap="round"
+                          stroke="currentColor"
+                          fill="transparent"
+                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        />
+                      </svg>
+                      <span className="font-display font-black text-sm text-white">{readiness?.readiness_score || 0}%</span>
+                    </div>
+                    <div>
+                      <div className="text-xs text-[#94A3B8] font-semibold uppercase tracking-wider">{t("Readiness Score", "Puntaje de Preparación")}</div>
+                      <div className="text-sm font-bold text-white mt-0.5">
+                        {readiness?.readiness_score === 100 
+                          ? t("Ready to Launch!", "¡Listo para Lanzar!")
+                          : t("Onboarding In Progress", "Configuración en Curso")}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 7-Step Navigation Indicator */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 border-t border-white/5 pt-6">
+                  {[
+                    { step: 1, label: t("Basics", "Conceptos"), key: "profile" },
+                    { step: 2, label: t("Process", "Proceso"), key: "profile" },
+                    { step: 3, label: t("Products", "Productos"), key: "profile" },
+                    { step: 4, label: t("CRM", "CRM"), key: "integration" },
+                    { step: 5, label: t("AI Gen", "Generación"), key: "assets" },
+                    { step: 6, label: t("Invite", "Invitar"), key: "roster" },
+                    { step: 7, label: t("Launch", "Lanzamiento"), key: "launch" }
+                  ].map((s) => {
+                    const isCurrent = wizardStep === s.step
+                    const isCompleted = 
+                      (s.step === 1 && (profile.company_overview?.length || 0) > 10) ||
+                      (s.step === 2 && (statesInput || segmentsInput || voiceInput)) ||
+                      (s.step === 3 && (productsInput || profile.objections_handled)) ||
+                      (s.step === 4 && readiness?.checkpoints.integration.completed) ||
+                      (s.step === 5 && (assets.length > 0 || readiness?.checkpoints.assets.completed)) ||
+                      (s.step === 6 && (readiness?.checkpoints.roster.completed)) ||
+                      (s.step === 7 && (readiness?.setup_completed))
+
+                    return (
+                      <button
+                        key={s.step}
+                        onClick={() => handleWizardStepChange(s.step)}
+                        className={cn(
+                          "flex flex-col items-center p-2.5 rounded-xl border text-center transition-all duration-200",
+                          isCurrent 
+                            ? "bg-[#FF5722]/10 border-[#FF5722] text-white"
+                            : isCompleted 
+                              ? "bg-emerald-500/5 border-emerald-500/20 text-[#CBD5E1] hover:bg-emerald-500/10"
+                              : "bg-[#121212]/50 border-white/5 text-[#94A3B8] hover:bg-white/5"
+                        )}
+                      >
+                        <div className={cn(
+                          "h-6 w-6 rounded-full flex items-center justify-center text-xs font-bold mb-1.5",
+                          isCurrent 
+                            ? "bg-[#FF5722] text-white"
+                            : isCompleted 
+                              ? "bg-emerald-500 text-white"
+                              : "bg-white/5 text-[#94A3B8]"
+                        )}>
+                          {isCompleted ? <Check className="h-3.5 w-3.5" /> : s.step}
+                        </div>
+                        <span className="text-xs font-semibold whitespace-nowrap">{s.label}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Step Forms */}
+              <div className="rounded-2xl border border-white/5 bg-[#1A1A1A] p-6 space-y-6">
+                
+                {/* STEP 1: COMPANY BASICS */}
+                {wizardStep === 1 && (
+                  <form onSubmit={handleStep1Save} className="space-y-6">
+                    <div>
+                      <h4 className="text-lg font-bold text-white flex items-center gap-2">
+                        <Building2 className="h-5 w-5 text-[#FF5722]" />
+                        {t("Step 1: Company Basics", "Paso 1: Conceptos Básicos")}
+                      </h4>
+                      <p className="text-xs text-[#94A3B8] mt-1">
+                        {t("Provide basic information about your company name, website, and an overview of operations.", "Proporcione detalles sobre su empresa, sitio web y visión general de operaciones.")}
+                      </p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5">
+                          {t("Company Overview / Pitch", "Visión General / Presentación")}
+                        </label>
+                        <textarea
+                          value={profile.company_overview || ""}
+                          onChange={(e) => setProfile({ ...profile, company_overview: e.target.value })}
+                          rows={4}
+                          className="w-full rounded-xl border border-white/5 bg-[#121212] px-4 py-3 text-sm text-white placeholder-white/20 focus:border-[#FF5722] focus:outline-none"
+                          placeholder={t("e.g. SeptiVolt is a premier residential solar provider specializing in high-efficiency panel packages...", "ej. SeptiVolt es un proveedor líder de energía solar residencial...")}
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5">
+                          {t("Company Website URL", "Sitio Web de la Empresa")}
+                        </label>
+                        <input
+                          type="url"
+                          value={profile.website_url || ""}
+                          onChange={(e) => setProfile({ ...profile, website_url: e.target.value })}
+                          className="w-full rounded-xl border border-white/5 bg-[#121212] px-4 py-3 text-sm text-white placeholder-white/20 focus:border-[#FF5722] focus:outline-none"
+                          placeholder="https://septivolt.com"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex justify-between items-center border-t border-white/5 pt-4">
+                      <button
+                        type="button"
+                        onClick={() => handleWizardStepChange(2)}
+                        className="text-xs text-[#94A3B8] hover:text-white font-semibold transition-colors"
+                      >
+                        {t("Skip for now (keeps checkpoint incomplete)", "Omitir por ahora")}
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={savingProfile}
+                        className="flex items-center gap-2 bg-[#FF5722] hover:bg-[#E64A19] text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-colors disabled:opacity-50"
+                      >
+                        {savingProfile ? t("Saving...", "Guardando...") : t("Save & Continue", "Guardar y Continuar")}
+                        <ArrowRight className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </form>
+                )}
+
+                {/* STEP 2: SALES PROCESS */}
+                {wizardStep === 2 && (
+                  <form onSubmit={handleStep2Save} className="space-y-6">
+                    <div>
+                      <h4 className="text-lg font-bold text-white flex items-center gap-2">
+                        <SlidersHorizontal className="h-5 w-5 text-[#FF5722]" />
+                        {t("Step 2: Sales Process & Territory", "Paso 2: Proceso de Venta y Territorio")}
+                      </h4>
+                      <p className="text-xs text-[#94A3B8] mt-1">
+                        {t("Specify where you sell, who you sell to, and the tone your reps should project.", "Defina dónde vende, a quién le vende y el tono de marca que deben usar sus representantes.")}
+                      </p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5">
+                          {t("States Served (comma separated)", "Estados de Servicio (separados por coma)")}
+                        </label>
+                        <input
+                          type="text"
+                          value={statesInput}
+                          onChange={(e) => setStatesInput(e.target.value)}
+                          className="w-full rounded-xl border border-white/5 bg-[#121212] px-4 py-3 text-sm text-white placeholder-white/20 focus:border-[#FF5722] focus:outline-none"
+                          placeholder="CA, TX, FL"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5">
+                          {t("Target Customer Segments (comma separated)", "Segmentos de Cliente Objetivo")}
+                        </label>
+                        <input
+                          type="text"
+                          value={segmentsInput}
+                          onChange={(e) => setSegmentsInput(e.target.value)}
+                          className="w-full rounded-xl border border-white/5 bg-[#121212] px-4 py-3 text-sm text-white placeholder-white/20 focus:border-[#FF5722] focus:outline-none"
+                          placeholder="Suburban Homeowners, High-utility payers, NEM 3.0 affected areas"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5">
+                          {t("Brand Voice / Tone Traits (comma separated)", "Tono de Marca (separado por coma)")}
+                        </label>
+                        <input
+                          type="text"
+                          value={voiceInput}
+                          onChange={(e) => setVoiceInput(e.target.value)}
+                          className="w-full rounded-xl border border-white/5 bg-[#121212] px-4 py-3 text-sm text-white placeholder-white/20 focus:border-[#FF5722] focus:outline-none"
+                          placeholder="Professional, Educative, Direct, Friendly"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex justify-between items-center border-t border-white/5 pt-4">
+                      <button
+                        type="button"
+                        onClick={() => handleWizardStepChange(1)}
+                        className="flex items-center gap-1.5 text-xs text-[#94A3B8] hover:text-white font-semibold transition-colors"
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                        {t("Previous", "Anterior")}
+                      </button>
+                      
+                      <div className="flex gap-4 items-center">
+                        <button
+                          type="button"
+                          onClick={() => handleWizardStepChange(3)}
+                          className="text-xs text-[#94A3B8] hover:text-white font-semibold transition-colors"
+                        >
+                          {t("Skip for now", "Omitir")}
+                        </button>
+                        <button
+                          type="submit"
+                          disabled={savingProfile}
+                          className="flex items-center gap-2 bg-[#FF5722] hover:bg-[#E64A19] text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-colors disabled:opacity-50"
+                        >
+                          {savingProfile ? t("Saving...", "Guardando...") : t("Save & Continue", "Guardar y Continuar")}
+                          <ArrowRight className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                )}
+
+                {/* STEP 3: PRODUCTS & MARKETS */}
+                {wizardStep === 3 && (
+                  <form onSubmit={handleStep3Save} className="space-y-6">
+                    <div>
+                      <h4 className="text-lg font-bold text-white flex items-center gap-2">
+                        <Layers className="h-5 w-5 text-[#FF5722]" />
+                        {t("Step 3: Products & Objection Handling", "Paso 3: Productos y Manejo de Objeciones")}
+                      </h4>
+                      <p className="text-xs text-[#94A3B8] mt-1">
+                        {t("Detail your product catalog and common objections or compliance guidelines.", "Detalle su catálogo de productos y objeciones comunes o directrices de cumplimiento.")}
+                      </p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5">
+                          {t("Key Products / Equipment Offered (comma separated)", "Productos Clave / Equipos")}
+                        </label>
+                        <input
+                          type="text"
+                          value={productsInput}
+                          onChange={(e) => setProductsInput(e.target.value)}
+                          className="w-full rounded-xl border border-white/5 bg-[#121212] px-4 py-3 text-sm text-white placeholder-white/20 focus:border-[#FF5722] focus:outline-none"
+                          placeholder="Tesla Powerwall 3, REC Alpha Panels, Enphase Microinverters"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5">
+                          {t("Common Objections and Rep Responses", "Objeciones Comunes y Respuestas")}
+                        </label>
+                        <textarea
+                          value={profile.objections_handled || ""}
+                          onChange={(e) => setProfile({ ...profile, objections_handled: e.target.value })}
+                          rows={4}
+                          className="w-full rounded-xl border border-white/5 bg-[#121212] px-4 py-3 text-sm text-white placeholder-white/20 focus:border-[#FF5722] focus:outline-none"
+                          placeholder={t("e.g. When homeowners object that solar is 'too expensive', we emphasize utility bill offset and zero-down financing options...", "ej. Cuando los clientes dicen que es muy costoso, enfatizamos el financiamiento inicial de $0...")}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex justify-between items-center border-t border-white/5 pt-4">
+                      <button
+                        type="button"
+                        onClick={() => handleWizardStepChange(2)}
+                        className="flex items-center gap-1.5 text-xs text-[#94A3B8] hover:text-white font-semibold transition-colors"
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                        {t("Previous", "Anterior")}
+                      </button>
+                      
+                      <div className="flex gap-4 items-center">
+                        <button
+                          type="button"
+                          onClick={() => handleWizardStepChange(4)}
+                          className="text-xs text-[#94A3B8] hover:text-white font-semibold transition-colors"
+                        >
+                          {t("Skip for now", "Omitir")}
+                        </button>
+                        <button
+                          type="submit"
+                          disabled={savingProfile}
+                          className="flex items-center gap-2 bg-[#FF5722] hover:bg-[#E64A19] text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-colors disabled:opacity-50"
+                        >
+                          {savingProfile ? t("Saving...", "Guardando...") : t("Save & Continue", "Guardar y Continuar")}
+                          <ArrowRight className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                )}
+
+                {/* STEP 4: CRM / INTEGRATION SETUP */}
+                {wizardStep === 4 && (
+                  <form onSubmit={handleStep4Save} className="space-y-6">
+                    <div>
+                      <h4 className="text-lg font-bold text-white flex items-center gap-2">
+                        <Cpu className="h-5 w-5 text-[#FF5722]" />
+                        {t("Step 4: CRM / Integration Setup", "Paso 4: Configuración de CRM e Integración")}
+                      </h4>
+                      <p className="text-xs text-[#94A3B8] mt-1">
+                        {t("Connect SeptiVolt to your CRM (GoHighLevel, HubSpot, Webhooks) to sync user scores, contacts, and logs dynamically.", "Conecte SeptiVolt a su CRM para sincronizar dinámicamente resultados y contactos.")}
+                      </p>
+                    </div>
+
+                    <div className="grid gap-6 md:grid-cols-2">
+                      <div className="space-y-4">
+                        <div>
+                          <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5">
+                            {t("Select Integration Provider", "Seleccione Proveedor")}
+                          </label>
+                          <select
+                            value={selectedProvider}
+                            onChange={(e) => setSelectedProvider(e.target.value)}
+                            className="w-full rounded-xl border border-white/5 bg-[#121212] px-4 py-3 text-sm text-white focus:border-[#FF5722] focus:outline-none"
+                          >
+                            <option value="gohighlevel">GoHighLevel (GHL)</option>
+                            <option value="hubspot">HubSpot</option>
+                            <option value="custom_webhook">Custom Webhook</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1.5">
+                            {selectedProvider === "custom_webhook" 
+                              ? t("Webhook URL", "URL de Webhook")
+                              : t("API Key / Connection Token", "Clave API / Token de Conexión")}
+                          </label>
+                          <input
+                            type="text"
+                            value={selectedProvider === "custom_webhook" ? integrationWebhookUrl : integrationCreds}
+                            onChange={(e) => {
+                              if (selectedProvider === "custom_webhook") {
+                                setIntegrationWebhookUrl(e.target.value)
+                              } else {
+                                setIntegrationCreds(e.target.value)
+                              }
+                            }}
+                            className="w-full rounded-xl border border-white/5 bg-[#121212] px-4 py-3 text-sm text-white placeholder-white/20 focus:border-[#FF5722] focus:outline-none"
+                            placeholder={selectedProvider === "custom_webhook" ? "https://yourserver.com/webhook" : "ghl_api_key_..."}
+                          />
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="checkbox"
+                            id="wizard-sync-enabled"
+                            checked={syncEnabled}
+                            onChange={(e) => setSyncEnabled(e.target.checked)}
+                            className="h-4.5 w-4.5 rounded border-white/10 bg-[#121212] text-[#FF5722] focus:ring-0"
+                          />
+                          <label htmlFor="wizard-sync-enabled" className="text-sm font-semibold text-[#CBD5E1]">
+                            {t("Enable active background sync", "Activar sincronización en segundo plano")}
+                          </label>
+                        </div>
+                      </div>
+
+                      {/* Sync preferences panel */}
+                      <div className="bg-[#121212]/50 border border-white/5 rounded-2xl p-4 space-y-3">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#94A3B8]">
+                          {t("Sync Actions", "Acciones de Sincronización")}
+                        </span>
+                        
+                        {Object.entries(syncPreferences).map(([prefName, isEnabled]) => (
+                          <div key={prefName} className="flex items-center justify-between py-1.5 border-b border-white/5 last:border-0">
+                            <span className="text-xs text-[#CBD5E1] pr-2">{prefName}</span>
+                            <input
+                              type="checkbox"
+                              checked={isEnabled}
+                              onChange={() => {
+                                setSyncPreferences({
+                                  ...syncPreferences,
+                                  [prefName]: !isEnabled
+                                })
+                              }}
+                              className="h-4 w-4 rounded border-white/10 bg-[#121212] text-[#FF5722] focus:ring-0"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex justify-between items-center border-t border-white/5 pt-4">
+                      <button
+                        type="button"
+                        onClick={() => handleWizardStepChange(3)}
+                        className="flex items-center gap-1.5 text-xs text-[#94A3B8] hover:text-white font-semibold transition-colors"
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                        {t("Previous", "Anterior")}
+                      </button>
+                      
+                      <div className="flex gap-4 items-center">
+                        <button
+                          type="button"
+                          onClick={() => handleWizardStepChange(5)}
+                          className="text-xs text-[#94A3B8] hover:text-white font-semibold transition-colors"
+                        >
+                          {t("Skip for now", "Omitir")}
+                        </button>
+                        <button
+                          type="submit"
+                          disabled={savingIntegration}
+                          className="flex items-center gap-2 bg-[#FF5722] hover:bg-[#E64A19] text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-colors disabled:opacity-50"
+                        >
+                          {savingIntegration ? t("Connecting...", "Conectando...") : t("Connect & Continue", "Conectar y Continuar")}
+                          <ArrowRight className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                )}
+
+                {/* STEP 5: GENERATE SALES ASSETS */}
+                {wizardStep === 5 && (
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-lg font-bold text-white flex items-center gap-2">
+                        <Sparkles className="h-5 w-5 text-[#FF5722]" />
+                        {t("Step 5: Generate AI Sales Assets & Scripts", "Paso 5: Generar Recursos y Guiones de Venta con IA")}
+                      </h4>
+                      <p className="text-xs text-[#94A3B8] mt-1">
+                        {t("Auto-generate localized high-converting scripts based on your profile config.", "Genere guiones localizados de alta conversión basados en su perfil de empresa.")}
+                      </p>
+                    </div>
+
+                    {/* Warning popup for duplicates */}
+                    {duplicateAssetsWarning ? (
+                      <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 text-[#F59E0B] space-y-3">
+                        <div className="flex items-center gap-2 font-bold text-sm">
+                          <AlertTriangle className="h-5 w-5 text-amber-500" />
+                          {t("Scripts Already Exist", "Los Guiones ya Existen")}
+                        </div>
+                        <p className="text-xs text-[#CBD5E1]">
+                          {t("Approved or draft scripts already exist in your script library. Do you want to generate a new draft anyway, or keep existing scripts and proceed?", "Ya existen guiones aprobados o borradores en su biblioteca. ¿Desea generar nuevos borradores de todos modos o conservar los actuales?")}
+                        </p>
+                        <div className="flex gap-4 pt-1">
+                          <button
+                            onClick={() => handleGenerateAIScripts(true)}
+                            className="bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg transition-colors"
+                          >
+                            {t("Generate New Draft anyway", "Generar Borrador")}
+                          </button>
+                          <button
+                            onClick={() => handleWizardStepChange(6)}
+                            className="bg-[#262626] hover:bg-[#333333] border border-white/5 text-white font-bold text-xs px-3.5 py-2 rounded-lg transition-colors"
+                          >
+                            {t("Keep Existing & Proceed", "Conservar y Continuar")}
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="bg-[#121212]/50 border border-white/5 rounded-2xl p-6 flex flex-col items-center justify-center text-center space-y-4">
+                        <div className="h-12 w-12 rounded-full bg-[#FF5722]/10 flex items-center justify-center">
+                          <Cpu className="h-6 w-6 text-[#FF5722]" />
+                        </div>
+                        <div>
+                          <h5 className="font-bold text-white text-sm">{t("Automated AI Script Scaffolding", "Andamiaje Automatizado de IA")}</h5>
+                          <p className="text-xs text-[#94A3B8] max-w-md mt-1">
+                            {t("SeptiVolt will create customized scripts for door-knocking, cold calling, and a full objection handling guide tailored specifically to your company profile.", "SeptiVolt creará guiones personalizados para cambaceo, llamadas en frío y manejo de objeciones.")}
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          disabled={generatingAssets}
+                          onClick={() => handleGenerateAIScripts(false)}
+                          className="flex items-center gap-2 bg-[#FF5722] hover:bg-[#E64A19] text-white px-6 py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-50"
+                        >
+                          {generatingAssets ? (
+                            <>
+                              <RefreshCw className="h-4 w-4 animate-spin" />
+                              {t("Generating Enterprise Assets...", "Generando Recursos de Empresa...")}
+                            </>
+                          ) : (
+                            <>
+                              <Sparkles className="h-4 w-4" />
+                              {t("Generate Scripts & Continue", "Generar Guiones y Continuar")}
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    )}
+
+                    <div className="flex justify-between items-center border-t border-white/5 pt-4">
+                      <button
+                        type="button"
+                        onClick={() => handleWizardStepChange(4)}
+                        className="flex items-center gap-1.5 text-xs text-[#94A3B8] hover:text-white font-semibold transition-colors"
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                        {t("Previous", "Anterior")}
+                      </button>
+                      
+                      <button
+                        type="button"
+                        onClick={() => handleWizardStepChange(6)}
+                        className="text-xs text-[#94A3B8] hover:text-white font-semibold transition-colors"
+                      >
+                        {t("Skip for now", "Omitir")}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 6: INVITE TEAM MEMBERS */}
+                {wizardStep === 6 && (
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-lg font-bold text-white flex items-center gap-2">
+                        <Users className="h-5 w-5 text-[#FF5722]" />
+                        {t("Step 6: Invite Team Members & Reps", "Paso 6: Invitar a Miembros del Equipo")}
+                      </h4>
+                      <p className="text-xs text-[#94A3B8] mt-1">
+                        {t("Create secure user records for your managers and sales representatives.", "Cree cuentas de usuario seguras para sus gerentes y representantes de ventas.")}
+                      </p>
+                    </div>
+
+                    {/* Temporary password alert banner */}
+                    {createdMemberTempCreds && (
+                      <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 text-emerald-400 space-y-2">
+                        <div className="flex items-center gap-2 font-bold text-sm">
+                          <CheckCircle className="h-5 w-5 text-emerald-500" />
+                          {t("Temporary Password Generated!", "¡Contraseña Temporal Generada!")}
+                        </div>
+                        <p className="text-xs text-[#CBD5E1]">
+                          {t("Please share this temporary password with the user. They will be forced to reset it upon their first sign-in:", "Por favor comparta esta contraseña con el usuario. Se le pedirá cambiarla al iniciar sesión:")}
+                        </p>
+                        <div className="bg-[#121212] p-3 rounded-lg border border-white/5 font-mono text-xs flex justify-between items-center text-white mt-1">
+                          <div>
+                            <div><span className="text-[#94A3B8]">{t("Username", "Usuario")}:</span> {createdMemberTempCreds.username}</div>
+                            <div className="mt-1"><span className="text-[#94A3B8]">{t("Password", "Contraseña")}:</span> {createdMemberTempCreds.temp_password}</div>
+                          </div>
+                          <button
+                            onClick={() => {
+                              navigator.clipboard.writeText(
+                                `Username: ${createdMemberTempCreds.username}\nTemporary Password: ${createdMemberTempCreds.temp_password}`
+                              )
+                            }}
+                            className="bg-white/5 hover:bg-white/10 text-white text-xs px-2.5 py-1.5 rounded-md font-semibold transition-colors"
+                          >
+                            {t("Copy Creds", "Copiar")}
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    <form onSubmit={handleCreateMember} className="grid gap-6 md:grid-cols-2 bg-[#121212]/40 border border-white/5 rounded-2xl p-5">
+                      <div className="space-y-4">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#94A3B8] block mb-1">
+                          {t("Invite New User", "Invitar Nuevo Usuario")}
+                        </span>
+                        
+                        <div>
+                          <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1">
+                            {t("Username", "Nombre de Usuario")}
+                          </label>
+                          <input
+                            type="text"
+                            value={newMemberUsername}
+                            onChange={(e) => setNewMemberUsername(e.target.value)}
+                            className="w-full rounded-xl border border-white/5 bg-[#121212] px-4 py-2.5 text-sm text-white focus:border-[#FF5722] focus:outline-none"
+                            placeholder="johndoe"
+                            required
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1">
+                            {t("Email (Optional)", "Correo Electrónico (Opcional)")}
+                          </label>
+                          <input
+                            type="email"
+                            value={newMemberEmail}
+                            onChange={(e) => setNewMemberEmail(e.target.value)}
+                            className="w-full rounded-xl border border-white/5 bg-[#121212] px-4 py-2.5 text-sm text-white focus:border-[#FF5722] focus:outline-none"
+                            placeholder="john@septivolt.com"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#94A3B8] block mb-1">
+                          {t("Role & Language Settings", "Configuración de Rol e Idioma")}
+                        </span>
+
+                        <div>
+                          <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1">
+                            {t("User Role", "Rol del Usuario")}
+                          </label>
+                          <select
+                            value={newMemberRole}
+                            onChange={(e) => setNewMemberRole(e.target.value)}
+                            className="w-full rounded-xl border border-white/5 bg-[#121212] px-4 py-2.5 text-sm text-white focus:border-[#FF5722] focus:outline-none"
+                          >
+                            <option value="sales_rep">{t("Sales Rep", "Representante de Ventas")}</option>
+                            <option value="manager">{t("Manager", "Gerente")}</option>
+                            <option value="admin">{t("Admin", "Administrador")}</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <label className="block text-xs font-bold uppercase tracking-wider text-[#CBD5E1] mb-1">
+                            {t("Language Preference", "Idioma de Preferencia")}
+                          </label>
+                          <select
+                            value={newMemberLang}
+                            onChange={(e) => setNewMemberLang(e.target.value)}
+                            className="w-full rounded-xl border border-white/5 bg-[#121212] px-4 py-2.5 text-sm text-white focus:border-[#FF5722] focus:outline-none"
+                          >
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                          </select>
+                        </div>
+
+                        <div className="pt-2">
+                          <button
+                            type="submit"
+                            disabled={creatingMember}
+                            className="w-full flex items-center justify-center gap-2 bg-[#FF5722] hover:bg-[#E64A19] text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-colors disabled:opacity-50"
+                          >
+                            {creatingMember ? t("Adding Member...", "Agregando Miembro...") : t("Add Team Member", "Agregar Miembro")}
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+
+                    <div className="flex justify-between items-center border-t border-white/5 pt-4">
+                      <button
+                        type="button"
+                        onClick={() => handleWizardStepChange(5)}
+                        className="flex items-center gap-1.5 text-xs text-[#94A3B8] hover:text-white font-semibold transition-colors"
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                        {t("Previous", "Anterior")}
+                      </button>
+                      
+                      <div className="flex gap-4 items-center">
+                        <button
+                          type="button"
+                          onClick={() => handleWizardStepChange(7)}
+                          className="text-xs text-[#94A3B8] hover:text-white font-semibold transition-colors"
+                        >
+                          {t("Skip for now", "Omitir")}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleWizardStepChange(7)}
+                          className="flex items-center gap-2 bg-[#FF5722] hover:bg-[#E64A19] text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-colors"
+                        >
+                          {t("Continue to Launch", "Continuar al Lanzamiento")}
+                          <ArrowRight className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 7: REVIEW & LAUNCH */}
+                {wizardStep === 7 && (
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-lg font-bold text-white flex items-center gap-2">
+                        <CheckCircle className="h-5 w-5 text-emerald-500" />
+                        {t("Step 7: Enterprise Launch Readiness", "Paso 7: Lanzamiento y Preparación")}
+                      </h4>
+                      <p className="text-xs text-[#94A3B8] mt-1">
+                        {t("Review each checkpoint status below. You can manually bypass incomplete steps if you want to launch immediately.", "Revise los puntos clave de preparación. Puede omitir manualmente pasos pendientes si desea lanzar ya.")}
+                      </p>
+                    </div>
+
+                    <div className="space-y-4">
+                      {/* Checkpoint list */}
+                      {[
+                        {
+                          id: "profile",
+                          title: t("Company Profile", "Perfil de Empresa"),
+                          data: readiness?.checkpoints.profile,
+                          overrideText: t("Bypass Profile Check", "Omitir Control de Perfil")
+                        },
+                        {
+                          id: "integration",
+                          title: t("CRM Integration", "Integración CRM"),
+                          data: readiness?.checkpoints.integration,
+                          overrideText: t("Bypass Integration Check", "Omitir Control de Integración")
+                        },
+                        {
+                          id: "roster",
+                          title: t("Team Roster", "Lista del Equipo"),
+                          data: readiness?.checkpoints.roster,
+                          overrideText: t("Bypass Roster Check", "Omitir Control de Lista")
+                        },
+                        {
+                          id: "assets",
+                          title: t("Sales Assets & Scripts", "Recursos de Venta"),
+                          data: readiness?.checkpoints.assets,
+                          overrideText: t("Bypass Scripts Check", "Omitir Control de Guiones")
+                        }
+                      ].map((cp) => {
+                        const isOverridden = !!readiness?.checklist_manual_overrides[cp.id]
+                        const isOk = cp.data?.completed || isOverridden
+
+                        return (
+                          <div
+                            key={cp.id}
+                            className={cn(
+                              "rounded-2xl border p-4.5 flex flex-col sm:flex-row justify-between sm:items-center gap-4 transition-all duration-200",
+                              isOk 
+                                ? "bg-emerald-500/5 border-emerald-500/10 text-white" 
+                                : "bg-white/3 border-white/5 text-white"
+                            )}
+                          >
+                            <div className="flex items-start gap-3.5">
+                              <div className={cn(
+                                "h-9 w-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5",
+                                isOk ? "bg-emerald-500/10 text-emerald-400" : "bg-white/5 text-[#94A3B8]"
+                              )}>
+                                {isOk ? <Check className="h-5 w-5" /> : <AlertTriangle className="h-5 w-5" />}
+                              </div>
+                              <div>
+                                <div className="text-sm font-bold flex items-center gap-2">
+                                  {cp.title}
+                                  {isOverridden && (
+                                    <span className="text-[10px] uppercase tracking-wider bg-amber-500/10 text-amber-500 border border-amber-500/20 px-1.5 py-0.5 rounded font-black">
+                                      {t("Bypassed", "Bypass")}
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="text-xs text-[#94A3B8] mt-1">{cp.data?.details}</div>
+                              </div>
+                            </div>
+
+                            <button
+                              onClick={() => handleToggleOverride(cp.id, isOverridden)}
+                              className={cn(
+                                "px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-200 border shrink-0 text-center",
+                                isOverridden
+                                  ? "bg-amber-500/10 border-amber-500/20 text-amber-500 hover:bg-amber-500/20"
+                                  : "bg-white/5 border-white/5 text-[#CBD5E1] hover:bg-white/10 hover:text-white"
+                              )}
+                            >
+                              {isOverridden ? t("Enable Checkpoint", "Activar Control") : cp.overrideText}
+                            </button>
+                          </div>
+                        )
+                      })}
+                    </div>
+
+                    <div className="flex justify-between items-center border-t border-white/5 pt-4">
+                      <button
+                        type="button"
+                        onClick={() => handleWizardStepChange(6)}
+                        className="flex items-center gap-1.5 text-xs text-[#94A3B8] hover:text-white font-semibold transition-colors"
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                        {t("Previous", "Anterior")}
+                      </button>
+                      
+                      <button
+                        type="button"
+                        disabled={updatingSetup}
+                        onClick={handleLaunchCompany}
+                        className="flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 shadow-lg shadow-emerald-500/10 border border-emerald-400/20"
+                      >
+                        <Check className="h-4 w-4" />
+                        {t("Launch Training Center", "Lanzar Centro de Entrenamiento")}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            </div>
+          )}
 
 
           {/* TAB CONTENT: PROFILE */}
@@ -1299,6 +2519,90 @@ export default function CompanySettingsPage() {
 
         </div>
       </div>
+
+      {/* FIRST-TIME WELCOME MODAL */}
+      {showWelcomeModal && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="relative bg-[#1A1A1A] border border-[#FF5722]/30 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl flex flex-col p-6 animate-in fade-in zoom-in-95 duration-200">
+            {/* Ambient gold/orange orb */}
+            <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-[#FF5722]/20 rounded-full blur-3xl pointer-events-none" />
+            
+            <div className="flex flex-col items-center text-center space-y-4 relative">
+              <div className="h-12 w-12 rounded-full bg-[#FF5722]/10 flex items-center justify-center border border-[#FF5722]/20">
+                <Sparkles className="h-6 w-6 text-[#FF5722]" />
+              </div>
+              
+              <div>
+                <h3 className="font-display font-black text-xl text-white">
+                  {t("Welcome to SeptiVolt Enterprise!", "¡Bienvenido a SeptiVolt Enterprise!")}
+                </h3>
+                <p className="text-xs text-[#94A3B8] mt-1.5 max-w-sm">
+                  {t("Let's configure your training portal to prepare your sales representatives for high-performance solar sales.", "Configuremos su portal de capacitación para preparar a sus representantes para ventas de alto rendimiento.")}
+                </p>
+              </div>
+
+              {/* Steps Overview list */}
+              <div className="w-full text-left bg-[#121212]/50 border border-white/5 rounded-xl p-4 space-y-3.5 mt-2">
+                {[
+                  {
+                    num: "1",
+                    title: t("Profile & Sales Process", "Perfil y Proceso de Ventas"),
+                    desc: t("Set up company pitch, target markets, products & voice.", "Defina el tono, los mercados, los productos y el pitch.")
+                  },
+                  {
+                    num: "2",
+                    title: t("CRM Integration Setup", "Configuración de Integración CRM"),
+                    desc: t("Sync training scores and contact logs to GHL or HubSpot.", "Sincronice puntajes y registros con GHL o HubSpot.")
+                  },
+                  {
+                    num: "3",
+                    title: t("AI Script Scaffold", "Andamiaje de Guiones con IA"),
+                    desc: t("Generate customized pitch scripts and objection handling guides.", "Genere guiones y guías de manejo de objeciones personalizados.")
+                  },
+                  {
+                    num: "4",
+                    title: t("Invite Team & Launch", "Invitar Equipo y Lanzamiento"),
+                    desc: t("Register managers/reps and unlock the training simulator.", "Registre gerentes/representantes y active el simulador.")
+                  }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex gap-3 items-start">
+                    <div className="h-5 w-5 rounded-full bg-[#FF5722]/10 border border-[#FF5722]/20 text-[#FF5722] font-mono text-xs flex items-center justify-center shrink-0 mt-0.5">
+                      {item.num}
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-white">{item.title}</div>
+                      <div className="text-[10px] text-[#94A3B8] mt-0.5">{item.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex w-full gap-3 pt-4">
+                <button
+                  onClick={() => {
+                    localStorage.setItem(`dismissed_welcome_${companyId}`, "true")
+                    setShowWelcomeModal(false)
+                  }}
+                  className="flex-1 py-2.5 rounded-xl border border-white/10 hover:bg-white/5 text-[#CBD5E1] text-xs font-bold transition-all"
+                >
+                  {t("Skip Tour", "Omitir Tour")}
+                </button>
+                <button
+                  onClick={() => {
+                    localStorage.setItem(`dismissed_welcome_${companyId}`, "true")
+                    setShowWelcomeModal(false)
+                    setActiveTab("setup")
+                    setWizardStep(1)
+                  }}
+                  className="flex-1 py-2.5 rounded-xl bg-[#FF5722] hover:bg-[#E64A19] text-white text-xs font-bold transition-all shadow-md shadow-[#FF5722]/10"
+                >
+                  {t("Let's Get Started", "Comenzar")}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ASSET CREATION / EDIT MODAL */}
       {showAssetModal && (

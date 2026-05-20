@@ -8,7 +8,7 @@ from sqlmodel import Session, select
 
 from database import get_session
 from models.user import User, UserRole, Company
-from models.company_settings import CompanyProfile, CompanyIntegration, CompanySalesAsset
+from models.company_settings import CompanyProfile, CompanyIntegration, CompanySalesAsset, CompanySetupState
 from services.integration_service import IntegrationService
 from services.profile_service import ProfileService
 
@@ -40,6 +40,11 @@ def _require_same_company(user: User, target_company_id: str) -> None:
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Access denied. Cross-tenant request is prohibited."
         )
+
+
+def _is_super_admin(user: User) -> bool:
+    return user.username == "super_admin" or getattr(user, "is_super_admin", False) or user.role == "super_admin"
+
 
 # ─── Pydantic Request Models ──────────────────────────────────────────────────
 
@@ -820,4 +825,250 @@ Provide the response in JSON format matching this schema:
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to generate asset via AI: {str(e)}"
         )
+
+
+class CompanySetupUpdateRequest(BaseModel):
+    current_step: Optional[int] = None
+    setup_completed: Optional[bool] = None
+    setup_dismissed: Optional[bool] = None
+    checklist_manual_overrides: Optional[Dict[str, bool]] = None
+
+
+@router.get("/api/v1/companies/{company_id}/setup")
+async def get_company_setup(
+    company_id: str,
+    requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session)
+):
+    """
+    Get the onboarding setup state for a company.
+    Admin/Manager only. Tenant isolated.
+    """
+    # Verify Company
+    company = session.get(Company, company_id)
+    if not company:
+        raise HTTPException(status_code=404, detail="Company not found.")
+
+    # Access control
+    if requesting_username:
+        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
+        if req_user:
+            if req_user.role == UserRole.SALES_REP:
+                raise HTTPException(status_code=403, detail="Sales reps are not allowed to view setup state.")
+            if not _is_super_admin(req_user) and req_user.company_id != company_id:
+                raise HTTPException(status_code=403, detail="Access denied: cross-company data access is not permitted.")
+
+    state = session.exec(select(CompanySetupState).where(CompanySetupState.company_id == company_id)).first()
+    if not state:
+        state = CompanySetupState(company_id=company_id)
+        session.add(state)
+        session.commit()
+        session.refresh(state)
+
+    checklist_manual = {}
+    if state.checklist_json:
+        try:
+            checklist_manual = json.loads(state.checklist_json)
+        except:
+            pass
+
+    return {
+        "company_id": company_id,
+        "current_step": state.current_step,
+        "setup_completed": state.setup_completed,
+        "setup_dismissed": state.setup_dismissed,
+        "checklist_manual_overrides": checklist_manual,
+        "readiness_score": state.readiness_score,
+        "last_updated_at": state.last_updated_at
+    }
+
+
+@router.post("/api/v1/companies/{company_id}/setup")
+async def update_company_setup(
+    company_id: str,
+    body: CompanySetupUpdateRequest,
+    requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session)
+):
+    """
+    Update the onboarding setup state for a company.
+    Admin/Manager only. Tenant isolated.
+    """
+    # Verify Company
+    company = session.get(Company, company_id)
+    if not company:
+        raise HTTPException(status_code=404, detail="Company not found.")
+
+    # Access control
+    if requesting_username:
+        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
+        if req_user:
+            if req_user.role == UserRole.SALES_REP:
+                raise HTTPException(status_code=403, detail="Sales reps are not allowed to update setup state.")
+            if not _is_super_admin(req_user) and req_user.company_id != company_id:
+                raise HTTPException(status_code=403, detail="Access denied: cross-company data access is not permitted.")
+
+    state = session.exec(select(CompanySetupState).where(CompanySetupState.company_id == company_id)).first()
+    if not state:
+        state = CompanySetupState(company_id=company_id)
+
+    if body.current_step is not None:
+        state.current_step = body.current_step
+    if body.setup_completed is not None:
+        state.setup_completed = body.setup_completed
+    if body.setup_dismissed is not None:
+        state.setup_dismissed = body.setup_dismissed
+    if body.checklist_manual_overrides is not None:
+        state.checklist_json = json.dumps(body.checklist_manual_overrides)
+
+    state.last_updated_at = datetime.utcnow()
+    session.add(state)
+    session.commit()
+    
+    print(f"[AUDIT] Updated company onboarding setup state for company '{company_id}'")
+    return {"status": "ok", "company_id": company_id}
+
+
+@router.get("/api/v1/companies/{company_id}/readiness")
+async def get_company_readiness(
+    company_id: str,
+    requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session)
+):
+    """
+    Compute and return dynamic onboarding readiness metrics.
+    Admin/Manager only. Tenant isolated.
+    """
+    # Verify Company
+    company = session.get(Company, company_id)
+    if not company:
+        raise HTTPException(status_code=404, detail="Company not found.")
+
+    # Access control & Tenant Isolation
+    if requesting_username:
+        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
+        if req_user:
+            if req_user.role == UserRole.SALES_REP:
+                raise HTTPException(status_code=403, detail="Sales reps are not allowed to view setup readiness.")
+            if not _is_super_admin(req_user) and req_user.company_id != company_id:
+                raise HTTPException(status_code=403, detail="Access denied: cross-company data access is not permitted.")
+
+    # 1. Profile Completeness (25 points)
+    profile = session.exec(select(CompanyProfile).where(CompanyProfile.company_id == company_id)).first()
+    profile_ok = False
+    profile_details = ""
+    if profile:
+        overview_len = len(profile.company_overview or "")
+        products_len = len(profile.products_services or "")
+        rebuttals_len = len(profile.objections_rebuttals or "")
+        if overview_len > 10 and (products_len > 10 or rebuttals_len > 10):
+            profile_ok = True
+            profile_details = "Profile populated with overview, products, and objections."
+        else:
+            profile_details = "Profile exists but key fields are incomplete."
+    else:
+        profile_details = "No profile created yet."
+
+    # 2. Integration Status (25 points)
+    integration = session.exec(select(CompanyIntegration).where(CompanyIntegration.company_id == company_id)).first()
+    integration_ok = False
+    integration_details = ""
+    if integration:
+        if integration.connection_status == "connected" or integration.sync_enabled:
+            integration_ok = True
+            integration_details = f"CRM Connected: {integration.provider_type or 'GoHighLevel'} ({integration.connection_status})."
+        else:
+            integration_details = f"CRM Integration found but inactive/not connected ({integration.connection_status})."
+    else:
+        integration_details = "No CRM integration configured."
+
+    # 3. Roster Population (25 points)
+    members = session.exec(select(User).where(User.company_id == company_id, User.is_active == True)).all()
+    real_members = [m for m in members if m.username not in ["admin", "trainee", "test_user"]]
+    roster_ok = len(real_members) > 0
+    roster_details = f"Roster has {len(real_members)} active member(s)."
+
+    # 4. Sales Assets (25 points)
+    assets = session.exec(select(CompanySalesAsset).where(CompanySalesAsset.company_id == company_id)).all()
+    approved_assets = [a for a in assets if a.status == "approved"]
+    assets_ok = len(approved_assets) > 0
+    assets_details = f"Found {len(approved_assets)} approved sales script(s)/asset(s) (out of {len(assets)} total)."
+
+    # Calculate Score
+    score = 0
+    if profile_ok: score += 25
+    if integration_ok: score += 25
+    if roster_ok: score += 25
+    if assets_ok: score += 25
+
+    # Retrieve or create CompanySetupState
+    state = session.exec(select(CompanySetupState).where(CompanySetupState.company_id == company_id)).first()
+    if not state:
+        state = CompanySetupState(company_id=company_id)
+    
+    state.readiness_score = score
+    state.last_updated_at = datetime.utcnow()
+    
+    if score == 100:
+        state.setup_completed = True
+        
+    session.add(state)
+    session.commit()
+    session.refresh(state)
+
+    checklist_manual = {}
+    if state.checklist_json:
+        try:
+            checklist_manual = json.loads(state.checklist_json)
+        except:
+            pass
+
+    return {
+        "company_id": company_id,
+        "readiness_score": score,
+        "setup_completed": state.setup_completed,
+        "setup_dismissed": state.setup_dismissed,
+        "current_step": state.current_step,
+        "checkpoints": {
+            "profile": {
+                "completed": profile_ok,
+                "score": 25 if profile_ok else 0,
+                "details": profile_details
+            },
+            "integration": {
+                "completed": integration_ok,
+                "score": 25 if integration_ok else 0,
+                "details": integration_details
+            },
+            "roster": {
+                "completed": roster_ok,
+                "score": 25 if roster_ok else 0,
+                "details": roster_details
+            },
+            "assets": {
+                "completed": assets_ok,
+                "score": 25 if assets_ok else 0,
+                "details": assets_details
+            }
+        },
+        "checklist_manual_overrides": checklist_manual,
+        "last_calculated_at": state.last_updated_at
+    }
+
+
+@router.get("/api/v1/companies/{company_id}/assets/approved")
+async def get_company_assets_approved(
+    company_id: str,
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session)
+):
+    """Retrieve only approved company sales assets. Visible to anyone in company (reps included)."""
+    user = _require_auth_user(session, x_user_id)
+    _require_same_company(user, company_id)
+
+    query = select(CompanySalesAsset).where(
+        CompanySalesAsset.company_id == company_id,
+        CompanySalesAsset.status == "approved"
+    )
+    return session.exec(query).all()
 

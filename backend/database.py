@@ -11,13 +11,16 @@ if database_url:
         database_url = database_url.replace("postgres://", "postgresql://", 1)
     
     # 2. Postgres Connection with pooling and timeouts to prevent hangs
-    engine = create_engine(
-        database_url,
-        pool_size=5,
-        max_overflow=10,
-        pool_timeout=30,
-        pool_recycle=1800,
-    )
+    if "postgresql" in database_url or "postgres" in database_url:
+        engine = create_engine(
+            database_url,
+            pool_size=5,
+            max_overflow=10,
+            pool_timeout=30,
+            pool_recycle=1800,
+        )
+    else:
+        engine = create_engine(database_url, connect_args={"check_same_thread": False} if "sqlite" in database_url else {})
 else:
     # Fallback to Local SQLite
     DB_DIR = os.path.dirname(os.path.abspath(__file__))

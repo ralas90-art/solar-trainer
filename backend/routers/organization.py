@@ -78,6 +78,10 @@ def _is_demo(username: str, company_id: str) -> bool:
     return username in DEMO_USER_IDS or company_id in DEMO_COMPANY_IDS
 
 
+def _is_super_admin(user: User) -> bool:
+    return user.username == "super_admin" or getattr(user, "is_super_admin", False) or user.role == "super_admin" or user.role == "super_admin"
+
+
 # ─── Pydantic Request/Response Models ─────────────────────────────────────────
 
 class TranscriptTurn(BaseModel):
@@ -198,6 +202,26 @@ class CompanyCreateRequest(BaseModel):
 class MemberAddRequest(BaseModel):
     username: str
     role: str = "sales_rep"
+
+
+class MemberCreateRequest(BaseModel):
+    username: str
+    email: Optional[str] = None
+    role: str = "sales_rep"
+    team_id: Optional[str] = None
+    language_preference: Optional[str] = "en"
+
+
+class MemberUpdateRequest(BaseModel):
+    role: Optional[str] = None
+    team_id: Optional[str] = None
+    email: Optional[str] = None
+    is_active: Optional[bool] = None
+
+
+class TeamUpdateRequest(BaseModel):
+    name: Optional[str] = None
+    manager_id: Optional[int] = None
 
 
 class TeamAssignRequest(BaseModel):
@@ -728,31 +752,195 @@ async def get_roster(
     return {"company_id": company_id, "member_count": len(roster), "roster": roster}
 
 
-@router.post("/api/v1/companies/{company_id}/members")
-async def add_member(
+@router.get("/api/v1/companies/{company_id}/members")
+async def get_members_alias(
     company_id: str,
-    body: MemberAddRequest,
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
-    """Assign an existing user to a company. Manager/Admin only."""
+    """Wrapper/alias around get_roster for matching UI schema."""
+    return await get_roster(company_id, requesting_username, session)
+
+
+@router.post("/api/v1/companies/{company_id}/members")
+async def add_or_create_member(
+    company_id: str,
+    body: MemberCreateRequest,
+    requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session),
+):
+    """Assign or manually create a member. Manager/Admin only. Demo Mode is isolated."""
+    # Verify Company
     company = session.get(Company, company_id)
     if not company:
         raise HTTPException(status_code=404, detail="Company not found.")
 
+    # Role check & Tenant Isolation
     if requesting_username:
         req_user = session.exec(select(User).where(User.username == requesting_username)).first()
         if req_user:
-            _require_manager_or_admin(req_user)
-            _require_same_company(req_user, company_id)
+            # Block reps from manually creating/inviting users
+            if req_user.role == UserRole.SALES_REP:
+                raise HTTPException(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail="Insufficient permissions. Sales reps are not allowed to invite or manage members.",
+                )
+            # Tenant isolation unless super_admin
+            if not _is_super_admin(req_user):
+                _require_same_company(req_user, company_id)
 
-    user = session.exec(select(User).where(User.username == body.username)).first()
-    if not user:
-        raise HTTPException(status_code=404, detail=f"User '{body.username}' not found.")
+    # Demo Mode check: if demo, return mock response, do NOT write to database
+    if _is_demo(requesting_username or "", company_id):
+        print(f"[DEMO] Skip database write for creating user '{body.username}' in company '{company_id}'")
+        return {
+            "status": "ok",
+            "username": body.username,
+            "company_id": company_id,
+            "action": "created",
+            "temp_password": "demo_temp_password_123",
+            "invite_code": "demo_code",
+            "is_demo": True
+        }
 
-    user.company_id = company_id
+    # Check if target user already exists
+    target_user = session.exec(select(User).where(User.username == body.username)).first()
+    if target_user:
+        # Check if user belongs to another company
+        if target_user.company_id and target_user.company_id != company_id:
+            # Block cross-tenant assignment unless super_admin
+            is_super = False
+            if requesting_username:
+                req_user = session.exec(select(User).where(User.username == requesting_username)).first()
+                if req_user and _is_super_admin(req_user):
+                    is_super = True
+            if not is_super:
+                raise HTTPException(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail="Access denied: cross-company member assignment is not permitted.",
+                )
+        
+        # Update existing user info
+        target_user.company_id = company_id
+        if body.role:
+            target_user.role = UserRole(body.role)
+        if body.team_id:
+            if body.team_id == "none":
+                target_user.team_id = None
+            else:
+                team = session.get(Team, body.team_id)
+                if team and team.company_id == company_id:
+                    target_user.team_id = body.team_id
+
+        session.add(target_user)
+        session.commit()
+        print(f"[AUDIT] Associated existing user '{body.username}' with company '{company_id}' (Role: {body.role})")
+        return {"status": "ok", "username": body.username, "company_id": company_id, "action": "associated"}
+    
+    else:
+        # Create a new user manually
+        import secrets
+        temp_password = secrets.token_urlsafe(12) # Secure high-entropy random password
+        
+        from auth_utils import CryptContext
+        pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+        hashed_password = pwd_context.hash(temp_password)
+
+        new_user = User(
+            username=body.username,
+            email=body.email,
+            password=hashed_password,
+            role=UserRole(body.role),
+            company_id=company_id,
+            temporary_password_required=True
+        )
+        if body.team_id and body.team_id != "none":
+            team = session.get(Team, body.team_id)
+            if team and team.company_id == company_id:
+                new_user.team_id = body.team_id
+
+        session.add(new_user)
+        session.commit()
+        session.refresh(new_user)
+
+        # Create corresponding UserStats for tracking progress and language preference
+        onboarding_pref = json.dumps({"language": body.language_preference or "en"})
+        new_stats = UserStats(
+            user_id=body.username,
+            total_score=0,
+            current_streak=0,
+            lives=3,
+            onboarding_progress=onboarding_pref
+        )
+        session.add(new_stats)
+        session.commit()
+
+        print(f"[AUDIT] Created new user '{body.username}' for company '{company_id}' (Role: {body.role})")
+        return {
+            "status": "ok",
+            "username": body.username,
+            "company_id": company_id,
+            "action": "created",
+            "temp_password": temp_password,
+            "invite_code": secrets.token_hex(8)
+        }
+
+
+@router.put("/api/v1/companies/{company_id}/members/{username}")
+async def update_member(
+    company_id: str,
+    username: str,
+    body: MemberUpdateRequest,
+    requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session),
+):
+    """Update user email, role, team, or active status inside a company. Manager/Admin only."""
+    # Verify Company
+    company = session.get(Company, company_id)
+    if not company:
+        raise HTTPException(status_code=404, detail="Company not found.")
+
+    # Role check & Tenant Isolation
+    if requesting_username:
+        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
+        if req_user:
+            if req_user.role == UserRole.SALES_REP:
+                raise HTTPException(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail="Insufficient permissions. Sales reps are not allowed to update members.",
+                )
+            if not _is_super_admin(req_user):
+                _require_same_company(req_user, company_id)
+
+    # Demo mode isolation
+    if _is_demo(requesting_username or "", company_id):
+        print(f"[DEMO] Skip database write for updating user '{username}' in company '{company_id}'")
+        return {"status": "ok", "username": username, "is_demo": True}
+
+    # Get target user
+    user = session.exec(select(User).where(User.username == username)).first()
+    if not user or user.company_id != company_id:
+        raise HTTPException(status_code=404, detail="Member not found in this company.")
+
+    # Apply updates
+    if body.role:
+        user.role = UserRole(body.role)
+    if body.team_id is not None:
+        if body.team_id == "none" or not body.team_id:
+            user.team_id = None
+        else:
+            team = session.get(Team, body.team_id)
+            if not team or team.company_id != company_id:
+                raise HTTPException(status_code=400, detail="Team does not belong to this company.")
+            user.team_id = body.team_id
+    if body.email is not None:
+        user.email = body.email
+    if body.is_active is not None:
+        user.is_active = body.is_active
+
+    session.add(user)
     session.commit()
-    return {"status": "ok", "username": body.username, "company_id": company_id}
+    print(f"[AUDIT] Updated member '{username}' details in company '{company_id}'")
+    return {"status": "ok", "username": username}
 
 
 # ─── Team Endpoints ───────────────────────────────────────────────────────────
@@ -771,7 +959,45 @@ async def list_teams(
             _require_same_company(req_user, company_id)
 
     teams = session.exec(select(Team).where(Team.company_id == company_id)).all()
-    return [{"id": t.id, "name": t.name, "company_id": t.company_id, "manager_id": t.manager_id} for t in teams]
+    
+    # Calculate team-level readiness indicators dynamically
+    result = []
+    for t in teams:
+        members = session.exec(select(User).where(User.team_id == t.id, User.is_active == True)).all()
+        rep_count = len(members)
+        
+        sims_count = 0
+        started_count = 0
+        completed_count = 0
+        for m in members:
+            # count completed/started sims
+            stats = session.get(UserStats, m.username)
+            if stats:
+                try:
+                    sp = json.loads(stats.scenario_progress)
+                except:
+                    sp = {}
+                m_sims = sum(1 for v in sp.values() if isinstance(v, dict) and v.get("passed"))
+                sims_count += m_sims
+                if len(sp) > 0:
+                    started_count += 1
+                if m_sims >= 3: # 3 sims considered fully complete
+                    completed_count += 1
+
+        result.append({
+            "id": t.id,
+            "name": t.name,
+            "company_id": t.company_id,
+            "manager_id": t.manager_id,
+            "stats": {
+                "rep_count": rep_count,
+                "started_count": started_count,
+                "completed_count": completed_count,
+                "sims_count": sims_count
+            }
+        })
+        
+    return result
 
 
 @router.post("/api/v1/companies/{company_id}/teams")
@@ -792,11 +1018,60 @@ async def create_team(
             _require_manager_or_admin(req_user)
             _require_same_company(req_user, company_id)
 
+    if _is_demo(requesting_username or "", company_id):
+        print(f"[DEMO] Skip database write for creating team '{body.name}'")
+        return {"id": "demo_team_id", "name": body.name, "company_id": company_id, "is_demo": True}
+
     team = Team(name=body.name, company_id=company_id)
     session.add(team)
     session.commit()
     session.refresh(team)
+    print(f"[AUDIT] Created new team '{team.id}' (Name: {team.name}) in company '{company_id}'")
     return {"id": team.id, "name": team.name, "company_id": team.company_id}
+
+
+@router.put("/api/v1/companies/{company_id}/teams/{team_id}")
+async def update_team(
+    company_id: str,
+    team_id: str,
+    body: TeamUpdateRequest,
+    requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session),
+):
+    """Rename team or change manager. Manager/Admin only."""
+    company = session.get(Company, company_id)
+    if not company:
+        raise HTTPException(status_code=404, detail="Company not found.")
+
+    if requesting_username:
+        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
+        if req_user:
+            _require_manager_or_admin(req_user)
+            _require_same_company(req_user, company_id)
+
+    if _is_demo(requesting_username or "", company_id):
+        print(f"[DEMO] Skip database write for updating team '{team_id}'")
+        return {"status": "ok", "id": team_id, "is_demo": True}
+
+    team = session.get(Team, team_id)
+    if not team or team.company_id != company_id:
+        raise HTTPException(status_code=404, detail="Team not found in this company.")
+
+    if body.name:
+        team.name = body.name
+    if body.manager_id is not None:
+        if body.manager_id in [0, -1]:
+            team.manager_id = None
+        else:
+            mgr = session.get(User, body.manager_id)
+            if not mgr or mgr.company_id != company_id or mgr.role not in [UserRole.MANAGER, UserRole.ADMIN]:
+                raise HTTPException(status_code=400, detail="Invalid manager_id selected.")
+            team.manager_id = body.manager_id
+
+    session.add(team)
+    session.commit()
+    print(f"[AUDIT] Updated team '{team_id}' details in company '{company_id}'")
+    return {"status": "ok", "id": team.id, "name": team.name, "manager_id": team.manager_id}
 
 
 @router.put("/api/v1/user/{username}/team")
@@ -824,3 +1099,41 @@ async def assign_team(
     user.team_id = body.team_id
     session.commit()
     return {"status": "ok", "username": username, "team_id": body.team_id}
+
+
+@router.delete("/api/v1/companies/{company_id}/teams/{team_id}")
+async def delete_team(
+    company_id: str,
+    team_id: str,
+    requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session),
+):
+    """Delete a team. Manager/Admin only."""
+    company = session.get(Company, company_id)
+    if not company:
+        raise HTTPException(status_code=404, detail="Company not found.")
+
+    if requesting_username:
+        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
+        if req_user:
+            _require_manager_or_admin(req_user)
+            _require_same_company(req_user, company_id)
+
+    if _is_demo(requesting_username or "", company_id):
+        print(f"[DEMO] Skip database write for deleting team '{team_id}'")
+        return {"status": "ok", "id": team_id, "is_demo": True}
+
+    team = session.get(Team, team_id)
+    if not team or team.company_id != company_id:
+        raise HTTPException(status_code=404, detail="Team not found in this company.")
+
+    # Unassign all users currently in this team
+    users_in_team = session.exec(select(User).where(User.team_id == team.id)).all()
+    for u in users_in_team:
+        u.team_id = None
+        session.add(u)
+
+    session.delete(team)
+    session.commit()
+    print(f"[AUDIT] Deleted team '{team_id}' (Name: {team.name}) in company '{company_id}'")
+    return {"status": "ok", "id": team_id}

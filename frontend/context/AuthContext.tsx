@@ -11,6 +11,7 @@ interface User {
   role: UserRole
   planTier: PlanTier
   companyId: string
+  temporary_password_required?: boolean
 }
 
 interface AuthContextType {
@@ -18,6 +19,7 @@ interface AuthContextType {
   loading: boolean
   login: (userData: User) => void
   logout: () => void
+  updateUser: (updatedData: Partial<User>) => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -52,8 +54,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     router.push("/")
   }
 
+  const updateUser = (updatedData: Partial<User>) => {
+    setUser((prevUser) => {
+      if (!prevUser) return null
+      const updatedUser = { ...prevUser, ...updatedData }
+      localStorage.setItem("septivolt_user", JSON.stringify(updatedUser))
+      return updatedUser
+    })
+  }
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   )

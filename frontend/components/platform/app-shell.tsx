@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { Bell, BookOpen, History, Search, Sparkles, Trophy, X, Zap, Menu, Settings, Award, User, Users, ShieldAlert, Building2 } from "lucide-react"
+import { Bell, BookOpen, History, Search, Sparkles, Trophy, X, Zap, Menu, Settings, Award, User, Users, ShieldAlert, Building2, AlertTriangle, CheckCircle2, Lock, RefreshCw, FileText } from "lucide-react"
 import Link from "next/link"
 import { ReactNode, useEffect, useState } from "react"
 import {
@@ -25,13 +25,74 @@ export function AppShell({
   heading: string
   subheading: string
 }) {
-  const { user, logout } = useAuth()
+  const { user, logout, updateUser } = useAuth()
   const { isSpanish } = useLanguage()
   const t = (en: string, es: string) => isSpanish ? es : en
   const [notificationsOpen, setNotificationsOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activities, setActivities] = useState<RecentActivity[]>([])
   const [isDemo, setIsDemo] = useState(false)
+
+  // Password reset modal states
+  const [showPasswordResetModal, setShowPasswordResetModal] = useState(false)
+  const [newPassword, setNewPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const [resettingPassword, setResettingPassword] = useState(false)
+  const [resetError, setResetError] = useState<string | null>(null)
+  const [resetSuccess, setResetSuccess] = useState(false)
+
+  // Check if password reset is required on session load
+  useEffect(() => {
+    if (user?.temporary_password_required) {
+      setShowPasswordResetModal(true)
+    } else {
+      setShowPasswordResetModal(false)
+    }
+  }, [user])
+
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setResetError(null)
+
+    if (newPassword.length < 6) {
+      setResetError(t("Password must be at least 6 characters.", "La contraseña debe tener al menos 6 caracteres."))
+      return
+    }
+    if (newPassword !== confirmPassword) {
+      setResetError(t("Passwords do not match.", "Las contraseñas no coinciden."))
+      return
+    }
+
+    try {
+      setResettingPassword(true)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ""}/api/v1/user/reset-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: user?.username,
+          new_password: newPassword
+        })
+      })
+
+      if (!res.ok) {
+        const errorData = await res.json()
+        throw new Error(errorData.detail || "Failed to reset password")
+      }
+
+      setResetSuccess(true)
+      setTimeout(() => {
+        updateUser({ temporary_password_required: false })
+        setShowPasswordResetModal(false)
+        setResetSuccess(false)
+        setNewPassword("")
+        setConfirmPassword("")
+      }, 2000)
+    } catch (err: any) {
+      setResetError(err.message || t("An error occurred. Please try again.", "Ocurrió un error. Intente de nuevo."))
+    } finally {
+      setResettingPassword(false)
+    }
+  }
 
   useEffect(() => {
     setActivities(getRecentActivity())
@@ -65,10 +126,13 @@ export function AppShell({
               <Zap className="h-4 w-4" /> Dashboard
             </Link>
             <Link href="/my-training" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
-              <BookOpen className="h-4 w-4" /> My Training
+              <BookOpen className="h-4 w-4" /> {t("My Training", "Mi Entrenamiento")}
+            </Link>
+            <Link href="/my-training/scripts" className="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-400 hover:text-white ml-3">
+              <FileText className="h-3.5 w-3.5" /> {t("Sales Script Library", "Biblioteca de Guiones")}
             </Link>
             <Link href="/ai-simulator" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
-              <Sparkles className="h-4 w-4" /> AI Simulator
+              <Sparkles className="h-4 w-4" /> {t("AI Simulator", "Simulador de IA")}
             </Link>
             <Link href="/certifications" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
               <Award className="h-4 w-4" /> Certifications
@@ -274,19 +338,26 @@ export function AppShell({
             >
               <Zap className="h-5 w-5 text-[#FF5722]" /> Dashboard
             </Link>
-            <Link 
+             <Link 
               href="/my-training" 
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
             >
-              <BookOpen className="h-5 w-5 text-[#22D3EE]" /> My Training
+              <BookOpen className="h-5 w-5 text-[#22D3EE]" /> {t("My Training", "Mi Entrenamiento")}
+            </Link>
+            <Link 
+              href="/my-training/scripts" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-base font-medium text-slate-400 hover:text-white ml-4"
+            >
+              <FileText className="h-4.5 w-4.5 text-slate-500" /> {t("Sales Script Library", "Biblioteca de Guiones")}
             </Link>
             <Link 
               href="/ai-simulator" 
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
             >
-              <Sparkles className="h-5 w-5 text-[#FFB300]" /> AI Simulator
+              <Sparkles className="h-5 w-5 text-[#FFB300]" /> {t("AI Simulator", "Simulador de IA")}
             </Link>
             <Link 
               href="/certifications" 
@@ -375,6 +446,86 @@ export function AppShell({
         </div>
       )}
       {!mobileMenuOpen && <IssueReporter />}
+
+      {/* Forced Password Reset Modal */}
+      {showPasswordResetModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#121212]/95 backdrop-blur-md p-4">
+          <div className="w-full max-w-md rounded-2xl border border-[#FF5722]/20 bg-[#1A1A1A] p-6 shadow-2xl space-y-6">
+            <div className="text-center space-y-2">
+              <div className="mx-auto h-12 w-12 rounded-full bg-[#FF5722]/10 flex items-center justify-center text-[#FF5722] border border-[#FF5722]/20 animate-pulse">
+                <Lock className="h-6 w-6" />
+              </div>
+              <h2 className="font-display font-black text-xl text-white">
+                {t("Security Update Required", "Actualización de Seguridad Requerida")}
+              </h2>
+              <p className="text-xs text-[#94A3B8]">
+                {t(
+                  "A temporary password was assigned to your account. For security purposes, you must configure a secure, custom password before proceeding.",
+                  "Se asignó una contraseña temporal a su cuenta. Por motivos de seguridad, debe configurar una contraseña personalizada y segura para continuar."
+                )}
+              </p>
+            </div>
+
+            {resetError && (
+              <div className="rounded-xl border border-red-500/30 bg-red-500/5 p-3.5 text-xs text-red-400 flex gap-2 items-start">
+                <AlertTriangle className="h-4 w-4 shrink-0" />
+                <span>{resetError}</span>
+              </div>
+            )}
+
+            {resetSuccess && (
+              <div className="rounded-xl border border-green-500/30 bg-green-500/5 p-3.5 text-xs text-green-400 flex gap-2 items-start">
+                <CheckCircle2 className="h-4 w-4 shrink-0" />
+                <span>{t("Password updated successfully! Redirecting...", "¡Contraseña actualizada con éxito! Redirigiendo...")}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleResetPassword} className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-[#94A3B8] uppercase tracking-wider">
+                  {t("New Password", "Nueva Contraseña")}
+                </label>
+                <input
+                  type="password"
+                  required
+                  disabled={resettingPassword || resetSuccess}
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white outline-none focus:border-[#FF5722]/40 transition-colors"
+                  placeholder="••••••••"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-[#94A3B8] uppercase tracking-wider">
+                  {t("Confirm Password", "Confirmar Contraseña")}
+                </label>
+                <input
+                  type="password"
+                  required
+                  disabled={resettingPassword || resetSuccess}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white outline-none focus:border-[#FF5722]/40 transition-colors"
+                  placeholder="••••••••"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={resettingPassword || resetSuccess}
+                className="w-full rounded-xl bg-[#FF5722] hover:bg-[#FF5722]/90 py-3 text-sm font-bold text-white transition-colors flex items-center justify-center gap-2 shadow-lg shadow-[#FF5722]/20"
+              >
+                {resettingPassword ? (
+                  <RefreshCw className="h-4 w-4 animate-spin" />
+                ) : (
+                  t("Save New Password", "Guardar Nueva Contraseña")
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

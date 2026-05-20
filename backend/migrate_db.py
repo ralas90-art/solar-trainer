@@ -122,6 +122,7 @@ def run_migration():
         add_col(conn, "user", "created_at", "TIMESTAMP", "NULL")
         # user table — Phase 6A columns
         add_col(conn, "user", "team_id", "TEXT", "NULL")
+        add_col(conn, "user", "temporary_password_required", "BOOLEAN", "FALSE")
 
         # userstats table — core & Phase 6A columns
         add_col(conn, "userstats", "total_score", "INTEGER", "0")

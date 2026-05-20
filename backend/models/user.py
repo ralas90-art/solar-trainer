@@ -54,6 +54,7 @@ class User(SQLModel, table=True):
     company_id: Optional[str] = Field(default="septivolt", foreign_key="company.id")
     team_id: Optional[str] = Field(default=None, foreign_key="team.id")
     is_active: bool = Field(default=True)
+    temporary_password_required: bool = Field(default=False)
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 
