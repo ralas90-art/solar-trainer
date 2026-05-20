@@ -270,6 +270,7 @@ def save_company_profile(
         "completeness_score": ProfileService.calculate_completeness_score(profile)
     }
 
+@router.get("/api/v1/companies/{company_id}/profile/preview")
 @router.get("/api/v1/companies/{company_id}/profile/preview-context")
 def get_company_profile_preview(
     company_id: str,
