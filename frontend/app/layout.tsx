@@ -5,8 +5,24 @@ import { Montserrat, Roboto, JetBrains_Mono } from 'next/font/google'
 import { WHITE_LABEL } from '@/lib/white-label.config'
 
 export const metadata: Metadata = {
+    metadataBase: new URL('https://www.septivolt.com'),
     title: `${WHITE_LABEL.companyName} — ${WHITE_LABEL.tagline}`,
     description: `Elite AI-powered training for the next generation of ${WHITE_LABEL.industry.toLowerCase()} sales professionals.`,
+    openGraph: {
+        type: 'website',
+        siteName: WHITE_LABEL.companyName,
+        title: `${WHITE_LABEL.companyName} — ${WHITE_LABEL.tagline}`,
+        description: `Elite AI-powered training for the next generation of ${WHITE_LABEL.industry.toLowerCase()} sales professionals.`,
+        url: 'https://www.septivolt.com',
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: `${WHITE_LABEL.companyName} — ${WHITE_LABEL.tagline}`,
+        description: `Elite AI-powered training for the next generation of ${WHITE_LABEL.industry.toLowerCase()} sales professionals.`,
+    },
+    alternates: {
+        canonical: 'https://www.septivolt.com',
+    },
 }
 
 const montserrat = Montserrat({

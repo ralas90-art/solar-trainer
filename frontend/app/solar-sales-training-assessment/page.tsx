@@ -6,6 +6,13 @@ export const metadata: Metadata = {
   title: 'Find Your SeptiVolt Plan | AI Sales Readiness Assessment',
   description: 'Answer a few questions and SeptiVolt will recommend the right training, AI simulation, or team readiness plan based on your role, team size, and sales process. Takes about 2 minutes.',
   openGraph: {
+    type: 'website',
+    title: 'Find Your SeptiVolt Plan | AI Sales Readiness Assessment',
+    description: 'Answer a few questions and SeptiVolt will recommend the right training, AI simulation, or team readiness plan based on your role, team size, and sales process.',
+    url: '/solar-sales-training-assessment',
+  },
+  twitter: {
+    card: 'summary_large_image',
     title: 'Find Your SeptiVolt Plan | AI Sales Readiness Assessment',
     description: 'Answer a few questions and SeptiVolt will recommend the right training, AI simulation, or team readiness plan based on your role, team size, and sales process.',
   },

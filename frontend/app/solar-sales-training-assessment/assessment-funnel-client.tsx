@@ -336,20 +336,105 @@ export function AssessmentFunnelClient() {
 
     const attribution = getAttribution();
 
-    // Build exact GHL tags array
-    const ghlTags: string[] = [
-      "SeptiVolt - Funnel Lead",
-      "SeptiVolt - Assessment Completed",
-      `SeptiVolt - ${winningTrack.charAt(0).toUpperCase() + winningTrack.slice(1)}`,
-      `SeptiVolt - ${maturity}`,
-    ];
-    // Append exact GHL intent tag if URL type is recognized
-    if (urlType && GHL_TAG_MAP[urlType]) {
-      ghlTags.push(GHL_TAG_MAP[urlType]);
+    // 1. Resolve primary track by stripping "bilingual" (treat as modifier only)
+    let primaryTrack = winningTrack;
+    if (primaryTrack === "bilingual") {
+      const nonBilingualTracks: ('individual' | 'team' | 'enterprise')[] = ['enterprise', 'team', 'individual'];
+      const allScores = intelligence.allScores || { individual: 0, team: 0, bilingual: 0, enterprise: 0 };
+      nonBilingualTracks.sort((a, b) => {
+        if (allScores[b] !== allScores[a]) return allScores[b] - allScores[a];
+        const priority = { enterprise: 3, team: 2, individual: 1 };
+        return priority[b] - priority[a];
+      });
+      primaryTrack = nonBilingualTracks[0];
     }
-    // Append bilingual tag if applicable
+
+    // 2. Determine final path based on answers priority override
+    let finalPath = "";
+    
+    // Check user explicit answers first
+    const isExplicitIndividual = answers.lead_type === "rep" && (answers.team_size === "1" || !answers.team_size);
+    const isExplicitEnterprise = (answers.lead_type === "owner" && answers.team_size === "50+") ||
+      (answers.lead_type !== "rep" && (answers.team_size === "50+" || answers.interest === "white-label" || answers.interest === "demo" || answers.process === "internal"));
+    const isExplicitTeam = !isExplicitIndividual && !isExplicitEnterprise && 
+      ((answers.lead_type && answers.lead_type !== "rep") || (answers.team_size && answers.team_size !== "1"));
+
+    if (isExplicitIndividual) {
+      finalPath = "individual";
+    } else if (isExplicitEnterprise) {
+      finalPath = "enterprise";
+    } else if (isExplicitTeam) {
+      finalPath = "team";
+    } else {
+      // Priority 2: CTA query context if answers are ambiguous
+      if (urlType === "rep_basic" || urlType === "rep_voice_pro" || urlType === "partner_rep") {
+        finalPath = "individual";
+      } else if (urlType === "dealer_pilot" || urlType === "team_growth") {
+        finalPath = "team";
+      } else if (urlType === "enterprise") {
+        finalPath = "enterprise";
+      } else {
+        // Priority 3: score/winningTrack fallback
+        if (primaryTrack === "individual" || primaryTrack === "team" || primaryTrack === "enterprise") {
+          finalPath = primaryTrack;
+        } else {
+          // Priority 4: Safe default
+          finalPath = "individual";
+        }
+      }
+    }
+
+    // 3. Determine final plan
+    let finalPlan = "";
+    if (finalPath === "enterprise") {
+      finalPlan = "enterprise";
+    } else if (finalPath === "team") {
+      if (answers.team_size === "2-5") {
+        finalPlan = "dealer_pilot";
+      } else {
+        finalPlan = "team_growth";
+      }
+    } else {
+      // Individual path
+      if (urlType === "rep_basic" || urlType === "rep_voice_pro" || urlType === "partner_rep") {
+        finalPlan = urlType;
+      } else {
+        finalPlan = "rep_basic"; // Safe default
+      }
+    }
+
+    // 4. Build aligned GHL tags array (prevent conflicts)
+    const finalTags: string[] = [
+      "SeptiVolt - Funnel Lead",
+      "SeptiVolt - Assessment Completed"
+    ];
+
+    if (finalPath === "individual") {
+      finalTags.push("SeptiVolt - Individual");
+    } else if (finalPath === "team") {
+      finalTags.push("SeptiVolt - Team");
+    } else if (finalPath === "enterprise") {
+      finalTags.push("SeptiVolt - Enterprise");
+    }
+
+    finalTags.push(`SeptiVolt - ${maturity}`);
+
+    if (finalPlan === "rep_basic") {
+      finalTags.push("septivolt_rep_basic_interest");
+    } else if (finalPlan === "rep_voice_pro") {
+      finalTags.push("septivolt_voice_pro_interest");
+    } else if (finalPlan === "partner_rep") {
+      finalTags.push("septivolt_partner_rep_access");
+    } else if (finalPlan === "dealer_pilot") {
+      finalTags.push("septivolt_dealer_pilot_interest");
+    } else if (finalPlan === "team_growth") {
+      finalTags.push("septivolt_team_growth_interest");
+    } else if (finalPlan === "enterprise") {
+      finalTags.push("septivolt_enterprise_interest");
+    }
+
     if (answers.language === "es" || answers.language === "both") {
-      ghlTags.push("septivolt_bilingual_interest");
+      finalTags.push("septivolt_bilingual_interest");
     }
 
     const teamSizeNum = answers.team_size
@@ -370,19 +455,18 @@ export function AssessmentFunnelClient() {
       language_preference: language,
       score: normalizedScore,
       maturity_class: maturity,
-      recommended_path: winningTrack,
-      recommended_plan: urlType || winningTrack,
-      enterprise_interest: winningTrack === "enterprise" || urlType === "enterprise",
-      requested_demo: winningTrack === "enterprise" || winningTrack === "team" || urlType === "enterprise" || urlType === "team_growth" || urlType === "dealer_pilot",
-      high_intent: normalizedScore > 80 || urlType === "enterprise" || urlType === "team_growth" || urlType === "dealer_pilot",
+      recommended_path: finalPath,
+      recommended_plan: finalPlan,
+      enterprise_interest: finalPath === "enterprise" || finalPlan === "enterprise",
+      requested_demo: finalPath === "enterprise" || finalPath === "team" || finalPlan === "enterprise" || finalPlan === "team_growth" || finalPlan === "dealer_pilot",
+      high_intent: normalizedScore > 80 || finalPlan === "enterprise" || finalPlan === "team_growth" || finalPlan === "dealer_pilot",
       bilingual_interest: answers.language === "es" || answers.language === "both",
-      // Preserved query context for CRM routing
       cta_source: urlSource || "direct",
       cta_type: urlType || "general",
       cta_reps: urlReps || "",
-      tags: ghlTags,
-      summary: `Score: ${normalizedScore}% | Track: ${winningTrack} | Plan: ${urlType || 'none'} | Source: ${urlSource || 'direct'} | Reps: ${urlReps || 'n/a'} | Weaknesses: ${weaknesses.length} | Insights: ${insights.length}`
-    }
+      tags: finalTags,
+      summary: `Score: ${normalizedScore}% | Track: ${finalPath} | Plan: ${finalPlan} | Source: ${urlSource || 'direct'} | Reps: ${urlReps || 'n/a'} | Weaknesses: ${weaknesses.length} | Insights: ${insights.length}`
+    };
 
     try {
       const res = await fetch("/api/ghl", {
