@@ -26,8 +26,11 @@ from datetime import datetime, timedelta
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print("STARTING SERVER AND SEEDING DATABASE...")
-    create_db_and_tables()
+    print("STARTING SERVER AND SEEDING DATABASE...", flush=True)
+    try:
+        create_db_and_tables()
+    except Exception as e:
+        print(f"[CRITICAL] Database initialization failed but server will start: {e}", flush=True)
     yield
 
 app = FastAPI(title="Solar Sales Trainer API", lifespan=lifespan)
@@ -71,7 +74,7 @@ def read_root():
     from database import engine
     return {
         "status": "online", 
-        "version": "1.1.2-DB-FIX", 
+        "version": "1.1.3-CRASHPROOF", 
         "timestamp": datetime.now().isoformat(),
         "database_type": engine.url.drivername,
         "cors_debug": {
