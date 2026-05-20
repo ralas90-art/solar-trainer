@@ -113,9 +113,25 @@ def run_migration():
         # user table — Phase 6A columns
         add_col(conn, "user", "team_id", "TEXT", "NULL")
 
-        # userstats table — Phase 6A columns
+        # userstats table — core & Phase 6A columns
+        add_col(conn, "userstats", "total_score", "INTEGER", "0")
+        add_col(conn, "userstats", "current_streak", "INTEGER", "0")
+        add_col(conn, "userstats", "highest_streak", "INTEGER", "0")
+        add_col(conn, "userstats", "lives", "INTEGER", "3")
+        add_col(conn, "userstats", "last_life_lost_at", "TIMESTAMP", "NULL")
+        add_col(conn, "userstats", "module_progress", "TEXT", "'{}'")
+        add_col(conn, "userstats", "scenario_progress", "TEXT", "'{}'")
         add_col(conn, "userstats", "onboarding_progress", "TEXT", "'{}'")
         add_col(conn, "userstats", "coaching_notes", "TEXT", "''")
+
+        # company table — core & billing columns
+        add_col(conn, "company", "plan_tier", "TEXT", "'starter'")
+        add_col(conn, "company", "platform_fee", "DOUBLE PRECISION", "499.0")
+        add_col(conn, "company", "per_rep_fee", "DOUBLE PRECISION", "39.0")
+        add_col(conn, "company", "stripe_customer_id", "TEXT", "NULL")
+        add_col(conn, "company", "stripe_subscription_id", "TEXT", "NULL")
+        add_col(conn, "company", "payment_status", "TEXT", "'pending'")
+        add_col(conn, "company", "created_at", "TIMESTAMP", "NULL")
 
         conn.close()
         print("  Column patching complete.")
