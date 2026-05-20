@@ -729,8 +729,25 @@ def generate_company_asset(
     
     if is_demo or not os.getenv("OPENAI_API_KEY"):
         # Return a nice mocked generated asset
-        title = f"AI Generated {body.asset_type.replace('_', ' ').title()} Script ({body.language.upper()})"
-        content = f"""# {title}
+        if body.asset_type == "objection_library":
+            title = f"AI Generated Objection Handling Guide ({body.language.upper()})"
+            content = f"""# {title}
+
+**Target Audience:** reps facing common sales friction points.
+**Language:** {body.language.upper()}
+
+## Common Objection: "Solar is too expensive" / "I don't want another bill"
+- **Acknowledge:** "I completely understand. A new expense is the last thing you want right now."
+- **Respond:** "Actually, we aren't adding a new expense—we are replacing a variable, rising utility bill with a lower, fixed payment that eventually goes away."
+- **Compliance Warning:** Never state that solar has "no cost" or is "free".
+
+## Common Objection: "I want to wait for battery technology to improve"
+- **Acknowledge:** "Technology is always changing, that makes perfect sense."
+- **Respond:** "With current NEM 3.0 rules, waiting means paying the highest utility import rates now. The batteries we install today are state-of-the-art and lock in your savings immediately."
+"""
+        else:
+            title = f"AI Generated {body.asset_type.replace('_', ' ').title()} Script ({body.language.upper()})"
+            content = f"""# {title}
 
 **Target Audience:** Suburban homeowners in NEM 3.0 / high-tariff utility territories.
 **Language:** {body.language.upper()}

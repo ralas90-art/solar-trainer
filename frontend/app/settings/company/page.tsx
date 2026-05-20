@@ -1190,6 +1190,7 @@ export default function CompanySettingsPage() {
                               {asset.asset_type === "door_knock" && <Building2 className="h-5 w-5 text-[#FFB300]" />}
                               {asset.asset_type === "cold_call" && <Phone className="h-5 w-5 text-[#FF5722]" />}
                               {asset.asset_type === "zoom_in_home" && <Video className="h-5 w-5 text-blue-400" />}
+                              {asset.asset_type === "objection_library" && <AlertTriangle className="h-5 w-5 text-amber-500" />}
                             </div>
                             <div>
                               <h4 className="font-bold text-white text-sm flex items-center gap-2">
@@ -1378,6 +1379,7 @@ export default function CompanySettingsPage() {
                     <option value="door_knock">{t("Door Knock", "Puerta Fría")}</option>
                     <option value="cold_call">{t("Cold Call", "Llamada Fría")}</option>
                     <option value="zoom_in_home">{t("Zoom In-Home", "Presentación In-Home")}</option>
+                    <option value="objection_library">{t("Objection Library", "Biblioteca de Objeciones")}</option>
                   </select>
                 </div>
 
