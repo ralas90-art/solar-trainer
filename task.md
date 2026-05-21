@@ -151,3 +151,10 @@
     - [x] **Verification & Validation** <!-- id: rebuild_verification -->
         - [x] Run `npx tsc --noEmit` to ensure zero typescript errors <!-- id: tsc_verification -->
         - [x] Verify styling responsiveness and look-and-feel of updated pages <!-- id: visual_verification -->
+
+- [x] **Day-by-Day Audio Quality Standardization - Day 1 Complete** <!-- id: audio_std_day1 -->
+    - [x] Run Day 1 dry run and verify character costs and paths <!-- id: audio_std_day1_dryrun -->
+    - [x] Execute Day 1 generation with Tom V3 (EN) and Alberto V3 (ES) <!-- id: audio_std_day1_gen -->
+    - [x] Perform inventory checks (71 EN files, 64 ES files, 0 zero-byte) <!-- id: audio_std_day1_verify -->
+    - [x] Validate build success and type check (`npx tsc --noEmit` and `npm run build`) <!-- id: audio_std_day1_build -->
+    - [x] Commit standardized assets to Git <!-- id: audio_std_day1_commit -->
