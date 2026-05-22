@@ -3888,5 +3888,535 @@
     "text_hash": "45831b72313f48bc748fc5db456d37d9",
     "file_size": 185199,
     "timestamp": 1779447785.9662454
+  },
+  "mod_5_1:mod_5_1_intro:en": {
+    "moduleId": "mod_5_1",
+    "sectionId": "mod_5_1_intro",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "c50de73ab19f74d8a5f22533114b2033",
+    "file_size": 85725,
+    "timestamp": 1779447807.2056408
+  },
+  "mod_5_1:mod_5_1_segment_1:en": {
+    "moduleId": "mod_5_1",
+    "sectionId": "mod_5_1_segment_1",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "cc35e06ec4db4a276bd6848794f76ae4",
+    "file_size": 588530,
+    "timestamp": 1779447826.3220544
+  },
+  "mod_5_1:mod_5_1_segment_2:en": {
+    "moduleId": "mod_5_1",
+    "sectionId": "mod_5_1_segment_2",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "715c5b18e953e41a45ce817a52f4a087",
+    "file_size": 679645,
+    "timestamp": 1779447849.329382
+  },
+  "mod_5_1:mod_5_1_transition:en": {
+    "moduleId": "mod_5_1",
+    "sectionId": "mod_5_1_transition",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "5d6d0b6d0b65365e93f8a314ced42f37",
+    "file_size": 164719,
+    "timestamp": 1779447855.5776584
+  },
+  "mod_5_2:mod_5_2_intro:en": {
+    "moduleId": "mod_5_2",
+    "sectionId": "mod_5_2_intro",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "615bc302daf848e304855c00b99d2280",
+    "file_size": 112475,
+    "timestamp": 1779447861.0101173
+  },
+  "mod_5_2:mod_5_2_segment_1:en": {
+    "moduleId": "mod_5_2",
+    "sectionId": "mod_5_2_segment_1",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "2586555218bd021b97ee38f0210271f6",
+    "file_size": 719351,
+    "timestamp": 1779447883.0293057
+  },
+  "mod_5_2:mod_5_2_segment_2:en": {
+    "moduleId": "mod_5_2",
+    "sectionId": "mod_5_2_segment_2",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "964e29dfd6ec11759054d36a795b65f2",
+    "file_size": 708902,
+    "timestamp": 1779447904.8305192
+  },
+  "mod_5_2:mod_5_2_segment_3:en": {
+    "moduleId": "mod_5_2",
+    "sectionId": "mod_5_2_segment_3",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "718f621484694e857b3f5b9e0021448d",
+    "file_size": 769088,
+    "timestamp": 1779447927.869695
+  },
+  "mod_5_2:mod_5_2_transition:en": {
+    "moduleId": "mod_5_2",
+    "sectionId": "mod_5_2_transition",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "2fb48abf5963c0d155fe6af30cf81229",
+    "file_size": 172661,
+    "timestamp": 1779447934.7651694
+  },
+  "mod_5_3:mod_5_3_intro:en": {
+    "moduleId": "mod_5_3",
+    "sectionId": "mod_5_3_intro",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "183da761dbf08f3c5fc68f6415bf62c8",
+    "file_size": 77784,
+    "timestamp": 1779447938.9345837
+  },
+  "mod_5_3:mod_5_3_segment_1:en": {
+    "moduleId": "mod_5_3",
+    "sectionId": "mod_5_3_segment_1",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "f2cbddf1975368b6df5176152e3f2a4e",
+    "file_size": 662927,
+    "timestamp": 1779447960.4732618
+  },
+  "mod_5_3:mod_5_3_transition:en": {
+    "moduleId": "mod_5_3",
+    "sectionId": "mod_5_3_transition",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "5d6d0b6d0b65365e93f8a314ced42f37",
+    "file_size": 153435,
+    "timestamp": 1779447967.2263818
+  },
+  "mod_5_4:mod_5_4_intro:en": {
+    "moduleId": "mod_5_4",
+    "sectionId": "mod_5_4_intro",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "dfa6f5613cf4863fc06049877b813b12",
+    "file_size": 106205,
+    "timestamp": 1779447973.271418
+  },
+  "mod_5_4:mod_5_4_segment_1:en": {
+    "moduleId": "mod_5_4",
+    "sectionId": "mod_5_4_segment_1",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "533a777bce65ab31931a0b4b1ad5407b",
+    "file_size": 697199,
+    "timestamp": 1779447996.6368449
+  },
+  "mod_5_4:mod_5_4_transition:en": {
+    "moduleId": "mod_5_4",
+    "sectionId": "mod_5_4_transition",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "5d6d0b6d0b65365e93f8a314ced42f37",
+    "file_size": 155942,
+    "timestamp": 1779448004.36116
+  },
+  "mod_5_5:mod_5_5_intro:en": {
+    "moduleId": "mod_5_5",
+    "sectionId": "mod_5_5_intro",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "9914b645916adad4392a69c9d230d834",
+    "file_size": 123759,
+    "timestamp": 1779448009.6126533
+  },
+  "mod_5_5:mod_5_5_segment_1:en": {
+    "moduleId": "mod_5_5",
+    "sectionId": "mod_5_5_segment_1",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "ed874855ad39706c5960bec5de05cd71",
+    "file_size": 527090,
+    "timestamp": 1779448031.235335
+  },
+  "mod_5_5:mod_5_5_segment_2:en": {
+    "moduleId": "mod_5_5",
+    "sectionId": "mod_5_5_segment_2",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "ce6a6a6316d939b073e6d9be195abaf9",
+    "file_size": 720605,
+    "timestamp": 1779448052.9008014
+  },
+  "mod_5_5:mod_5_5_transition:en": {
+    "moduleId": "mod_5_5",
+    "sectionId": "mod_5_5_transition",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "5d6d0b6d0b65365e93f8a314ced42f37",
+    "file_size": 178930,
+    "timestamp": 1779448061.644151
+  },
+  "mod_5_6:mod_5_6_intro:en": {
+    "moduleId": "mod_5_6",
+    "sectionId": "mod_5_6_intro",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "ab6b55a296fbd7d45112a27ae39f5419",
+    "file_size": 99518,
+    "timestamp": 1779448067.1297162
+  },
+  "mod_5_6:mod_5_6_segment_1:en": {
+    "moduleId": "mod_5_6",
+    "sectionId": "mod_5_6_segment_1",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "44f5d3319f894d25319f55e9fbb6991a",
+    "file_size": 545062,
+    "timestamp": 1779448087.1622417
+  },
+  "mod_5_6:mod_5_6_transition:en": {
+    "moduleId": "mod_5_6",
+    "sectionId": "mod_5_6_transition",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "aaca4067f8dec1c63011edd18de4d2c5",
+    "file_size": 175168,
+    "timestamp": 1779448093.9979818
+  },
+  "mod_5_5a:mod_5_5a_intro:en": {
+    "moduleId": "mod_5_5a",
+    "sectionId": "mod_5_5a_intro",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "fc78b2752682cfd476159eea84d13f5f",
+    "file_size": 106205,
+    "timestamp": 1779448099.376119
+  },
+  "mod_5_5a:mod_5_5a_segment_1:en": {
+    "moduleId": "mod_5_5a",
+    "sectionId": "mod_5_5a_segment_1",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "f0ca0c3bbe33aed8da0471be82081e14",
+    "file_size": 405464,
+    "timestamp": 1779448117.4241667
+  },
+  "mod_5_5a:mod_5_5a_segment_2:en": {
+    "moduleId": "mod_5_5a",
+    "sectionId": "mod_5_5a_segment_2",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "76e58b80afe93355ad5c70e29de989c3",
+    "file_size": 44765,
+    "timestamp": 1779448120.5887384
+  },
+  "mod_5_5a:mod_5_5a_segment_3:en": {
+    "moduleId": "mod_5_5a",
+    "sectionId": "mod_5_5a_segment_3",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "06693e6375154c75498ef59dec4899f4",
+    "file_size": 244132,
+    "timestamp": 1779448130.8891277
+  },
+  "mod_5_5a:mod_5_5a_segment_4:en": {
+    "moduleId": "mod_5_5a",
+    "sectionId": "mod_5_5a_segment_4",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "0d1f411807e2651ddf7fe63ff6356b45",
+    "file_size": 118744,
+    "timestamp": 1779448139.8284006
+  },
+  "mod_5_5a:mod_5_5a_segment_5:en": {
+    "moduleId": "mod_5_5a",
+    "sectionId": "mod_5_5a_segment_5",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "111ada931359fbb8bf28259e0c968c50",
+    "file_size": 125431,
+    "timestamp": 1779448145.648626
+  },
+  "mod_5_5a:mod_5_5a_segment_6:en": {
+    "moduleId": "mod_5_5a",
+    "sectionId": "mod_5_5a_segment_6",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "5afe213a5de78552e589585b7919aa4a",
+    "file_size": 74022,
+    "timestamp": 1779448149.9910853
+  },
+  "mod_5_5a:mod_5_5a_segment_7:en": {
+    "moduleId": "mod_5_5a",
+    "sectionId": "mod_5_5a_segment_7",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "58ec8cc4a3c484cc76771293bf86d969",
+    "file_size": 77784,
+    "timestamp": 1779448154.6770494
+  },
+  "mod_5_5a:mod_5_5a_transition:en": {
+    "moduleId": "mod_5_5a",
+    "sectionId": "mod_5_5a_transition",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "5d6d0b6d0b65365e93f8a314ced42f37",
+    "file_size": 168899,
+    "timestamp": 1779448161.8308072
+  },
+  "mod_5_5b:mod_5_5b_intro:en": {
+    "moduleId": "mod_5_5b",
+    "sectionId": "mod_5_5b_intro",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "87a68a86b93c93b33df45c775e328204",
+    "file_size": 93248,
+    "timestamp": 1779448171.0208447
+  },
+  "mod_5_5b:mod_5_5b_segment_1:en": {
+    "moduleId": "mod_5_5b",
+    "sectionId": "mod_5_5b_segment_1",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "b837317381f39a6d9670b7a132847637",
+    "file_size": 260850,
+    "timestamp": 1779448183.0745893
+  },
+  "mod_5_5b:mod_5_5b_segment_2:en": {
+    "moduleId": "mod_5_5b",
+    "sectionId": "mod_5_5b_segment_2",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "768fc40ab2e3068e044d9c8ddf35c128",
+    "file_size": 72768,
+    "timestamp": 1779448187.776958
+  },
+  "mod_5_5b:mod_5_5b_segment_3:en": {
+    "moduleId": "mod_5_5b",
+    "sectionId": "mod_5_5b_segment_3",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "edb042977bad7b4208d3a4f1096b3f71",
+    "file_size": 254581,
+    "timestamp": 1779448199.755575
+  },
+  "mod_5_5b:mod_5_5b_segment_4:en": {
+    "moduleId": "mod_5_5b",
+    "sectionId": "mod_5_5b_segment_4",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "98127e8b6c379334f5558a81b31831bb",
+    "file_size": 89487,
+    "timestamp": 1779448204.9488971
+  },
+  "mod_5_5b:mod_5_5b_segment_5:en": {
+    "moduleId": "mod_5_5b",
+    "sectionId": "mod_5_5b_segment_5",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "af1add6ff668913d93ea5eec02b291db",
+    "file_size": 97010,
+    "timestamp": 1779448210.3728442
+  },
+  "mod_5_5b:mod_5_5b_transition:en": {
+    "moduleId": "mod_5_5b",
+    "sectionId": "mod_5_5b_transition",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "5d6d0b6d0b65365e93f8a314ced42f37",
+    "file_size": 168899,
+    "timestamp": 1779448217.6439698
+  },
+  "mod_5_5c:mod_5_5c_intro:en": {
+    "moduleId": "mod_5_5c",
+    "sectionId": "mod_5_5c_intro",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "869c8f705b6c4fad0c789ad5df45c764",
+    "file_size": 127939,
+    "timestamp": 1779448224.5237582
+  },
+  "mod_5_5c:mod_5_5c_segment_1:en": {
+    "moduleId": "mod_5_5c",
+    "sectionId": "mod_5_5c_segment_1",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "c44f6bffc4dcf598f13ea3b1ccc1b3db",
+    "file_size": 606502,
+    "timestamp": 1779448248.151797
+  },
+  "mod_5_5c:mod_5_5c_segment_2:en": {
+    "moduleId": "mod_5_5c",
+    "sectionId": "mod_5_5c_segment_2",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "0fc1da0f42dfd454dcbb98aa44a7d70d",
+    "file_size": 67753,
+    "timestamp": 1779448251.9517455
+  },
+  "mod_5_5c:mod_5_5c_segment_3:en": {
+    "moduleId": "mod_5_5c",
+    "sectionId": "mod_5_5c_segment_3",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "3fd14afd3d4a53c9c18d4e5eb82cf5ef",
+    "file_size": 94502,
+    "timestamp": 1779448257.3216803
+  },
+  "mod_5_5c:mod_5_5c_segment_4:en": {
+    "moduleId": "mod_5_5c",
+    "sectionId": "mod_5_5c_segment_4",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "09d193bd79e9ad68508e0136e0e22f75",
+    "file_size": 364504,
+    "timestamp": 1779448273.5873017
+  },
+  "mod_5_5c:mod_5_5c_segment_5:en": {
+    "moduleId": "mod_5_5c",
+    "sectionId": "mod_5_5c_segment_5",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "94054cf3fc93d440ee8859b5ae6d7180",
+    "file_size": 67753,
+    "timestamp": 1779448277.5976512
+  },
+  "mod_5_5c:mod_5_5c_transition:en": {
+    "moduleId": "mod_5_5c",
+    "sectionId": "mod_5_5c_transition",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "5d6d0b6d0b65365e93f8a314ced42f37",
+    "file_size": 166391,
+    "timestamp": 1779448285.55796
+  },
+  "mod_5_5d:mod_5_5d_intro:en": {
+    "moduleId": "mod_5_5d",
+    "sectionId": "mod_5_5d_intro",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "7bea589752d5dd3825f49ceba9385886",
+    "file_size": 88233,
+    "timestamp": 1779448290.7889318
+  },
+  "mod_5_5d:mod_5_5d_segment_1:en": {
+    "moduleId": "mod_5_5d",
+    "sectionId": "mod_5_5d_segment_1",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "1824b0e07b41be8486405cb309820292",
+    "file_size": 308079,
+    "timestamp": 1779448303.7982788
+  },
+  "mod_5_5d:mod_5_5d_segment_2:en": {
+    "moduleId": "mod_5_5d",
+    "sectionId": "mod_5_5d_segment_2",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "1ba146a0a73e28a5c1daac758e2fbbbb",
+    "file_size": 56050,
+    "timestamp": 1779448307.4524834
+  },
+  "mod_5_5d:mod_5_5d_segment_3:en": {
+    "moduleId": "mod_5_5d",
+    "sectionId": "mod_5_5d_segment_3",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "2f60bda16f4f5b4dbd6c674ae04ece6c",
+    "file_size": 363250,
+    "timestamp": 1779448321.9202974
+  },
+  "mod_5_5d:mod_5_5d_segment_4:en": {
+    "moduleId": "mod_5_5d",
+    "sectionId": "mod_5_5d_segment_4",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "ceb5520dee8fc687fb2882c84402c6ed",
+    "file_size": 321036,
+    "timestamp": 1779448335.512355
+  },
+  "mod_5_5d:mod_5_5d_segment_5:en": {
+    "moduleId": "mod_5_5d",
+    "sectionId": "mod_5_5d_segment_5",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "7d0df7cc91f5b2d42370681c04bd401e",
+    "file_size": 52288,
+    "timestamp": 1779448339.4966764
+  },
+  "mod_5_5d:mod_5_5d_segment_6:en": {
+    "moduleId": "mod_5_5d",
+    "sectionId": "mod_5_5d_segment_6",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "406fa5b16f9ea4b27fe86b65eaaf1a5b",
+    "file_size": 59812,
+    "timestamp": 1779448343.5536454
+  },
+  "mod_5_5d:mod_5_5d_transition:en": {
+    "moduleId": "mod_5_5d",
+    "sectionId": "mod_5_5d_transition",
+    "language": "en",
+    "voice_id": "QO7Mfy7rwYLdxzo4Q3iD",
+    "model_id": "eleven_v3",
+    "text_hash": "5d6d0b6d0b65365e93f8a314ced42f37",
+    "file_size": 158450,
+    "timestamp": 1779448351.1751685
   }
 }
