@@ -6,9 +6,14 @@ import { AlertTriangle, X, Upload, Loader2, Check, Image as ImageIcon } from "lu
 import { useAuth } from "@/context/AuthContext"
 import { useLanguage } from "@/hooks/use-language"
 import { isDemoModeActive } from "@/lib/demo-mode"
+import { usePathname } from "next/navigation"
+
 
 export function IssueReporter() {
+  const pathname = usePathname()
+  const isTrainingPage = pathname?.includes("/my-training/mod_")
   const { user } = useAuth()
+
   const { isSpanish } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
   const [issueType, setIssueType] = useState("Bug/Error")
@@ -185,7 +190,11 @@ export function IssueReporter() {
         }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-6 right-6 lg:bottom-8 lg:right-8 z-50 flex items-center justify-center gap-2 rounded-full lg:rounded-xl bg-[#FF5722] hover:bg-[#FF7A47] text-white font-medium text-sm p-4 lg:px-4 lg:py-2.5 shadow-[0_4px_20px_rgba(255,87,34,0.4)] transition-all cursor-pointer border border-[#FF5722]/20"
+        className={`fixed z-50 flex items-center justify-center gap-2 rounded-full lg:rounded-xl bg-[#FF5722] hover:bg-[#FF7A47] text-white font-medium text-sm p-4 lg:px-4 lg:py-2.5 shadow-[0_4px_20px_rgba(255,87,34,0.4)] transition-all cursor-pointer border border-[#FF5722]/20 ${
+          isTrainingPage
+            ? "bottom-20 right-6 lg:bottom-24 lg:right-8"
+            : "bottom-6 right-6 lg:bottom-8 lg:right-8"
+        }`}
         aria-label={t("Report an Issue", "Reportar un Problema")}
       >
         <AlertTriangle className="h-5 w-5 lg:h-4 lg:w-4" />

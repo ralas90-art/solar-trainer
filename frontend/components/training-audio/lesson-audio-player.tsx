@@ -667,7 +667,7 @@ export function LessonAudioPlayer({
                 type="button"
                 onClick={handlePlayPause}
                 disabled={isLoadingAudio}
-                className="btn-primary min-h-[48px] min-w-[78px] px-3 py-2 text-xs disabled:opacity-60"
+                className="btn-primary min-h-[48px] min-w-[78px] px-3 py-2 text-xs disabled:opacity-60 shrink-0"
               >
                 {isPlaying ? "Pause" : "Play"}
               </button>
@@ -677,7 +677,7 @@ export function LessonAudioPlayer({
                 onClick={() => setSeamlessMode((prev) => !prev)}
                 title={seamlessMode ? "Seamless mode on — sections play continuously" : "Seamless mode off — pauses between sections"}
                 className={cn(
-                  "hidden sm:flex items-center gap-1 rounded-lg border min-h-[48px] px-2.5 py-2 text-xs transition-colors",
+                  "hidden sm:flex items-center gap-1 rounded-lg border min-h-[48px] px-2.5 py-2 text-xs transition-colors shrink-0",
                   seamlessMode
                     ? "border-[#FF5722]/30 bg-[#FF5722]/10 text-[#FFD54F]"
                     : "border-white/10 bg-white/5 text-[#94A3B8]"
@@ -710,14 +710,14 @@ export function LessonAudioPlayer({
                 type="button"
                 onClick={() => stepSection(1)}
                 title="Skip to next section"
-                className="inline-flex min-h-[48px] items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-2.5 text-xs text-[#CBD5E1]"
+                className="inline-flex min-h-[48px] items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-2.5 text-xs text-[#CBD5E1] shrink-0"
               >
                 <SkipForward className="h-3.5 w-3.5" />
               </button>
               <button
                 type="button"
                 onClick={() => setIsExpanded((prev) => !prev)}
-                className="inline-flex min-h-[48px] items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-3 text-xs text-[#CBD5E1]"
+                className="inline-flex min-h-[48px] items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-3 text-xs text-[#CBD5E1] shrink-0"
               >
                 {isExpanded ? "Close" : "Expand"}
                 {isExpanded ? <ChevronDown className="h-3.5 w-3.5" /> : <ChevronUp className="h-3.5 w-3.5" />}
