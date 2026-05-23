@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo, useEffect, useCallback } from "react"
+import { useState, useMemo, useEffect, useCallback, useRef } from "react"
 import { TrainingModuleView, getTrainingModuleView } from "@/lib/training-module-view"
 import { GuidedModuleExperience } from "@/components/training-module/guided-module-experience"
 import { loadTrainingModuleProgress, saveTrainingModuleProgress } from "@/lib/training-module-progress"
@@ -53,9 +53,24 @@ export function InteractiveCurriculumClient({ moduleCatalog: initialCatalog }: {
 
   const showToast = useCallback((msg: string) => {
     setToastMessage(msg)
-    const t = setTimeout(() => setToastMessage(""), 3000)
+    const duration = msg.includes("💡") ? 6000 : 3000
+    const t = setTimeout(() => setToastMessage(""), duration)
     return () => clearTimeout(t)
   }, [])
+
+  const isFirstRender = useRef(true)
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
+    if (language === "es") {
+      showToast("💡 Recuerda abrir el reproductor de audio abajo y cambiarlo a Español (ES) para sincronizar la narración.")
+    } else {
+      showToast("💡 Remember to open the audio player at the bottom and switch it to English (EN) to sync the narration.")
+    }
+  }, [language, showToast])
 
   const refreshProgress = useCallback(() => {
     const progress: Record<string, any> = {}
@@ -425,9 +440,18 @@ export function InteractiveCurriculumClient({ moduleCatalog: initialCatalog }: {
 
       {/* Premium Lock Overlay Toast Container */}
       {toastMessage && (
-        <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-xl border border-red-500/30 bg-[#121212] px-4 py-3 text-sm text-white shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-bottom-5 duration-300">
-          <Lock className="w-4 h-4 text-red-500 shrink-0" />
-          <span>{toastMessage}</span>
+        <div className={cn(
+          "fixed right-4 z-50 flex items-center gap-2.5 rounded-xl border px-4 py-3 text-sm text-white shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-bottom-5 duration-300",
+          toastMessage.includes("💡")
+            ? "bottom-20 border-[#FFB300]/40 bg-[rgba(18,18,18,0.95)] shadow-[0_0_20px_rgba(255,179,0,0.15)] text-slate-100"
+            : "bottom-4 border-red-500/30 bg-[#121212]"
+        )}>
+          {toastMessage.includes("💡") ? (
+            <span className="text-base shrink-0 select-none">💡</span>
+          ) : (
+            <Lock className="w-4 h-4 text-red-500 shrink-0" />
+          )}
+          <span>{toastMessage.replace("💡 ", "")}</span>
         </div>
       )}
     </div>

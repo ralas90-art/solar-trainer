@@ -66,7 +66,7 @@ export function LessonAudioPlayer({
   className?: string
   autoAdvance?: boolean
 }) {
-  const { language } = useLanguage()
+  const { language, setLanguage } = useLanguage()
   const [isLanguageFallback, setIsLanguageFallback] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const generatedUrlRef = useRef<string | null>(null)
@@ -388,7 +388,19 @@ export function LessonAudioPlayer({
       lesson.sections.find((section) => section.id === stored.activeSectionId) ?? activeSection
     void loadSectionAudio(sectionToLoad, stored.resumeTimeSec || 0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [moduleId, language])
+  }, [moduleId])
+
+  // Track the previous language to avoid running on initial mount
+  const prevLanguageRef = useRef(language)
+
+  useEffect(() => {
+    if (prevLanguageRef.current !== language) {
+      prevLanguageRef.current = language
+      if (activeSection) {
+        void loadSectionAudio(activeSection, sectionElapsedSec, isPlaying)
+      }
+    }
+  }, [language, activeSection, sectionElapsedSec, isPlaying])
 
   useEffect(() => {
     if (audioRef.current) {
@@ -644,6 +656,24 @@ export function LessonAudioPlayer({
           <Zap className="w-3.5 h-3.5" />
           {seamlessMode ? "Seamless On" : "Seamless Off"}
         </button>
+        {/* Language selector */}
+        <button
+          type="button"
+          onClick={() => {
+            const nextLang = language === "en" ? "es" : "en"
+            setLanguage(nextLang)
+          }}
+          className={cn(
+            "flex items-center gap-1.5 rounded-xl border px-4 py-2 text-sm transition-colors hover:border-[#FF5722]/50",
+            language === "es"
+              ? "border-[#FF5722]/40 bg-[#FF5722]/10 text-[#FFD54F]"
+              : "border-white/10 bg-white/5 text-[#94A3B8]"
+          )}
+        >
+          <span className="text-[10px] font-black uppercase tracking-wider font-hud">
+            {language === "es" ? "Español (ES)" : "English (EN)"}
+          </span>
+        </button>
       </div>
 
       {showSections ? (
@@ -705,6 +735,22 @@ export function LessonAudioPlayer({
               <div className="text-right hidden sm:block">
                 <p className="text-xs text-[#94A3B8]">{Math.round(overallProgress)}% complete</p>
               </div>
+              {/* Language toggle */}
+              <button
+                type="button"
+                onClick={() => {
+                  const nextLang = language === "en" ? "es" : "en"
+                  setLanguage(nextLang)
+                }}
+                className={cn(
+                  "inline-flex min-h-[48px] items-center gap-1.5 rounded-lg border px-2.5 text-xs transition-colors hover:border-[#FF5722]/50 shrink-0",
+                  language === "es"
+                    ? "border-[#FF5722]/40 bg-[#FF5722]/10 text-[#FFD54F]"
+                    : "border-white/10 bg-white/5 text-[#CBD5E1]"
+                )}
+              >
+                <span className="font-black font-hud text-[10px]">{language === "es" ? "ES" : "EN"}</span>
+              </button>
               {/* Skip to next section */}
               <button
                 type="button"
@@ -756,6 +802,24 @@ export function LessonAudioPlayer({
                 >
                   <Zap className="w-3 h-3" />
                   {seamlessMode ? "Seamless On" : "Seamless Off"}
+                </button>
+                {/* Language selector */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    const nextLang = language === "en" ? "es" : "en"
+                    setLanguage(nextLang)
+                  }}
+                  className={cn(
+                    "flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs transition-colors hover:border-[#FF5722]/50",
+                    language === "es"
+                      ? "border-[#FF5722]/40 bg-[#FF5722]/10 text-[#FFD54F]"
+                      : "border-white/10 bg-white/5 text-[#CBD5E1]"
+                  )}
+                >
+                  <span className="font-hud uppercase tracking-wider font-bold text-[10px]">
+                    {language === "es" ? "Español (ES)" : "English (EN)"}
+                  </span>
                 </button>
                 <button
                   type="button"
