@@ -66,9 +66,9 @@ export function InteractiveCurriculumClient({ moduleCatalog: initialCatalog }: {
       return
     }
     if (language === "es") {
-      showToast("💡 Recuerda abrir el reproductor de audio abajo y cambiarlo a Español (ES) para sincronizar la narración.")
+      showToast("💡 El modo de entrenamiento en español está activo. El audio, las diapositivas y el contenido se cargarán en español cuando estén disponibles.")
     } else {
-      showToast("💡 Remember to open the audio player at the bottom and switch it to English (EN) to sync the narration.")
+      showToast("💡 English training mode is active. Audio, slides, and lesson content will load in English.")
     }
   }, [language, showToast])
 
