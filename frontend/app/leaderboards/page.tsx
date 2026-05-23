@@ -22,6 +22,7 @@ import { NotificationPill, SectionEyebrow, WidgetCard } from "@/components/platf
 import { Crown, Sparkles, Trophy, Zap } from "lucide-react"
 import Link from "next/link"
 import { isDemoModeActive, getDemoLeaderboard } from "@/lib/demo-mode"
+import { useTrainingStreak } from "@/hooks/use-training-streak"
 
 type SkillKey = Exclude<SkillCategory, "overall">
 
@@ -329,6 +330,7 @@ function FilterSelect<T extends string>({
 
 export default function LeaderboardsPage() {
   const { user } = useAuth()
+  const { streak: canonicalStreak } = useTrainingStreak()
   const [timeRange, setTimeRange] = useState<TimeRange>("weekly")
   const [scope, setScope] = useState<LeaderboardScope>("global")
   const [skill, setSkill] = useState<SkillCategory>("overall")
@@ -462,7 +464,7 @@ export default function LeaderboardsPage() {
             total={rankedRows.length}
             score={userRow?.score ?? 0}
             simulations={userRow?.simulations ?? 0}
-            streak={currentUser.currentStreak}
+            streak={canonicalStreak}
           />
           <ScoreProgressCard yourScore={userRow?.score ?? 0} averageScore={averageScore} />
           <WeeklyImprovementCard weeklyProgress={currentUser.weeklyProgress} weeklyDelta={weeklyDelta} />
@@ -482,7 +484,7 @@ export default function LeaderboardsPage() {
         <AchievementSummary
           xpTotal={currentUser.xpTotal}
           level={currentUser.level}
-          streak={currentUser.currentStreak}
+          streak={canonicalStreak}
           badges={currentUser.achievements}
         />
 

@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 load_dotenv()
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, select
 from pydantic import BaseModel
@@ -362,6 +362,45 @@ class SpeakRequest(BaseModel):
 def speak_endpoint(request: SpeakRequest):
     audio_stream = text_to_speech_stream(request.text, request.voice_id)
     return StreamingResponse(audio_stream, media_type="audio/mpeg")
+
+
+@app.get("/api/v1/admin/integration-status")
+def get_admin_integration_status(
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session)
+):
+    if not x_user_id:
+        raise HTTPException(status_code=401, detail="Missing authentication credentials")
+    
+    user = session.exec(select(User).where(User.username == x_user_id)).first()
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid user session")
+        
+    if user.role != UserRole.ADMIN:
+        raise HTTPException(status_code=403, detail="Access denied: Admin only")
+        
+    elevenlabs_status = "configured" if os.getenv("ELEVENLABS_API_KEY") else "not-set"
+    openai_status = "configured" if os.getenv("OPENAI_API_KEY") else "not-set"
+    vapi_status = "configured" if os.getenv("VAPI_API_KEY") else "not-set"
+
+    return {
+        "elevenlabs": {
+            "status": elevenlabs_status,
+            "label": "ElevenLabs TTS",
+            "provider": "elevenlabs"
+        },
+        "openai": {
+            "status": openai_status,
+            "label": "OpenAI GPT-4",
+            "provider": "openai"
+        },
+        "vapi": {
+            "status": vapi_status,
+            "label": "Vapi AI Voice",
+            "provider": "vapi"
+        }
+    }
+
 
 # Register Routers
 app.include_router(vapi.router)

@@ -600,7 +600,7 @@ export function LessonAudioPlayer({
           <div>
             <p className="font-semibold text-white mb-0.5">Disponible próximamente en español</p>
             <p className="text-slate-400 leading-relaxed">
-              Audio en español no disponible para esta lección. Reproduciendo audio en inglés por ahora.
+              La narración en español para esta lección se está finalizando. Reproduciendo audio en inglés por ahora.
             </p>
           </div>
         </div>
@@ -837,7 +837,7 @@ export function LessonAudioPlayer({
                 <div>
                   <p className="font-semibold text-white mb-0.5">Disponible próximamente en español</p>
                   <p className="text-slate-400 leading-relaxed">
-                    Audio en español no disponible para esta lección. Reproduciendo audio en inglés por ahora.
+                    La narración en español para esta lección se está finalizando. Reproduciendo audio en inglés por ahora.
                   </p>
                 </div>
               </div>

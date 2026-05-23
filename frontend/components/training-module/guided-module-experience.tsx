@@ -622,7 +622,7 @@ export function GuidedModuleExperience({
                     <div>
                       <p className="font-semibold text-white mb-0.5">Mostrando versión en inglés</p>
                       <p className="text-slate-400 leading-relaxed font-sans">
-                        Estas diapositivas todavía no están disponibles en español. Mostrando la versión en inglés por ahora.
+                        Las diapositivas en español se están finalizando. El audio de entrenamiento está disponible donde sea compatible.
                       </p>
                     </div>
                   </div>

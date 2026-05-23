@@ -95,7 +95,11 @@ export function LeaderboardRow({
       <td className="px-3 py-3 text-right sm:px-4">
         <span className="inline-flex items-center gap-1 text-[#FFB300]">
           <Flame className="h-3.5 w-3.5" />
-          <span className="font-hud">{rep.currentStreak}d</span>
+          <span className="font-hud">
+            {typeof rep.currentStreak === "number" && Number.isFinite(rep.currentStreak) && rep.currentStreak >= 0
+              ? `${rep.currentStreak}d`
+              : "—"}
+          </span>
         </span>
       </td>
       <td className="px-3 py-3 text-right sm:px-4">
@@ -185,7 +189,11 @@ export function UserRankCard({
           </div>
           <div className="flex items-center justify-between rounded-xl border border-[#FFB300]/20 bg-[rgba(255,179,0,0.08)] px-3 py-2">
             <span>Current Streak</span>
-            <span className="font-hud text-[#FFB300]">{streak} days</span>
+            <span className="font-hud text-[#FFB300]">
+              {typeof streak === "number" && Number.isFinite(streak) && streak >= 0
+                ? `${streak} days`
+                : "—"}
+            </span>
           </div>
         </div>
       </div>
@@ -200,32 +208,43 @@ export function ScoreProgressCard({
   yourScore: number
   averageScore: number
 }) {
-  const ratio = Math.max(0, Math.min(100, Math.round((yourScore / averageScore) * 100)))
+  const hasComparisonData = typeof averageScore === "number" && Number.isFinite(averageScore) && averageScore > 0
+  const ratio = hasComparisonData
+    ? Math.max(0, Math.min(100, Math.round((yourScore / averageScore) * 100)))
+    : 0
   const delta = yourScore - averageScore
 
   return (
     <WidgetCard>
       <SectionEyebrow label="Score Progress" action="Relative to leaderboard average" />
-      <div className="flex items-center justify-between gap-3">
-        <p className="font-display text-3xl font-black text-white">{ratio}%</p>
-        <span
-          className={cn(
-            "inline-flex items-center gap-1 font-hud text-xs uppercase tracking-[0.16em]",
-            delta >= 0 ? "text-[#FFB300]" : "text-[#94A3B8]"
-          )}
-        >
-          <TrendingUp className="h-3.5 w-3.5" />
-          {delta >= 0 ? "+" : ""}
-          {Math.round(delta)}
-        </span>
-      </div>
-      <p className="mt-2 text-sm text-[#94A3B8]">
-        Your score: <span className="font-hud text-[#FF5722]">{formatNumber(yourScore)}</span> | Average:{" "}
-        <span className="font-hud text-white">{formatNumber(averageScore)}</span>
-      </p>
-      <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/5">
-        <div className="volt-progress h-full" style={{ width: `${ratio}%` }} />
-      </div>
+      {hasComparisonData ? (
+        <>
+          <div className="flex items-center justify-between gap-3">
+            <p className="font-display text-3xl font-black text-white">{ratio}%</p>
+            <span
+              className={cn(
+                "inline-flex items-center gap-1 font-hud text-xs uppercase tracking-[0.16em]",
+                delta >= 0 ? "text-[#FFB300]" : "text-[#94A3B8]"
+              )}
+            >
+              <TrendingUp className="h-3.5 w-3.5" />
+              {delta >= 0 ? "+" : ""}
+              {Math.round(delta)}
+            </span>
+          </div>
+          <p className="mt-2 text-sm text-[#94A3B8]">
+            Your score: <span className="font-hud text-[#FF5722]">{formatNumber(yourScore)}</span> | Average:{" "}
+            <span className="font-hud text-white">{formatNumber(averageScore)}</span>
+          </p>
+          <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/5">
+            <div className="volt-progress h-full" style={{ width: `${ratio}%` }} />
+          </div>
+        </>
+      ) : (
+        <div className="py-6 text-center text-sm text-[#94A3B8]">
+          <p>No comparison data yet</p>
+        </div>
+      )}
     </WidgetCard>
   )
 }
@@ -374,7 +393,9 @@ export function AchievementSummary({
           <p className="font-hud text-[10px] uppercase tracking-[0.18em] text-[#94A3B8]">Simulation Streak</p>
           <p className="mt-2 inline-flex items-center gap-2 font-hud text-2xl text-white">
             <Flame className="h-5 w-5 text-[#FFB300]" />
-            {streak} days
+            {typeof streak === "number" && Number.isFinite(streak) && streak >= 0
+              ? `${streak} days`
+              : "—"}
           </p>
         </div>
       </div>

@@ -45,6 +45,7 @@ import { getDashboardStats, DashboardStats } from "@/lib/dashboard-data"
 import { api } from "@/lib/api-client"
 import { useAuth } from "@/context/AuthContext"
 import { useLanguage } from "@/hooks/use-language"
+import { useTrainingStreak } from "@/hooks/use-training-streak"
 import { SCENARIO_TO_MODULE } from "@/lib/modules"
 import { cn } from "@/lib/utils"
 
@@ -94,6 +95,7 @@ const onboardingTasks = [
 export default function DashboardPage() {
   const { user } = useAuth()
   const { isSpanish } = useLanguage()
+  const { streak: canonicalStreak } = useTrainingStreak()
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
@@ -714,7 +716,7 @@ export default function DashboardPage() {
                 {stats.lastModuleId ? "Resume Training" : "Start Training"}
                 <ArrowRight className="h-4 w-4" />
               </Link>
-              <NotificationPill icon={Flame} label={`${stats.streak} day streak active`} tone="lime" />
+              <NotificationPill icon={Flame} label={`${canonicalStreak} day streak active`} tone="lime" />
               <NotificationPill icon={ShieldCheck} label="Certification on track" tone="slate" />
             </div>
           </WidgetCard>
@@ -737,7 +739,7 @@ export default function DashboardPage() {
         </section>
 
         <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          <StatCard label="Current Streak" value={`${stats.streak} Days`} change="Active daily training" icon={Flame} accent="lime" />
+          <StatCard label="Current Streak" value={`${canonicalStreak} Days`} change="Active daily training" icon={Flame} accent="lime" />
           <StatCard label="Overall Score" value={stats.overallScore.toString()} change="Blended simulation + KPI achievement" icon={TrendingUp} />
           <StatCard label="Goal Achievement" value={`${stats.goalAchievement}%`} change="Real KPI progress vs targets" icon={Target} />
           <StatCard label="Sim Win Rate" value={`${stats.simWinRate}%`} change="Simulator wins / attempts only" icon={Radar} />

@@ -3,6 +3,7 @@
 import { AppShell } from "@/components/platform/app-shell"
 import { useAuth } from "@/context/AuthContext"
 import { useLanguage } from "@/hooks/use-language"
+import { useTrainingStreak } from "@/hooks/use-training-streak"
 import { cn } from "@/lib/utils"
 import { buildScenarioProgressMap, getCompletedCount } from "@/lib/simulation-progress"
 import { loadDebriefs } from "@/lib/debrief-storage"
@@ -30,6 +31,7 @@ const ACHIEVEMENTS = [
 export default function ProfilePage() {
   const { user } = useAuth()
   const { language, setLanguage, isSpanish } = useLanguage()
+  const { streak: canonicalStreak } = useTrainingStreak()
   const [activeTab, setActiveTab] = useState<ProfileTab>("info")
   const [completedSims, setCompletedSims] = useState(0)
   const [avgScore, setAvgScore] = useState(0)
@@ -114,7 +116,7 @@ export default function ProfilePage() {
               <Flame className="h-5 w-5 text-[#FF5722]" />
               <div>
                 <p className="font-hud text-[10px] uppercase tracking-wider text-[#64748B]">Streak</p>
-                <p className="font-display font-black text-xl text-white">3 <span className="text-sm font-normal text-[#94A3B8]">days</span></p>
+                <p className="font-display font-black text-xl text-white">{canonicalStreak} <span className="text-sm font-normal text-[#94A3B8]">days</span></p>
               </div>
             </div>
           </div>

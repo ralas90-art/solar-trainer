@@ -12,6 +12,7 @@ import {
 } from "lucide-react"
 import { useEffect, useState } from "react"
 import { isDemoModeActive, toggleDemoMode } from "@/lib/demo-mode"
+import { api } from "@/lib/api-client"
 
 // Audit log — placeholder entries (replace with backend GET /admin/audit-log)
 const AUDIT_LOG = [
@@ -48,12 +49,43 @@ export default function AdminControlCenterPage() {
   const [strictGating, setStrictGating] = useState(true)
   const [elevenLabsEnabled, setElevenLabsEnabled] = useState(false)
   const [dangerConfirm, setDangerConfirm] = useState<string | null>(null)
-  const [apiKeyRevealed, setApiKeyRevealed] = useState(false)
   const [demoMode, setDemoMode] = useState(false)
+  const [integrationStatuses, setIntegrationStatuses] = useState<Record<string, { status: string; label: string; provider: string }> | null>(null)
+  const [loadingStatuses, setLoadingStatuses] = useState(true)
 
   useEffect(() => {
     setDemoMode(isDemoModeActive())
   }, [])
+
+  useEffect(() => {
+    async function loadIntegrationStatuses() {
+      if (isDemoModeActive()) {
+        setIntegrationStatuses({
+          elevenlabs: { status: "server-side-only", label: "ElevenLabs TTS", provider: "elevenlabs" },
+          openai: { status: "configured", label: "OpenAI GPT-4", provider: "openai" },
+          vapi: { status: "not-set", label: "Vapi AI Voice", provider: "vapi" }
+        })
+        setElevenLabsEnabled(true)
+        setLoadingStatuses(false)
+        return
+      }
+      if (!user?.username) return
+      try {
+        const data = await api.get<any>("/api/v1/admin/integration-status", {
+          headers: { "X-User-Id": user.username }
+        })
+        setIntegrationStatuses(data)
+        if (data.elevenlabs?.status === "configured") {
+          setElevenLabsEnabled(true)
+        }
+      } catch (err) {
+        console.error("Failed to fetch integration statuses:", err)
+      } finally {
+        setLoadingStatuses(false)
+      }
+    }
+    loadIntegrationStatuses()
+  }, [user?.username])
 
   const handleToggleDemoMode = (enabled: boolean) => {
     toggleDemoMode(enabled)
@@ -86,7 +118,7 @@ export default function AdminControlCenterPage() {
               { label: "Platform Status", value: "Operational", sub: "All systems nominal", color: "text-green-400", dot: "bg-green-400" },
               { label: "Total Users",     value: String(ALL_USERS.length), sub: "1 admin · 1 manager · 3 trainees", color: "text-[#FF5722]", dot: "bg-[#FF5722]" },
               { label: "Active Sessions", value: "3", sub: "Right now", color: "text-[#FFB300]", dot: "bg-[#FFB300]" },
-              { label: "Platform Build",  value: "v2.4.1", sub: "Audio + debrief sync release", color: "text-[#94A3B8]", dot: "bg-[#64748B]" },
+              { label: "Platform Build",  value: "v2.4.2", sub: "Enterprise readiness stabilization release", color: "text-[#94A3B8]", dot: "bg-[#64748B]" },
             ].map(({ label, value, sub, color, dot }) => (
               <div key={label} className="rounded-2xl border border-white/5 bg-[#1A1A1A] p-5">
                 <div className="flex items-center gap-2 mb-2">
@@ -233,19 +265,20 @@ export default function AdminControlCenterPage() {
                 </h3>
                 <div className="space-y-3">
                   {[
-                    { label: "Spanish Language Mode", sub: "Enable bilingual training across all modules", val: spanishMode, set: setSpanishMode },
-                    { label: "Strict Curriculum Gating", sub: "Require quiz pass before sim access", val: strictGating, set: setStrictGating },
-                    { label: "ElevenLabs AI Narration", sub: "Use ElevenLabs API for audio fallback", val: elevenLabsEnabled, set: setElevenLabsEnabled },
-                    { label: "Safe Demo Mode", sub: "Populate sample enterprise training data", val: demoMode, set: handleToggleDemoMode },
-                  ].map(({ label, sub, val, set }) => (
-                    <div key={label} className="flex items-center justify-between gap-3 p-3 rounded-xl border border-white/5 bg-white/5">
+                    { label: "Spanish Language Mode", sub: "Enable bilingual training across all modules", val: spanishMode, set: setSpanishMode, disabled: false },
+                    { label: "Strict Curriculum Gating", sub: "Require quiz pass before sim access", val: strictGating, set: setStrictGating, disabled: false },
+                    { label: "ElevenLabs AI Narration", sub: "Managed server-side via environment settings", val: elevenLabsEnabled, set: () => {}, disabled: true },
+                    { label: "Safe Demo Mode", sub: "Populate sample enterprise training data", val: demoMode, set: handleToggleDemoMode, disabled: false },
+                  ].map(({ label, sub, val, set, disabled }) => (
+                    <div key={label} className={cn("flex items-center justify-between gap-3 p-3 rounded-xl border border-white/5 bg-white/5", disabled && "opacity-60")}>
                       <div className="min-w-0">
                         <p className="font-semibold text-sm text-white">{label}</p>
                         <p className="text-[10px] text-[#94A3B8]">{sub}</p>
                       </div>
                       <button
-                        onClick={() => set(!val)}
-                        className={cn("w-11 h-6 rounded-full p-1 transition-colors duration-200 shrink-0", val ? "bg-[#FF5722]" : "bg-white/10")}
+                        onClick={() => !disabled && set(!val)}
+                        disabled={disabled}
+                        className={cn("w-11 h-6 rounded-full p-1 transition-colors duration-200 shrink-0", val ? "bg-[#FF5722]" : "bg-white/10", disabled && "cursor-not-allowed")}
                       >
                         <div className={cn("w-4 h-4 rounded-full bg-white transition-transform duration-200 shadow-sm", val ? "translate-x-5" : "translate-x-0")} />
                       </button>
@@ -257,30 +290,44 @@ export default function AdminControlCenterPage() {
               {/* API / Integrations */}
               <div className="rounded-2xl border border-white/5 bg-[#1A1A1A] p-5">
                 <h3 className="font-display font-black text-base text-white flex items-center gap-2 mb-1">
-                  <Key className="h-4 w-4 text-[#FFD54F]" /> {t("Integrations & API", "Integraciones y API")}
+                  <Key className="h-4 w-4 text-[#FFD54F]" /> {t("Integrations & API Keys", "Integraciones y Claves API")}
                 </h3>
-                <p className="text-[10px] text-[#64748B] mb-4">API keys are backend-managed. Values shown are masked placeholders.</p>
+                <p className="text-[10px] text-[#64748B] mb-4">
+                  {t(
+                    "API key statuses are queried securely from the backend. Raw credentials are never exposed.",
+                    "Los estados de las claves API se consultan de forma segura desde el servidor. Las credenciales sin procesar nunca se exponen."
+                  )}
+                </p>
                 <div className="space-y-3">
-                  {[
-                    { label: "ElevenLabs API Key", placeholder: "el_••••••••••••••••••••••••••••••••" },
-                    { label: "OpenAI API Key", placeholder: "sk-••••••••••••••••••••••••••••••••" },
-                  ].map(({ label, placeholder }) => (
-                    <div key={label} className="space-y-1.5">
-                      <label className="text-[10px] font-semibold text-[#64748B] uppercase tracking-wider block">{label}</label>
-                      <div className="flex gap-2">
-                        <div className="flex-1 rounded-xl border border-white/10 bg-[#121212] px-4 py-2.5 text-xs text-[#64748B] font-mono truncate flex items-center gap-2">
-                          <Lock className="h-3.5 w-3.5 shrink-0 text-[#64748B]" />
-                          {placeholder}
+                  {loadingStatuses ? (
+                    <div className="text-xs text-[#64748B] animate-pulse">Loading status checks...</div>
+                  ) : integrationStatuses ? (
+                    Object.values(integrationStatuses).map(({ label, status }) => {
+                      const statusLabel =
+                        status === "configured" ? t("Configured", "Configurado") :
+                        status === "server-side-only" ? t("Server-side only", "Solo Servidor") :
+                        t("Not Set", "No Configurado")
+
+                      const badgeClass =
+                        status === "configured" ? "bg-green-500/10 text-green-400 border-green-500/25" :
+                        status === "server-side-only" ? "bg-blue-500/10 text-blue-400 border-blue-500/25" :
+                        "bg-white/5 text-[#94A3B8] border-white/10"
+
+                      return (
+                        <div key={label} className="flex items-center justify-between gap-3 p-3 rounded-xl border border-white/5 bg-[#1C1C1C]">
+                          <span className="text-xs font-semibold text-white">{label}</span>
+                          <span className={cn("rounded px-2.5 py-0.5 text-[10px] font-hud uppercase tracking-wider font-bold border", badgeClass)}>
+                            {statusLabel}
+                          </span>
                         </div>
-                        <button className="rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 text-[#94A3B8] hover:text-white transition-colors" title="Copy">
-                          <Copy className="h-3.5 w-3.5" />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+                      )
+                    })
+                  ) : (
+                    <div className="text-xs text-red-400">Failed to load integration status checks.</div>
+                  )}
                 </div>
                 <div className="mt-4 rounded-xl border border-[#FFB300]/20 bg-[#FFB300]/5 p-3 text-[10px] text-[#94A3B8]">
-                  <span className="text-[#FFB300] font-bold font-hud uppercase tracking-wider">Security Note</span> — API keys must be configured via environment variables (<span className="font-mono text-[#FFD54F]">ELEVENLABS_API_KEY</span>). Never paste live keys into the frontend UI.
+                  <span className="text-[#FFB300] font-bold font-hud uppercase tracking-wider">Security Note</span> — API keys are strictly configured via server environment variables. Never commit credentials to the code repository or save them locally.
                 </div>
               </div>
             </div>

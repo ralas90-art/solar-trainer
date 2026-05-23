@@ -150,7 +150,7 @@ export async function resolveNarrationSource(request: NarrationRequest): Promise
   debugLog("Fallback to browser speech synthesis", { fallback: isEs })
   return {
     mode: "speech_synthesis",
-    error: "Audio asset not available. Using browser speech fallback.",
+    error: "Narration is loading via your browser. Press Play to begin.",
     isLanguageFallback: isEs,
     ...(isEs
       ? {
