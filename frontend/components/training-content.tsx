@@ -52,7 +52,8 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
             setAudioComplete(true)
         }
 
-        const view = getTrainingModuleView(moduleId)
+        // Resolve module view for the active language (en or es)
+        const view = getTrainingModuleView(moduleId, language)
         if (!view) {
             // No curriculum data for this module — auto-unlock so users aren't blocked
             setAudioStatus("unavailable")
@@ -60,7 +61,8 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
             return
         }
 
-        const lesson = buildModuleAudioLesson(view)
+        // Build lesson with the active language so narration text and section IDs align correctly
+        const lesson = buildModuleAudioLesson(view, language)
 
         if (!lesson.sections.length) {
             // Empty lesson (shouldn't happen, but be safe)
@@ -72,7 +74,8 @@ export function TrainingContent({ moduleId, onBack, onComplete }: TrainingConten
         setAudioLesson(lesson)
         // Always render the player — it handles static MP3 → ElevenLabs → browser TTS internally
         setAudioStatus("available")
-    }, [moduleId, moduleData])
+    // Include language so the lesson recomputes when the user toggles between EN and ES
+    }, [moduleId, moduleData, language])
 
 
     if (!moduleData) {
