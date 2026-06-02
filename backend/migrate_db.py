@@ -273,6 +273,92 @@ def run_migration():
             traceback.print_exc()
             print(f"  [ERROR] Failed to sanitize/mark test data: {e}")
 
+        # Step 5 — Environment-aware Demo Admin Seeding
+        SEED_DEMO = os.getenv("SEED_DEMO_ACCOUNT", "false").lower() == "true"
+        if SEED_DEMO:
+            print("\n[5/5] Seeding demo company and admin user…")
+            try:
+                from models.user import User, UserStats, UserRole
+                from models.company_settings import CompanyProfile
+                from sqlmodel import select
+                
+                # Check company
+                company_id = "sales_accelerator_demo"
+                company = session.get(Company, company_id)
+                if not company:
+                    print(f"  Creating demo company: {company_id}")
+                    company = Company(
+                        id=company_id,
+                        name="Sales Accelerator Demo",
+                        plan_tier=PlanTier.ENTERPRISE,
+                        payment_status="active"
+                    )
+                    session.add(company)
+                    session.commit()
+                else:
+                    print(f"  Demo company {company_id} already exists.")
+                
+                # Check user
+                username = "demo_admin"
+                demo_user = session.exec(select(User).where(User.username == username)).first()
+                if not demo_user:
+                    print(f"  Creating demo user: {username}")
+                    from auth_utils import CryptContext
+                    pwd_context = CryptContext()
+                    hashed_pwd = pwd_context.hash("solar_password_2026")
+                    demo_user = User(
+                        username=username,
+                        password=hashed_pwd,
+                        role=UserRole.ADMIN,
+                        company_id=company_id
+                    )
+                    session.add(demo_user)
+                    session.commit()
+                else:
+                    print(f"  Demo user {username} already exists.")
+                
+                # Check stats
+                stats = session.get(UserStats, username)
+                if not stats:
+                    print(f"  Initializing stats for: {username}")
+                    stats = UserStats(
+                        user_id=username,
+                        total_score=1500,
+                        current_streak=5,
+                        highest_streak=12,
+                        lives=3,
+                        module_progress=json.dumps({
+                            "mod_1_1": {"quiz": True, "sim": True},
+                            "mod_1_2": {"quiz": True, "sim": True}
+                        })
+                    )
+                    session.add(stats)
+                    session.commit()
+                else:
+                    print(f"  Stats for user {username} already exist.")
+                
+                # Check company settings profile defaults
+                profile = session.get(CompanyProfile, company_id)
+                if not profile:
+                    print(f"  Initializing company profile for: {company_id}")
+                    profile = CompanyProfile(
+                        company_id=company_id,
+                        company_overview="A dynamic solar dealer training 50+ sales reps.",
+                        website_url="https://demo-solar.example.com",
+                        residential_focus=True,
+                        commercial_focus=True
+                    )
+                    session.add(profile)
+                    session.commit()
+                else:
+                    print(f"  Company profile for {company_id} already exists.")
+                    
+            except Exception as e:
+                session.rollback()
+                print(f"  [ERROR] Failed to seed demo account: {e}")
+        else:
+            print("\n[5/5] Skipping demo admin seeding (SEED_DEMO_ACCOUNT is not 'true')…")
+
     print("\n" + "=" * 60)
     print("[SUCCESS] Phase 6A Migration Complete.")
     print("=" * 60)

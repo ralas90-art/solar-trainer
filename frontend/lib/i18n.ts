@@ -22,11 +22,22 @@ export function t(key: string, lang: Language = 'en', variables?: Record<string,
       if (lang === 'es') {
         return t(key, 'en', variables);
       }
-      return key; // Return the key itself as a last resort
+      // Defensive fallback: format the last segment of the key cleanly
+      const lastSegment = keys[keys.length - 1] || key;
+      return lastSegment
+        .split(/[_-]/)
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
     }
   }
 
-  if (typeof result !== 'string') return key;
+  if (typeof result !== 'string') {
+    const lastSegment = keys[keys.length - 1] || key;
+    return lastSegment
+      .split(/[_-]/)
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  }
 
   // Replace variables
   if (variables) {
