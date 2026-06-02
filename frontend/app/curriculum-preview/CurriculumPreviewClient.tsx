@@ -297,8 +297,9 @@ export default function CurriculumPreview() {
                         </CardHeader>
                         <CardContent className="space-y-6">
                             <div>
-                                <label className="block text-sm font-medium mb-2 text-slate-200">My Financial Goal for Month 6 is:</label>
+                                <label htmlFor="workbook-financial-goal" className="block text-sm font-medium mb-2 text-slate-200">My Financial Goal for Month 6 is:</label>
                                 <input 
+                                    id="workbook-financial-goal"
                                     type="text" 
                                     value={mounted ? (workbook.financialGoal || "") : ""} 
                                     onChange={(e) => updateWorkbook("financialGoal", e.target.value)} 
@@ -307,8 +308,9 @@ export default function CurriculumPreview() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium mb-2 text-slate-200">The 4 Stages of Competence are: Unconscious Incompetence, Conscious Incompetence (the Dip), __________, and __________.</label>
+                                <label htmlFor="workbook-competence-answers" className="block text-sm font-medium mb-2 text-slate-200">The 4 Stages of Competence are: Unconscious Incompetence, Conscious Incompetence (the Dip), __________, and __________.</label>
                                 <input 
+                                    id="workbook-competence-answers"
                                     type="text" 
                                     value={mounted ? (workbook.competenceAnswers || "") : ""} 
                                     onChange={(e) => updateWorkbook("competenceAnswers", e.target.value)} 
