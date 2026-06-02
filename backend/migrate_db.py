@@ -303,9 +303,10 @@ def run_migration():
                 demo_user = session.exec(select(User).where(User.username == username)).first()
                 if not demo_user:
                     print(f"  Creating demo user: {username}")
+                    demo_pwd_raw = os.getenv("DEMO_ADMIN_PASSWORD", "solar_password_2026")
                     from auth_utils import CryptContext
                     pwd_context = CryptContext()
-                    hashed_pwd = pwd_context.hash("solar_password_2026")
+                    hashed_pwd = pwd_context.hash(demo_pwd_raw)
                     demo_user = User(
                         username=username,
                         password=hashed_pwd,
@@ -316,6 +317,11 @@ def run_migration():
                     session.commit()
                 else:
                     print(f"  Demo user {username} already exists.")
+                    if not demo_user.company_id:
+                        print(f"  Attaching missing company_id {company_id} to user {username}.")
+                        demo_user.company_id = company_id
+                        session.add(demo_user)
+                        session.commit()
                 
                 # Check stats
                 stats = session.get(UserStats, username)
@@ -338,7 +344,7 @@ def run_migration():
                     print(f"  Stats for user {username} already exist.")
                 
                 # Check company settings profile defaults
-                profile = session.get(CompanyProfile, company_id)
+                profile = session.exec(select(CompanyProfile).where(CompanyProfile.company_id == company_id)).first()
                 if not profile:
                     print(f"  Initializing company profile for: {company_id}")
                     profile = CompanyProfile(
