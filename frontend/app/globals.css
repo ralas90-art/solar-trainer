@@ -75,6 +75,9 @@
   .brand-glow-strong {
     box-shadow: 0 0 30px rgba(249, 115, 22, 0.5), 0 0 60px rgba(249, 115, 22, 0.2);
   }
+  .brand-glow-subtle {
+    box-shadow: 0 0 20px var(--glow-color, rgba(249, 115, 22, 0.12)), 0 0 40px var(--glow-color, rgba(249, 115, 22, 0.04));
+  }
   .amber-glow {
     box-shadow: 0 0 20px rgba(245, 158, 11, 0.25), 0 0 40px rgba(245, 158, 11, 0.1);
   }

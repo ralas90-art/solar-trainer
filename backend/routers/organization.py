@@ -330,6 +330,11 @@ async def create_debrief(
     # Invalidate analytics cache so the dashboard reflects new data
     if not is_demo_run:
         invalidate_analytics_cache_for_user(username)
+        try:
+            from services.ghl_sync import GHLSyncService
+            GHLSyncService.sync_progress_to_ghl(session, username)
+        except Exception as e:
+            print(f"[GHL-TRIGGER ERROR] Failed in debrief progress callback: {e}")
 
     return _debrief_to_response(debrief, sim)
 

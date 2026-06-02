@@ -17,12 +17,12 @@ from fastapi.responses import StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from certificate import generate_certificate_pdf
 from voice import text_to_speech_stream
-from routers import vapi, analysis, kpis, certifications, analytics_snapshot, billing, enterprise, organization, company_settings
-
+from routers import vapi, analysis, kpis, certifications, analytics_snapshot, billing, enterprise, organization, company_settings, invitations, command_center, team_templates, training_intelligence
 from routers.analytics_snapshot import invalidate_analytics_cache_for_user
 import os
 import json
 from datetime import datetime, timedelta
+
 from auth_utils import pwd_context
 
 
@@ -330,6 +330,11 @@ def update_progress(user_id: str, request: ProgressRequest, session: Session = D
     session.commit()
     session.refresh(stats)
     invalidate_analytics_cache_for_user(user_id)
+    try:
+        from services.ghl_sync import GHLSyncService
+        GHLSyncService.sync_progress_to_ghl(session, user_id)
+    except Exception as e:
+        print(f"[GHL-TRIGGER ERROR] Failed in progress change callback: {e}")
     return stats
 
 @app.get("/leaderboard")
@@ -412,6 +417,11 @@ app.include_router(billing.router)
 app.include_router(enterprise.router)
 app.include_router(organization.router)   # Phase 6A: multi-tenant persistence
 app.include_router(company_settings.router)
+app.include_router(invitations.router)
+app.include_router(command_center.router)
+app.include_router(team_templates.router)
+app.include_router(training_intelligence.router)  # Phase 8: Training Intelligence Engine
+
 
 
 if __name__ == "__main__":

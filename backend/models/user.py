@@ -9,9 +9,15 @@ import uuid
 # ─── Enums ───────────────────────────────────────────────────────────────────
 
 class UserRole(str, Enum):
+    SUPER_ADMIN = "super_admin"
+    DEALER_ADMIN = "dealer_admin"
+    BRANCH_MANAGER = "branch_manager"
+    TRAINER = "trainer"
+    SALES_REP = "sales_rep"
+    OBSERVER = "observer"
+    # Legacy fallbacks
     ADMIN = "admin"
     MANAGER = "manager"
-    SALES_REP = "sales_rep"
 
 class PlanTier(str, Enum):
     STARTER = "starter"
@@ -41,6 +47,7 @@ class Team(SQLModel, table=True):
     id: str = Field(default_factory=lambda: f"team_{uuid.uuid4().hex[:12]}", primary_key=True)
     name: str
     company_id: str = Field(index=True, foreign_key="company.id")
+    branch_id: Optional[str] = Field(default=None, foreign_key="branches.id", index=True)
     manager_id: Optional[int] = Field(default=None, foreign_key="user.id")
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
@@ -52,6 +59,7 @@ class User(SQLModel, table=True):
     password: str  # Always bcrypt-hashed
     role: UserRole = Field(default=UserRole.SALES_REP)
     company_id: Optional[str] = Field(default="septivolt", foreign_key="company.id", index=True)
+    branch_id: Optional[str] = Field(default=None, foreign_key="branches.id", index=True)
     team_id: Optional[str] = Field(default=None, foreign_key="team.id")
     is_active: bool = Field(default=True)
     temporary_password_required: bool = Field(default=False)

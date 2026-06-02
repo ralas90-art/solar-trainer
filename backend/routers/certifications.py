@@ -1,19 +1,29 @@
 """
 Certification System API Router
-Provides canonical certification progress, status, and team views.
+Provides canonical certification progress, status, team views, public verification,
+manager approval/revocation/renewal, and automated expiration checking.
+
+Phase 7 — SeptiVolt Certification Verification & Credential Management System
 """
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 import json
+import os
+import secrets
 from typing import Any, Dict, List, Optional, Tuple
 
-from fastapi import APIRouter, Depends
-from sqlmodel import Session, select
+from fastapi import APIRouter, Depends, Header, HTTPException, status
+from pydantic import BaseModel
+from sqlmodel import Session, select, func
 
 from database import get_session
 from models import UserStats
+from models.certifications import Certification, UserCertification
+from models.user import User, UserRole
 
 router = APIRouter()
 
+
+# ─── Helpers ─────────────────────────────────────────────────────────────────
 
 def _safe_json_parse(raw: Optional[str], fallback: Any) -> Any:
     if not raw:
@@ -27,6 +37,27 @@ def _safe_json_parse(raw: Optional[str], fallback: Any) -> Any:
 def _clamp(min_value: int, value: int, max_value: int) -> int:
     return max(min_value, min(value, max_value))
 
+
+def _get_requesting_user(session: Session, x_user_id: Optional[str]) -> User:
+    if not x_user_id:
+        raise HTTPException(status_code=401, detail="Missing authentication header 'X-User-Id'.")
+    user = session.exec(select(User).where(User.username == x_user_id)).first()
+    if not user:
+        raise HTTPException(status_code=401, detail="Session user not found.")
+    return user
+
+
+def _require_manager_or_admin(user: User):
+    allowed = {
+        UserRole.SUPER_ADMIN, UserRole.DEALER_ADMIN,
+        UserRole.BRANCH_MANAGER, UserRole.TRAINER,
+        UserRole.ADMIN, UserRole.MANAGER
+    }
+    if user.role not in allowed:
+        raise HTTPException(status_code=403, detail="Access denied: Manager or Admin permissions required.")
+
+
+# ─── Track Blueprints (catalog definitions — unchanged) ──────────────────────
 
 TRACK_BLUEPRINTS = [
     {
@@ -293,6 +324,8 @@ def _derive_team_progress(leaderboard: List[UserStats]) -> List[Dict[str, Any]]:
     return results
 
 
+# ─── Endpoint 1: Snapshot (existing, preserved) ───────────────────────────────
+
 @router.get("/api/v1/certifications/snapshot")
 async def get_certification_snapshot(
     user_id: str = "trainee",
@@ -322,3 +355,447 @@ async def get_certification_snapshot(
         "updatedAt": date.today().isoformat(),
     }
 
+
+# ─── Endpoint 2: Public Credential Verification ───────────────────────────────
+
+@router.get("/api/v1/certifications/verify/{verification_hash}")
+async def verify_certification(
+    verification_hash: str,
+    session: Session = Depends(get_session),
+):
+    """
+    PUBLIC endpoint — no authentication required.
+    Verifies a credential by its unique hash and returns only whitelisted fields.
+    Increments verification_views and updates last_verified_at.
+    """
+    uc = session.exec(
+        select(UserCertification).where(UserCertification.verification_hash == verification_hash)
+    ).first()
+
+    if not uc:
+        raise HTTPException(status_code=404, detail="Credential not found. This verification link may be invalid or the credential may have been revoked.")
+
+    # Resolve certification name
+    cert = session.get(Certification, uc.certification_id)
+    cert_name = cert.name if cert else uc.certification_id.replace("_", " ").title()
+
+    # Resolve company name
+    from models.user import Company
+    company = session.get(Company, uc.company_id)
+    company_name = company.name if company else uc.company_id
+
+    # Resolve branch name (optional)
+    from models.enterprise_hierarchy import Branch
+    user = session.exec(select(User).where(User.username == uc.user_id)).first()
+    branch_name = None
+    if user and user.branch_id:
+        branch = session.get(Branch, user.branch_id)
+        branch_name = branch.name if branch else None
+
+    # Log the verification view (do NOT expose user private data)
+    try:
+        uc.verification_views = (uc.verification_views or 0) + 1
+        uc.last_verified_at = datetime.utcnow()
+        session.add(uc)
+        session.commit()
+    except Exception:
+        session.rollback()
+
+    # Status label mapping
+    status_labels = {
+        "ACTIVE": "Valid & Active",
+        "EXPIRED": "Expired",
+        "REVOKED": "Revoked",
+        "PENDING_APPROVAL": "Pending Approval",
+    }
+    status_label = status_labels.get(uc.status, uc.status)
+    is_valid = uc.status == "ACTIVE"
+
+    return {
+        "isValid": is_valid,
+        "status": uc.status,
+        "statusLabel": status_label,
+        "certificationName": cert_name,
+        "recipientDisplayName": uc.user_id,  # username shown publicly
+        "companyName": company_name,
+        "branchName": branch_name,
+        "verificationId": uc.id,
+        "verificationHash": uc.verification_hash,
+        "issuedAt": uc.issued_at.isoformat() if uc.issued_at else None,
+        "expiresAt": uc.expires_at.isoformat() if uc.expires_at else None,
+        "approvedAt": uc.approved_at.isoformat() if uc.approved_at else None,
+        "verificationViews": uc.verification_views,
+        "verifiedAt": datetime.utcnow().isoformat(),
+        "badgeUrl": cert.badge_url if cert else None,
+    }
+
+
+# ─── Endpoint 3: Company-Scoped Certifications List ───────────────────────────
+
+@router.get("/api/v1/certifications/list")
+async def list_certifications(
+    filter_status: Optional[str] = None,  # ACTIVE | EXPIRED | REVOKED | PENDING_APPROVAL
+    filter_username: Optional[str] = None,
+    filter_branch_id: Optional[str] = None,
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session),
+):
+    """
+    Company-scoped list of all issued credentials. Manager/Admin only.
+    """
+    manager = _get_requesting_user(session, x_user_id)
+    _require_manager_or_admin(manager)
+    company_id = manager.company_id or "septivolt"
+
+    stmt = select(UserCertification).where(UserCertification.company_id == company_id)
+    if filter_status:
+        stmt = stmt.where(UserCertification.status == filter_status.upper())
+    if filter_username:
+        stmt = stmt.where(UserCertification.user_id == filter_username)
+
+    results = session.exec(stmt.order_by(UserCertification.issued_at.desc())).all()
+
+    # If branch filter, resolve via user records
+    if filter_branch_id:
+        branch_users = session.exec(
+            select(User.username).where(User.branch_id == filter_branch_id, User.company_id == company_id)
+        ).all()
+        branch_usernames = set(branch_users)
+        results = [r for r in results if r.user_id in branch_usernames]
+
+    # Enrich with certification names
+    enriched = []
+    cert_cache: Dict[str, str] = {}
+    for uc in results:
+        if uc.certification_id not in cert_cache:
+            cert = session.get(Certification, uc.certification_id)
+            cert_cache[uc.certification_id] = cert.name if cert else uc.certification_id.replace("_", " ").title()
+        enriched.append({
+            "id": uc.id,
+            "userId": uc.user_id,
+            "certificationId": uc.certification_id,
+            "certificationName": cert_cache[uc.certification_id],
+            "status": uc.status,
+            "issuedAt": uc.issued_at.isoformat() if uc.issued_at else None,
+            "expiresAt": uc.expires_at.isoformat() if uc.expires_at else None,
+            "approvedBy": uc.approved_by,
+            "approvedAt": uc.approved_at.isoformat() if uc.approved_at else None,
+            "revokedBy": uc.revoked_by,
+            "revokedAt": uc.revoked_at.isoformat() if uc.revoked_at else None,
+            "revokedReason": uc.revoked_reason,
+            "verificationHash": uc.verification_hash,
+            "verificationViews": uc.verification_views or 0,
+            "lastVerifiedAt": uc.last_verified_at.isoformat() if uc.last_verified_at else None,
+        })
+
+    return {
+        "companyId": company_id,
+        "total": len(enriched),
+        "certifications": enriched,
+    }
+
+
+# ─── Endpoint 4: Approve Certification ────────────────────────────────────────
+
+class ApprovalRequest(BaseModel):
+    notes: Optional[str] = None
+
+
+@router.post("/api/v1/certifications/{cert_record_id}/approve")
+async def approve_certification(
+    cert_record_id: str,
+    body: ApprovalRequest = ApprovalRequest(),
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session),
+):
+    """
+    Approve a PENDING_APPROVAL certification. Manager/Admin only, same company.
+    Triggers GHL tag sync with certification_status:active.
+    """
+    manager = _get_requesting_user(session, x_user_id)
+    _require_manager_or_admin(manager)
+
+    uc = session.get(UserCertification, cert_record_id)
+    if not uc:
+        raise HTTPException(status_code=404, detail="Certification record not found.")
+
+    # Tenant boundary check
+    if uc.company_id != manager.company_id and manager.role not in {UserRole.SUPER_ADMIN}:
+        raise HTTPException(status_code=403, detail="Cross-company access denied.")
+
+    if uc.status not in ("PENDING_APPROVAL", "EXPIRED"):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Cannot approve certification with status '{uc.status}'. Only PENDING_APPROVAL or EXPIRED records can be approved."
+        )
+
+    uc.status = "ACTIVE"
+    uc.approved_by = manager.username
+    uc.approved_at = datetime.utcnow()
+
+    # Compute new expiry based on certification policy
+    cert = session.get(Certification, uc.certification_id)
+    if cert:
+        if cert.expiration_policy == "1_year":
+            uc.expires_at = datetime.utcnow() + timedelta(days=365)
+        elif cert.expiration_policy == "2_years":
+            uc.expires_at = datetime.utcnow() + timedelta(days=730)
+
+    session.add(uc)
+
+    # Trigger GHL sync
+    try:
+        from services.ghl_sync import GHLSyncService
+        target_user = session.exec(select(User).where(User.username == uc.user_id)).first()
+        if target_user:
+            GHLSyncService.sync_contact(
+                db_session=session,
+                user_id=uc.user_id,
+                company_id=uc.company_id,
+                email=target_user.email or f"{uc.user_id}@company.com",
+                first_name=uc.user_id.capitalize(),
+                last_name="Rep",
+                role=target_user.role,
+                training_status="completed",
+                extra_tags=[
+                    f"certification:{uc.certification_id}",
+                    "certification_status:active",
+                ]
+            )
+    except Exception as e:
+        print(f"[CERT-APPROVE] GHL sync failed (non-blocking): {e}")
+
+    session.commit()
+
+    return {
+        "success": True,
+        "message": f"Certification '{cert_record_id}' approved by {manager.username}.",
+        "status": "ACTIVE",
+        "approvedAt": uc.approved_at.isoformat(),
+        "expiresAt": uc.expires_at.isoformat() if uc.expires_at else None,
+    }
+
+
+# ─── Endpoint 5: Revoke Certification ─────────────────────────────────────────
+
+class RevocationRequest(BaseModel):
+    reason: str
+
+
+@router.post("/api/v1/certifications/{cert_record_id}/revoke")
+async def revoke_certification(
+    cert_record_id: str,
+    body: RevocationRequest,
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session),
+):
+    """
+    Revoke an ACTIVE certification. Manager/Admin only, same company.
+    Triggers GHL tag sync with certification_status:revoked.
+    """
+    manager = _get_requesting_user(session, x_user_id)
+    _require_manager_or_admin(manager)
+
+    uc = session.get(UserCertification, cert_record_id)
+    if not uc:
+        raise HTTPException(status_code=404, detail="Certification record not found.")
+
+    if uc.company_id != manager.company_id and manager.role not in {UserRole.SUPER_ADMIN}:
+        raise HTTPException(status_code=403, detail="Cross-company access denied.")
+
+    if uc.status == "REVOKED":
+        raise HTTPException(status_code=400, detail="Certification is already revoked.")
+
+    uc.status = "REVOKED"
+    uc.revoked_by = manager.username
+    uc.revoked_at = datetime.utcnow()
+    uc.revoked_reason = body.reason
+    session.add(uc)
+
+    # Trigger GHL sync
+    try:
+        from services.ghl_sync import GHLSyncService
+        target_user = session.exec(select(User).where(User.username == uc.user_id)).first()
+        if target_user:
+            GHLSyncService.sync_contact(
+                db_session=session,
+                user_id=uc.user_id,
+                company_id=uc.company_id,
+                email=target_user.email or f"{uc.user_id}@company.com",
+                first_name=uc.user_id.capitalize(),
+                last_name="Rep",
+                role=target_user.role,
+                training_status="in_progress",
+                extra_tags=[
+                    f"certification:{uc.certification_id}",
+                    "certification_status:revoked",
+                ]
+            )
+    except Exception as e:
+        print(f"[CERT-REVOKE] GHL sync failed (non-blocking): {e}")
+
+    session.commit()
+
+    return {
+        "success": True,
+        "message": f"Certification '{cert_record_id}' revoked by {manager.username}.",
+        "status": "REVOKED",
+        "revokedAt": uc.revoked_at.isoformat(),
+        "revokedReason": uc.revoked_reason,
+    }
+
+
+# ─── Endpoint 6: Renew Certification ──────────────────────────────────────────
+
+@router.post("/api/v1/certifications/{cert_record_id}/renew")
+async def renew_certification(
+    cert_record_id: str,
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session),
+):
+    """
+    Renew an EXPIRED or REVOKED certification. Manager/Admin only.
+    Resets status to ACTIVE and extends expiration date.
+    Triggers GHL tag sync.
+    """
+    manager = _get_requesting_user(session, x_user_id)
+    _require_manager_or_admin(manager)
+
+    uc = session.get(UserCertification, cert_record_id)
+    if not uc:
+        raise HTTPException(status_code=404, detail="Certification record not found.")
+
+    if uc.company_id != manager.company_id and manager.role not in {UserRole.SUPER_ADMIN}:
+        raise HTTPException(status_code=403, detail="Cross-company access denied.")
+
+    if uc.status == "ACTIVE":
+        raise HTTPException(status_code=400, detail="Certification is already ACTIVE. Use approve for pending certifications.")
+
+    uc.status = "ACTIVE"
+    uc.approved_by = manager.username
+    uc.approved_at = datetime.utcnow()
+    uc.revoked_reason = None
+
+    # Extend expiry based on certification policy
+    cert = session.get(Certification, uc.certification_id)
+    if cert:
+        if cert.expiration_policy == "1_year":
+            uc.expires_at = datetime.utcnow() + timedelta(days=365)
+        elif cert.expiration_policy == "2_years":
+            uc.expires_at = datetime.utcnow() + timedelta(days=730)
+        else:
+            uc.expires_at = None  # never
+    session.add(uc)
+
+    # Trigger GHL sync
+    try:
+        from services.ghl_sync import GHLSyncService
+        target_user = session.exec(select(User).where(User.username == uc.user_id)).first()
+        if target_user:
+            GHLSyncService.sync_contact(
+                db_session=session,
+                user_id=uc.user_id,
+                company_id=uc.company_id,
+                email=target_user.email or f"{uc.user_id}@company.com",
+                first_name=uc.user_id.capitalize(),
+                last_name="Rep",
+                role=target_user.role,
+                training_status="completed",
+                extra_tags=[
+                    f"certification:{uc.certification_id}",
+                    "certification_status:active",
+                ]
+            )
+    except Exception as e:
+        print(f"[CERT-RENEW] GHL sync failed (non-blocking): {e}")
+
+    session.commit()
+
+    return {
+        "success": True,
+        "message": f"Certification '{cert_record_id}' renewed by {manager.username}.",
+        "status": "ACTIVE",
+        "approvedAt": uc.approved_at.isoformat(),
+        "expiresAt": uc.expires_at.isoformat() if uc.expires_at else None,
+    }
+
+
+# ─── Endpoint 7: Daily Expiration Engine (Cron) ───────────────────────────────
+
+@router.post("/api/v1/certifications/cron/check-expirations")
+async def check_expirations(
+    x_cron_secret: Optional[str] = Header(None, alias="X-Cron-Secret"),
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session),
+):
+    """
+    Scheduled daily cron endpoint.
+    Finds ACTIVE certifications where expires_at is in the past,
+    transitions them to EXPIRED, and triggers GHL tag updates.
+    Requires X-Cron-Secret header matching CRON_SECRET env var, or super_admin access.
+    """
+    cron_secret = os.getenv("CRON_SECRET", "")
+    is_authorized = False
+
+    if x_cron_secret and cron_secret and x_cron_secret == cron_secret:
+        is_authorized = True
+    elif x_user_id:
+        try:
+            user = _get_requesting_user(session, x_user_id)
+            if user.role == UserRole.SUPER_ADMIN:
+                is_authorized = True
+        except Exception:
+            pass
+
+    if not is_authorized:
+        raise HTTPException(status_code=403, detail="Unauthorized. Provide valid X-Cron-Secret or super_admin credentials.")
+
+    now = datetime.utcnow()
+
+    # Find all ACTIVE certifications where expires_at has passed
+    expired_stmt = select(UserCertification).where(
+        UserCertification.status == "ACTIVE",
+        UserCertification.expires_at != None,
+        UserCertification.expires_at < now,
+    )
+    expired_certs = session.exec(expired_stmt).all()
+
+    updated = 0
+    for uc in expired_certs:
+        uc.status = "EXPIRED"
+        session.add(uc)
+
+        # Non-blocking GHL sync per expired cert
+        try:
+            from services.ghl_sync import GHLSyncService
+            target_user = session.exec(select(User).where(User.username == uc.user_id)).first()
+            if target_user:
+                GHLSyncService.sync_contact(
+                    db_session=session,
+                    user_id=uc.user_id,
+                    company_id=uc.company_id,
+                    email=target_user.email or f"{uc.user_id}@company.com",
+                    first_name=uc.user_id.capitalize(),
+                    last_name="Rep",
+                    role=target_user.role,
+                    training_status="in_progress",
+                    extra_tags=[
+                        f"certification:{uc.certification_id}",
+                        "certification_status:expired",
+                    ]
+                )
+        except Exception as e:
+            print(f"[CERT-CRON] GHL sync failed for {uc.user_id}: {e}")
+
+        updated += 1
+
+    session.commit()
+
+    print(f"[CERT-CRON] Expiration check complete. {updated} certifications transitioned to EXPIRED.")
+
+    return {
+        "success": True,
+        "expiredCount": updated,
+        "checkedAt": now.isoformat(),
+        "message": f"Expiration check complete. {updated} certification(s) transitioned to EXPIRED.",
+    }

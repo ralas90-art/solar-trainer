@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 
-export type UserRole = "admin" | "manager" | "sales_rep"
+export type UserRole = "admin" | "manager" | "sales_rep" | "super_admin" | "dealer_admin" | "branch_manager" | "trainer" | "observer"
 export type PlanTier = "starter" | "growth" | "enterprise"
 
 interface User {

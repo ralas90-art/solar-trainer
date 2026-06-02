@@ -122,7 +122,11 @@ def run_migration():
         add_col(conn, "user", "created_at", "TIMESTAMP", "NULL")
         # user table — Phase 6A columns
         add_col(conn, "user", "team_id", "TEXT", "NULL")
+        add_col(conn, "user", "branch_id", "TEXT", "NULL")
         add_col(conn, "user", "temporary_password_required", "BOOLEAN", "FALSE")
+
+        # team table
+        add_col(conn, "team", "branch_id", "TEXT", "NULL")
 
         # userstats table — core & Phase 6A columns
         add_col(conn, "userstats", "total_score", "INTEGER", "0")
@@ -144,6 +148,35 @@ def run_migration():
         add_col(conn, "company", "payment_status", "TEXT", "'pending'")
         add_col(conn, "company", "created_at", "TIMESTAMP", "NULL")
 
+        # certifications table — Phase 7 expiration policy columns
+        add_col(conn, "certifications", "expiration_policy", "TEXT", "'never'")
+        add_col(conn, "certifications", "renewal_required", "BOOLEAN", "FALSE")
+
+        # user_certifications table — Phase 7 lifecycle & verification columns
+        add_col(conn, "user_certifications", "status", "TEXT", "'ACTIVE'")
+        add_col(conn, "user_certifications", "issued_by", "TEXT", "NULL")
+        add_col(conn, "user_certifications", "approved_by", "TEXT", "NULL")
+        add_col(conn, "user_certifications", "approved_at", "TIMESTAMP", "NULL")
+        add_col(conn, "user_certifications", "revoked_by", "TEXT", "NULL")
+        add_col(conn, "user_certifications", "revoked_at", "TIMESTAMP", "NULL")
+        add_col(conn, "user_certifications", "revoked_reason", "TEXT", "NULL")
+        add_col(conn, "user_certifications", "last_verified_at", "TIMESTAMP", "NULL")
+        add_col(conn, "user_certifications", "verification_views", "INTEGER", "0")
+
+        # training_predictions table — Phase 8 Training Intelligence Engine
+        add_col(conn, "training_predictions", "branch_id", "TEXT", "NULL")
+        add_col(conn, "training_predictions", "team_id", "TEXT", "NULL")
+        add_col(conn, "training_predictions", "score", "REAL", "0.0")
+        add_col(conn, "training_predictions", "ghl_tags", "TEXT", "'[]'")
+        add_col(conn, "training_predictions", "ghl_custom_fields", "TEXT", "'{}'")
+        add_col(conn, "training_predictions", "ghl_synced", "BOOLEAN", "FALSE")
+        add_col(conn, "training_predictions", "ghl_synced_at", "TIMESTAMP", "NULL")
+        add_col(conn, "training_predictions", "resolved_at", "TIMESTAMP", "NULL")
+        add_col(conn, "training_predictions", "dismissed_at", "TIMESTAMP", "NULL")
+        add_col(conn, "training_predictions", "resolved_by", "TEXT", "NULL")
+        add_col(conn, "training_predictions", "dismissed_by", "TEXT", "NULL")
+
+
         # Ensure company_id index exists on user table
         try:
             cur = conn.cursor()
@@ -155,6 +188,7 @@ def run_migration():
             print("  [OK] Index idx_user_company_id verified/created.")
         except Exception as e:
             print(f"  [ERROR] Index idx_user_company_id creation failed: {e}")
+
 
         conn.close()
         print("  Column patching complete.")

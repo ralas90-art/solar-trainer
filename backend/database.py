@@ -199,8 +199,16 @@ def create_db_and_tables():
             except Exception as admin_err:
                 session.rollback()
                 print(f"[DB-INIT] Error seeding admin user: {admin_err}", flush=True)
+        
+        # --- Seed default templates ---
+        try:
+            from seed_templates import seed_templates
+            seed_templates()
+        except Exception as seed_err:
+            print(f"[DB-INIT] Error running template seeds: {seed_err}", flush=True)
     
     print("[DB-INIT] Database initialization complete.", flush=True)
+
 
 def get_session():
     with Session(engine) as session:
