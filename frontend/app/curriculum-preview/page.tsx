@@ -232,6 +232,18 @@ export default function CurriculumPreview() {
     const renderContent = () => {
         if (!activeModule) return null;
 
+        // Defer interactive content until after client hydration to avoid
+        // React errors #418/#423 caused by localStorage state mismatches.
+        if (!mounted) {
+            return (
+                <div className="space-y-4 animate-pulse">
+                    <div className="h-48 rounded-xl bg-slate-900/60 border border-white/5" />
+                    <div className="h-24 rounded-xl bg-slate-900/60 border border-white/5" />
+                    <div className="h-12 rounded-xl bg-slate-900/60 border border-white/5 w-1/3" />
+                </div>
+            );
+        }
+
         if (activeModule.id === "1.1") {
             return (
                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
