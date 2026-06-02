@@ -901,7 +901,7 @@ export default function CurriculumPreview() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col pt-16 selection:bg-primary/30">
+        <div className="min-h-screen flex flex-col pt-16 selection:bg-primary/30" suppressHydrationWarning>
             {/* Top Navigation Bar */}
             <header className="glass-card border-b border-white/10 h-16 flex items-center px-6 justify-between shrink-0 sticky top-0 z-30 bg-background/60">
                 <div className="flex items-center gap-4">
