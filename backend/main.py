@@ -129,9 +129,10 @@ def signup(user_data: UserAuth, session: Session = Depends(get_session)):
         session.refresh(company)
 
     # 2. Create User
+    hashed_password = pwd_context.hash(user_data.password)
     user = User(
         username=user_data.username, 
-        password=user_data.password,
+        password=hashed_password,
         role=user_data.role,
         company_id=user_data.company_id
     )

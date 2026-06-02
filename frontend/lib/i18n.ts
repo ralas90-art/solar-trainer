@@ -6,6 +6,19 @@ export type Language = 'en' | 'es';
 const translations = { en, es };
 
 /**
+ * Helper to display readable fallback labels for missing translations or raw path strings.
+ */
+export function safeDisplayLabel(translatedValue: string, rawKey: string): string {
+  if (!translatedValue || translatedValue.includes("FUNNEL.") || translatedValue.includes("funnel.")) {
+    const lastSegment = rawKey.includes('.') ? rawKey.split('.').pop() || rawKey : rawKey;
+    return lastSegment
+      .replace(/_/g, " ")
+      .replace(/\b\w/g, char => char.toUpperCase());
+  }
+  return translatedValue;
+}
+
+/**
  * Resolve a translation key for a given language.
  * Supports nested keys via dot notation (e.g. 'funnel.title').
  * Supports variable replacement via object (e.g. { name: 'John' }).
@@ -22,11 +35,13 @@ export function t(key: string, lang: Language = 'en', variables?: Record<string,
       if (lang === 'es') {
         return t(key, 'en', variables);
       }
-      return key; // Return the key itself as a last resort
+      return safeDisplayLabel("", key);
     }
   }
 
-  if (typeof result !== 'string') return key;
+  if (typeof result !== 'string') {
+    return safeDisplayLabel("", key);
+  }
 
   // Replace variables
   if (variables) {
@@ -35,7 +50,7 @@ export function t(key: string, lang: Language = 'en', variables?: Record<string,
     });
   }
 
-  return result;
+  return safeDisplayLabel(result, key);
 }
 
 /**

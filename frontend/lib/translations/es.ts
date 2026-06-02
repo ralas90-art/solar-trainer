@@ -159,26 +159,38 @@ export const es = {
       },
       maturity_levels: {
         beginner: "Principiante",
-        intermediate: "Intermedio",
-        advanced: "Avanzado",
-        expert: "Experto"
+        developing: "En Desarrollo",
+        scaling: "En Crecimiento",
+        enterprise: "Corporativo",
+        bilingual: "Bilingüe"
       },
       maturity_explanations: {
-        beginner: "Empezando",
-        intermediate: "Ganando tracción",
-        advanced: "Escalando",
-        expert: "Líder de la industria"
+        beginner: "Comenzando en ventas solares",
+        developing: "Ganando tracción y entendiendo conceptos clave",
+        scaling: "Productor constante que busca optimizar procesos",
+        enterprise: "Operación a gran escala enfocada en sistemas y herramientas",
+        bilingual: "Expandiendo el alcance a mercados bilingües"
       },
       weaknesses: {
         prospecting: "La generación de leads necesita estructura.",
         objections: "El manejo de objeciones requiere perfeccionamiento.",
         closing: "Las técnicas de cierre necesitan mejora.",
-        language: "Faltan capacidades bilingües."
+        language: "Faltan capacidades bilingües.",
+        infrastructure: "La infraestructura de ventas y el proceso de integración necesitan estandarización.",
+        onboarding: "La capacitación e integración de nuevos representantes es actualmente un cuello de botella.",
+        scaling: "La coordinación de equipos a gran escala requiere automatización de LMS interno.",
+        qualification: "Los métodos de calificación de leads y descubrimiento requieren perfeccionamiento.",
+        follow_up: "El seguimiento post-venta y el pipeline de clientes necesitan estructura."
       },
       insights: {
         team_scaling: "Listo para escalar tu equipo.",
         bilingual_market: "Enorme oportunidad en el mercado hispano.",
-        enterprise_ready: "Tu agencia está lista para un sistema operativo personalizado."
+        enterprise_ready: "Tu agencia está lista para un sistema operativo personalizado.",
+        white_label: "Un sistema de capacitación personalizado de marca blanca acelerará tu marca.",
+        roi: "Potencial inmediato para expandirse a mercados de habla hispana de alto valor.",
+        closing: "Mejora las métricas de cierre estandarizando las respuestas a objeciones.",
+        recruiting: "La integración automatizada atraerá y retendrá el mejor talento de ventas.",
+        training: "Las simulaciones de juego de roles reducirán drásticamente el tiempo de adaptación de los representantes."
       }
     }
   }

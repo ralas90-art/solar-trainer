@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -85,18 +85,146 @@ export default function CurriculumPreview() {
     const [modules, setModules] = useState(DAY_1_MODULES);
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
+    // Persistence states
+    const [mounted, setMounted] = useState(false);
+    const [workbook, setWorkbook] = useState({ financialGoal: "", competenceAnswers: "" });
+    const [adminChecklist, setAdminChecklist] = useState<Record<string, boolean>>({});
+    const [quizAnswers, setQuizAnswers] = useState<Record<string, string>>({});
+    const [quizSubmitted, setQuizSubmitted] = useState(false);
+    const [quizGrade, setQuizGrade] = useState<{ score: number; correct: number; total: number; checked: boolean } | null>(null);
+    const [pledge, setPledge] = useState<{ goldenHours?: boolean; noFreeSolar?: boolean; qualifyAggressively?: boolean }>({});
+    const [billDrillDecision, setBillDrillDecision] = useState<string | null>(null);
+
+    useEffect(() => {
+        setMounted(true);
+        
+        // Load modules completion from localStorage if present
+        const savedModules = localStorage.getItem("septivolt_curriculum_preview_completed_modules");
+        if (savedModules) {
+            try {
+                const completedIds = JSON.parse(savedModules) as string[];
+                setModules(prev => prev.map(m => ({
+                    ...m,
+                    completed: completedIds.includes(m.id)
+                })));
+            } catch (e) {
+                console.error("Error loading completed modules:", e);
+            }
+        }
+
+        // Load workbook
+        const savedWorkbook = localStorage.getItem("septivolt_curriculum_preview_workbook");
+        if (savedWorkbook) {
+            try { setWorkbook(JSON.parse(savedWorkbook)); } catch (e) { console.error(e); }
+        }
+
+        // Load admin checklist
+        const savedChecklist = localStorage.getItem("septivolt_curriculum_preview_admin_checklist");
+        if (savedChecklist) {
+            try { setAdminChecklist(JSON.parse(savedChecklist)); } catch (e) { console.error(e); }
+        }
+
+        // Load quiz
+        const savedQuiz = localStorage.getItem("septivolt_curriculum_preview_quiz");
+        if (savedQuiz) {
+            try {
+                const parsed = JSON.parse(savedQuiz);
+                if (parsed.answers) setQuizAnswers(parsed.answers);
+                if (parsed.submitted) setQuizSubmitted(parsed.submitted);
+                if (parsed.grade) setQuizGrade(parsed.grade);
+            } catch (e) { console.error(e); }
+        }
+
+        // Load pledge
+        const savedPledge = localStorage.getItem("septivolt_curriculum_preview_pledge");
+        if (savedPledge) {
+            try { setPledge(JSON.parse(savedPledge)); } catch (e) { console.error(e); }
+        }
+
+        // Load bill drill
+        const savedBillDrill = localStorage.getItem("septivolt_curriculum_preview_bill_drill");
+        if (savedBillDrill) {
+            setBillDrillDecision(savedBillDrill);
+        }
+    }, []);
+
     const activeModule = modules.find(m => m.id === activeModuleId);
 
     const handleMarkComplete = () => {
-        setModules(prev => prev.map(m =>
+        const updatedModules = modules.map(m =>
             m.id === activeModuleId ? { ...m, completed: true } : m
-        ));
+        );
+        setModules(updatedModules);
+
+        // Persist completed modules
+        const completedIds = updatedModules.filter(m => m.completed).map(m => m.id);
+        localStorage.setItem("septivolt_curriculum_preview_completed_modules", JSON.stringify(completedIds));
 
         // Auto-advance
         const currentIndex = modules.findIndex(m => m.id === activeModuleId);
         if (currentIndex < modules.length - 1) {
             setActiveModuleId(modules[currentIndex + 1].id);
         }
+    };
+
+    const updateWorkbook = (field: string, value: string) => {
+        const updated = { ...workbook, [field]: value };
+        setWorkbook(updated);
+        localStorage.setItem("septivolt_curriculum_preview_workbook", JSON.stringify(updated));
+    };
+
+    const updateChecklist = (item: string, checked: boolean) => {
+        const updated = { ...adminChecklist, [item]: checked };
+        setAdminChecklist(updated);
+        localStorage.setItem("septivolt_curriculum_preview_admin_checklist", JSON.stringify(updated));
+    };
+
+    const updateQuizAnswer = (qKey: string, option: string) => {
+        if (quizSubmitted) return;
+        const updatedAnswers = { ...quizAnswers, [qKey]: option };
+        setQuizAnswers(updatedAnswers);
+        localStorage.setItem("septivolt_curriculum_preview_quiz", JSON.stringify({
+            answers: updatedAnswers,
+            submitted: quizSubmitted,
+            grade: quizGrade
+        }));
+    };
+
+    const handleQuizSubmit = () => {
+        let correct = 0;
+        if (quizAnswers.q1 === "30% through 2032 (offsets liability)") correct++;
+        if (quizAnswers.q2 === "String inverters act like old Christmas lights (single point of failure); microinverters optimize each panel independently.") correct++;
+        if (quizAnswers.q3 === "True") correct++;
+
+        const score = Math.round((correct / 3) * 100);
+        const grade = { score, correct, total: 3, checked: true };
+        
+        setQuizGrade(grade);
+        setQuizSubmitted(true);
+
+        localStorage.setItem("septivolt_curriculum_preview_quiz", JSON.stringify({
+            answers: quizAnswers,
+            submitted: true,
+            grade
+        }));
+    };
+
+    const handleQuizReset = () => {
+        setQuizAnswers({});
+        setQuizSubmitted(false);
+        setQuizGrade(null);
+        localStorage.removeItem("septivolt_curriculum_preview_quiz");
+    };
+
+    const updatePledge = (key: keyof typeof pledge, checked: boolean) => {
+        const updated = { ...pledge, [key]: checked };
+        setPledge(updated);
+        localStorage.setItem("septivolt_curriculum_preview_pledge", JSON.stringify(updated));
+    };
+
+    const handleBillDrillDecision = (decision: string) => {
+        setBillDrillDecision(decision);
+        localStorage.setItem("septivolt_curriculum_preview_bill_drill", decision);
     };
 
     const progressPercentage = Math.round((modules.filter(m => m.completed).length / modules.length) * 100);
@@ -158,11 +286,23 @@ export default function CurriculumPreview() {
                         <CardContent className="space-y-6">
                             <div>
                                 <label className="block text-sm font-medium mb-2 text-slate-200">My Financial Goal for Month 6 is:</label>
-                                <input type="text" className="w-full p-3 rounded-md bg-slate-950/50 border border-white/10 text-white focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-slate-600 shadow-inner" placeholder="$..." />
+                                <input 
+                                    type="text" 
+                                    value={mounted ? (workbook.financialGoal || "") : ""} 
+                                    onChange={(e) => updateWorkbook("financialGoal", e.target.value)} 
+                                    className="w-full p-3 rounded-md bg-slate-950/50 border border-white/10 text-white focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-slate-600 shadow-inner" 
+                                    placeholder="$..." 
+                                />
                             </div>
                             <div>
                                 <label className="block text-sm font-medium mb-2 text-slate-200">The 4 Stages of Competence are: Unconscious Incompetence, Conscious Incompetence (the Dip), __________, and __________.</label>
-                                <input type="text" className="w-full p-3 rounded-md bg-slate-950/50 border border-white/10 text-white focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-slate-600 shadow-inner" placeholder="Your answer..." />
+                                <input 
+                                    type="text" 
+                                    value={mounted ? (workbook.competenceAnswers || "") : ""} 
+                                    onChange={(e) => updateWorkbook("competenceAnswers", e.target.value)} 
+                                    className="w-full p-3 rounded-md bg-slate-950/50 border border-white/10 text-white focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-slate-600 shadow-inner" 
+                                    placeholder="Your answer..." 
+                                />
                             </div>
                         </CardContent>
                     </Card>
@@ -191,14 +331,24 @@ export default function CurriculumPreview() {
                                     "Company email/Slack/communication tools installed",
                                     "Business cards ordered",
                                     "Uniform/swag kit issued"
-                                ].map((item, i) => (
-                                    <label key={i} className="flex items-center space-x-4 p-4 border border-white/5 rounded-lg bg-slate-950/50 hover:bg-slate-800/80 hover:border-white/10 cursor-pointer transition-all group shadow-sm">
-                                        <div className="relative flex items-center justify-center">
-                                            <input type="checkbox" className="w-5 h-5 rounded border-slate-600 bg-slate-900 text-primary focus:ring-primary focus:ring-offset-slate-900 transition-colors cursor-pointer" />
-                                        </div>
-                                        <span className="font-medium text-slate-300 group-hover:text-slate-100 transition-colors">{item}</span>
-                                    </label>
-                                ))}
+                                ].map((item, i) => {
+                                    const isChecked = !!adminChecklist[item];
+                                    return (
+                                        <label key={i} className={`flex items-center space-x-4 p-4 border rounded-lg transition-all group shadow-sm cursor-pointer ${mounted && isChecked ? 'border-primary bg-primary/5' : 'border-white/5 bg-slate-950/50 hover:bg-slate-800/80 hover:border-white/10'}`}>
+                                            <div className="relative flex items-center justify-center">
+                                                <input 
+                                                    type="checkbox" 
+                                                    checked={mounted ? isChecked : false} 
+                                                    onChange={(e) => updateChecklist(item, e.target.checked)} 
+                                                    className="w-5 h-5 rounded border-slate-600 bg-slate-900 text-primary focus:ring-primary focus:ring-offset-slate-900 transition-colors cursor-pointer" 
+                                                />
+                                            </div>
+                                            <span className={`font-medium transition-colors ${mounted && isChecked ? 'text-slate-500 line-through' : 'text-slate-300 group-hover:text-slate-100'}`}>
+                                                {item}
+                                            </span>
+                                        </label>
+                                    );
+                                })}
                             </div>
                         </CardContent>
                     </Card>
@@ -348,12 +498,36 @@ export default function CurriculumPreview() {
                                             "30% through 2032 (offsets liability)",
                                             "It's a flat $5,000 rebate check",
                                             "50% through 2025"
-                                        ].map((opt, i) => (
-                                            <label key={i} className="flex items-center space-x-4 p-4 border border-white/5 rounded-lg bg-slate-900/50 hover:bg-slate-800 hover:border-white/10 cursor-pointer transition-all">
-                                                <input type="radio" name="q1" className="w-4 h-4 text-primary bg-slate-950 border-slate-700 focus:ring-primary focus:ring-offset-slate-900" />
-                                                <span className="text-slate-300">{opt}</span>
-                                            </label>
-                                        ))}
+                                        ].map((opt, i) => {
+                                            const isSelected = quizAnswers.q1 === opt;
+                                            const isCorrect = opt === "30% through 2032 (offsets liability)";
+                                            let borderClass = "border-white/5 bg-slate-900/50";
+                                            if (isSelected) {
+                                                borderClass = "border-primary bg-primary/5";
+                                            }
+                                            if (quizSubmitted) {
+                                                if (isCorrect) {
+                                                    borderClass = "border-green-500 bg-green-500/10";
+                                                } else if (isSelected) {
+                                                    borderClass = "border-red-500 bg-red-500/10";
+                                                }
+                                            }
+                                            return (
+                                                <label key={i} className={`flex items-center space-x-4 p-4 border rounded-lg hover:border-white/10 cursor-pointer transition-all ${borderClass}`}>
+                                                    <input 
+                                                        type="radio" 
+                                                        name="q1" 
+                                                        checked={mounted ? isSelected : false}
+                                                        onChange={() => updateQuizAnswer("q1", opt)}
+                                                        disabled={quizSubmitted}
+                                                        className="w-4 h-4 text-primary bg-slate-950 border-slate-700 focus:ring-primary focus:ring-offset-slate-900" 
+                                                    />
+                                                    <span className="text-slate-300 flex-1">{opt}</span>
+                                                    {quizSubmitted && isCorrect && <span className="text-green-400 text-sm font-bold">✓ Correct</span>}
+                                                    {quizSubmitted && isSelected && !isCorrect && <span className="text-red-400 text-sm font-bold">✗ Incorrect</span>}
+                                                </label>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                                 <div className="space-y-4">
@@ -364,28 +538,111 @@ export default function CurriculumPreview() {
                                             "Microinverters only work at night.",
                                             "String inverters produce DC, microinverters produce AC.",
                                             "There is no difference."
-                                        ].map((opt, i) => (
-                                            <label key={i} className="flex items-center space-x-4 p-4 border border-white/5 rounded-lg bg-slate-900/50 hover:bg-slate-800 hover:border-white/10 cursor-pointer transition-all">
-                                                <input type="radio" name="q2" className="w-4 h-4 text-primary bg-slate-950 border-slate-700 focus:ring-primary focus:ring-offset-slate-900" />
-                                                <span className="text-slate-300">{opt}</span>
-                                            </label>
-                                        ))}
+                                        ].map((opt, i) => {
+                                            const isSelected = quizAnswers.q2 === opt;
+                                            const isCorrect = opt === "String inverters act like old Christmas lights (single point of failure); microinverters optimize each panel independently.";
+                                            let borderClass = "border-white/5 bg-slate-900/50";
+                                            if (isSelected) {
+                                                borderClass = "border-primary bg-primary/5";
+                                            }
+                                            if (quizSubmitted) {
+                                                if (isCorrect) {
+                                                    borderClass = "border-green-500 bg-green-500/10";
+                                                } else if (isSelected) {
+                                                    borderClass = "border-red-500 bg-red-500/10";
+                                                }
+                                            }
+                                            return (
+                                                <label key={i} className={`flex items-center space-x-4 p-4 border rounded-lg hover:border-white/10 cursor-pointer transition-all ${borderClass}`}>
+                                                    <input 
+                                                        type="radio" 
+                                                        name="q2" 
+                                                        checked={mounted ? isSelected : false}
+                                                        onChange={() => updateQuizAnswer("q2", opt)}
+                                                        disabled={quizSubmitted}
+                                                        className="w-4 h-4 text-primary bg-slate-950 border-slate-700 focus:ring-primary focus:ring-offset-slate-900" 
+                                                    />
+                                                    <span className="text-slate-300 flex-1">{opt}</span>
+                                                    {quizSubmitted && isCorrect && <span className="text-green-400 text-sm font-bold">✓ Correct</span>}
+                                                    {quizSubmitted && isSelected && !isCorrect && <span className="text-red-400 text-sm font-bold">✗ Incorrect</span>}
+                                                </label>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                                 <div className="space-y-4">
                                     <h3 className="font-medium text-lg text-slate-200">3. True or False: {WHITE_LABEL.productName} degrade at approximately 0.5% to 1% per year.</h3>
                                     <div className="flex gap-4">
-                                        <label className="flex items-center space-x-4 p-4 border border-white/5 rounded-lg bg-slate-900/50 hover:bg-slate-800 hover:border-white/10 w-full cursor-pointer transition-all justify-center">
-                                            <input type="radio" name="q3" className="w-4 h-4 text-primary bg-slate-950 border-slate-700 focus:ring-primary focus:ring-offset-slate-900" />
-                                            <span className="text-slate-300 font-medium">True</span>
-                                        </label>
-                                        <label className="flex items-center space-x-4 p-4 border border-white/5 rounded-lg bg-slate-900/50 hover:bg-slate-800 hover:border-white/10 w-full cursor-pointer transition-all justify-center">
-                                            <input type="radio" name="q3" className="w-4 h-4 text-primary bg-slate-950 border-slate-700 focus:ring-primary focus:ring-offset-slate-900" />
-                                            <span className="text-slate-300 font-medium">False</span>
-                                        </label>
+                                        {[
+                                            "True",
+                                            "False"
+                                        ].map((opt, i) => {
+                                            const isSelected = quizAnswers.q3 === opt;
+                                            const isCorrect = opt === "True";
+                                            let borderClass = "border-white/5 bg-slate-900/50";
+                                            if (isSelected) {
+                                                borderClass = "border-primary bg-primary/5";
+                                            }
+                                            if (quizSubmitted) {
+                                                if (isCorrect) {
+                                                    borderClass = "border-green-500 bg-green-500/10";
+                                                } else if (isSelected) {
+                                                    borderClass = "border-red-500 bg-red-500/10";
+                                                }
+                                            }
+                                            return (
+                                                <label key={i} className={`flex items-center space-x-4 p-4 border rounded-lg hover:border-white/10 w-full cursor-pointer transition-all justify-center ${borderClass}`}>
+                                                    <input 
+                                                        type="radio" 
+                                                        name="q3" 
+                                                        checked={mounted ? isSelected : false}
+                                                        onChange={() => updateQuizAnswer("q3", opt)}
+                                                        disabled={quizSubmitted}
+                                                        className="w-4 h-4 text-primary bg-slate-950 border-slate-700 focus:ring-primary focus:ring-offset-slate-900" 
+                                                    />
+                                                    <span className="text-slate-300 font-medium ml-2">{opt}</span>
+                                                    {quizSubmitted && isCorrect && <span className="text-green-400 text-sm font-bold ml-2">✓ Correct</span>}
+                                                    {quizSubmitted && isSelected && !isCorrect && <span className="text-red-400 text-sm font-bold ml-2">✗ Incorrect</span>}
+                                                </label>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             </div>
+
+                            {mounted && quizGrade && (
+                                <div className="mt-8 p-6 bg-slate-900/90 border border-white/10 rounded-xl space-y-4">
+                                    <div className="flex items-center justify-between">
+                                        <h4 className="font-bold text-lg text-slate-200">Quiz Results</h4>
+                                        <Badge className={quizGrade.score >= 80 ? "bg-green-500 text-white" : "bg-red-500 text-white"}>
+                                            {quizGrade.score >= 80 ? "PASSED" : "FAILED"}
+                                        </Badge>
+                                    </div>
+                                    <p className="text-slate-300">
+                                        You scored <strong className="text-white">{quizGrade.score}%</strong> ({quizGrade.correct} out of {quizGrade.total} correct).
+                                        {quizGrade.score >= 80 
+                                            ? " Great job! You have demonstrated industry literacy." 
+                                            : " You need at least 80% to pass. Please reset and try again."}
+                                    </p>
+                                    <div className="flex gap-4">
+                                        <Button onClick={handleQuizReset} variant="outline" className="border-white/10 hover:bg-white/5">
+                                            Reset Quiz
+                                        </Button>
+                                    </div>
+                                </div>
+                            )}
+
+                            {mounted && !quizSubmitted && (
+                                <div className="mt-8 flex justify-end">
+                                    <Button 
+                                        onClick={handleQuizSubmit} 
+                                        disabled={!quizAnswers.q1 || !quizAnswers.q2 || !quizAnswers.q3}
+                                        className="bg-primary hover:bg-primary/95 text-primary-foreground font-bold px-8 h-12 shadow-[0_0_20px_rgba(56,189,248,0.4)]"
+                                    >
+                                        Submit Quiz
+                                    </Button>
+                                </div>
+                            )}
                         </CardContent>
                     </Card>
                 </div>
@@ -417,19 +674,41 @@ export default function CurriculumPreview() {
                                     <Award className="w-6 h-6" /> The Integrity Pledge
                                 </h3>
                                 <div className="space-y-4">
-                                    <label className="flex items-start gap-4 p-4 bg-slate-950/40 border border-white/5 rounded-lg cursor-pointer hover:bg-slate-900/60 transition-colors shadow-sm">
-                                        <input type="checkbox" className="w-5 h-5 rounded mt-0.5 bg-slate-900 border-slate-600 text-primary focus:ring-primary focus:ring-offset-slate-900" />
+                                    <label className={`flex items-start gap-4 p-4 border rounded-lg cursor-pointer transition-colors shadow-sm ${mounted && pledge.goldenHours ? 'border-primary bg-primary/5' : 'bg-slate-950/40 border-white/5 hover:bg-slate-900/60'}`}>
+                                        <input 
+                                            type="checkbox" 
+                                            checked={mounted ? !!pledge.goldenHours : false}
+                                            onChange={(e) => updatePledge("goldenHours", e.target.checked)}
+                                            className="w-5 h-5 rounded mt-0.5 bg-slate-900 border-slate-600 text-primary focus:ring-primary focus:ring-offset-slate-900 cursor-pointer" 
+                                        />
                                         <span className="text-slate-300 font-medium">I commit to the Golden Hours (2-7 PM).</span>
                                     </label>
-                                    <label className="flex items-start gap-4 p-4 bg-slate-950/40 border border-white/5 rounded-lg cursor-pointer hover:bg-slate-900/60 transition-colors shadow-sm">
-                                        <input type="checkbox" className="w-5 h-5 rounded mt-0.5 bg-slate-900 border-slate-600 text-primary focus:ring-primary focus:ring-offset-slate-900" />
+                                    <label className={`flex items-start gap-4 p-4 border rounded-lg cursor-pointer transition-colors shadow-sm ${mounted && pledge.noFreeSolar ? 'border-primary bg-primary/5' : 'bg-slate-950/40 border-white/5 hover:bg-slate-900/60'}`}>
+                                        <input 
+                                            type="checkbox" 
+                                            checked={mounted ? !!pledge.noFreeSolar : false}
+                                            onChange={(e) => updatePledge("noFreeSolar", e.target.checked)}
+                                            className="w-5 h-5 rounded mt-0.5 bg-slate-900 border-slate-600 text-primary focus:ring-primary focus:ring-offset-slate-900 cursor-pointer" 
+                                        />
                                         <span className="text-slate-300 font-medium">I will not promise free {WHITE_LABEL.industry.toLowerCase()} or guaranteed tax cash-returns.</span>
                                     </label>
-                                    <label className="flex items-start gap-4 p-4 bg-slate-950/40 border border-white/5 rounded-lg cursor-pointer hover:bg-slate-900/60 transition-colors shadow-sm">
-                                        <input type="checkbox" className="w-5 h-5 rounded mt-0.5 bg-slate-900 border-slate-600 text-primary focus:ring-primary focus:ring-offset-slate-900" />
+                                    <label className={`flex items-start gap-4 p-4 border rounded-lg cursor-pointer transition-colors shadow-sm ${mounted && pledge.qualifyAggressively ? 'border-primary bg-primary/5' : 'bg-slate-950/40 border-white/5 hover:bg-slate-900/60'}`}>
+                                        <input 
+                                            type="checkbox" 
+                                            checked={mounted ? !!pledge.qualifyAggressively : false}
+                                            onChange={(e) => updatePledge("qualifyAggressively", e.target.checked)}
+                                            className="w-5 h-5 rounded mt-0.5 bg-slate-900 border-slate-600 text-primary focus:ring-primary focus:ring-offset-slate-900 cursor-pointer" 
+                                        />
                                         <span className="text-slate-300 font-medium">I will qualify aggressively using utility data.</span>
                                     </label>
                                 </div>
+
+                                {mounted && pledge.goldenHours && pledge.noFreeSolar && pledge.qualifyAggressively && (
+                                    <div className="mt-6 flex items-center justify-center gap-3 p-4 bg-green-500/10 border border-green-500/30 text-green-400 rounded-xl animate-in fade-in zoom-in-95 duration-300 shadow-[0_0_15px_rgba(74,222,128,0.1)]">
+                                        <Award className="w-6 h-6 animate-bounce" />
+                                        <span className="font-bold text-base">Integrity Pledge Verified & Signed</span>
+                                    </div>
+                                )}
                             </div>
                         </CardContent>
                     </Card>
@@ -492,9 +771,47 @@ export default function CurriculumPreview() {
                                         </div>
 
                                         <div className="flex justify-center gap-6 mt-4">
-                                            <Button variant="outline" className="h-12 border-green-500/50 text-green-400 hover:bg-green-500/10 hover:text-green-300 w-40 shadow-[0_0_15px_rgba(74,222,128,0.1)] transition-all glass-card">QUALIFY</Button>
-                                            <Button variant="outline" className="h-12 border-red-500/50 text-red-400 hover:bg-red-500/10 hover:text-red-300 w-40 shadow-[0_0_15px_rgba(248,113,113,0.1)] transition-all glass-card">DISQUALIFY</Button>
+                                            <Button 
+                                                variant="outline" 
+                                                onClick={() => handleBillDrillDecision("QUALIFY")}
+                                                className={`h-12 border-green-500/50 text-green-400 hover:bg-green-500/10 hover:text-green-300 w-40 transition-all glass-card ${mounted && billDrillDecision === "QUALIFY" ? 'bg-green-500/20 border-green-500 shadow-[0_0_15px_rgba(74,222,128,0.3)]' : ''}`}
+                                            >
+                                                QUALIFY
+                                            </Button>
+                                            <Button 
+                                                variant="outline" 
+                                                onClick={() => handleBillDrillDecision("DISQUALIFY")}
+                                                className={`h-12 border-red-500/50 text-red-400 hover:bg-red-500/10 hover:text-red-300 w-40 transition-all glass-card ${mounted && billDrillDecision === "DISQUALIFY" ? 'bg-red-500/20 border-red-500 shadow-[0_0_15px_rgba(248,113,113,0.3)]' : ''}`}
+                                            >
+                                                DISQUALIFY
+                                            </Button>
                                         </div>
+
+                                        {mounted && billDrillDecision && (
+                                            <div className="mt-8 p-6 rounded-xl animate-in fade-in slide-in-from-top-2 duration-300">
+                                                {billDrillDecision === "DISQUALIFY" ? (
+                                                    <div className="bg-green-500/10 border border-green-500/30 text-green-400 p-4 rounded-lg text-left shadow-[0_0_15px_rgba(74,222,128,0.05)]">
+                                                        <div className="flex items-center gap-2 mb-2 font-bold text-lg">
+                                                            <CheckCircle2 className="w-5 h-5 shrink-0" />
+                                                            Correct Decision!
+                                                        </div>
+                                                        <p className="text-sm text-slate-300">
+                                                            Although the monthly usage (850 kWh) meets our threshold, the past due balance of $1,250 is a massive credit risk and exceeds our $500 threshold. Disqualifying this homeowner is the correct compliance and operational decision.
+                                                        </p>
+                                                    </div>
+                                                ) : (
+                                                    <div className="bg-red-500/10 border border-red-500/30 text-red-400 p-4 rounded-lg text-left shadow-[0_0_15px_rgba(248,113,113,0.05)]">
+                                                        <div className="flex items-center gap-2 mb-2 font-bold text-lg">
+                                                            <AlertTriangle className="w-5 h-5 shrink-0" />
+                                                            Incorrect Decision
+                                                        </div>
+                                                        <p className="text-sm text-slate-300">
+                                                            This lead should be disqualified. While their energy usage is high, their past due balance of $1,250 is far above our $500 threshold, representing an unacceptable credit risk.
+                                                        </p>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -674,10 +991,12 @@ export default function CurriculumPreview() {
                                 </p>
                             </div>
 
-                            <Button variant="outline" className="hidden sm:flex items-center gap-2 glass-card hover:bg-white/10 border-white/10 text-slate-300 hover:text-white shadow-lg">
-                                <Download className="w-4 h-4" />
-                                Download PDFs
-                            </Button>
+                            <a href="/downloads/solar_integrity_pledge.pdf" download="solar_integrity_pledge.pdf">
+                                <Button variant="outline" className="hidden sm:flex items-center gap-2 glass-card hover:bg-white/10 border-white/10 text-slate-300 hover:text-white shadow-lg">
+                                    <Download className="w-4 h-4" />
+                                    Download PDFs
+                                </Button>
+                            </a>
                         </div>
 
                         {/* Module Content */}

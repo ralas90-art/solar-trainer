@@ -159,26 +159,38 @@ export const en = {
       },
       maturity_levels: {
         beginner: "Beginner",
-        intermediate: "Intermediate",
-        advanced: "Advanced",
-        expert: "Expert"
+        developing: "Developing",
+        scaling: "Scaling",
+        enterprise: "Enterprise",
+        bilingual: "Bilingual"
       },
       maturity_explanations: {
-        beginner: "Starting out",
-        intermediate: "Gaining traction",
-        advanced: "Scaling up",
-        expert: "Industry leader"
+        beginner: "Starting out in solar sales",
+        developing: "Gaining traction and understanding core concepts",
+        scaling: "Consistent producer looking to optimize processes",
+        enterprise: "Large-scale operation focused on systems and tools",
+        bilingual: "Expanding reach into bilingual markets"
       },
       weaknesses: {
         prospecting: "Lead generation needs structure.",
         objections: "Objection handling requires refining.",
         closing: "Closing techniques need improvement.",
-        language: "Bilingual capabilities missing."
+        language: "Bilingual capabilities missing.",
+        infrastructure: "Sales infrastructure and onboarding process need standardization.",
+        onboarding: "Ramping and training of new reps is currently a bottleneck.",
+        scaling: "Large-scale team coordination requires internal LMS automation.",
+        qualification: "Lead qualification and discovery methods require refinement.",
+        follow_up: "Post-sale tracking and customer pipeline need structure."
       },
       insights: {
         team_scaling: "Ready to scale your team.",
         bilingual_market: "Huge opportunity in Hispanic market.",
-        enterprise_ready: "Your agency is ready for a custom OS."
+        enterprise_ready: "Your agency is ready for a custom OS.",
+        white_label: "A custom white-label training system will accelerate your branding.",
+        roi: "Immediate potential to expand into high-value Spanish-speaking markets.",
+        closing: "Improve closing metrics by standardizing objection responses.",
+        recruiting: "Automated onboarding will attract and retain top sales talent.",
+        training: "Roleplay simulations will drastically reduce rep ramp times."
       }
     }
   }

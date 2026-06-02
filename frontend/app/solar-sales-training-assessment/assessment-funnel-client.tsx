@@ -188,6 +188,9 @@ const PLAN_LABEL_MAP: Record<string, string> = {
   enterprise:   "Enterprise",
 }
 
+const normalizeResultKey = (value: string) =>
+  value?.toLowerCase().trim().replace(/\s+/g, "_");
+
 // --- Main Component ---
 export function AssessmentFunnelClient() {
   const searchParams = useSearchParams()
@@ -321,7 +324,7 @@ export function AssessmentFunnelClient() {
   const intelligence = calculateIntelligence(answers, QUESTIONS);
   const { winningTrack, normalizedScore, maturity, weaknesses, insights, confidenceScore } = intelligence;
 
-  const translatedMaturity = t(`funnel.results.maturity_levels.${maturity}`, language);
+  const translatedMaturity = t(`funnel.results.maturity_levels.${normalizeResultKey(maturity)}`, language);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -763,7 +766,7 @@ export function AssessmentFunnelClient() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
            {[
-             { label: t("funnel.results.maturity_label", language), val: translatedMaturity.toUpperCase(), sub: t(`funnel.results.maturity_explanations.${maturity}`, language), icon: ShieldCheck },
+             { label: t("funnel.results.maturity_label", language), val: translatedMaturity.toUpperCase(), sub: t(`funnel.results.maturity_explanations.${normalizeResultKey(maturity)}`, language), icon: ShieldCheck },
              { label: t("funnel.results.confidence_label", language), val: `${confidenceScore}%`, icon: Zap },
              { label: t("funnel.results.gaps_label", language), val: `${weaknesses.length} ${t("funnel.results.detected", language)}`, icon: BarChart3 },
              { label: t("funnel.results.status_label", language), val: t("funnel.results.verified", language), icon: CheckCircle2 }
@@ -794,7 +797,7 @@ export function AssessmentFunnelClient() {
               {weaknesses.length > 0 ? weaknesses.map((w, i) => (
                 <li key={i} className="text-slate-300 text-sm flex gap-3 items-start animate-in slide-in-from-left duration-500" style={{ animationDelay: `${i * 100}ms` }}>
                   <span className="text-[#F97316] mt-1">•</span>
-                  <span className="font-light leading-relaxed">{t(`funnel.results.weaknesses.${w}`, language)}</span>
+                  <span className="font-light leading-relaxed">{t(`funnel.results.weaknesses.${normalizeResultKey(w)}`, language)}</span>
                 </li>
               )) : (
                 <li className="text-slate-500 text-sm italic">{t("funnel.results.no_weaknesses", language)}</li>
@@ -810,7 +813,7 @@ export function AssessmentFunnelClient() {
               {insights.length > 0 ? insights.map((ins, i) => (
                 <li key={i} className="text-slate-300 text-sm flex gap-3 items-start animate-in slide-in-from-left duration-500" style={{ animationDelay: `${(i + weaknesses.length) * 100}ms` }}>
                   <span className="text-[#F59E0B] mt-1">→</span>
-                  <span className="font-light leading-relaxed">{t(`funnel.results.insights.${ins}`, language)}</span>
+                  <span className="font-light leading-relaxed">{t(`funnel.results.insights.${normalizeResultKey(ins)}`, language)}</span>
                 </li>
               )) : (
                 <li className="text-slate-500 text-sm italic">{t("funnel.results.no_insights", language)}</li>
