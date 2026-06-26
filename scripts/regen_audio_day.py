@@ -25,13 +25,9 @@ from pathlib import Path
 
 import requests
 
-# ── Config ───────────────────────────────────────────────────────────────────
-VOICE_ID   = "QO7Mfy7rwYLdxzo4Q3iD"  # Tom – Confident & Persuasive Trainer
-MODEL_ID   = "eleven_turbo_v2_5"
-VOICE_SETTINGS = {
-    "stability": 0.55,
-    "similarity_boost": 0.75,
-}
+# ── Import canonical voice config (single source of truth) ───────────────────
+from audio_voice_config import ENGLISH_VOICE_ID as VOICE_ID, MODEL_ID, VOICE_SETTINGS
+
 AUDIO_TAGS = ["professional", "instructional"]
 
 # Output directory mirrors the frontend public folder

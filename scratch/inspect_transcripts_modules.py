@@ -1,65 +1,33 @@
-import json
+import re
 from pathlib import Path
 
-def inspect_transcripts_modules():
-    base = Path("scripts")
-    voice_counts = {}
+def main():
+    p = Path(r"c:\Users\12132\Desktop\Antigravity Solar Sales Trainer Agent\_Archive_Legacy\2026-05-11\solar-trainer_leftovers\SeptiVolt_Delivery\ES\ElevenLabs_Transcripts\ElevenLabs_Transcripts_MainDays_ES.md")
+    text = p.read_text(encoding="utf-8")
     
-    for f in ["narration_transcripts_part1_updated.json", "narration_transcripts_part2_updated.json"]:
-        p = base / f
-        if not p.exists():
-            print(f"{f} does not exist")
-            continue
+    headers = re.findall(r'^#+\s+(.*)', text, re.MULTILINE)
+    
+    in_day_2 = False
+    in_day_3 = False
+    in_day_4 = False
+    
+    print("=== Headers in Day 2 & Day 3 in ES transcripts ===")
+    for h in headers:
+        if "DÍA 2" in h or "DIA 2" in h or "DÍA 2" in h.upper():
+            in_day_2 = True
+            in_day_3 = False
+        elif "DÍA 3" in h or "DIA 3" in h or "DÍA 3" in h.upper():
+            in_day_2 = False
+            in_day_3 = True
+        elif "DÍA 4" in h or "DIA 4" in h or "DÍA 4" in h.upper():
+            in_day_2 = False
+            in_day_3 = False
+            in_day_4 = True
+        elif "DÍA 5" in h or "DIA 5" in h or "DÍA 5" in h.upper():
+            in_day_4 = False
             
-        data = json.loads(p.read_text(encoding="utf-8"))
-        days = data.get("days", [])
-        for day in days:
-            day_num = day.get("day_number")
-            modules = day.get("modules", [])
-            for mod in modules:
-                mod_id = mod.get("module_id")
-                title = mod.get("title")
-                
-                # Check for voice properties
-                voice_cfg = mod.get("voice_configuration", {})
-                voice_name = voice_cfg.get("voice_name") or voice_cfg.get("name") or mod.get("voice_name") or mod.get("voice") or mod.get("narrator")
-                voice_id = voice_cfg.get("voice_id") or voice_cfg.get("id") or mod.get("voice_id")
-                
-                # Check slides for voices
-                slides = mod.get("slides", [])
-                slide_voices = set()
-                for slide in slides:
-                    s_voice = slide.get("voice") or slide.get("voice_name") or slide.get("narrator")
-                    if s_voice:
-                        slide_voices.add(s_voice)
-                
-                v_key = (voice_name, voice_id)
-                voice_counts[mod_id] = {
-                    "module_id": mod_id,
-                    "title": title,
-                    "day": day_num,
-                    "voice_name": voice_name,
-                    "voice_id": voice_id,
-                    "slide_voices": list(slide_voices)
-                }
-                
-    print(f"Total modules analyzed: {len(voice_counts)}")
-    # Print distinct voices
-    distinct_voices = set()
-    for mod_id, info in voice_counts.items():
-        v = info["voice_name"]
-        vid = info["voice_id"]
-        distinct_voices.add((v, vid))
-        for sv in info["slide_voices"]:
-            distinct_voices.add((sv, None))
+        if in_day_2 or in_day_3:
+            print(f"  {h}")
             
-    print("Distinct voices found:")
-    for v in distinct_voices:
-        print(" -", v)
-        
-    print("\nFirst 10 modules and their voices:")
-    for mod_id in list(voice_counts.keys())[:10]:
-        print(f" - {mod_id}: {voice_counts[mod_id]}")
-
 if __name__ == "__main__":
-    inspect_transcripts_modules()
+    main()

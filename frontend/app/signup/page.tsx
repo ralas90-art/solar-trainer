@@ -66,7 +66,8 @@ function SignupForm() {
                             username: response.username,
                             role: response.role,
                             planTier: tier as any,
-                            companyId: response.company_id
+                            companyId: response.company_id,
+                            token: response.token
                         })
                         // Redirect to Stripe
                         window.location.href = checkoutResponse.url
@@ -79,7 +80,8 @@ function SignupForm() {
                         username: response.username,
                         role: response.role,
                         planTier: tier as any,
-                        companyId: response.company_id
+                        companyId: response.company_id,
+                        token: response.token
                     })
                 }
             }

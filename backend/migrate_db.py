@@ -176,6 +176,8 @@ def run_migration():
         add_col(conn, "training_predictions", "resolved_by", "TEXT", "NULL")
         add_col(conn, "training_predictions", "dismissed_by", "TEXT", "NULL")
 
+        # support_chat_analytics — Phase 3 context area
+        add_col(conn, "support_chat_analytics", "context_area", "TEXT", "NULL")
 
         # Ensure company_id index exists on user table
         try:

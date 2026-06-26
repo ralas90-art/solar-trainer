@@ -1,10 +1,16 @@
 import os
+import sys
 import requests
 from typing import Generator
 
+# ── Import canonical voice config (single source of truth) ───────────────────
+# Adds the scripts/ directory to sys.path so we can import audio_voice_config
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
+from audio_voice_config import ENGLISH_VOICE_ID, MODEL_ID, VOICE_SETTINGS
+
 ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
-# Default Voice: "Tom" (American, Confident & Persuasive Trainer) – used across ALL modules for consistency
-DEFAULT_VOICE_ID = "QO7Mfy7rwYLdxzo4Q3iD"
+# Default voice imported from canonical config
+DEFAULT_VOICE_ID = ENGLISH_VOICE_ID
 
 def text_to_speech_stream(text: str, voice_id: str = DEFAULT_VOICE_ID) -> Generator[bytes, None, None]:
     if not ELEVENLABS_API_KEY:
@@ -21,13 +27,8 @@ def text_to_speech_stream(text: str, voice_id: str = DEFAULT_VOICE_ID) -> Genera
 
     data = {
         "text": text,
-        "model_id": "eleven_v3",
-        "voice_settings": {
-            "stability": 0.42,
-            "similarity_boost": 0.92,
-            "style": 0.48,
-            "use_speaker_boost": True,
-        },
+        "model_id": MODEL_ID,
+        "voice_settings": VOICE_SETTINGS,
         "suggested_audio_tags": ["professional", "engaging", "confident", "trainer"],
     }
 

@@ -192,7 +192,7 @@ export default function CurriculumPreview() {
 
     const handleQuizSubmit = () => {
         let correct = 0;
-        if (quizAnswers.q1 === "30% through 2032 (offsets liability)") correct++;
+        if (quizAnswers.q1 === "December 31, 2025 (offsets liability)") correct++;
         if (quizAnswers.q2 === "String inverters act like old Christmas lights (single point of failure); microinverters optimize each panel independently.") correct++;
         if (quizAnswers.q3 === "True") correct++;
 
@@ -449,7 +449,7 @@ export default function CurriculumPreview() {
                                 <div>
                                     <h4 className="font-bold text-destructive-foreground tracking-wide mb-1">COMPLIANCE WARNING: THE 30% ITC</h4>
                                     <p className="text-sm text-destructive-foreground/80 leading-relaxed">
-                                        It extends through 2032. It is a <strong>tax liability offset</strong>, NOT a stimulus check. If you promise a guaranteed cash return, you will be terminated.
+                                        Under current federal guidance, it applied to qualifying property installed through December 31, 2025. It is a <strong>tax liability offset</strong>, NOT a stimulus check. If you promise a guaranteed cash return, you will be terminated.
                                     </p>
                                 </div>
                             </div>
@@ -505,16 +505,16 @@ export default function CurriculumPreview() {
                         <CardContent>
                             <div className="space-y-8">
                                 <div className="space-y-4">
-                                    <h3 className="font-medium text-lg text-slate-200">1. What is the current federal ITC percentage and when does it step down/sunset (under current IRA)?</h3>
+                                    <h3 className="font-medium text-lg text-slate-200">1. Under current federal guidance, the Residential Clean Energy Credit applied to qualifying residential solar property installed through when?</h3>
                                     <div className="space-y-3">
                                         {[
-                                            "26% through 2024",
-                                            "30% through 2032 (offsets liability)",
+                                            "December 31, 2024",
+                                            "December 31, 2025 (offsets liability)",
                                             "It's a flat $5,000 rebate check",
-                                            "50% through 2025"
+                                            "December 31, 2023"
                                         ].map((opt, i) => {
                                             const isSelected = quizAnswers.q1 === opt;
-                                            const isCorrect = opt === "30% through 2032 (offsets liability)";
+                                            const isCorrect = opt === "December 31, 2025 (offsets liability)";
                                             let borderClass = "border-white/5 bg-slate-900/50";
                                             if (isSelected) {
                                                 borderClass = "border-primary bg-primary/5";

@@ -41,7 +41,7 @@ export const SCENARIO_LOCK_RULES: Record<string, ScenarioLockRule> = {
   },
   "busy_brian": {
     scenarioId: "busy_brian",
-    requiredModuleId: "mod_2_3",
+    requiredModuleId: "mod_2_5",
     requiredQuizThreshold: 80,
     unlockLabel: {
       en: "Day 2 - The Art of the Opener",

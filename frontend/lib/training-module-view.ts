@@ -201,7 +201,7 @@ function extractInstructionalSegments(module: ModuleContent, keyConcepts: string
         id: `${module.id}_segment_${index + 1}`,
         title: section.title,
         slideContent: sectionText,
-        spokenTeachingScript: sectionText.length > 0 ? sectionText : `Module Section: ${section.title}`,
+        spokenTeachingScript: section.narration ? cleanText(section.narration) : (sectionText.length > 0 ? sectionText : `Module Section: ${section.title}`),
         workbookPromptIds,
         quizMapping: index === module.sections.length - 1 ? quizIds : [],
       }

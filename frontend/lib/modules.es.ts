@@ -214,17 +214,20 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
 {
         title: "Por Qué Solar, Por Qué Ahora",
         type: "text",
-        content: "El mercado solar residencial en Estados Unidos es una de las industrias de más rápido crecimiento en el país. Las tres razones principales por las que los propietarios optan por solar son la inflación de las tarifas de servicios públicos, la independencia energética y el aumento en el valor de la vivienda. Las tarifas de servicios públicos han subido entre seis y ocho por ciento anualmente durante las últimas dos décadas sin señales de detenerse. Esa es la base de cada conversación que tendrás. Le estás ofreciendo a los propietarios una cobertura contra algo que está garantizado a seguir subiendo."
+        content: "El mercado solar residencial en Estados Unidos es una de las industrias de más rápido crecimiento en el país. Las tres razones principales por las que los propietarios optan por solar son la inflación de las tarifas de servicios públicos, la independencia energética y el aumento en el valor de la vivienda. Las tarifas de servicios públicos han subido entre seis y ocho por ciento anualmente durante las últimas dos décadas sin señales de detenerse. Esa es la base de cada conversación que tendrás. Le estás ofreciendo a los propietarios una cobertura contra el aumento histórico de las tarifas de servicios públicos.",
+        narration: "Bienvenido al Módulo 1.4. El mercado solar residencial está creciendo rápidamente. Los propietarios buscan protección contra la inflación, independencia energética y aumentar el valor de su hogar. Las tarifas de luz han subido entre un seis y un ocho por ciento anual durante veinte años. Ese es tu punto de partida. Estás ofreciendo una cobertura real contra el aumento histórico de las tarifas de servicios públicos."
       },
       {
         title: "El Crédito Fiscal Federal",
         type: "text",
-        content: "El Crédito Fiscal por Inversión federal — el ITC — le da a los propietarios un crédito del treinta por ciento sobre el costo total del sistema. En un sistema de treinta mil dólares, eso son nueve mil dólares de regreso en su primera declaración de impuestos. Este crédito está garantizado hasta 2032. Eso no es para siempre. Cada año que un propietario espera es un año pagando tarifas completas de servicios públicos Y un año más cerca de que el crédito potencialmente cambie. El ITC crea una urgencia real y legítima en tus conversaciones."
+        content: "Según la guía federal actual, el crédito residencial de energía limpia aplicaba a propiedades solares residenciales calificadas instaladas hasta el 31 de diciembre de 2025. Nunca prometas un reembolso, cheque o ahorro fiscal garantizado. La elegibilidad depende de la ley vigente, la fecha de instalación, la estructura de propiedad y la situación fiscal individual del propietario. Siempre recomienda que el propietario confirme su elegibilidad con un contador o profesional de impuestos calificado.",
+        narration: "Hablemos sobre el crédito fiscal federal. Según la guía federal actual, el crédito residencial de energía limpia aplicaba a propiedades solares residenciales calificadas instaladas hasta el 31 de diciembre de 2025. Este es un punto crítico de cumplimiento. Nunca prometas un reembolso, cheque o ahorro fiscal garantizado. La elegibilidad depende de la ley vigente, la fecha de instalación, la estructura de propiedad y la situación fiscal individual del propietario. Siempre recomienda que el propietario confirme su elegibilidad con un contador o profesional de impuestos calificado."
       },
       {
         title: "Mitos Comunes sobre el Solar",
         type: "text",
-        content: "Escucharás estos tres mitos constantemente y debes estar listo. Primero — el solar no funciona en estados nublados. Falso. Alemania es uno de los países más nublados del mundo y lidera en adopción solar. Los paneles producen electricidad de la luz del día, no de la luz solar directa. Segundo — los paneles son demasiado costosos. Con financiamiento, la mayoría de los propietarios pagan menos por mes que su factura actual de servicios públicos desde el primer día. Tercero — la tecnología mejorará el próximo año. La tecnología ha mejorado cada año durante cuarenta años. Esperar siempre cuesta más de lo que ahorra."
+        content: "Escucharás estos tres mitos constantemente y debes estar listo. Primero — el solar no funciona en estados nublados. Falso. Alemania es uno de los países más nublados del mundo y lidera en adopción solar. Los paneles producen electricidad de la luz del día, no de la luz solar directa. Segundo — los paneles son demasiado costosos. Con financiamiento, la mayoría de los propietarios pagan menos por mes que su factura actual de servicios públicos desde el primer día. Tercero — la tecnología mejorará el próximo año. La tecnología ha mejorado cada año durante cuarenta años. Esperar siempre cuesta más de lo que ahorra.",
+        narration: "Escucharás mitos constantemente en el campo. Prepárate. Primero, que el solar no funciona en días nublados. Falso. Alemania lidera en adopción solar con un clima similar al de Alaska. Los paneles necesitan luz solar, no calor. Segundo, que es muy costoso. Con financiamiento, la mayoría de los propietarios pagan menos por mes que su factura actual. Tercero, que la tecnología mejorará mañana. Esperar siempre cuesta más de lo que ahorra. Responde con calma y sigue adelante."
       }
     ],
     _meta: {
@@ -465,7 +468,8 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
 {
         title: "La Energía Solar No Es de Talla Única",
         type: "text",
-        content: "Bienvenido al Módulo 1.5B — Estructuras Financieras Solares. La energía solar no es un producto financiero de talla única. Tu trabajo no es promocionar una sola opción de financiamiento. Tu trabajo es emparejar el vehículo financiero correcto con el propietario correcto según su situación y metas específicas. Al final de este módulo, podrás explicar las compras en efectivo, los préstamos solares, los arrendamientos y los contratos de compraventa de energía — con claridad y confianza — e identificar qué opción sirve mejor a cada propietario. Equivocarte aquí te cuesta tratos. Acertar genera confianza que cierra."
+        content: "Bienvenido al Módulo 1.5B — Estructuras Financieras Solares. La energía solar no es un producto financiero de talla única. Tu trabajo no es promocionar una sola opción de financiamiento. Tu trabajo es emparejar el vehículo financiero correcto con el propietario correcto según su situación y metas específicas. Al final de este módulo, podrás explicar las compras en efectivo, los préstamos solares, los arrendamientos y los contratos de compraventa de energía — con claridad y confianza — e identificar qué opción sirve mejor a cada propietario. Equivocarte aquí te cuesta tratos. Acertar genera confianza que cierra.",
+        narration: "Bienvenido al Módulo 1.5B: Estructuras Financieras del Solar. El solar no es un producto de talla única. Tu objetivo no es empujar una sola opción, sino ayudar al propietario a encontrar la mejor alternativa para su situación. Analizaremos compras al contado, préstamos y propiedad de terceros. Asegurémonos de que puedas explicar esto claramente."
       },
       {
         title: "Objetivos de Aprendizaje",
@@ -477,22 +481,26 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
           "Explicar el Crédito Fiscal Federal por Inversión Solar (ITC) de manera precisa, sin dar asesoría fiscal ilegal.",
           "Comprender la diferencia entre las tarifas del distribuidor (dealer fees) y el precio al contado de un sistema.",
           "Posicionar el concepto de 'Cambiar tu factura' de manera efectiva."
-        ]
+        ],
+        narration: "Al finalizar este módulo, comprenderás la mecánica de compras al contado, préstamos, arrendamientos y contratos PPA. Aprenderás a identificar qué perfil de propietario encaja con cada producto, a explicar el crédito fiscal federal de forma correcta sin dar asesoría fiscal, y a posicionar el concepto de cambio de factura de manera efectiva."
       },
       {
         title: "Sección 1: El Concepto de Cambiar tu Factura",
         type: "text",
-        content: "El concepto central detrás de la mayoría de los financiamientos solares es lo que llamamos \"cambiar la factura\". El propietario ya está pagando a la empresa de servicios todos los meses — ese dinero se pierde para siempre. La energía solar reemplaza ese pago mensual a la empresa de servicios con un pago mensual fijo por un sistema que el propietario eventualmente poseerá. La pregunta clave nunca es \"¿puede pagar la energía solar?\" — es \"¿el pago solar cuesta menos de lo que ya está pagando?\" En la mayoría de los hogares que califican, la respuesta es sí desde el primer día. Ese es el cambio. Una factura de servicios eterna reemplazada por un pago estructurado por un activo."
+        content: "El concepto central detrás de la mayoría de los financiamientos solares es lo que llamamos \"cambiar la factura\". El propietario ya está pagando a la empresa de servicios todos los meses — ese dinero se pierde para siempre. La energía solar reemplaza ese pago mensual a la empresa de servicios con un pago mensual fijo por un sistema que el propietario eventualmente poseerá. La pregunta clave nunca es \"¿puede pagar la energía solar?\" — es \"¿el pago solar cuesta menos de lo que ya está pagando?\" En la mayoría de los hogares que califican, la respuesta es sí desde el primer día. Ese es el cambio. Una factura de servicios eterna reemplazada por un pago estructurado por un activo.",
+        narration: "Hablemos de cambiar la factura. Actualmente, los propietarios rentan su electricidad a la compañía de servicios de forma indefinida y con tarifas en aumento. El solar permite cambiar ese gasto impredecible por un pago mensual fijo que tiene fecha de finalización. Si el pago solar es igual o menor que su factura de luz promedio actual, están ahorrando dinero desde el primer día. Es un enfoque lógico y muy poderoso."
       },
       {
         title: "Sección 2: El Crédito Fiscal Federal por Inversión (ITC)",
         type: "text",
-        content: "Antes de continuar, hay un límite de cumplimiento que todo asesor debe entender. El Crédito Fiscal Federal de inversión del treinta por ciento es real y es significativo — en un sistema de treinta mil dólares, eso representa un crédito de nueve mil dólares. Pero tú no eres contador público. No puedes garantizar que un propietario lo recibirá, decirle cómo reclamarlo, ni asesorarlo sobre su situación fiscal específica. El lenguaje que uses debe siempre mantenerse dentro de estos límites. Di: \"La mayoría de los propietarios en esta situación califican para el crédito federal del treinta por ciento — pero siempre recomiendo confirmarlo con su contador antes de contarlo como seguro.\" Ese lenguaje es honesto, útil y está en cumplimiento."
+        content: "Según la guía federal actual, el crédito residencial de energía limpia aplicaba a propiedades solares residenciales calificadas instaladas hasta el 31 de diciembre de 2025. Nunca prometas un reembolso, cheque o ahorro fiscal garantizado. La elegibilidad depende de la ley vigente, la fecha de instalación, la estructura de propiedad y la situación fiscal individual del propietario. Siempre recomienda que el propietario confirme su elegibilidad con un contador o profesional de impuestos calificado.",
+        narration: "Este es el estándar de cumplimiento para el crédito fiscal federal. Según la guía federal actual, el crédito residencial de energía limpia aplicaba a propiedades solares residenciales calificadas instaladas hasta el 31 de diciembre de 2025. Nunca prometas un reembolso, cheque o ahorro fiscal garantizado. La elegibilidad depende de la ley vigente, la fecha de instalación, la estructura de propiedad y la situación fiscal individual del propietario. Siempre recomienda que el propietario confirme su elegibilidad con un contador o profesional de impuestos calificado. Recuerda que muchos préstamos se reajustan a los dieciocho meses si no se abona el crédito fiscal."
       },
       {
         title: "Sección 3: Emparejamiento de Productos",
         type: "text",
-        content: "Compra al Contado:\n- Ideal para: Propietarios con liquidez que buscan el máximo ROI a largo plazo. Conservan el ITC.\n\nPréstamo Solar:\n- Ideal para: Propietarios que desean la propiedad y el ITC, pero quieren aprovechar el financiamiento para lograr un pago mensual bajo desde el primer día.\n- A tener en cuenta: Las tarifas del distribuidor (dealer fees) significan que el precio financiado es mayor que el precio al contado.\n\nArrendamiento/PPA (Propiedad de Terceros):\n- Ideal para: Propietarios con ingresos fijos, jubilados sin obligación fiscal, o aquellos que solo desean la tarifa mensual más baja posible con cero responsabilidad de mantenimiento.\n- La empresa de financiamiento conserva el ITC y transfiere los ahorros a través de una tarifa mensual más baja."
+        content: "Compra al Contado:\n- Ideal para: Propietarios con liquidez que buscan el máximo ROI a largo plazo. Conservan el ITC.\n\nPréstamo Solar:\n- Ideal para: Propietarios que desean la propiedad y el ITC, pero quieren aprovechar el financiamiento para lograr un pago mensual bajo desde el primer día.\n- A tener en cuenta: Las tarifas del distribuidor (dealer fees) significan que el precio financiado es mayor que el precio al contado.\n\nArrendamiento/PPA (Propiedad de Terceros):\n- Ideal para: Propietarios con ingresos fijos, jubilados sin obligación fiscal, o aquellos que solo desean la tarifa mensual más baja posible con cero responsabilidad de mantenimiento.\n- La empresa de financiamiento conserva el ITC y transfiere los ahorros a través de una tarifa mensual más baja.",
+        narration: "Repasemos la selección de productos. Las compras al contado son mejores para clientes con liquidez que buscan el máximo rendimiento a largo plazo. Los préstamos son ideales para quienes quieren la propiedad y el crédito fiscal, pero prefieren pagos mensuales bajos a un costo inicial alto. Los arrendamientos y PPA son perfectos para personas con ingresos fijos, jubilados sin obligación fiscal o cualquiera que desee evitar las tareas de mantenimiento."
       },
       {
         title: "Presentación de Estructuras Financieras Solares",
@@ -510,7 +518,7 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
           },
           {
             title: "Cumplimiento del ITC Federal",
-            content: "Antes de continuar, hay un límite de cumplimiento que todo asesor debe entender. El Crédito Fiscal Federal de inversión del treinta por ciento es real y es significativo — en un sistema de treinta mil dólares, eso representa un crédito de nueve mil dólares. Pero tú no eres contador público. No puedes garantizar que un propietario lo recibirá, decirle cómo reclamarlo, ni asesorarlo sobre su situación fiscal específica. El lenguaje que uses debe siempre mantenerse dentro de estos límites. Di: \"La mayoría de los propietarios en esta situación califican para el crédito federal del treinta por ciento — pero siempre recomiendo confirmarlo con su contador antes de contarlo como seguro.\" Ese lenguaje es honesto, útil y está en cumplimiento.",
+            content: "Según la guía federal actual, el crédito residencial de energía limpia aplicaba a propiedades solares residenciales calificadas instaladas hasta el 31 de diciembre de 2025. Nunca prometas un reembolso, cheque o ahorro fiscal garantizado. La elegibilidad depende de la ley vigente, la fecha de instalación, la estructura de propiedad y la situación fiscal individual del propietario. Siempre recomienda que el propietario confirme su elegibilidad con un contador o profesional de impuestos calificado.",
             image: "/images/solar_incentives.png"
           },
           {
@@ -588,22 +596,26 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
 {
         title: "Vendedor vs. Consultor",
         type: "text",
-        content: "Hay una diferencia fundamental entre un vendedor y un consultor. Un vendedor empuja un producto y persigue una comisión. Un consultor diagnostica un problema y prescribe la solución correcta — incluso si esa solución es retirarse. En solar, esta distinción importa porque los propietarios pueden sentir cuál de los dos eres en los primeros sesenta segundos de abrir la puerta. Tu trabajo es entrar a cada interacción como consultor. Estás reestructurando el gasto en servicios públicos de alguien y protegiendo a su familia de la inflación. Actúa en consecuencia."
+        content: "Hay una diferencia fundamental entre un vendedor y un consultor. Un vendedor empuja un producto y persigue una comisión. Un consultor diagnostica un problema y prescribe la solución correcta — incluso si esa solución es retirarse. En solar, esta distinción importa porque los propietarios pueden sentir cuál de los dos eres en los primeros sesenta segundos de abrir la puerta. Tu trabajo es entrar a cada interacción como consultor. Estás reestructurando el gasto en servicios públicos de alguien y protegiendo a su familia de la inflación. Actúa en consecuencia.",
+        narration: "Bienvenido al Módulo 1.6. Hablemos de identidad. Hay una gran diferencia entre ser un vendedor y ser un consultor. Un vendedor empuja un producto y persigue una comisión. Un consultor diagnostica un problema y prescribe la solución correcta, incluso si eso significa retirarse. El propietario sentirá tu intención en el primer minuto. Cuando tocas una puerta, no vendes un aparato; estás ayudando a reestructurar sus facturas de luz para proteger su hogar. Entra a cada casa como un consultor profesional."
       },
       {
         title: "El Credo de la Integridad",
         type: "text",
-        content: "El credo de la integridad no es opcional — es el fundamento de una carrera sostenible. Nunca prometas ahorros que no puedas garantizar. Nunca exageres el retorno de la inversión. Descalifica agresivamente — una mala combinación hoy es una cancelación mañana, y las cancelaciones dañan tus ingresos. Y siempre recuerda que tu reputación a largo plazo vale más que cualquier cheque de comisión individual. Los representantes que construyen ingresos de seis cifras son los que los propietarios refieren a sus vecinos porque fueron tratados con respeto."
+        content: "El credo de la integridad no es opcional — es el fundamento de una carrera sostenible. Nunca prometas ni garantices ahorros solares. Nunca exageres el retorno de la inversión. Descalifica agresivamente — una mala combinación hoy es una cancelación mañana, y las cancelaciones dañan tus ingresos. Y siempre recuerda que tu reputación a largo plazo vale más que cualquier cheque de comisión individual. Los representantes que construyen ingresos de seis cifras son los que los propietarios refieren a sus vecinos porque fueron tratados con respeto.",
+        narration: "Hablemos sobre el credo de la integridad. Es el fundamento de una verdadera carrera en ventas. Nunca prometas ni garantices ahorros solares. Nunca exageres el retorno de la inversión. Descalifica agresivamente los hogares que no sean adecuados. Un mal acuerdo hoy es una cancelación mañana, y eso perjudica a todos. Recuerda, tu reputación a largo plazo en el vecindario vale más que cualquier comisión individual. Trata a las personas con respeto y te recomendarán con sus vecinos."
       },
       {
         title: "Replantear el Rechazo",
         type: "text",
-        content: "En ventas de solar, escucharás la palabra no más que cualquier otra palabra. Cada uno de los mejores desempeñadores en esta industria escucha no más de cien veces por semana. El cambio que necesitas hacer es este — no no significa te rechazo. Significa ahora no, o esto no es adecuado. Ambas son información útil. Registra tus \"nos\" porque son el camino a tus \"síes\". Un representante que toca cuarenta y cinco puertas estadísticamente cierra un trato. Eso significa que cada puerta — incluyendo cada no — vale aproximadamente setenta y ocho dólares."
+        content: "En ventas de solar, escucharás la palabra no más que cualquier otra palabra. Cada uno de los mejores desempeñadores en esta industria escucha no más de cien veces por semana. El cambio que necesitas hacer es este — no no significa te rechazo. Significa ahora no, o esto no es adecuado. Ambas son información útil. Registra tus \"nos\" porque son el camino a tus \"síes\". Un representante que toca cuarenta y cinco puertas estadísticamente cierra un trato. Eso significa que cada puerta — incluyendo cada no — vale aproximadamente setenta y ocho dólares.",
+        narration: "El rechazo es parte del proceso. En solar, escucharás la palabra 'no' constantemente. Los mejores representantes escuchan 'no' más de cien veces a la semana. El secreto es cambiar tu perspectiva: 'no' no es un rechazo personal. Significa 'ahora no' o 'esta casa no califica'. Registra tus números. Estadísticamente, si tocas cuarenta y cinco puertas para cerrar un trato, cada puerta que tocas vale setenta y ocho dólares, sin importar la respuesta."
       },
       {
         title: "Gestión de Energía",
         type: "text",
-        content: "Esta carrera requiere energía emocional, y debes gestionarla intencionalmente. No tomes el rechazo de manera personal — el propietario no te conoce, y no te está rechazando a ti. Está protegiendo su tiempo y su hogar. Celebra las pequeñas victorias: una cita agendada es una victoria, aunque no haya trato después. Una conversación significativa es una victoria. Reinicia entre cada puerta. El representante que trata la puerta cuarenta y cinco con la misma energía que la puerta uno se convierte en el representante que cierra a una tasa que cambia todo."
+        content: "Esta carrera requiere energía emocional, y debes gestionarla intencionalmente. No tomes el rechazo de manera personal — el propietario no te conoce, y no te está rechazando a ti. Está protegiendo su tiempo y su hogar. Celebra las pequeñas victorias: una cita agendada es una victoria, aunque no haya trato después. Una conversación significativa es una victoria. Reinicia entre cada puerta. El representante que trata la puerta cuarenta y cinco con la misma energía que la puerta uno se convierte en el representante que cierra a una tasa que cambia todo.",
+        narration: "Gestionar tu energía es lo que te mantiene activo. No te tomes el rechazo de forma personal. El propietario solo protege su tiempo y su espacio. Celebra las pequeñas victorias, como una conversación de calidad o una cita agendada. Limpia tu mente entre cada puerta. Si tocas la puerta cuarenta y cinco con la misma energía positiva que la primera, verás cómo tus cierres aumentan. Mantén la consistencia."
       }
     ],
     _meta: {
@@ -2221,20 +2233,23 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
     title: "Módulo 4.2: ANÁLISIS PROFUNDO DEL FINANCIAMIENTO",
     subtitle: "Explain loan vs lease vs PPA clearly Match financing to homeowner's goals Calculate payments with confidence",
     sections: [
-{
-        title: "Sección 1: Préstamo Solar",
+      {
+        title: "Opción 1 — Préstamo Solar",
         type: "text",
-        content: "Sección 1: Préstamo Solar"
+        content: "El préstamo solar es la estructura de financiamiento más común y beneficiosa para propietarios calificados. El propietario pide prestado dinero para comprar el sistema por completo, lo posee en su totalidad y puede ser elegible para solicitar el Crédito de Energía Limpia Residencial si la propiedad calificada se instaló antes del 31 de diciembre de 2025. La elegibilidad depende de la situación fiscal individual y del momento de la instalación. Los pagos mensuales suelen ser más bajos que su factura de electricidad actual desde el primer día. Requiere buen crédito, generalmente 650 o más. Los ahorros a largo plazo son los más altos porque el propietario es dueño de un activo que elimina su mayor gasto recurrente.",
+        narration: "Analicemos la opción uno: el préstamo solar. Esta es la estructura de financiamiento más común. El propietario financia la compra del sistema y es dueño absoluto del mismo. Según la guía federal actual, el crédito residencial de energía limpia aplicaba a propiedades solares residenciales calificadas instaladas hasta el 31 de diciembre de 2025. La elegibilidad depende de la situación fiscal individual de cada persona y de la fecha de instalación. Los pagos suelen ser más bajos que la factura de luz actual desde el primer mes. Se requiere un puntaje de crédito mínimo, generalmente de seiscientos cincuenta puntos. Es ideal para maximizar el ahorro a largo plazo mediante la propiedad."
       },
       {
-        title: "Sección 2: Estrategia de Crédito Fiscal a 18 Meses",
+        title: "La Estrategia de Crédito Fiscal a 18 Meses",
         type: "text",
-        content: "Sección 2: Estrategia de Crédito Fiscal a 18 Meses"
+        content: "Muchos préstamos solares ofrecen un período de dieciocho meses sin variaciones en el pago. El préstamo se estructura asumiendo que el propietario aplicará el crédito fiscal dentro de esos dieciocho meses para mantener el pago mensual bajo. Es importante advertir que deben consultar con su profesional de impuestos para verificar su elegibilidad bajo las pautas federales. Explica estos cálculos con total claridad.",
+        narration: "Muchos préstamos solares ofrecen un período de dieciocho meses con pagos iniciales más bajos. El préstamo se diseña asumiendo que se aplicará el crédito fiscal durante este período para mantener baja la cuota. Debes aconsejar siempre al propietario que consulte con un profesional de impuestos para confirmar si califica según la guía federal actual. Explica las matemáticas con claridad y transparencia para mantener el proceso totalmente en cumplimiento."
       },
       {
-        title: "Sección 3: Arrendamiento y PPA",
+        title: "Opción 2 y 3 — Arrendamiento y PPA",
         type: "text",
-        content: "Sección 3: Arrendamiento y PPA"
+        content: "El arrendamiento solar y el Contrato de Compra de Energía (PPA) son opciones sin costo inicial donde la compañía solar es dueña del sistema. Con un arrendamiento, el propietario paga una tarifa mensual fija. Con un PPA, paga por cada kilovatio-hora producido. Ambas opciones transfieren la responsabilidad del mantenimiento a la compañía. Como desventaja, el propietario no recibe el crédito fiscal federal y ambos contratos suelen incluir cláusulas de incremento anual de la tarifa. Recomienda estas opciones para propietarios con menor puntaje de crédito, sin obligación fiscal significativa o que prefieran la simplicidad sobre el ahorro máximo.",
+        narration: "Las opciones dos y tres son el arrendamiento y el contrato de compra de energía, o PPA. Ambas son opciones sin pago inicial donde la compañía es dueña y mantiene el sistema. En el arrendamiento, se paga una mensualidad fija. En el PPA, se paga por el kilovatio-hora producido. La compensación es que el propietario no recibe el crédito fiscal federal y suele haber un incremento anual en la tarifa. Recomienda esto para clientes con crédito bajo, sin carga fiscal o que prefieran la tranquilidad del mantenimiento incluido."
       }
     ],
     _meta: {
@@ -3070,90 +3085,83 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
   },
   mod_5_5a: {
     id: "mod_5_5a",
-    title: "Módulo 5.5A: FORMATO ESTÁNDAR",
-    subtitle: "Navigate the journey from contract signature to Permission to Operate.",
+    title: "Módulo 5.5A: El Ciclo de Vida del Proyecto Post-Venta",
+    subtitle: "Navega el viaje desde la firma del contrato hasta el Permiso para Operar.",
     sections: [
-{
-        title: "Introducción",
+      {
+        title: "El Ciclo de Vida del Proyecto: El Mapa del Representante",
         type: "text",
-        content: "La venta no termina cuando se firma el contrato; termina cuando el sistema recibe el PTO (Permiso para Operar). El Módulo 5.5C enseña a los reps cómo gestionar el largo ciclo de instalación para asegurar el \"Pull-through\" y generar reseñas positivas."
+        content: "Cada proyecto solar pasa por la misma secuencia general de etapas desde el contrato hasta el sistema activo. El tiempo exacto varía según el mercado, la empresa de servicios públicos y la jurisdicción, pero las etapas en sí son consistentes.\n\nHay 7 etapas clave: Contrato Firmado, Inspección del Sitio, Diseño del Sistema, Permisos, Instalación, Inspección y Permiso para Operar (PTO).",
+        narration: "Bienvenido al Módulo 5.5A: El Ciclo de Vida del Proyecto Post-Venta. Cada proyecto solar sigue el mismo viaje básico desde la firma del contrato hasta que el sistema se activa. Aunque los plazos varían según el mercado, la empresa de servicios y las reglas locales, las etapas en sí son consistentes. Veamos las siete etapas clave: contrato, inspección del sitio, diseño de ingeniería, permisos, instalación, inspección y permiso para operar."
       },
       {
-        title: "Lista de Introducción:",
+        title: "Las Siete Etapas",
         type: "list",
-        content: "Lista de Introducción:",
+        content: "Aquí está el desglose de la línea de tiempo post-venta:",
         items: [
-"Domina la llamada de \"Inoculación de 48 Horas\"",
-          "Entiende el protocolo de \"Actualización de Hitos\"",
-          "Aprende cómo pedir una reseña de 5 estrellas antes de que comience la instalación",
-          "Maneja el \"Gap del Silencio\" — mantén a los propietarios comprometidos durante el permitting",
-          "Identifica los \"Momentos Emocionalmente Altos\" en el ciclo de vida del proyecto"
-        ]
+          "Etapa 1 - Contrato Firmado: El propietario firma el acuerdo. El trato está activo.",
+          "Etapa 2 - Inspección del Sitio: Un técnico evalúa el techo, el panel eléctrico y las condiciones del sitio (1–3 semanas después del contrato).",
+          "Etapa 3 - Diseño del Sistema: Ingeniería finaliza el diseño según los datos de la inspección (1–4 semanas).",
+          "Etapa 4 - Permisos: El diseño se envía a la jurisdicción local para su aprobación (muy variable, de 1 semana a varios meses).",
+          "Etapa 5 - Instalación: El equipo instala los paneles, inversores y cableado (1–2 días).",
+          "Etapa 6 - Inspección: El inspector local verifical que el sistema cumpla con el permiso aprobado (1–3 semanas después de la instalación).",
+          "Etapa 7 - PTO: La compañía de electricidad autoriza al propietario a encender el sistema. Esta es la verdadera meta final."
+        ],
+        narration: "Analicemos las siete etapas. Primero, la firma del contrato. Segundo, la inspección del sitio, donde un técnico revisa el techo y el panel eléctrico. Tercero, el diseño del sistema por parte de ingeniería. Cuarto, la solicitud de permisos en la ciudad. Quinto, la instalación, que suele tardar de uno a dos días. Sexto, la inspección local. Y séptimo, el PTO, o Permiso para Operar, que es cuando la compañía de luz te autoriza a encender los paneles. El PTO es la verdadera meta final."
       },
       {
-        title: "Total Timeline Expectations",
+        title: "Expectativas de la Línea de Tiempo Total",
         type: "text",
-        content: "From contract signing to PTO, timeline is typically 3 to 6 months in most markets. Some markets are faster, some are significantly slower. Never promise a specific timeline you cannot guarantee. Use ranges and use localized data."
+        content: "Desde la firma del contrato hasta el PTO, la línea de tiempo suele ser de 3 a 6 meses en la mayoría de los mercados. Algunos mercados son más rápidos, otros significativamente más lentos. Nunca prometas una línea de tiempo específica que no puedas garantizar. Usa rangos de tiempo y datos locales.",
+        narration: "Desde la firma hasta el encendido del sistema transcurren entre tres y seis meses en la mayoría de las áreas. Algunas zonas son más rápidas y otras bastante más lentas. Nunca prometas una fecha específica. Explica siempre rangos de tiempo basados en datos locales para que tu cliente sepa qué esperar."
       },
       {
-        title: "Where Trust Is Most Commonly Lost",
+        title: "Dónde se Pierde Más Comúnmente la Confianza",
         type: "list",
-        content: "Reps who proactively manage post-sale expectations preserve their deals. Trust is commonly lost in 3 moments:",
+        content: "Los representantes que gestionan proactivamente las expectativas post-venta salvan sus tratos. La confianza se suele perder en 3 momentos:",
         items: [
-"Moment 1 — The Silence After Signing: Anxiety builds if they hear nothing for weeks. Check in within 48 hours.",
-          "Moment 2 — The Permit Surprise: No one warned them permits can take 6–10 weeks. Set this expectation explicitly at signing.",
-          "Moment 3 — The PTO Confusion: The system is on the roof, but they can't turn it on. Explain PTO clearly before and after installation."
-        ]
+          "Momento 1 — El Silencio Después de la Firma: La ansiedad aumenta si no escuchan nada durante semanas. Haz un contacto de seguimiento dentro de las primeras 48 horas.",
+          "Momento 2 — La Sorpresa de los Permisos: Nadie les advirtió que los permisos pueden tomar de 6 a 10 semanas. Establece esta expectativa claramente al firmar.",
+          "Momento 3 — La Confusión del PTO: El sistema está en el techo, pero no pueden encenderlo. Explica claramente qué es el PTO antes y después de la instalación."
+        ],
+        narration: "La confianza se rompe fácilmente si no gestionas las expectativas. Los tres momentos de alto riesgo son: el silencio justo después de firmar, los retrasos inesperados en los permisos y la espera del PTO cuando los paneles ya están en el techo. Comunícate proactivamente en estos momentos para mantener informado al propietario y evitar cancelaciones."
       },
       {
-        title: "The Rep's Role After the Close",
+        title: "El Rol del Representante Después del Cierre",
         type: "list",
-        content: "Understanding boundaries is essential. Reps who try to do too much create confusion; those who do too little lose deals.",
+        content: "Comprender los límites de tu rol es esencial. Los representantes que intentan hacer demasiado crean confusión; los que hacen muy poco pierden tratos.",
         items: [
-"Rep Owns: Homeowner relationship, expectation management, early problem escalation, referral relationship cultivation.",
-          "Operations Owns: Scheduling, design decisions, permit submission, installation scheduling, and inspection."
-        ]
+          "El Rep es Dueño de: La relación con el propietario, la gestión de expectativas, la escalación temprana de problemas y el cultivo de relaciones de recomendación.",
+          "Operaciones es Dueño de: La programación, las decisiones de diseño, el envío de permisos, la programación de la instalación y las inspecciones."
+        ],
+        narration: "Mantén tus límites claros. Como representante, eres el dueño de la relación, la gestión de expectativas y la obtención de referidos. Operaciones se encarga de la programación, diseños, permisos, instalaciones e inspecciones. No confundas al cliente intentando hacer el trabajo de operaciones, pero nunca ignores sus preguntas."
       },
       {
-        title: "The 7-Touchpoint Model",
+        title: "El Modelo de 7 Puntos de Contacto",
         type: "list",
-        content: "Use the lifecycle as a proactive, offensive play to build referrals:",
+        content: "Usa el ciclo de vida como una jugada proactiva y ofensiva para generar recomendaciones:",
         items: [
-"1. Day of signing: Here's exactly what happens next.",
-          "2. Site survey confirmation: Your site survey is confirmed.",
-          "3. Post-site survey: Survey went well, design is being finalized.",
-          "4. Permit submitted: Your permit is in.",
-          "5. Install date confirmed: Great news — your install is scheduled!",
-          "6. Day of/after install: Panels are up! Here's the last step.",
-          "7. PTO received: You're officially live. Congratulations."
-        ]
+          "1. Día de la firma: Esto es exactamente lo que pasará a continuación.",
+          "2. Confirmación de inspección del sitio: Se confirma la fecha de inspección.",
+          "3. Después de la inspección: Todo salió bien, el diseño se está finalizando.",
+          "4. Permiso presentado: Tu permiso ha sido enviado a la ciudad.",
+          "5. Fecha de instalación confirmada: Excelentes noticias — ¡tu instalación está programada!",
+          "6. Día de/después de la instalación: ¡Los paneles ya están arriba! Falta el último paso.",
+          "7. PTO recibido: Ya estás oficialmente activo. ¡Felicidades!"
+        ],
+        narration: "Utiliza el modelo de siete puntos de contacto para generar referidos. Llama a tu cliente al firmar, cuando se programe la inspección, después de la inspección, cuando se envíen los permisos, al programar la instalación, justo después de la instalación y al recibir el PTO. Mantenerlos informados convierte a los clientes contentos en motores de recomendación."
       },
       {
         title: "Module 5.5A Slide Deck",
         type: "slides",
         content: "",
         slides: [
-{
-            title: "El Ciclo de Vida del Proyecto Post-Venta",
-            content: "Bienvenido al Módulo 5.5A — Guiones Avanzados de Cierre. El cierre no es una sola pregunta al final de una presentación. Es una serie de micro-compromisos que construyen impulso a lo largo de la conversación. Para el momento en que llegas a la decisión final, un propietario que ha estado diciendo sí a las cosas pequeñas tiene mucha más probabilidad de decir sí a la grande. Este módulo te da los marcos lingüísticos para mantener ese impulso — lenguaje que guía sin presionar y cierra sin forzar. El objetivo es un propietario que se sienta seguro, claro y en control — porque ese es el propietario que permanece convencido.",
-            image: "/images/solar_project_pipeline.png"
-          },
-          {
-            title: "Las Siete Etapas",
-            content: "El cierre de elección es una de las herramientas más efectivas en los últimos diez minutos de una cita. En lugar de preguntar \"¿quiere seguir adelante?\" — que es una pregunta de sí o no que invita al no — le das al propietario una elección entre dos caminos que ambos llevan hacia adelante. \"Según lo que me ha dicho, recomendaría el préstamo a veinte años — pero algunos propietarios en su situación prefieren el plazo de diez años para un reembolso más rápido. ¿Cuál se alinea mejor con cómo le gusta manejar las decisiones financieras?\" No estás preguntando si quieren energía solar. Estás preguntando qué versión de la energía solar les queda mejor. Ese cambio de \"si\" a \"cuál\" es uno de los ajustes de lenguaje más valiosos que jamás harás.",
-            image: "/images/solar_project_pipeline.png"
-          },
-          {
-            title: "Dónde se Pierde Más Comúnmente la Confianza",
-            content: "La urgencia debe ser real para ser efectiva. La urgencia fabricada — \"este trato termina el viernes\" o \"mi gerente solo aprobó este precio por hoy\" — destruye la confianza en el momento en que el propietario se da cuenta de que no es verdad. La urgencia real proviene de factores externos que puedes documentar. Reducciones escalonadas del crédito fiscal federal. Próximos aumentos de tarifas de energía que han sido anunciados públicamente. Acumulaciones estacionales de instalaciones que empujan los plazos. Cuando vinculas la urgencia a algo verificable, los propietarios responden a ello como información — no como presión. El guión suena así: \"El crédito federal está fijo al treinta por ciento hasta 2032, pero el tiempo de espera para instalaciones en esta área actualmente es de diez a doce semanas. Los propietarios que avanzan en las próximas semanas se adelantan a la prisa del verano.\"",
-            image: "/images/trust_breaking_moments.png"
-          },
-          {
-            title: "El Modelo de 7 Puntos de Contacto",
-            content: "Las señales de compra son señales conductuales que te dicen que el propietario está listo para decidir — antes de que lo digan. Observa estas: inclinarse hacia adelante hacia la pantalla, hacer preguntas en tiempo futuro como \"¿cuándo comenzaría la instalación?\", mirar a su cónyuge con un asentimiento, preguntar sobre opciones de financiamiento sin que se les haya preguntado, o tomar tu tableta para ver el diseño más de cerca. Cuando ves tres o más de estas al mismo tiempo, reduce la velocidad. Deja de avanzar en tu presentación. Muévete directamente al cierre. El asesor que sigue presentando después de que el propietario ha decidido mentalmente es el asesor que los convence de regresar. Detecta la señal. Detén el discurso. Pide la decisión.",
-            image: "/images/trust_breaking_moments.png"
-          }
-        ]
+          { title: "El Ciclo de Vida del Proyecto Post-Venta", content: "Tu mapa desde el contrato hasta el sistema activo. La causa número uno de cancelaciones solares no es el remordimiento del comprador, sino la pérdida de confianza.", image: "/images/solar_project_pipeline.png" },
+          { title: "Las Siete Etapas", content: "Contrato → Inspección → Diseño → Permisos → Instalación → Inspección → PTO. El PTO es la meta final, no la instalación.", image: "/images/solar_project_pipeline.png" },
+          { title: "Dónde se Pierde Más Comúnmente la Confianza", content: "1. El silencio después de la firma. 2. La sorpresa de los permisos. 3. La confusión del PTO.", image: "/images/trust_breaking_moments.png" },
+          { title: "El Modelo de 7 Puntos de Contacto", content: "Mantente en contacto proactivamente en los 7 hitos clave: Firma, Inspección del sitio, Diseño, Envío de permisos, Instalación, Inspección y PTO.", image: "/images/trust_breaking_moments.png" }
+        ],
+        narration: "Usa esta presentación para establecer expectativas con tus clientes. Muéstrales el mapa desde el contrato hasta el PTO, señala dónde pueden ocurrir retrasos y explícales tus puntos de contacto. Demostrarles que tienes un plan genera confianza de inmediato."
       }
     ],
     _meta: {
@@ -3163,54 +3171,54 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_5_5a_1",
         type: "checklist",
-        label: "Para cada situación, escribe un Cierre de Elección específico:\n\nSituación 1: Propietario indeciso entre pagar efectivo o financiamiento:",
+        label: "Ordena las Etapas del Ciclo de Vida del Proyecto:",
         items: [
-"1. Contract Signed",
-          "2. Site Survey",
-          "3. System Design",
-          "4. Permitting",
-          "5. Installation",
-          "6. Inspection",
-          "7. Permission to Operate (PTO)"
+          "1. Contrato Firmado",
+          "2. Inspección del Sitio",
+          "3. Diseño del Sistema",
+          "4. Permisos",
+          "5. Instalación",
+          "6. Inspección",
+          "7. Permiso para Operar (PTO)"
         ]
       },
       {
         id: "wb_5_5a_2",
         type: "open_response",
         label: "Escribe tu guion para establecer expectativas de cronograma en la mesa (en menos de 2 minutos):",
-        placeholder: "El proceso tiene cuatro fases principales...",
+        placeholder: "Antes de que firmemos, quiero mostrarle exactamente qué pasa a continuación...",
         lines: 4
       }
     ],
     quiz: {
-      title: "Module 5.5A Knowledge Check",
+      title: "Prueba de Conocimientos del Módulo 5.5A",
       questions: [
-{
+        {
           id: "kc_5_5a_1",
-          question: "¿Qué es un cierre de prueba?",
+          question: "¿Qué significa PTO y cuándo ocurre en el ciclo de vida del proyecto?",
           options: [
-"Un intento de forzar la firma del contrato.",
-            "Una pregunta para verificar la temperatura de la venta y descubrir objeciones restantes antes de avanzar.",
-            "Un descuento especial.",
-            "Un período de prueba de 30 días."
+            "Operación de Transferencia de Energía — ocurre en la instalación",
+            "Permiso para Operar — ocurre después de la inspección, cuando la compañía de electricidad autoriza a encender el sistema",
+            "Optimización del Cronograma del Proyecto — ocurre durante la obtención de permisos",
+            "Orden de Transferencia de Paneles — ocurre cuando se envía el equipo"
           ],
           correctAnswerIndex: 1,
-          explanation: "Las preguntas de cierre de prueba miden qué tan listo está el propietario para decidir."
+          explanation: "PTO significa Permiso para Operar, lo que significa que la compañía de electricidad ha otorgado formalmente el derecho de conectarse a la red."
         },
         {
           id: "kc_5_5a_2",
-          question: "Cuando un propietario dice 'necesito pensarlo', la respuesta más efectiva es:",
+          question: "Un representante cierra un trato un martes. La mejor acción siguiente es:",
           options: [
-"Presionarlos para que firmen hoy de todos modos.",
-            "Clarificar qué aspecto específico desean evaluar y abordar la duda de forma objetiva.",
-            "Irse de inmediato.",
-            "Ofrecer un descuento del 50%."
+            "Esperar a que el propietario se comunique con preguntas",
+            "Contactar al propietario dentro de las 48 horas para confirmar que la inspección del sitio está programada y revisar los siguientes pasos",
+            "Enviar un correo electrónico de agradecimiento genérico y continuar",
+            "Llamar al propietario únicamente si surge un problema"
           ],
           correctAnswerIndex: 1,
-          explanation: "Esta objeción suele ser una cortina de humo. Descubrir la duda real es el único camino."
+          explanation: "Evitar el 'Silencio después de la firma' protege tu trato y tranquiliza al propietario."
         }
       ]
     }
@@ -4849,6 +4857,90 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
         type: "open_response",
         label: "Reflexiona sobre tu primera experiencia de campo en solitario. ¿Cuál es la brecha de habilidad más grande en la que necesitas trabajar mañana?",
         placeholder: "Mi mayor brecha de habilidad hoy fue... Mañana voy a...",
+        lines: 2
+      }
+    ]
+  },
+  mod_4_8: {
+    id: "mod_4_8",
+    title: "Módulo 4.8: Simulación de Presentación Completa del Día 4",
+    subtitle: "Practica la presentación de una propuesta solar completa en el simulador de IA.",
+    sections: [
+      {
+        title: "Instrucciones de Simulación de Presentación",
+        type: "text",
+        content: "Este módulo pone a prueba tus habilidades de presentación en el simulador de IA. Realizarás una simulación de presentación completa en el hogar con un propietario virtual. La simulación evaluará tu capacidad para explicar los detalles de la autopsia de la factura de servicios públicos, la pila de valor, la medición neta, el almacenamiento de baterías y las opciones de financiamiento de manera clara y conforme a las normas. Debes mantenerte dentro de las pautas de cumplimiento en todo momento, sin hacer promesas ni garantías sobre créditos fiscales o ahorros. Intenta completar todas las fases de la presentación en menos de veinte minutos, finalizando cada fase con un micro-cierre sólido para confirmar la alineación.",
+        narration: "Bienvenido al Módulo 4.8. Hoy pondrás a prueba tus habilidades de presentación en el simulador de IA. Realizarás un juego de rol de propuesta completa en el hogar. El simulador evaluará tu capacidad para explicar la factura de luz, la medición neta, las baterías y el financiamiento de forma clara y conforme a las normas. Mantente en cumplimiento en todo momento, sin garantizar ahorros ni créditos fiscales. Hazlo en menos de veinte minutos y usa micro-cierres para confirmar la alineación. ¡Mucho éxito!"
+      }
+    ],
+    _meta: {
+      requestedLanguage: "es",
+      resolvedLanguage: "es",
+      isTextFallback: false,
+      missingFields: []
+    },
+    workbookPrompts: [
+      {
+        id: "wb_4_8_1",
+        type: "open_response",
+        label: "Registra tus mayores aprendizajes de la simulación de presentación completa del Día 4. ¿En qué áreas sobresaliste y qué necesita pulirse?",
+        placeholder: "Me di cuenta de que...",
+        lines: 3
+      }
+    ]
+  },
+  mod_5_7: {
+    id: "mod_5_7",
+    title: "Módulo 5.7: Simulación de Objeciones y Cierre Completo del Día 5",
+    subtitle: "Pon a prueba tus habilidades de manejo de objeciones y cierre en el simulador de IA.",
+    sections: [
+      {
+        title: "Instrucciones de Simulación de Objeciones y Cierre",
+        type: "text",
+        content: "Este es el desafío definitivo del día cinco. Entrarás al simulador para realizar un juego de rol de cierre y manejo de objeciones completo. El propietario virtual te presentará múltiples objeciones acumuladas, que van desde dudas financieras ('muy caro', 'altas tasas de interés') hasta problemas de confianza y tiempo ('déjame pensarlo', 'dudas de cancelación'). Debes clasificar cada objeción correctamente, utilizar marcos consultivos y de desarmado, mantenerte estrictamente conforme a las normas (nunca prometiendo ni garantizando ahorros fiscales o plazos de créditos), y guiar al cliente hacia un contrato firmado con total transparencia.",
+        narration: "Bienvenido al Módulo 5.7. Este es el desafío definitivo del día cinco. Entrarás al simulador para realizar un juego de rol completo de manejo de objeciones y cierre. El propietario virtual te presentará múltiples objeciones acumuladas. Debes clasificar cada objeción correctamente, utilizar marcos consultivos, mantenerte estrictamente bajo las pautas de cumplimiento y guiar al cliente hacia un contrato firmado con total transparencia. Concéntrate en la escucha activa y en desarmar las dudas."
+      }
+    ],
+    _meta: {
+      requestedLanguage: "es",
+      resolvedLanguage: "es",
+      isTextFallback: false,
+      missingFields: []
+    },
+    workbookPrompts: [
+      {
+        id: "wb_5_7_1",
+        type: "open_response",
+        label: "¿Qué objeción fue la más difícil de manejar en el simulador y cómo la resolviste?",
+        placeholder: "La objeción más desafiante fue...",
+        lines: 3
+      }
+    ]
+  },
+  mod_5_8: {
+    id: "mod_5_8",
+    title: "Módulo 5.8: Resumen del Día 5",
+    subtitle: "Reflexiona sobre el Día 5 y prepárate para el Día 6.",
+    sections: [
+      {
+        title: "Reflexionando sobre el Dominio de Objeciones",
+        type: "text",
+        content: "Has completado con éxito el Día Cinco del plan de estudios. Hoy aprendiste a clasificar y manejar las quince principales objeciones solares, aplicar marcos de cierre a diferentes tipos de personalidad y guiar a través de un contrato de manera transparente. Esta noche, reflexiona sobre tu progreso. Mañana es el Día Seis: Excelencia Post-Venta y Crecimiento Profesional, donde aprenderás a solicitar referidos, crear un rastreador de KPI y realizar tu examen final de certificación. Descansa bien esta noche para estar alerta y listo.",
+        narration: "Bienvenido al Módulo 5.8. Has completado con éxito el Día Cinco del plan de estudios. Hoy aprendiste a clasificar y manejar las principales objeciones, aplicar marcos de cierre y explicar un contrato de manera transparente. Esta noche, reflexiona sobre tu progreso. Mañana es el Día Seis: Excelencia Post-Venta y Crecimiento Profesional, donde aprenderás a pedir referidos y realizarás tu examen final de certificación. Descansa bien esta noche para estar alerta y listo."
+      }
+    ],
+    _meta: {
+      requestedLanguage: "es",
+      resolvedLanguage: "es",
+      isTextFallback: false,
+      missingFields: []
+    },
+    workbookPrompts: [
+      {
+        id: "wb_5_8_1",
+        type: "open_response",
+        label: "Reflecta sobre el Día 5 y escribe un área del manejo de objeciones que deseas practicar más.",
+        placeholder: "Quiero practicar...",
         lines: 2
       }
     ]

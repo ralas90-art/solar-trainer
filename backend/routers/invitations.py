@@ -11,6 +11,7 @@ from services.bulk_invite import BulkInviteService
 from services.email import EmailService
 import os
 import secrets
+from auth_utils import generate_signed_token
 from datetime import datetime, timedelta
 
 router = APIRouter(prefix="/api/v1/invitations", tags=["invitations"])
@@ -241,7 +242,8 @@ def accept_invitation_token(
         "role": user.role,
         "plan_tier": plan_tier,
         "company_id": user.company_id,
-        "temporary_password_required": user.temporary_password_required
+        "temporary_password_required": user.temporary_password_required,
+        "token": generate_signed_token(user.username)
     }
 
 @router.get("/branches")

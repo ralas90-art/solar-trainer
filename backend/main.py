@@ -16,14 +16,14 @@ from database import create_db_and_tables, get_session
 from fastapi.responses import StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from certificate import generate_certificate_pdf
-from voice import text_to_speech_stream
-from routers import vapi, analysis, kpis, certifications, analytics_snapshot, billing, enterprise, organization, company_settings, invitations, command_center, team_templates, training_intelligence
+from voice import text_to_speech_stream, DEFAULT_VOICE_ID
+from routers import vapi, analysis, kpis, certifications, analytics_snapshot, billing, enterprise, organization, company_settings, invitations, command_center, team_templates, training_intelligence, support, support_analytics, recommendation_actions, implementation_tracker
 from routers.analytics_snapshot import invalidate_analytics_cache_for_user
 import os
 import json
 from datetime import datetime, timedelta
 
-from auth_utils import pwd_context
+from auth_utils import pwd_context, generate_signed_token
 
 
 @asynccontextmanager
@@ -147,7 +147,8 @@ def signup(user_data: UserAuth, session: Session = Depends(get_session)):
         "status": "created", 
         "username": user.username,
         "role": user.role,
-        "company_id": user.company_id
+        "company_id": user.company_id,
+        "token": generate_signed_token(user.username)
     }
 
 @app.post("/login")
@@ -190,7 +191,8 @@ def login(login_data: LoginAuth, session: Session = Depends(get_session)):
         "role": user.role,
         "plan_tier": plan_tier,
         "company_id": user.company_id,
-        "temporary_password_required": getattr(user, "temporary_password_required", False)
+        "temporary_password_required": getattr(user, "temporary_password_required", False),
+        "token": generate_signed_token(user.username)
     }
 
 @app.get("/billing/calculate")
@@ -362,7 +364,7 @@ def download_certificate(user_id: str, session: Session = Depends(get_session)):
 
 class SpeakRequest(BaseModel):
     text: str
-    voice_id: str = "QO7Mfy7rwYLdxzo4Q3iD"
+    voice_id: str = DEFAULT_VOICE_ID
 
 @app.post("/speak")
 def speak_endpoint(request: SpeakRequest):
@@ -422,6 +424,10 @@ app.include_router(invitations.router)
 app.include_router(command_center.router)
 app.include_router(team_templates.router)
 app.include_router(training_intelligence.router)  # Phase 8: Training Intelligence Engine
+app.include_router(support.router)
+app.include_router(support_analytics.router)  # Phase 3: Support Analytics Dashboard
+app.include_router(recommendation_actions.router)  # Phase 5: Recommendation Actions
+app.include_router(implementation_tracker.router)  # Phase 7: Implementation Tracker
 
 
 

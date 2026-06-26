@@ -1,4 +1,4 @@
-﻿export interface Slide {
+export interface Slide {
     title: string;
     content: string;
     imagePlaceholder?: string;
@@ -35,6 +35,7 @@ export interface ModuleContent {
         scenarioId?: string; // For simulation
         openingLine?: string; // Opening dialogue line
         imageSrc?: string; // For standalone image
+        narration?: string; // Optional custom audio narration text
     }[];
     workbookPrompts?: WorkbookPrompt[];
 }
@@ -113,14 +114,17 @@ export const DAY_MODULES: DayInfo[] = [
             "Pass the Day 2 role-play certification"
         ],
         modules: [
-            { id: "mod_2_1", moduleNumber: "2.1", title: "Territory Strategy & Planning", duration: "20 min", type: "activity" },
-            { id: "mod_2_2", moduleNumber: "2.2", title: "Daily Efficiency Math & Time Management", duration: "15 min", type: "content" },
-            { id: "mod_2_3", moduleNumber: "2.3", title: "Door Knocking Mastery", duration: "30 min", type: "activity", hasSimulation: true },
-            { id: "mod_2_4", moduleNumber: "2.4", title: "Phone & Virtual Appointment Setting", duration: "25 min", type: "activity" },
-            { id: "mod_2_5", moduleNumber: "2.5", title: "Anti-Sales Framing & Trust Building", duration: "20 min", type: "activity" },
-            { id: "mod_2_6", moduleNumber: "2.6", title: "Objection Handling Preview — Top 5", duration: "25 min", type: "activity", hasSimulation: true },
-            { id: "mod_2_7", moduleNumber: "2.7", title: "Daily Prospecting Workflow", duration: "15 min", type: "content" },
-            { id: "mod_2_8", moduleNumber: "2.8", title: "Day 2 Role-Play Certification", duration: "30 min", type: "certification" }
+            { id: "mod_2_1", moduleNumber: "2.1", title: "Homeowner Psychology: Why People Resist Solar", duration: "20 min", type: "content" },
+            { id: "mod_2_2", moduleNumber: "2.2", title: "Territory Strategy & Planning", duration: "20 min", type: "activity" },
+            { id: "mod_2_3", moduleNumber: "2.3", title: "Daily Efficiency Math & Time Management", duration: "15 min", type: "content" },
+            { id: "mod_2_4", moduleNumber: "2.4", title: "The Solar Conversation Framework: Introduction", duration: "20 min", type: "content" },
+            { id: "mod_2_5", moduleNumber: "2.5", title: "Door Knocking Mastery", duration: "30 min", type: "activity", hasSimulation: true },
+            { id: "mod_2_6", moduleNumber: "2.6", title: "Micro Objection Handling: Getting Past the Brush-Off", duration: "25 min", type: "activity", hasSimulation: true },
+            { id: "mod_2_7", moduleNumber: "2.7", title: "Phone & Virtual Appointment Setting", duration: "25 min", type: "activity" },
+            { id: "mod_2_8", moduleNumber: "2.8", title: "Anti-Sales Framing & Trust Building", duration: "20 min", type: "activity" },
+            { id: "mod_2_9", moduleNumber: "2.9", title: "Daily Prospecting Workflow & Accountability", duration: "15 min", type: "content" },
+            { id: "mod_2_10", moduleNumber: "2.10", title: "Day 2 Role-Play Certification", duration: "30 min", type: "certification" },
+            { id: "mod_2_11", moduleNumber: "2.11", title: "Day 2 Wrap-Up & Field Assignment", duration: "15 min", type: "content" }
         ],
         deliverables: ["Written territory plan — 3 neighborhoods + routes", "Daily schedule commitment signed", "Recorded 30-sec pitch video", "5 practice calls logged", "Anti-sales personal script", "Objection rapid-fire passed", "Role-play certification passed"],
         homework: ["Knock 20 doors tonight — practice only", "Record yourself at 3 doors — watch before tomorrow", "Study top 10 objections script"]
@@ -140,14 +144,16 @@ export const DAY_MODULES: DayInfo[] = [
         modules: [
             { id: "mod_3_1", moduleNumber: "3.1", title: "In-Home Positioning & Environmental Control", duration: "20 min", type: "content" },
             { id: "mod_3_2", moduleNumber: "3.2", title: "Personality Profiling — BOLT Framework", duration: "25 min", type: "activity" },
-            { id: "mod_3_3", moduleNumber: "3.3", title: "Tactical Empathy & Mirroring", duration: "20 min", type: "content", hasSimulation: true },
-            { id: "mod_3_4", moduleNumber: "3.4", title: "Question Architecture — 12-Question Discovery", duration: "30 min", type: "activity" },
-            { id: "mod_3_5", moduleNumber: "3.5", title: "Spouse & Decision-Maker Dynamics", duration: "20 min", type: "content" },
-            { id: "mod_3_6", moduleNumber: "3.6", title: "Roof & Site Assessment", duration: "25 min", type: "activity" },
-            { id: "mod_3_7", moduleNumber: "3.7", title: "Disqualification Mastery", duration: "20 min", type: "content" },
+            { id: "mod_3_3", moduleNumber: "3.3", title: "Real-World Homeowner Scenario Library", duration: "20 min", type: "content" },
+            { id: "mod_3_4", moduleNumber: "3.4", title: "Tactical Empathy & Mirroring", duration: "20 min", type: "content", hasSimulation: true },
+            { id: "mod_3_5", moduleNumber: "3.5", title: "Question Architecture: The Discovery Sequence", duration: "30 min", type: "activity" },
+            { id: "mod_3_6", moduleNumber: "3.6", title: "Spouse & Decision-Maker Dynamics", duration: "20 min", type: "content" },
+            { id: "mod_3_7", moduleNumber: "3.7", title: "Roof & Site Assessment", duration: "25 min", type: "activity" },
             { id: "mod_3_7a", moduleNumber: "3.7A", title: "Technical Discovery Questions", duration: "45 min", type: "content" },
             { id: "mod_3_7b", moduleNumber: "3.7B", title: "Site Survey Prep for Reps", duration: "45 min", type: "content" },
-            { id: "mod_3_8", moduleNumber: "3.8", title: "Day 3 Full Discovery Simulation", duration: "40 min", type: "simulation", hasSimulation: true }
+            { id: "mod_3_8", moduleNumber: "3.8", title: "Disqualification Mastery: When to Walk Away", duration: "20 min", type: "content", hasSimulation: true },
+            { id: "mod_3_9", moduleNumber: "3.9", title: "Day 3 Full Discovery Simulation", duration: "40 min", type: "simulation", hasSimulation: true },
+            { id: "mod_3_10", moduleNumber: "3.10", title: "Day 3 Wrap-Up & Homework", duration: "15 min", type: "content" }
         ],
         deliverables: ["Seating strategy diagram drawn", "BOLT cheat sheet created", "5 calibrated questions written", "Personal 12-question discovery script", "Spouse dynamics checklist", "Site qualification checklist", "Disqualification criteria written", "Simulation feedback form received"],
         homework: ["Set 1 real appointment — friend, family, or homeowner", "Run full discovery using 12-question script — record yourself", "Study utility bill deep dive guide for Day 4"]
@@ -444,17 +450,20 @@ export const MODULES: Record<string, ModuleContent> = {
         {
             "title": "Why Solar, Why Now",
             "type": "text",
-            "content": "The residential solar market in the United States is one of the fastest-growing industries in the country. The three primary reasons homeowners go solar are utility bill inflation, energy independence, and home value increase. Utility rates have gone up six to eight percent annually for the last two decades with no sign of stopping. That is the foundation of every conversation you'll have. You are offering homeowners a hedge against something that is guaranteed to keep rising."
+            "content": "The residential solar market in the United States is one of the fastest-growing industries in the country. The three primary reasons homeowners go solar are utility bill inflation, energy independence, and home value increase. Utility rates have gone up six to eight percent annually for the last two decades with no sign of stopping. That is the foundation of every conversation you'll have. You are offering homeowners a hedge against rising historical utility rates.",
+            "narration": "Welcome to Module 1.4. The residential solar market is growing fast, and for good reason. Homeowners are looking for three things: protection from inflation, energy independence, and an increase in their property value. Utility rates have gone up six to eight percent year over year for two decades. That's your starting point. You are offering them a reliable hedge against rising historical utility rates. Let's keep it simple and focused on these facts."
         },
         {
             "title": "The Federal Tax Credit",
             "type": "text",
-            "content": "The federal Investment Tax Credit \u2014 the ITC \u2014 gives homeowners a thirty percent credit on the total system cost. On a thirty-thousand-dollar system, that's nine thousand dollars back in their first tax filing. This credit is locked in through 2032. That's not forever. Every year a homeowner waits is a year of paying full utility rates AND a year closer to the credit potentially changing. The ITC creates real, legitimate urgency in your conversations."
+            "content": "Under current federal guidance, the Residential Clean Energy Credit applied to qualifying residential solar property installed through December 31, 2025. Never promise a refund, check, or guaranteed tax savings. Eligibility depends on the law in effect, installation timing, ownership structure, and the homeowner’s individual tax situation. Always recommend that the homeowner confirm eligibility with a qualified tax professional.",
+            "narration": "Let's talk about the federal tax credit. Under current federal guidance, the Residential Clean Energy Credit applied to qualifying residential solar property installed through December 31, 2025. This is a crucial compliance point. Never promise a refund, check, or guaranteed tax savings to a homeowner. Eligibility depends on the law in effect, installation timing, ownership structure, and their individual tax situation. Always recommend that the homeowner confirm their eligibility with a qualified tax professional. Keep it professional and play by the rules."
         },
         {
             "title": "Common Solar Myths",
             "type": "text",
-            "content": "You will hear these three myths constantly, and you need to be ready. First \u2014 solar doesn't work in cloudy states. False. Germany is one of the cloudiest countries in the world and leads in solar adoption. Panels produce electricity from daylight, not direct sunlight. Second \u2014 panels are too expensive. With financing, most homeowners pay less per month than their current utility bill from day one. Third \u2014 the technology will be better next year. The technology has improved every year for forty years. Waiting always costs more than it saves."
+            "content": "You will hear these three myths constantly, and you need to be ready. First \u2014 solar doesn't work in cloudy states. False. Germany is one of the cloudiest countries in the world and leads in solar adoption. Panels produce electricity from daylight, not direct sunlight. Second \u2014 panels are too expensive. With financing, most homeowners pay less per month than their current utility bill from day one. Third \u2014 the technology will be better next year. The technology has improved every year for forty years. Waiting always costs more than it saves.",
+            "narration": "You're going to hear myths out in the field. Be ready for them. First, that solar doesn't work in cloudy areas. Not true. Germany leads the world in solar adoption, and they get Alaska-level sunlight. Panels need daylight, not direct heat. Second, that panels are too expensive. With modern financing, it's just a bill swap, often saving them money from day one. Third, that they should wait for better tech. Tech improves incrementally, but waiting always costs more than it saves. Address these myths calmly and move forward."
         }
     ],
     "workbookPrompts": [
@@ -549,22 +558,26 @@ export const MODULES: Record<string, ModuleContent> = {
         {
             "title": "Salesperson vs. Consultant",
             "type": "text",
-            "content": "There's a fundamental difference between a salesperson and a consultant. A salesperson pushes a product and chases a commission. A consultant diagnoses a problem and prescribes the right solution \u2014 even if that solution is walking away. In solar, this distinction matters because homeowners can feel which one you are within sixty seconds of opening the door. Your job is to enter every interaction as a consultant. You are restructuring someone's utility spending and protecting their family from inflation. Act accordingly."
+            "content": "There's a fundamental difference between a salesperson and a consultant. A salesperson pushes a product and chases a commission. A consultant diagnoses a problem and prescribes the right solution \u2014 even if that solution is walking away. In solar, this distinction matters because homeowners can feel which one you are within sixty seconds of opening the door. Your job is to enter every interaction as a consultant. You are restructuring someone's utility spending and protecting their family from inflation. Act accordingly.",
+            "narration": "Welcome to Module 1.6. Let's talk about identity. There is a massive difference between being a salesperson and being a consultant. A salesperson pushes products and chases a commission. A consultant diagnoses a problem and prescribes the right solution, even if that means walking away. Homeowners will read your intent in the first minute. When you knock on a door, you aren't selling a gadget. You are helpfully restructuring their utility bills to protect their household. Enter every home as a professional consultant."
         },
         {
             "title": "The Integrity Creed",
             "type": "text",
-            "content": "The integrity creed is not optional \u2014 it's the foundation of a sustainable career. Never promise savings you can't guarantee. Never exaggerate return on investment. Disqualify aggressively \u2014 a bad fit today is a cancellation tomorrow, and cancellations hurt your income. And always remember that your long-term reputation is worth more than any single commission check. The reps who build six-figure incomes are the ones homeowners refer to their neighbors because they were treated with respect."
+            "content": "The integrity creed is not optional \u2014 it's the foundation of a sustainable career. Never promise or guarantee solar savings. Never exaggerate return on investment. Disqualify aggressively \u2014 a bad fit today is a cancellation tomorrow, and cancellations hurt your income. And always remember that your long-term reputation is worth more than any single commission check. The reps who build six-figure incomes are the ones homeowners refer to their neighbors because they were treated with respect.",
+            "narration": "Let's talk about the integrity creed. It is the foundation of a real sales career. Never promise or guarantee solar savings. Never exaggerate the return on investment. Disqualify homes that aren't a good fit. A bad deal today is a cancellation tomorrow, and that hurts everyone. Remember, your long-term reputation in the neighborhood is worth more than any single commission check. Treat people with respect, and they will refer you to their neighbors."
         },
         {
             "title": "Reframing Rejection",
             "type": "text",
-            "content": "In solar sales, you will hear the word no more than any other word. Every single top performer in this industry hears no over a hundred times per week. The shift you need to make is this \u2014 no does not mean I reject you. It means not right now, or this isn't a fit. Both of those are useful information. Track your no's because they're the path to your yes's. A rep knocking forty-five doors statistically closes one deal. That means every door \u2014 including every no \u2014 is worth about seventy-eight dollars."
+            "content": "In solar sales, you will hear the word no more than any other word. Every single top performer in this industry hears no over a hundred times per week. The shift you need to make is this \u2014 no does not mean I reject you. It means not right now, or this isn't a fit. Both of those are useful information. Track your no's because they're the path to your yes's. A rep knocking forty-five doors statistically closes one deal. That means every door \u2014 including every no \u2014 is worth about seventy-eight dollars.",
+            "narration": "Rejection is part of the game. In solar, you will hear 'no' more than any other word. The best reps in this industry hear it over a hundred times a week. The secret is to reframe it: 'no' doesn't mean a personal rejection. It just means 'not right now' or 'this home is not a fit.' Track your numbers. Statistically, if you knock forty-five doors to close one deal, every single door you touch is worth about seventy-eight dollars, no matter what they say."
         },
         {
             "title": "Energy Management",
             "type": "text",
-            "content": "This career requires emotional energy, and you have to manage it intentionally. Don't take rejection personally \u2014 the homeowner doesn't know you, and they're not rejecting you. They're protecting their time and their home. Celebrate small wins: an appointment set is a win, even if no deal follows. A meaningful conversation is a win. Reset between every door. The rep who treats door forty-five with the same energy as door one becomes the rep closing at a rate that changes everything."
+            "content": "This career requires emotional energy, and you have to manage it intentionally. Don't take rejection personally \u2014 the homeowner doesn't know you, and they're not rejecting you. They're protecting their time and their home. Celebrate small wins: an appointment set is a win, even if no deal follows. A meaningful conversation is a win. Reset between every door. The rep who treats door forty-five with the same energy as door one becomes the rep closing at a rate that changes everything.",
+            "narration": "Managing your energy is what keeps you in the game. Don't take rejection personally. The homeowner is just protecting their time and space. Celebrate the small wins, like a solid conversation or a set appointment. Reset your mind between every single door. If you knock on door forty-five with the same positive energy you had on door one, you'll see your close rates soar. Stay consistent."
         }
     ],
     "workbookPrompts": [
@@ -1569,17 +1582,20 @@ export const MODULES: Record<string, ModuleContent> = {
         {
             "title": "Option 1 \u2014 Solar Loan",
             "type": "text",
-            "content": "The solar loan is the most common and most beneficial financing structure for qualified homeowners. The homeowner borrows money to purchase the system outright, owns it completely, and receives the thirty percent federal tax credit \u2014 typically nine thousand dollars on a thirty-thousand-dollar system. Monthly payments are often lower than their current utility bill from day one. The trade-off is good credit is required \u2014 generally six hundred fifty or higher. The long-term savings are the highest of any financing option because the homeowner owns a depreciating-zero asset that eliminates their biggest recurring utility expense."
+            "content": "The solar loan is the most common and most beneficial financing structure for qualified homeowners. The homeowner borrows money to purchase the system outright, owns it completely, and may be eligible to apply for the Residential Clean Energy Credit if qualifying property was installed through December 31, 2025. Eligibility depends on individual tax situation and timing. Monthly payments are often lower than their current utility bill from day one. The trade-off is good credit is required \u2014 generally six hundred fifty or higher. The long-term savings are the highest of any financing option because the homeowner owns a depreciating-zero asset that eliminates their biggest recurring utility expense.",
+            "narration": "Let's look at Option One: the solar loan. This is the most common financing structure. The homeowner borrows money to purchase the system outright and owns it completely. Under current federal guidance, they may be eligible to apply for the Residential Clean Energy Credit if the qualifying property was installed through December 31, 2025. Remember, eligibility depends on their individual tax situation and timing. Monthly payments are often lower than their current utility bill from day one. It requires a good credit score—generally six hundred fifty or higher. Long-term savings are high because they own an asset that replaces a rising utility bill."
         },
         {
             "title": "The 18-Month Tax Credit Strategy",
             "type": "text",
-            "content": "Many solar loans offer an eighteen-month same-as-cash window. Here is how to explain it. In the first eighteen months, the payment is slightly higher. But in year two, when the homeowner files their taxes and receives the thirty percent tax credit, they apply that lump sum directly to the loan principal. This significantly drops their monthly payment for the remaining life of the loan. The script is simple: you'll have a higher payment for eighteen months, then you apply your tax credit and your payment drops \u2014 permanently. Walk through that math with them clearly."
+            "content": "Many solar loans offer an eighteen-month same-as-cash window. Here is how to explain it. In the first eighteen months, the payment is slightly higher. The loan is structured assuming a tax credit is applied within eighteen months to keep the payment low, but you'll want to consult your tax professional to verify your eligibility under the federal guidelines. Walk through that math with them clearly.",
+            "narration": "Many solar loans offer an eighteen-month same-as-cash window. In the first eighteen months, the payment is slightly higher. The loan is structured assuming a tax credit is applied within eighteen months to keep the payment low. You must advise the homeowner to consult their tax professional to verify their eligibility under federal guidelines. Walk through that math with them clearly and keep it fully compliant."
         },
         {
             "title": "Option 2 & 3 \u2014 Lease and PPA",
             "type": "text",
-            "content": "The solar lease and Power Purchase Agreement are both zero-down options where the solar company owns the system. With a lease, the homeowner pays a fixed monthly amount. With a PPA, they pay per kilowatt-hour produced. Both options transfer maintenance responsibility to the company. The trade-off: the homeowner does not receive the federal tax credit, and both have escalator clauses that increase payments annually. Recommend these for homeowners with lower credit scores, no meaningful tax liability, or those who simply want simplicity over maximum savings."
+            "content": "The solar lease and Power Purchase Agreement are both zero-down options where the solar company owns the system. With a lease, the homeowner pays a fixed monthly amount. With a PPA, they pay per kilowatt-hour produced. Both options transfer maintenance responsibility to the company. The trade-off: the homeowner does not receive the federal tax credit, and both have escalator clauses that increase payments annually. Recommend these for homeowners with lower credit scores, no meaningful tax liability, or those who simply want simplicity over maximum savings.",
+            "narration": "Options two and three are leases and Power Purchase Agreements. These are zero-down structures where the solar provider owns and maintains the panels. Under a lease, the homeowner pays a flat monthly rate. Under a PPA, they pay a set rate per kilowatt-hour generated. The main trade-offs are that the homeowner does not get the federal tax credit, and these contracts often include an annual escalator. Recommend these for clients with lower credit, no tax liability, or those who value a maintenance-free setup over maximum savings."
         }
     ],
     "workbookPrompts": [
@@ -2142,7 +2158,8 @@ export const MODULES: Record<string, ModuleContent> = {
             {
                 title: "Solar Is Not One-Size-Fits-All",
                 type: "text",
-                content: "Solar is not a one-size-fits-all financial product. This module trains reps on the primary ways a homeowner can pay for solar: Cash, Loan, and Third-Party Ownership (Lease/PPA). The goal is not to bias the rep toward one specific product, but to teach them how to match the right financial vehicle to the homeowner's specific financial situation and goals."
+                content: "Solar is not a one-size-fits-all financial product. This module trains reps on the primary ways a homeowner can pay for solar: Cash, Loan, and Third-Party Ownership (Lease/PPA). The goal is not to bias the rep toward one specific product, but to teach them how to match the right financial vehicle to the homeowner's specific financial situation and goals.",
+                narration: "Welcome to Module 1.5B: Solar Financial Structures. Solar is not a one-size-fits-all financial product. Your goal as a consultant is not to push one specific option, but to help the homeowner find the best fit for their situation. We'll break down Cash, Loans, and Third-Party Ownership. Let's make sure you can explain these clearly."
             },
             {
                 title: "Learning Objectives",
@@ -2154,22 +2171,26 @@ export const MODULES: Record<string, ModuleContent> = {
                     "Explain the Federal Solar Investment Tax Credit (ITC) accurately, without giving illegal tax advice.",
                     "Understand the difference between dealer fees and the cash price of a system.",
                     "Position the 'Swap Your Bill' concept effectively."
-                ]
+                ],
+                narration: "By the end of this module, you will understand the mechanics of cash, loans, leases, and PPAs. You will learn to identify which homeowner profile matches each product, explain the federal tax credit accurately without giving tax advice, and position the 'bill swap' concept effectively. Let's dive in."
             },
             {
                 title: "Section 1: The Swap Your Bill Concept",
                 type: "text",
-                content: "The fundamental premise of most solar financing:\n'Right now, you are renting your power from the utility company. It's an indefinite lease with an escalator built in, and you'll never own it. Solar allows you to swap that unpredictable utility bill for a fixed, predictable payment that actually has an end date.'\n\nIf the solar monthly payment is lower than (or equal to) their average utility bill, they are saving money from day one."
+                content: "The fundamental premise of most solar financing:\n'Right now, you are renting your power from the utility company. It's an indefinite lease with an escalator built in, and you'll never own it. Solar allows you to swap that unpredictable utility bill for a fixed, predictable payment that actually has an end date.'\n\nIf the solar monthly payment is lower than (or equal to) their average utility bill, they are saving money from day one.",
+                narration: "Let's talk about swapping the bill. Right now, homeowners rent their electricity from the utility company on an endless lease with rising rates. Solar lets them swap that unpredictable expense for a fixed, predictable payment that has an end date. If the solar payment is equal to or lower than their current average bill, they are saving money starting day one. It is a logical, powerful frame."
             },
             {
                 title: "Section 2: The Federal Investment Tax Credit (ITC)",
                 type: "text",
-                content: "What it is: A federal tax credit (currently 30% under the IRA) for a percentage of the total solar system cost.\n\nCRITICAL COMPLIANCE: Sales reps are NOT CPAs. You cannot guarantee a homeowner will receive the credit or tell them how to file it. You MUST use phrasing like:\n- 'Depending on your tax liability, you may be eligible to claim 30% of the system cost...'\n- 'I always recommend running this past your CPA or tax professional...'\n\nHow it affects loans: Many solar loans are built around an 18-month re-amortization period. If the homeowner applies the full tax credit amount to the loan within 18 months, their monthly payment stays low. If they keep the tax credit cash, their monthly payment adjusts upward."
+                content: "Under current federal guidance, the Residential Clean Energy Credit applied to qualifying residential solar property installed through December 31, 2025. Never promise a refund, check, or guaranteed tax savings. Eligibility depends on the law in effect, installation timing, ownership structure, and the homeowner’s individual tax situation. Always recommend that the homeowner confirm eligibility with a qualified tax professional.\n\nHow it affects loans: Many solar loans are built around an 18-month re-amortization period. If the homeowner is eligible for and applies a tax credit to the loan within 18 months, their monthly payment stays low. Otherwise, their monthly payment adjusts upward.",
+                narration: "Here is the federal tax credit compliance standard. Under current federal guidance, the Residential Clean Energy Credit applied to qualifying residential solar property installed through December 31, 2025. Never promise a refund, check, or guaranteed tax savings. Eligibility depends on the law in effect, installation timing, ownership structure, and the homeowner's individual tax situation. Always recommend they confirm eligibility with a qualified tax professional. Many solar loans re-amortize at eighteen months, and if they don't apply the tax credit, the payment adjusts upward. Keep this clear and compliant."
             },
             {
                 title: "Section 3: Product Matchmaking",
                 type: "text",
-                content: "Cash Purchase:\n- Best for: Homeowners with liquidity, looking for maximum long-term ROI. They keep the ITC.\n\nSolar Loan:\n- Best for: Homeowners who want ownership and the ITC, but want to leverage financing to achieve a Day-1 low monthly payment.\n- Keep in mind: Dealer fees mean the financed price is higher than the cash price.\n\nLease/PPA (Third-Party Ownership):\n- Best for: Homeowners on fixed incomes, retirees without tax liability, or those who just want the lowest monthly rate with zero maintenance responsibility.\n- The financing company keeps the ITC and passes the savings down via a lower monthly rate."
+                content: "Cash Purchase:\n- Best for: Homeowners with liquidity, looking for maximum long-term ROI. They keep the ITC.\n\nSolar Loan:\n- Best for: Homeowners who want ownership and the ITC, but want to leverage financing to achieve a Day-1 low monthly payment.\n- Keep in mind: Dealer fees mean the financed price is higher than the cash price.\n\nLease/PPA (Third-Party Ownership):\n- Best for: Homeowners on fixed incomes, retirees without tax liability, or those who just want the lowest monthly rate with zero maintenance responsibility.\n- The financing company keeps the ITC and passes the savings down via a lower monthly rate.",
+                narration: "Let's review matchmaking. Cash is best for clients with savings who want the highest return on investment. Loans are great for those who want ownership and the tax credit but prefer low monthly payments over upfront costs. Leases and PPAs are perfect for clients on fixed incomes, retirees with no tax liability, or anyone who wants zero maintenance worries. Learn these profiles to recommend the right solution."
             },
             {
                 title: "Module 1.5B Slide Deck",
@@ -2182,7 +2203,8 @@ export const MODULES: Record<string, ModuleContent> = {
                     { title: "Option 1: Cash Purchase", content: "Maximum ROI, maximum upfront cost." },
                     { title: "Option 2: Solar Loans & Dealer Fees", content: "Ownership without the upfront cost. Explain the 18-month re-amortization." },
                     { title: "Option 3: Third Party (Lease / PPA)", content: "Best for those who cannot utilize the ITC or want zero maintenance liability." }
-                ]
+                ],
+                narration: "This slide deck helps you visualize these options. We walk the homeowner from the bill swap concept, through compliance boundaries, and into Cash, Loans, and Third-Party ownership. Use these slides to anchor your explanation in real facts and build client trust."
             }
         ],
         workbookPrompts: [
@@ -2946,7 +2968,8 @@ export const MODULES: Record<string, ModuleContent> = {
             {
                 title: "The Project Lifecycle: A Rep's Map",
                 type: "text",
-                content: "Every solar project goes through the same general sequence of stages from contract to live system. The exact timing varies by market, utility, and jurisdiction — but the stages themselves are consistent.\n\nThere are 7 key stages: Contract Signed, Site Survey, System Design, Permitting, Installation, Inspection, and Permission to Operate (PTO)."
+                content: "Every solar project goes through the same general sequence of stages from contract to live system. The exact timing varies by market, utility, and jurisdiction — but the stages themselves are consistent.\n\nThere are 7 key stages: Contract Signed, Site Survey, System Design, Permitting, Installation, Inspection, and Permission to Operate (PTO).",
+                narration: "Welcome to Module 5.5A: The Post-Sale Project Lifecycle. Every solar project follows the same basic journey from contract signing to the system turning live. While timelines vary by market, utility, and local rules, the stages themselves are consistent. Let's look at the seven key stages: contract, site survey, engineering design, permitting, installation, inspection, and permission to operate."
             },
             {
                 title: "The Seven Stages",
@@ -2960,12 +2983,14 @@ export const MODULES: Record<string, ModuleContent> = {
                     "Stage 5 - Installation: The crew installs panels, inverters, and wiring (1–2 days).",
                     "Stage 6 - Inspection: Local inspector verifies system against approved permit (1–3 weeks post-install).",
                     "Stage 7 - PTO: Utility company authorizes the homeowner to turn on the system. This is the true finish line."
-                ]
+                ],
+                narration: "Let's break down the seven stages. First, signing the contract. Second, the site survey, where a tech checks the roof and electric panel. Third, system design by engineering. Fourth, permitting with the local jurisdiction. Fifth, installation, which usually takes just one to two days. Sixth, local inspection. And seventh, PTO, or Permission to Operate, which is when the utility company lets you turn the panels on. PTO is the true finish line."
             },
             {
                 title: "Total Timeline Expectations",
                 type: "text",
-                content: "From contract signing to PTO, timeline is typically 3 to 6 months in most markets. Some markets are faster, some are significantly slower. Never promise a specific timeline you cannot guarantee. Use ranges and use localized data."
+                content: "From contract signing to PTO, timeline is typically 3 to 6 months in most markets. Some markets are faster, some are significantly slower. Never promise a specific timeline you cannot guarantee. Use ranges and use localized data.",
+                narration: "From signing to turning the system on takes about three to six months in most areas. Some places are faster, others are much slower. Never promise a specific date. Always explain timeline ranges based on local data so your client knows what to expect."
             },
             {
                 title: "Where Trust Is Most Commonly Lost",
@@ -2975,7 +3000,8 @@ export const MODULES: Record<string, ModuleContent> = {
                     "Moment 1 — The Silence After Signing: Anxiety builds if they hear nothing for weeks. Check in within 48 hours.",
                     "Moment 2 — The Permit Surprise: No one warned them permits can take 6–10 weeks. Set this expectation explicitly at signing.",
                     "Moment 3 — The PTO Confusion: The system is on the roof, but they can't turn it on. Explain PTO clearly before and after installation."
-                ]
+                ],
+                narration: "Trust is easily broken if you don't manage expectations. The three high-risk moments are: the silence right after signing, the unexpected delay in permitting, and the wait for PTO after the panels are already on the roof. Proactively check in during these times to keep the homeowner informed and prevent cancellations."
             },
             {
                 title: "The Rep's Role After the Close",
@@ -2984,7 +3010,8 @@ export const MODULES: Record<string, ModuleContent> = {
                 items: [
                     "Rep Owns: Homeowner relationship, expectation management, early problem escalation, referral relationship cultivation.",
                     "Operations Owns: Scheduling, design decisions, permit submission, installation scheduling, and inspection."
-                ]
+                ],
+                narration: "Keep your boundaries clear. As the rep, you own the relationship, expectation setting, and referral gathering. Operations handles the scheduling, designs, permits, installs, and inspections. Don't confuse the homeowner by trying to do operations' job, but never ignore their questions either."
             },
             {
                 title: "The 7-Touchpoint Model",
@@ -2998,7 +3025,8 @@ export const MODULES: Record<string, ModuleContent> = {
                     "5. Install date confirmed: Great news — your install is scheduled!",
                     "6. Day of/after install: Panels are up! Here's the last step.",
                     "7. PTO received: You're officially live. Congratulations."
-                ]
+                ],
+                narration: "Use the seven-touchpoint model as a strategy to build referrals. Call your client at signing, when the survey is scheduled, after the survey, when permits are submitted, when installation is scheduled, right after install, and finally when PTO is granted. Keeping them updated at every step turns happy customers into referral engines."
             },
             {
                 title: "Module 5.5A Slide Deck",
@@ -3009,7 +3037,8 @@ export const MODULES: Record<string, ModuleContent> = {
                     { title: "The Seven Stages", content: "Contract → Survey → Design → Permit → Install → Inspection → PTO.\nPTO is the finish line, not installation.", image: "/images/solar_project_pipeline.png" },
                     { title: "Where Trust Is Most Commonly Lost", content: "1. The Silence After Signing\n2. The Permit Surprise\n3. The PTO Confusion", image: "/images/trust_breaking_moments.png" },
                     { title: "The 7-Touchpoint Model", content: "Proactively check in at all 7 milestones: Signing, Survey, Design, Permit, Install, Inspection, PTO.", image: "/images/trust_breaking_moments.png" }
-                ]
+                ],
+                narration: "Use this slide deck to set expectations with your clients. Show them the map from contract to PTO, point out where delays can happen, and walk them through your communication touchpoints. Showing them you have a plan builds immediate confidence."
             }
         ],
         workbookPrompts: [
@@ -4269,6 +4298,75 @@ export const MODULES: Record<string, ModuleContent> = {
         ]
     },
 
+    "mod_4_8": {
+        id: "mod_4_8",
+        title: "Module 4.8: Day 4 Full Presentation Simulation",
+        subtitle: "Practice presenting a full solar proposal in the AI simulator.",
+        sections: [
+            {
+                title: "Presentation Simulation Instructions",
+                type: "text",
+                content: "This module puts your presentation skills to the test in the AI Simulator. You will run a full in-home presentation simulation with a virtual homeowner. The simulation will assess your ability to explain utility bill autopsy details, value stacks, net metering, battery storage, and financing options clearly and compliantly. You must remain within the compliance guidelines at all times, making no guaranteed claims regarding tax credits or savings. Aim to complete all phases of the presentation in under twenty minutes, ending each phase with a solid micro-close to confirm alignment.",
+                narration: "Welcome to Module 4.8. Today you're putting your presentation skills to the test in the AI Simulator. You will run a full in-home proposal roleplay. The simulator will assess your ability to explain utility bills, net metering, battery storage, and financing options clearly and compliantly. You must remain compliant at all times, making no guaranteed claims regarding tax credits or savings. Keep the presentation under twenty minutes, ending each phase with a solid micro-close to confirm alignment. Good luck."
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_4_8_1",
+                type: "open_response",
+                label: "Record your biggest takeaways from the Day 4 Full Presentation Simulation. What areas did you excel in, and what needs polish?",
+                placeholder: "I noticed that...",
+                lines: 3
+            }
+        ]
+    },
+
+    "mod_5_7": {
+        id: "mod_5_7",
+        title: "Module 5.7: Day 5 Full Objection & Close Simulation",
+        subtitle: "Test your objection handling and closing skills in the AI simulator.",
+        sections: [
+            {
+                title: "Objection & Closing Simulation Instructions",
+                type: "text",
+                content: "This is the ultimate day-five challenge. You will enter the simulator to run a full objection-handling and closing roleplay. The virtual homeowner will throw multiple stacked objections at you, ranging from financial hesitations ('too expensive', 'high interest rates') to trust and timing issues ('let me think about it', 'cancellation concerns'). You must classify each objection correctly, use disarming and consultative frameworks, remain strictly compliant (never promising or guaranteeing tax savings or credit timelines), and guide the customer to a signed contract with complete transparency.",
+                narration: "Welcome to Module 5.7. This is the ultimate day-five challenge. You will enter the simulator to run a full objection-handling and closing roleplay. The virtual homeowner will throw multiple stacked objections at you. You must classify each objection correctly, use consultative frameworks, remain strictly compliant, and guide the customer to a signed contract with complete transparency. Focus on active listening and disarming techniques."
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_5_7_1",
+                type: "open_response",
+                label: "Which objection was the hardest to handle in the simulator, and how did you resolve it?",
+                placeholder: "The most challenging objection was...",
+                lines: 3
+            }
+        ]
+    },
+
+    "mod_5_8": {
+        id: "mod_5_8",
+        title: "Module 5.8: Day 5 Wrap-Up",
+        subtitle: "Reflect on Day 5 and prepare for Day 6.",
+        sections: [
+            {
+                title: "Reflecting on Objection Mastery",
+                type: "text",
+                content: "You have successfully completed Day Five of the training curriculum. Today you learned how to classify and handle the top fifteen solar objections, apply closing frameworks to different personality types, and walk through a contract transparently. Tonight, reflect on your progress. Tomorrow is Day Six: Post-Sale Excellence & Career Growth, where you'll learn to ask for referrals, build a KPI tracker, and take your final certification exam. Get plenty of rest tonight so you are sharp and ready.",
+                narration: "Welcome to Module 5.8. You have successfully completed Day Five of the training curriculum. Today you learned how to classify and handle the top fifteen solar objections, apply closing frameworks, and walk through a contract transparently. Tonight, reflect on your progress. Tomorrow is Day Six: Post-Sale Excellence & Career Growth, where you'll learn to ask for referrals and take your final certification exam. Get plenty of rest tonight so you are sharp and ready."
+            }
+        ],
+        workbookPrompts: [
+            {
+                id: "wb_5_8_1",
+                type: "open_response",
+                label: "Reflect on Day 5 and write down one area of objection handling you want to practice further.",
+                placeholder: "I want to practice...",
+                lines: 2
+            }
+        ]
+    },
+
 }
 // Each module has an ordered list of scenarios that must be completed sequentially
 export const MODULE_SCENARIOS: Record<string, string[]> = {
@@ -4280,12 +4378,13 @@ export const MODULE_SCENARIOS: Record<string, string[]> = {
     "day_5_closing": ["d2d_1", "lease_1", "stalling_objection", "moving_objection", "stalling_stan", "hesitant_helen"],
     "day_6_mastery": ["referral_ask", "exam_1", "post_install_patricia", "rodriguez_family"],
     // Sub-module level mappings
-    "mod_2_3": ["guarded_gloria", "busy_brian"],
+    "mod_2_5": ["guarded_gloria", "busy_brian"],
     "mod_2_6": ["not_interested", "busy_objection"],
     "mod_3_3": ["burned_beth", "reluctant_rosa"],
     "mod_3_4": ["analytical_alan", "busy_bob", "friendly_frank"],
     "mod_3_5": ["garcia_household"],
     "mod_3_8": ["solar_sam", "loyal_linda", "garcia_household"],
+    "mod_3_9": ["discovery_1"],
     "mod_4_1": ["skeptical_steve"],
     "mod_4_6": ["numbers_nancy"],
     "mod_5_2": ["stalling_stan"],

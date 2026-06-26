@@ -43,7 +43,8 @@ export default function LoginPage() {
                     username: response.username,
                     role: response.role,
                     planTier: response.plan_tier,
-                    companyId: response.company_id
+                    companyId: response.company_id,
+                    token: response.token
                 })
             }
         } catch (err: any) {

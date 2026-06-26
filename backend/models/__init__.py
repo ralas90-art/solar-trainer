@@ -45,3 +45,7 @@ from .training_predictions import (
     AUDIT_GHL_SYNCED,
     AUDIT_GHL_FAILED,
 )
+from .support_analytics import SupportChatAnalytics, SupportChatRateLimit
+from .recommendation_actions import RecommendationAction
+from .draft_pack_review import DraftPackReview
+

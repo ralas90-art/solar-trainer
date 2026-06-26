@@ -23,6 +23,8 @@ const API_URL = getApiUrl()
 
 // Tom — American, Confident & Persuasive Trainer (matches backend DEFAULT_VOICE_ID)
 const DEFAULT_VOICE_ID = "QO7Mfy7rwYLdxzo4Q3iD"
+// Alberto Rodriguez — Spanish Narrator (canonical Spanish voice)
+const SPANISH_VOICE_ID = "l1zE9xgNpUTaQCZzpNJa"
 
 // ─── Debug Logging ────────────────────────────────────────────────────────────
 // Activate with: localStorage.setItem("septivolt_audio_debug", "true")
@@ -82,8 +84,9 @@ export async function resolveNarrationSource(request: NarrationRequest): Promise
     isEs,
   })
 
-  // ── Step 1: Spanish static asset (manifest lookup) ──────────────────────────
+  // ── Spanish Resolution Chain ────────────────────────────────────────────────
   if (isEs) {
+    // Step 1: Spanish static asset (manifest lookup)
     const spanishPath = checkManifest(moduleId, sectionId, "es")
     if (spanishPath) {
       debugLog("Manifest HIT — Spanish", { path: spanishPath, fallback: false })
@@ -98,28 +101,44 @@ export async function resolveNarrationSource(request: NarrationRequest): Promise
       sectionId,
       reason: "Spanish asset not in manifest",
     })
+
+    // Step 2: Spanish real-time TTS with Alberto Rodriguez voice
+    const spanishGeneratedSrc = await tryGeneratedNarration(request.text, SPANISH_VOICE_ID)
+    if (spanishGeneratedSrc) {
+      debugLog("ElevenLabs generated narration — Spanish (Alberto)", { fallback: false })
+      return {
+        mode: "elevenlabs_generated",
+        src: spanishGeneratedSrc,
+        isLanguageFallback: false,
+      }
+    }
+
+    debugLog("Spanish TTS failed — showing unavailable state", { sectionId })
+
+    // Step 3: Explicit unavailable state — NO automatic English fallback
+    // The user must manually choose to switch to English
+    return {
+      mode: "speech_synthesis",
+      error: "Narración en español no disponible. Cambie a inglés si lo desea.",
+      isLanguageFallback: false,
+      fallbackFrom: "es",
+      fallbackReason: "Spanish asset and real-time TTS both unavailable",
+    }
   }
 
-  // ── Step 2: English static asset (manifest lookup, with fallback flag) ────────
+  // ── English Resolution Chain ────────────────────────────────────────────────
+
+  // Step 1: English static asset (manifest lookup)
   const englishPath = checkManifest(moduleId, sectionId, "en")
   if (englishPath) {
-    const fallbackReason = isEs ? "Spanish asset not in manifest" : undefined
     debugLog("Manifest HIT — English", {
       path: englishPath,
-      fallback: isEs,
-      fallbackReason,
+      fallback: false,
     })
     return {
       mode: "static_asset",
       src: englishPath,
-      isLanguageFallback: isEs,
-      ...(isEs
-        ? {
-            fallbackFrom: "es",
-            fallbackTo: "en",
-            fallbackReason,
-          }
-        : {}),
+      isLanguageFallback: false,
     }
   }
 
@@ -128,36 +147,22 @@ export async function resolveNarrationSource(request: NarrationRequest): Promise
     reason: "English asset not in manifest either",
   })
 
-  // ── Step 3: ElevenLabs generated narration (real-time API) ───────────────────
+  // Step 2: ElevenLabs generated narration (real-time API with Tom voice)
   const generatedSrc = await tryGeneratedNarration(request.text, request.voiceId)
   if (generatedSrc) {
-    debugLog("ElevenLabs generated narration", { fallback: isEs })
+    debugLog("ElevenLabs generated narration — English", { fallback: false })
     return {
       mode: "elevenlabs_generated",
       src: generatedSrc,
-      isLanguageFallback: isEs,
-      ...(isEs
-        ? {
-            fallbackFrom: "es",
-            fallbackTo: "en",
-            fallbackReason: "Spanish asset not in manifest",
-          }
-        : {}),
+      isLanguageFallback: false,
     }
   }
 
-  // ── Step 4: Browser speech synthesis (last resort) ───────────────────────────
-  debugLog("Fallback to browser speech synthesis", { fallback: isEs })
+  // Step 3: Browser speech synthesis (last resort)
+  debugLog("Fallback to browser speech synthesis", { fallback: false })
   return {
     mode: "speech_synthesis",
     error: "Narration is loading via your browser. Press Play to begin.",
-    isLanguageFallback: isEs,
-    ...(isEs
-      ? {
-          fallbackFrom: "es",
-          fallbackTo: "en",
-          fallbackReason: "Spanish asset not in manifest",
-        }
-      : {}),
+    isLanguageFallback: false,
   }
 }

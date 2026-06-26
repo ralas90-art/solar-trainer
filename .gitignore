@@ -35,3 +35,7 @@ yarn-error.log*
 scratch/
 frontend/.env.vercel*
 *.db
+backend/.venv_test_render/
+*.log
+scripts/run_completion_report.json
+

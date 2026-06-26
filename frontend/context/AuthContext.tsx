@@ -12,6 +12,7 @@ interface User {
   planTier: PlanTier
   companyId: string
   temporary_password_required?: boolean
+  token?: string
 }
 
 interface AuthContextType {

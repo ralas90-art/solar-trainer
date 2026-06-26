@@ -31,20 +31,19 @@ if _BACKEND_ENV.exists():
 
 ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY", "")
 
-# Configuration Constants
-VOICES = {
-    "tom_v3": "QO7Mfy7rwYLdxzo4Q3iD",
-    "alberto_v3": "l1zE9xgNpUTaQCZzpNJa"
-}
-DEFAULT_MODEL = "eleven_v3"
-RATE_LIMIT_DELAY = 1.0  # seconds between API calls
+# ── Import canonical voice config (single source of truth) ───────────────────
+from audio_voice_config import (
+    ENGLISH_VOICE_ID,
+    SPANISH_VOICE_ID,
+    MODEL_ID as DEFAULT_MODEL,
+    VOICE_SETTINGS,
+)
 
-VOICE_SETTINGS = {
-    "stability": 0.50,
-    "similarity_boost": 0.75,
-    "style": 0.0,
-    "use_speaker_boost": True
+VOICES = {
+    "tom_v3": ENGLISH_VOICE_ID,
+    "alberto_v3": SPANISH_VOICE_ID,
 }
+RATE_LIMIT_DELAY = 1.0  # seconds between API calls
 
 # Directories
 PROJECT_ROOT = Path(__file__).parent.parent

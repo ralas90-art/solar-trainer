@@ -1,28 +1,22 @@
 import os
-from pathlib import Path
+import re
+import sys
 
-def search_markdown():
-    workspace = Path(".")
-    terms = ["Rachel", "Dom"]
-    matches = []
-    
-    for root, dirs, files in os.walk(workspace):
-        if "node_modules" in root or ".git" in root or ".next" in root:
-            continue
-        for file in files:
-            if file.endswith(".md") or file.endswith(".json") or file.endswith(".ts"):
-                path = Path(root) / file
-                try:
-                    content = path.read_text(encoding="utf-8")
-                    for term in terms:
-                        if term.lower() in content.lower():
-                            matches.append((path, term))
-                except Exception:
-                    pass
-                    
-    print(f"Found {len(matches)} files referencing terms:")
-    for path, term in set(matches):
-        print(f" - {path} (matched '{term}')")
+sys.stdout.reconfigure(encoding='utf-8')
+curriculum_dir = "_Archive_Legacy/2026-05-11/solar-trainer_leftovers/SeptiVolt_Delivery/ES/Curriculum"
+files = sorted(os.listdir(curriculum_dir))
 
-if __name__ == "__main__":
-    search_markdown()
+for f in files:
+    path = os.path.join(curriculum_dir, f)
+    try:
+        content = open(path, encoding='utf-8').read()
+    except Exception:
+        content = open(path, encoding='latin1').read()
+        
+    # Search for any references to mod_1_1 or income goal or stage of competence
+    if "mod_1_1" in content:
+        print(f"Found 'mod_1_1' in {f}")
+    if "competencia" in content.lower():
+        print(f"Found 'competencia' in {f}")
+    if "cuaderno" in content.lower():
+        print(f"Found 'cuaderno' in {f}")

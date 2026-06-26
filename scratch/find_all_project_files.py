@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 def list_files():
-    base = Path(r"c:\Users\12132\Documents\Claude\Projects\Solar Sales Accelorator")
+    base = Path(r"c:\Users\12132\Desktop\Antigravity Solar Sales Trainer Agent\_Archive_Legacy")
     for root, dirs, files in os.walk(base):
         for f in files:
             fp = Path(root) / f

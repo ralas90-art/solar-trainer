@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { Bell, BookOpen, History, Search, Sparkles, Trophy, X, Zap, Menu, Settings, Award, User, Users, ShieldAlert, Building2, AlertTriangle, CheckCircle2, Lock, RefreshCw, FileText } from "lucide-react"
+import { Bell, BookOpen, History, Search, Sparkles, Trophy, X, Zap, Menu, Settings, Award, User, Users, ShieldAlert, Building2, AlertTriangle, CheckCircle2, Lock, RefreshCw, FileText, HelpCircle, BarChart3 } from "lucide-react"
 import Link from "next/link"
 import { ReactNode, useEffect, useState } from "react"
 import {
@@ -16,6 +16,8 @@ import { isDemoModeActive } from "@/lib/demo-mode"
 import { useLanguage } from "@/hooks/use-language"
 import { IssueReporter } from "./issue-reporter"
 import { PerformanceOverlay } from "./PerformanceOverlay"
+import { TraineeWalkthrough } from "./trainee-walkthrough"
+import { GuidanceChatbot } from "./guidance-chatbot"
 
 export function AppShell({
   children,
@@ -149,6 +151,12 @@ export function AppShell({
             <Link href="/dashboard/settings" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
               <Settings className="h-4 w-4" /> {t("Settings", "Configuración")}
             </Link>
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent("septivolt_relaunch_tour"))}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white text-left"
+            >
+              <HelpCircle className="h-4 w-4 text-[#FFB300]" /> {t("Quick Guide Tour", "Guía de Tour Rápido")}
+            </button>
             <FeatureGate allowedRoles={["admin", "manager"]}>
               <Link href="/settings/company" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
                 <Building2 className="h-4 w-4" /> {t("Company Settings", "Configuración de Empresa")}
@@ -177,6 +185,12 @@ export function AppShell({
             <FeatureGate allowedRoles={["admin", "manager"]} allowedTiers={["growth", "enterprise"]}>
               <Link href="/team-hub" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
                 <Users className="h-4 w-4 text-blue-400" /> {t("Manager Command Center", "Centro de Control del Gerente")}
+              </Link>
+            </FeatureGate>
+
+            <FeatureGate allowedRoles={["admin", "manager", "super_admin", "dealer_admin", "branch_manager", "trainer"]}>
+              <Link href="/support-insights" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-slate-300 hover:text-white">
+                <BarChart3 className="h-4 w-4 text-emerald-400" /> {t("Support Insights", "Análisis de Soporte")}
               </Link>
             </FeatureGate>
 
@@ -397,6 +411,15 @@ export function AppShell({
             >
               <Settings className="h-5 w-5 text-[#FFD54F]" /> {t("Settings", "Configuración")}
             </Link>
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false)
+                window.dispatchEvent(new CustomEvent("septivolt_relaunch_tour"))
+              }}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white text-left"
+            >
+              <HelpCircle className="h-5 w-5 text-[#FFB300]" /> {t("Quick Guide Tour", "Guía de Tour Rápido")}
+            </button>
             <FeatureGate allowedRoles={["admin", "manager"]}>
               <Link 
                 href="/settings/company" 
@@ -445,6 +468,15 @@ export function AppShell({
                 <Users className="h-5 w-5 text-blue-400" /> {t("Manager Command Center", "Centro de Control del Gerente")}
               </Link>
             </FeatureGate>
+            <FeatureGate allowedRoles={["admin", "manager", "super_admin", "dealer_admin", "branch_manager", "trainer"]}>
+              <Link
+                href="/support-insights"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-lg font-medium text-slate-300 hover:text-white"
+              >
+                <BarChart3 className="h-5 w-5 text-emerald-400" /> {t("Support Insights", "Análisis de Soporte")}
+              </Link>
+            </FeatureGate>
             <FeatureGate allowedRoles={["admin"]}>
               <Link
                 href="/admin"
@@ -458,6 +490,8 @@ export function AppShell({
         </div>
       )}
       {!mobileMenuOpen && <IssueReporter />}
+      {user && !mobileMenuOpen && <GuidanceChatbot />}
+      {user && <TraineeWalkthrough />}
 
       {/* Forced Password Reset Modal */}
       {showPasswordResetModal && (

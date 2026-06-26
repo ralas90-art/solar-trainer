@@ -67,7 +67,8 @@ function OnboardingForm() {
           role: response.role,
           planTier: response.plan_tier,
           companyId: response.company_id,
-          temporary_password_required: response.temporary_password_required
+          temporary_password_required: response.temporary_password_required,
+          token: response.token
         })
       }
     } catch (err: any) {
