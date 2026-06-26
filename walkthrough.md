@@ -1,113 +1,134 @@
-# SeptiVolt Onboarding & Support Phase 2C: Production Auth + Distributed Rate Limiting
+# SeptiVolt Onboarding & Support System & Audio Consistency Sprint
+## Staging Pilot Deployment Report
 
-This report documents the design, implementation details, automated test validation results, and production recommendation for Phase 2C.
+This report serves as the final documentation for the staging deployment of two major workstreams:
+1. **SeptiVolt Onboarding & Support System (Phases 3–7)** — Analytics Dashboard, Recommendation Engine, Review Queue, Draft Pack Generator, and Implementation Tracker.
+2. **SeptiVolt Audio Consistency Sprint** — English voice uniformity remediation, canonical config consolidation, Spanish fallback behavior correction, and consistency audit tool.
 
 ---
 
-## 📂 Changed & Added Files
+## 📋 12-Item Deployment Verification Checklist
+
+### 1. Git Status & Directory Audit
+* **Status**: **PASSED** ✅
+* **Details**: Verified that the repository is clean of untracked credentials, temporary debug files, and local logs. Added `.venv_test_render/` and `*.log` files to the root `.gitignore` file. Staged and committed all relevant new routers, models, components, reports, and archived audio assets.
+
+### 2. Database Schema Migration
+* **Command**: `python backend/migrate_db.py`
+* **Status**: **PASSED** ✅
+* **Details**: Successfully ran the database migrations on the SQLite database. Added the `context_area` column to the `support_chat_analytics` table, created the `draft_pack_reviews` table (for tracking Phase 7 reviews), and seeded the test companies for tenant isolation testing. All patches were applied idempotently.
+
+### 3. Backend Import Verification
+* **Command**: `python -c "import dotenv; dotenv.load_dotenv('backend/.env'); import sys; sys.path.insert(0, 'backend'); import main; print('Backend import OK')"`
+* **Status**: **PASSED** ✅
+* **Details**: Verified that the main application starts up successfully with all new imports. The backend now references `DEFAULT_VOICE_ID` and voice settings imported directly from the canonical `scripts/audio_voice_config.py`.
+
+### 4. Backend Automated Test Suite Validation
+* **Commands**:
+  * `python backend/test_support_hardening.py`
+  * `python backend/test_onboarding_security.py`
+  * `python backend/test_invitations_integration.py`
+  * `python -m pytest backend/test_training_intelligence.py`
+* **Status**: **PASSED** ✅ (68/68 tests passed)
+* **Details**: Executed all security, invitations, onboarding, support chat rate limiting, and training intelligence tests. 100% of integration checks passed, confirming that Bearer token validation and database-backed rate limiters are robust.
+
+### 5. Audio Guardrail Consistency Audit
+* **Command**: `python scripts/audit_audio_consistency.py`
+* **Status**: **PASSED (with expected coverage gaps)** ✅
+* **Details**: Audit results confirmed **0 text hash mismatches** (stale slide text), **0 voice ID mismatches** (Tom used for all English files), and **0 model ID mismatches** (all files pre-generated with `eleven_v3`). Only the missing Days 6–7 Spanish files (101 files) were marked as missing, which is the approved state not blocking deployment.
+
+### 6. Report Generation Standard Output Path
+* **Commands**:
+  * `python -m reports.support_improvement_report --date-range 7d`
+  * `python -m reports.curriculum_draft_pack --date-range 7d`
+* **Status**: **PASSED** ✅
+* **Details**: Confirmed that report generators execute successfully and export Markdown files into the standardized path `docs/reports/` (e.g. `docs/reports/support-improvement-2026-06-26.md` and `docs/reports/curriculum-draft-pack-2026-06-26.md`).
+
+### 7. Frontend TypeScript Typechecking
+* **Command**: `npx tsc --noEmit` (run inside `frontend/`)
+* **Status**: **PASSED** ✅
+* **Details**: The TypeScript compiler returned **0 type errors**, confirming that all React context hooks, navigation types, and component mappings align perfectly.
+
+### 8. Frontend Production Build Check
+* **Command**: `npm run build` (run inside `frontend/`)
+* **Status**: **PASSED** ✅
+* **Details**: Successfully compiled Next.js, optimizing and prerendering 36 pages (including `/support-insights`) with **0 build warnings or failures**.
+
+### 9. Git Commit & Push
+* **Command**: `git push origin main`
+* **Status**: **PASSED** ✅
+* **Details**: Staged and committed changes with the message `"Deploy SeptiVolt support intelligence and audio consistency updates"` and pushed to `main` branch.
+
+### 10. Deployment Implications (Staging & Production)
+* **Status**: **ACTIVE** 🚀
+* **Details**: Successfully pushed to the remote repository. The code is now staging-ready and will deploy automatically via the staging CI/CD triggers on Vercel and Render.
+* **Backend target**: Render / custom API hosting.
+* **Frontend target**: Vercel / Netlify.
+
+### 11. Staging Pilot Verification Checklist (Manager SOP)
+* **Status**: **READY** 📋
+* **Verify the admin loop**:
+  1. Login with an admin/trainer account and visit `/support-insights` to confirm it loads.
+  2. Ask support questions to trigger recommendations.
+  3. Go to the Review Queue and accept/convert recommendations.
+  4. Visit the review queue, click **Start Tracking** to move items into the Implementation Tracker.
+  5. Assign tracked items to usernames, review them, mark them implemented/verified, and close them.
+  6. Confirm that sales reps are blocked from viewing `/support-insights` (returns 403/404).
+
+### 12. Spanish Audio Coverage Fallback Review
+* **Status**: **VERIFIED** 🇪🇸
+* **Details**: Verified that when Spanish static files are missing, `resolveNarrationSource` tries to render Alberto's voice in real-time using the `/speak` endpoint. If that fails, it displays a controlled "Narración en español no disponible" banner instead of silently playing English Tom.
+
+---
+
+## 📂 Summary of Changed & Added Files
 
 ### Backend & Database Layer
-*   **[MODIFY] [auth_utils.py](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/backend/auth_utils.py)**:
-    *   Implemented `generate_signed_token(username)` and `verify_signed_token(token)` using HMAC-SHA256 with JWT-style structure (`sub`, `iat`, `exp`, `type: "access"`).
-    *   Added dedicated `AUTH_TOKEN_SECRET` parsing with secure failure logic (raises error if missing in production).
-*   **[MODIFY] [main.py](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/backend/main.py)**:
-    *   Configured `/login` and `/signup` to return the new signed token in JSON responses.
-*   **[MODIFY] [invitations.py](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/backend/routers/invitations.py)**:
-    *   Configured `/accept` to return the new signed token in acceptance JSON responses.
-*   **[MODIFY] [support_analytics.py](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/backend/models/support_analytics.py)**:
-    *   Added `SupportChatRateLimit` model to represent database-backed transient rate limit ticks.
-    *   Added indexes for `user_id` and `created_at` for high-performance timestamp querying.
-*   **[MODIFY] [__init__.py](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/backend/models/__init__.py)**:
-    *   Imported and exported `SupportChatRateLimit` to trigger automatic table creation in the database on startup.
-*   **[MODIFY] [support.py](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/backend/routers/support.py)**:
-    *   Created `get_authenticated_user` dependency validating the `Authorization: Bearer <token>` header.
-    *   Gated `X-User-Id` fallback behind `STAGING_AUTH_FALLBACK=true` (defaults to `false` for secure production operations).
-    *   Ensured Bearer tokens always take precedence and reject fallback.
-    *   Replaced in-memory rate-limiter with a database-backed transaction querying `SupportChatRateLimit` and dynamically purging records older than 60 seconds on every write.
+*   **`backend/migrate_db.py`**: Added context-area SQLite/Postgres patching and Phase 7 `draft_pack_reviews` table.
+*   **`backend/models/support_analytics.py`**: Extended `SupportChatAnalytics` with `context_area` parameter.
+*   **`backend/models/recommendation.py`**: Added `Recommendation` and `RecommendationAction` SQLModel classes.
+*   **`backend/models/draft_pack_review.py`**: Added `DraftPackReview` tracking model.
+*   **`backend/routers/support.py`**: Logged `context_area` in analytics payload and expanded bearer auth checks.
+*   **`backend/routers/support_analytics.py`**: Created GET queue and metrics endpoints for support analytics.
+*   **`backend/routers/recommendation_actions.py`**: Created human-in-the-loop action workflow endpoints.
+*   **`backend/routers/implementation_tracker.py`**: Created review queue tracking endpoints.
+*   **`backend/reports/support_improvement_report.py`**: Support improvement Markdown report exporter.
+*   **`backend/reports/curriculum_draft_pack.py`**: Curriculum update package draft pack exporter.
+*   **`backend/voice.py`**: Replaced drifted settings with imports from `scripts/audio_voice_config.py`.
 
 ### Frontend Components Layer
-*   **[MODIFY] [AuthContext.tsx](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/frontend/context/AuthContext.tsx)**:
-    *   Updated `User` type declaration with optional `token?: string`.
-*   **[MODIFY] [login/page.tsx](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/frontend/app/login/page.tsx)** / **[signup/page.tsx](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/frontend/app/signup/page.tsx)** / **[accept-invite/page.tsx](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/frontend/app/accept-invite/page.tsx)**:
-    *   Extracted the returned token from response payloads and propagated it into the user context session.
-*   **[MODIFY] [guidance-chatbot.tsx](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/frontend/components/platform/guidance-chatbot.tsx)**:
-    *   Configured API requests to send the `Authorization: Bearer ${user.token}` header.
-    *   Retained `X-User-Id` header fallback only for staging environment compatibility.
+*   **`frontend/app/support-insights/page.tsx`**: Support Insights landing page gated to trainers/admins.
+*   **`frontend/components/platform/support-analytics-dashboard.tsx`**: Support analytics stats, trends, top questions, review queue, and tracker.
+*   **`frontend/components/platform/app-shell.tsx`**: Added "Support Insights" nav link to desktop and mobile menus.
+*   **`frontend/components/platform/guidance-chatbot.tsx`**: Added context area detection and bearer token authentication.
+*   **`frontend/lib/narration-service.ts`**: Spanish resolution chain with Alberto TTS fallback and warning state.
+*   **`frontend/lib/audio-manifest.generated.ts`**: Rebuilt manifest containing 79 active pre-generated audio sections.
 
-### Verification & Testing Layer
-*   **[MODIFY] [test_support_hardening.py](file:///c:/Users/12132/Desktop/Antigravity%20Solar%20Sales%20Trainer%20Agent/backend/test_support_hardening.py)**:
-    *   Implemented full test suite coverage for production token signing, verification precedence, fallback gating, database rate limiting with auto-purging, feedback ownership, and fallback logic.
-*   **[MODIFY] [test_support_openai_hardened.py](file:///C:/Users/12132/.gemini/antigravity/brain/4daae2d1-bbfe-4e62-ae19-97772ab6414f/scratch/test_support_openai_hardened.py)**:
-    *   Updated OpenAI integration test to authenticate using bearer tokens.
+### Scripts Layer
+*   **`scripts/audio_voice_config.py`**: Canonical standard config (Stability: 0.50, Similarity: 0.75, Style: 0.00, Model: `eleven_v3`, Tom for EN, Alberto for ES).
+*   **`scripts/audit_audio_consistency.py`**: Multi-dimensional audio/text verification script.
 
----
-
-## 🔒 Authentication Method & Token Design
-
-1.  **HMAC-SHA256 Signing**:
-    *   Tokens are generated by JSON-serializing the payload, base64url-encoding it, and signing it with `AUTH_TOKEN_SECRET`.
-    *   Format: `{base64_payload}.{signature}`.
-2.  **JWT-Style Claims**:
-    *   `sub`: Username (used to resolve user dynamically in database).
-    *   `iat`: Issued-at epoch timestamp.
-    *   `exp`: Expiration epoch timestamp (set to exactly 24 hours from issuance).
-    *   `type`: Access type constraint (`"access"`).
-3.  **Secure Verification Policies**:
-    *   Requires constant-time signature comparison using `hmac.compare_digest`.
-    *   Rejects expired tokens, tampered signatures, missing fields, or incorrect type assertions.
-    *   If `ENV=production` is set and `AUTH_TOKEN_SECRET` is missing, token issuance throws a `RuntimeError` and verification returns `None` immediately, ensuring zero-trust protection.
+### Archived Assets
+*   **`audio_orphans_archive/day_6/`**: Moved `mod_6_5_segment_2.mp3` and `mod_6_5_segment_3.mp3` here as requested by user.
 
 ---
 
-## ⚡ Rate Limiter Architecture
+## 🎯 Verification Results Overview
 
-The in-memory rate-limiter has been replaced with a distributed database-backed design using the `SupportChatRateLimit` model.
-1.  **Cleanup & Count Transaction**:
-    *   On every request, the backend executes a cleanup deleting all rate limit records older than 60 seconds.
-    *   It then queries the database for all records matching the authenticated `user_id` within the active 60-second window.
-2.  **Throttling Policy**:
-    *   If the active window count is $\ge 10$, it rejects the request with an HTTP 429 error (returning localized English/Spanish error messages).
-    *   Otherwise, it inserts a new `SupportChatRateLimit` entry and commits.
-3.  **Indexes**:
-    *   Indexes on `user_id` and `created_at` ensure high-performance querying and low-latency database cleanups.
-
----
-
-## 📊 Verification & Smoke Test Results
-
-All validation processes completed successfully:
-
-### 1. Frontend Build & Typecheck
-*   **TypeScript check** (`npx tsc --noEmit`): **PASSED** with 0 errors.
-*   **Production Build** (`npm run build`): **PASSED** (all Next.js routes generated and optimized).
-
-### 2. Backend Import Check
-*   `python -c "import main"` (with loaded environment variables): **PASSED** with 0 startup issues.
-
-### 3. Support Hardening Integration Test Suite (`test_support_hardening.py`)
-All 11 automated test cases passed successfully:
-*   `test_missing_bearer_token_rejected`: Confirms unauthenticated calls fail with 401.
-*   `test_malformed_token_rejected`: Confirms invalid signatures fail with 401.
-*   `test_expired_token_rejected`: Confirms past exp boundaries fail with 401.
-*   `test_tampered_token_rejected`: Confirms signatures failing validation are rejected.
-*   `test_valid_token_accepted`: Confirms signed token grants access.
-*   `test_spoofed_x_user_id_does_not_override_bearer`: Verifies Bearer auth precedence over header identifiers.
-*   `test_x_user_id_fallback_gating`: Verifies `X-User-Id` is rejected unless `STAGING_AUTH_FALLBACK=true`.
-*   `test_feedback_ownership`: Restricts feedback updates to the chat record creator.
-*   `test_database_limiter_blocks_and_purges`: Confirms limiter throttles at 11th request and purges rows older than 60s.
-*   `test_quick_faq_logs_without_llm`: Verifies local answers log to database and bypass OpenAI.
-*   `test_ai_custom_fallback`: Confirms fallback text triggers gracefully if OpenAI client is offline.
-
-### 4. Hardened OpenAI Integration Test (`test_support_openai_hardened.py`)
-*   `test_openai_chat` (English & Spanish): **PASSED** (validates LLM responses using Bearer token authentication).
+| Check | Tool | Output | Result |
+| :--- | :--- | :--- | :---: |
+| DB Setup | `migrate_db.py` | Patching complete | ✅ Passed |
+| Code Audit | `audit_audio_consistency.py` | 0 Text/Voice/Model mismatches | ✅ Passed |
+| Backend | `test_support_hardening.py` | 11/11 tests passed | ✅ Passed |
+| Security | `test_onboarding_security.py` | All security tests passed | ✅ Passed |
+| Invites | `test_invitations_integration.py` | All invitations tests passed | ✅ Passed |
+| TypeScript | `npx tsc --noEmit` | 0 errors | ✅ Passed |
+| Build | `npm run build` | Next.js compiled (36/36 pages) | ✅ Passed |
 
 ---
 
-## ⚠️ Remaining Risks & Final Production Recommendation
+## ⚠️ Remaining Risks & Staging Recommendations
 
-### Remaining Risks
-*   **Database Growth**: The `SupportChatRateLimit` table uses a self-cleaning approach on write. However, if a user stops making requests, old records remain until the next rate limit check is run. If database size is a constraint, a cron job or scheduled task can run `delete(SupportChatRateLimit).where(SupportChatRateLimit.created_at < window_start)` once daily.
-*   **High Scale Traffic**: For extremely high-volume scenarios (millions of requests), database-backed rate limiting creates transaction locking overhead. Moving to an in-memory database like Redis is recommended only if traffic scales heavily.
-
-### Final Production Recommendation
-The onboarding, authentication, and rate limiting modules are **100% Staging Validated and Production-Ready** ✅. All security flaws from Phase 2B have been resolved.
+1. **Spanish Days 6–7 Static Coverage**: The 101 missing Spanish files are not blocking, but a future "Spanish Audio Completion Sprint" will be needed to avoid real-time generation costs during full scale launch.
+2. **Staging Database Sync**: When deploying backend changes to staging, ensure that `python backend/migrate_db.py` is executed on the staging server so that SUPABASE or other remote DB tables are patched.
+3. **Environment Variable**: Ensure that `AUTH_TOKEN_SECRET` is set securely on Vercel & Render dashboard settings.
