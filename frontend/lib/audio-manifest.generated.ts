@@ -1334,447 +1334,447 @@ export const AUDIO_MANIFEST: Record<string, Record<string, AudioSectionAvailabil
   "mod_6_1": {
     "mod_6_1_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_1_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_1_segment_2": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_1_segment_3": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_1_segment_4": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_1_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_6_1a": {
     "mod_6_1a_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_1a_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_1a_segment_2": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_1a_segment_3": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_1a_segment_4": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_1a_segment_5": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_1a_segment_6": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_1a_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_6_2": {
     "mod_6_2_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_2_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_2_segment_2": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_2_segment_3": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_2_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_6_2a": {
     "mod_6_2a_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_2a_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_2a_segment_2": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_2a_segment_3": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_2a_segment_4": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_2a_segment_5": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_2a_segment_6": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_2a_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_6_3": {
     "mod_6_3_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_3_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_3_segment_2": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_3_segment_3": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_3_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_6_3a": {
     "mod_6_3a_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_3a_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_3a_segment_2": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_3a_segment_3": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_3a_segment_4": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_3a_segment_5": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_3a_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_6_4": {
     "mod_6_4_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_4_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_4_segment_2": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_4_segment_3": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_4_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_6_4a": {
     "mod_6_4a_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_4a_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_4a_segment_2": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_4a_segment_3": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_4a_segment_4": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_4a_segment_5": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_4a_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_6_5": {
     "mod_6_5_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_5_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_5_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_6_6": {
     "mod_6_6_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_6_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_6_segment_2": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_6_segment_3": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_6_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_6_7": {
     "mod_6_7_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_7_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_7_segment_2": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_7_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_6_8": {
     "mod_6_8_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_8_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_6_8_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_7_1": {
     "mod_7_1_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_1_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_1_segment_2": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_1_segment_3": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_1_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_7_2": {
     "mod_7_2_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_2_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_2_segment_2": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_2_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_7_3": {
     "mod_7_3_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_3_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_3_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_7_4": {
     "mod_7_4_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_4_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_4_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_7_5": {
     "mod_7_5_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_5_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_5_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_7_6": {
     "mod_7_6_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_6_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_6_segment_2": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_6_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_7_7": {
     "mod_7_7_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_7_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_7_segment_2": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_7_segment_3": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_7_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_7_8": {
     "mod_7_8_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_8_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_8_segment_2": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_8_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   },
   "mod_7_9": {
     "mod_7_9_intro": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_9_segment_1": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_9_segment_2": {
       "en": true,
-      "es": false
+      "es": true
     },
     "mod_7_9_transition": {
       "en": true,
-      "es": false
+      "es": true
     }
   }
 };

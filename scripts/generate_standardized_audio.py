@@ -158,6 +158,7 @@ def main():
     parser.add_argument("--replace-legacy", action="store_true", help="Overwrite Legacy files")
     parser.add_argument("--voice-standard", choices=["tom_v3", "alberto_v3"], help="Override voice standard")
     parser.add_argument("--day-complete-mode", action="store_true", help="Generate all English & Spanish for specified day")
+    parser.add_argument("--section-allowlist", type=str, help="Path to file containing allowlisted section keys")
 
     args = parser.parse_args()
 
@@ -242,6 +243,23 @@ def main():
                     "model_id": DEFAULT_MODEL,
                     "output_path": output_path
                 })
+
+    if args.section_allowlist:
+        allowlist_path = Path(args.section_allowlist)
+        if not allowlist_path.exists():
+            log.error(f"Allowlist file not found at: {args.section_allowlist}")
+            sys.exit(1)
+        with open(allowlist_path, "r", encoding="utf-8") as f:
+            allowed_keys = set(line.strip() for line in f if line.strip() and not line.strip().startswith("#"))
+        log.info(f"Loaded {len(allowed_keys)} allowed sections from {args.section_allowlist}")
+        filtered_items = []
+        for item in items:
+            key_with_lang = f"{item['moduleId']}:{item['sectionId']}:{item['lang']}"
+            key_no_lang = f"{item['moduleId']}:{item['sectionId']}"
+            if key_with_lang in allowed_keys or key_no_lang in allowed_keys:
+                filtered_items.append(item)
+        items = filtered_items
+        log.info(f"Filtered to {len(items)} items based on allowlist.")
 
     if not items:
         log.info("No sections found matching criteria.")

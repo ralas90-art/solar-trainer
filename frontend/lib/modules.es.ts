@@ -3597,45 +3597,45 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
   },
   mod_6_1: {
     id: "mod_6_1",
-    title: "Módulo 6.1: FORMATO ESTÁNDAR",
-    subtitle: "Turn every closed deal into three more through a disciplined referral system.",
+    title: "Módulo 6.1: El Motor de Referidos — Construyendo un Canal Pasivo",
+    subtitle: "Convierte cada trato cerrado en tres más a través de un sistema disciplinado de referidos.",
     sections: [
-{
+      {
         title: "Por Qué los Referidos Valen Más",
         type: "text",
-        content: "Los referidos cierran al cuarenta a sesenta por ciento — comparado con veinte a treinta por ciento para los leads fríos. La confianza ya está establecida antes de que digas una palabra. Y el costo de adquisición del cliente es cero. Un solo pipeline de referidos puede eventualmente reemplazar la prospección fría por completo. Los consultores que construyen ingresos de seis cifras tratan la generación de referidos como un sistema — no como una idea de último momento. Hoy saldrás con un proceso de referidos repetible de tres pasos que funciona cada vez que cierras un trato."
+        content: "Los referidos cierran al cuarenta a sesenta por ciento — comparado con veintitrés por ciento para los leads fríos. La confianza ya está establecida antes de que digas una palabra. Y el costo de adquisición del cliente es cero. Un solo pipeline de referidos puede eventualmente reemplazar la prospección fría por completo. Los consultores que construyen ingresos de seis cifras tratan la generación de referidos como un sistema — no como una idea de último momento. Hoy saldrás con un proceso de referidos repetible de tres pasos que funciona cada vez que cierras un trato."
       },
       {
         title: "El Sistema de Referidos de 3 Pasos",
         type: "list",
         content: "El Sistema de Referidos de 3 Pasos",
         items: [
-"Paso uno: planta la semilla en el cierre. Antes de salir: el mayor agradecimiento es un referido. Si alguien que conoces ha estado quejándose de su factura eléctrica, me encantaría una introducción.",
+          "Paso uno: planta la semilla en el cierre. Antes de salir: el mayor agradecimiento es un referido. Si alguien que conoces ha estado quejándose de su factura eléctrica, me encantaría una introducción.",
           "Paso dos: activa post-instalación. Cuando su sistema entre en funcionamiento, envía un mensaje emocionado y pregunta: ¿a quién es la primera persona a la que le querrías contar esto?",
           "Paso tres: seguimiento personalizado. Contacta a cada referido por nombre, mencionando la conexión mutua. Un alcance de referido que dice \"tu vecino mencionó que has estado pensando en solar\" abre a un nivel completamente diferente que una llamada fría."
         ]
       },
       {
-        title: "The Referral Ask Script",
+        title: "Guion de Solicitud de Referidos",
         type: "quote",
-        content: "\"Most of my business comes from people just like you — homeowners who are glad they made the switch. Who's one person in your neighborhood or family who'd benefit from a conversation like we just had? I'm not asking you to sell them — just an introduction.\""
+        content: "\"La mayor parte de mi negocio proviene de personas como usted: propietarios que se alegran de haber hecho el cambio. ¿Quién es una persona en su vecindario o familia que se beneficiaría de una conversación como la que acabamos de tener? No le pido que les venda, solo una presentación.\""
       },
       {
-        title: "Building a Referral Tracking System",
+        title: "Construyendo un Sistema de Seguimiento de Referidos",
         type: "list",
-        content: "A referral not tracked is a referral lost. Your system must be simple enough to use in the field.",
+        content: "Un referido no registrado es un referido perdido. Tu sistema debe ser lo suficientemente simple como para usarlo en el campo.",
         items: [
-"Log every referral name and contact in CRM within 24 hours",
-          "Tag the source customer so you can report back ('Your neighbor John said yes!')",
-          "Set a 3-day follow-up task for every referral received",
-          "Send a handwritten thank-you to any customer whose referral closes"
+          "Registra cada nombre y contacto de referido en el CRM en un plazo de 24 horas",
+          "Etiqueta al cliente de origen para poder informarle ('¡Tu vecino John dijo que sí!')",
+          "Establece una tarea de seguimiento a los 3 días para cada referido recibido",
+          "Envía un agradecimiento escrito a mano a cualquier cliente cuyo referido se cierre"
         ]
       },
       {
-        title: "Simulation: Referral Ask at Trigger 1",
+        title: "Simulación: Pedir Referidos en el Detonante 1",
         type: "simulation",
         scenarioId: "post_install_patricia",
-        content: "Practice the post-signature referral conversation with post_install_patricia."
+        content: "Practica la conversación de referidos post-firma con post_install_patricia."
       }
     ],
     _meta: {
@@ -3645,22 +3645,21 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_6_1_1",
         type: "open_response",
-        label: "Escribe los 3 scripts de referencias que usarás en cada paso. Hazlos completamente tuyos:\n\nPaso 1 — Al Cierre:",
-        placeholder: "Start with: 'Most of my business...'",
-        lines: 4
+        label: "Escribe los 3 scripts de referencias que usarás en cada paso. Hazlos completamente tuyos:\n\nPaso 1 — Al Cierre:\n_________________________________________________________________\n\nPaso 2 — Post-Instalación:\n_________________________________________________________________\n\nPaso 3 — Seguimiento de Vecinos:\n_________________________________________________________________",
+        placeholder: "Paso 1: ...",
+        lines: 6
       },
       {
         id: "wb_6_1_2",
         type: "checklist",
         label: "Lista de Verificación de Preparación de Referidos — marca las tareas completadas:",
         items: [
-"He redactado mi script de texto post-instalación",
-          "He añadido recordatorios de solicitud de referidos en mi calendario",
-          "He practicado la solicitud de referidos en 3 pasos",
-          "Tengo lista mi hoja de beneficios de referidos para el cliente"
+          "Diseñé mi tarjeta de agradecimiento digital/física",
+          "Configuré mi plantilla de correo/texto de introducción de referidos",
+          "Tengo el enlace de mi perfil de Google listo para compartir con clientes referidos"
         ]
       }
     ]
@@ -3668,9 +3667,9 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
   mod_6_1a: {
     id: "mod_6_1a",
     title: "Módulo 6.1A: REFERIDO DEL DÍA 0 Y PROTECCIÓN DE LA REPUTACIÓN",
-    subtitle: "Build a systematic referral engine — not a one-time ask.",
+    subtitle: "Construye un motor de referidos sistemático, no una solicitud de una sola vez.",
     sections: [
-{
+      {
         title: "Sección 1 — Por Qué el Día 0 Es el Momento de Referido de Mayor Poder",
         type: "text",
         content: "El momento de la firma es el punto emocional más alto del viaje solar del propietario — al menos hasta su primera factura en vivo. En este momento: Este es el momento que la mayoría de los reps desperdicia recogiendo sus cosas y saliendo."
@@ -3680,9 +3679,9 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
         type: "list",
         content: "El propietario ya está en un estado emocional de dar. Una solicitud bien enmarcada simplemente da a ese impulso una dirección.",
         items: [
-"Trigger 1 — At the Close: The homeowner is most excited and committed immediately after signing. Ask: 'Who in your neighborhood do you think would also benefit from this?' Keep it casual and unthreatening.",
-          "Trigger 2 — Post-Install: Panels are on the roof. Neighbors can see them. Homeowner pride is at its peak. Call to celebrate — and ask who's been asking about the panels.",
-          "Trigger 3 — First Bill: The homeowner sees their first reduced bill or credits. Emotion is real. This is the best time for a specific, name-based referral request."
+          "Detonante 1 — Al Cierre: El propietario está sumamente emocionado y comprometido inmediatamente después de firmar. Pregunta: '¿Quién en tu vecindario crees que también se beneficiaría de esto?' Manténlo casual y sin presiones.",
+          "Detonante 2 — Post-Instalación: Los paneles están en el techo. Los vecinos pueden verlos. El orgullo del propietario está en su punto máximo. Llama para celebrar y pregunta quién ha estado haciendo preguntas sobre los paneles.",
+          "Detonante 3 — Primera Factura: El propietario ve su primera factura reducida o créditos. La emoción es real. Este es el mejor momento para una solicitud de referidos específica basada en nombres."
         ]
       },
       {
@@ -3695,9 +3694,9 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
         type: "list",
         content: "\"Antes de salir — ahora que has decidido seguir adelante, quiero asegurarme de que las personas que te importan tengan la misma oportunidad. ¿Hay algún vecino en la calle, o algún familiar, que creas que le gustaría tener esta conversación? No te pido que les vendas nada — solo que hagas una introducción si tiene sentido.\"",
         items: [
-"At Close: 'Before I head out — is there anyone in your neighborhood or circle you think would appreciate knowing about this? I only work with people who are genuinely good fits, so I'd love a warm intro.'",
-          "Post-Install: 'Your system looks great out there! I've had a few reps ask me about neighborhoods like yours — has anyone asked you about the panels yet? I'd love to connect with them.'",
-          "First Bill: 'That's a real result — congratulations. You know what's funny? The people who benefit most from solar are usually the people around you who have similar bills. Is there anyone specific you'd want to pass my number to?'"
+          "Al Cierre: 'Antes de irme, ¿hay alguien en tu vecindario o círculo social que creas que apreciaría saber sobre esto? Solo trabajo con personas que realmente se pueden beneficiar, así que me encantaría una presentación de tu parte.'",
+          "Post-Instalación: '¡Tu sistema se ve fantástico en el techo! He tenido algunos asesores preguntándome sobre vecindarios como el tuyo, ¿te ha preguntado algún vecino sobre los paneles todavía? Me encantaría conectar con ellos.'",
+          "Primera Factura: 'Ese es un resultado real, felicidades. ¿Sabes qué es curioso? Las personas que más se benefician de la energía solar suelen ser las que te rodean y tienen facturas similares. ¿Hay alguien específico a quien te gustaría pasarle mi número?'"
         ]
       },
       {
@@ -3710,7 +3709,7 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
         type: "slides",
         content: "Las solicitudes de referido solo funcionan cuando el clima emocional es el correcto. Los reps que preguntan durante la fricción del proceso — durante un retraso de permisos, después de una sorpresa de MPU, en medio de una queja del propietario — dañan tanto la relación de referido como la relación principal.",
         slides: [
-{
+          {
             title: "Arquitectura del Sistema de Referidos",
             content: "Bienvenido al Módulo 6.1A — Arquitectura del Sistema de Referidos. La diferencia entre un asesor que obtiene un referido por diez tratos y un asesor que obtiene tres a cinco no es la personalidad — es la estructura. La mayoría de los asesores tratan los referidos como una reacción. Preguntan cuando se acuerdan o cuando el propietario parece particularmente satisfecho. Un asesor sistemático incorpora las solicitudes de referido en cada etapa de la relación con el cliente como un proceso estándar — no como algo adicional. Este módulo te da esa arquitectura: tres momentos de activación, guiones probados y un proceso de seguimiento que se multiplica con el tiempo.",
             image: "/images/referral_engine.png"
@@ -3722,12 +3721,12 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
           },
           {
             title: "La Arquitectura de Referidos",
-            content: "El protocolo de introducción de referido es cómo conviertes un nombre en un alcance cálido. Cuando un propietario te da un referido, siempre pide permiso para usar su nombre: \"¿Puedo mencionar que usted sugirió que me comunicara?\" Luego comunícate personalmente — no con una plantilla genérica de la empresa. \"Hola Sarah — acabo de ayudar a su vecino, los González en la Calle Maple — me mencionaron que usted podría estar en una situación similar con su factura de energía y me sugirieron que la llamara. No estoy aquí para hacer un discurso de ventas — solo para tener la misma conversación honesta que tuve con ellos.\" Ese mensaje se abre a un nivel completamente diferente que cualquier alcance en frío. La confianza se toma prestada de la relación que ya existe.",
+            content: "El protocolo de introducción de referido es cómo conviertes un nombre en un alcance cálido. Cuando un propietario te da un referido, siempre pide permiso para usar su nombre en la introducción: \"¿Le importaría enviarles un mensaje rápido diciendo que me dio mi número? De esa manera sabrán quién soy cuando me comunique.\" Una vez que se acuerda esto, configura la introducción. Un mensaje de texto grupal es lo mejor: \"Hola John, este es mi consultor solar, [tu nombre]. Él ayudó a configurar nuestro sistema. [Tu nombre], este es John.\" Esa pequeña introducción te da un puente inmediato de prueba social. Cuando llames o envíes un mensaje de texto, tu primer movimiento es agradecerles la introducción y hacer referencia a la conversación con el cliente original. Convierte una llamada fría en una conversación familiar instantáneamente.",
             image: "/images/referral_engine.png"
           },
           {
             title: "Guiones de Solicitud de Referidos",
-            content: "Con el tiempo, un proceso sistemático de referidos crea una cartera de clientes que se multiplica. El asesor que cierra diez tratos al mes con una tasa de referidos cero tiene que prospectar en frío para cada nuevo prospecto. El asesor que cierra diez tratos al mes y genera dos referidos por trato entra al mes dos con veinte prospectos cálidos ya en su cartera — antes de haber tocado una sola puerta. La matemática se multiplica: más referidos significan prospectos más cálidos, los prospectos más cálidos cierran más rápido y a tasas más altas, las tasas de cierre más altas generan más clientes, más clientes generan más referidos. Esta es la rueda que separa a los asesores que ganan cuarenta mil dólares al año de los asesores que ganan cuarenta mil dólares al mes. Construye el sistema desde el primer trato.",
+            content: "Con el tiempo, un proceso sistemático de referidos crea una cartera de clientes que se multiplica. El asesor que cierra diez tratos al mes con una tasa de referidos del cuarenta por ciento genera cuatro nuevos clientes por referidos cada mes de manera pasiva. Ese es un pipeline que crece sin que tengas que gastar un solo dólar en publicidad o pasar horas prospectando en frío. Trata cada referido no como una transacción, sino como una extensión de la relación con tu cliente original. Mantén a tu cliente original informado: \"¡Hablé con John hoy, gracias de nuevo por la introducción!\" Esa retroalimentación cierra el ciclo de confianza y los mantiene buscando oportunidades para recomendarte de nuevo.",
             image: "/images/referral_engine.png"
           }
         ]
@@ -3740,76 +3739,47 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_6_1a_1",
         type: "open_response",
         label: "Práctica de la Solicitud de Referido del Día 0",
-        placeholder: "Your panels look great out there...",
-        lines: 3
+        placeholder: "Escribe tu guion personalizado para el Día 0...",
+        lines: 4
       },
       {
         id: "wb_6_1a_2",
         type: "open_response",
         label: "Mapeo de Momentos del Proceso",
-        placeholder: "After every signed deal, I will...",
+        placeholder: "Identifica los 3 momentos en tu proceso donde pedirás referidos...",
         lines: 3
       }
-    ],
-    quiz: {
-      title: "Module 6.1A Knowledge Check",
-      questions: [
-{
-          id: "kc_6_1a_1",
-          question: "¿Cuál de los tres momentos de activación de referidos suele convertir a la tasa más alta?",
-          options: [
-"En el cierre — el propietario está comprometido y emocionado.",
-            "Post-instalación — los paneles son visibles y los vecinos preguntan.",
-            "Primer recibo — el propietario ve resultados financieros reales y la emoción es máxima.",
-            "Los tres convierten por igual."
-          ],
-          correctAnswerIndex: 2,
-          explanation: "El momento del primer recibo produce la respuesta emocional más fuerte ligada a una prueba financiera real."
-        },
-        {
-          id: "kc_6_1a_2",
-          question: "¿Cuál es el paso más importante que los representantes omiten y que arruina la conversión de referidos?",
-          options: [
-"Pedir el referido.",
-            "Hacer el seguimiento dentro de las 24 horas posteriores a recibir un nombre.",
-            "Enviar una tarjeta de agradecimiento.",
-            "Pedir una reseña de Google al mismo tiempo."
-          ],
-          correctAnswerIndex: 1,
-          explanation: "La velocidad es conversión. Un nombre recibido y no contactado en 24 horas pierde más del 50% de su potencial de conversión."
-        }
-      ]
-    }
+    ]
   },
   mod_6_2: {
     id: "mod_6_2",
-    title: "Módulo 6.2: FORMATO ESTÁNDAR",
-    subtitle: "Systematically generate 5-star reviews that become your 24/7 sales force.",
+    title: "Módulo 6.2: Reseñas y Estrategia de Prueba Social",
+    subtitle: "Genera de manera sistemática reseñas de 5 estrellas que se conviertan en tu fuerza de ventas 24/7.",
     sections: [
-{
+      {
         title: "Reseñas de Google y Autoridad en el Vecindario",
         type: "text",
         content: "Pide a cada cliente cerrado una reseña de Google y envía el enlace directo — hazlo lo más sin fricción posible. Las reseñas se acumulan con el tiempo. Cuando un propietario en tu territorio busca empresas de solar y ve cuarenta y siete reseñas de cinco estrellas incluyendo nombres que reconoce del vecindario, la confianza ya está establecida antes de que toques la puerta. Combina eso con letreros de jardín en instalaciones completas y habrás creado prueba social pasiva a escala. La autoridad del vecindario se construye rep por rep e instalación por instalación — es uno de los activos a largo plazo más poderosos que puedes construir en esta carrera."
       },
       {
-        title: "The Review Request Timing",
+        title: "El Momento Adecuado para Pedir la Reseña",
         type: "list",
-        content: "Timing determines whether a customer leaves a review. Ask at the wrong moment and you get nothing.",
+        content: "El momento oportuno determina si un cliente deja una reseña o no. Pídela en el momento equivocado y no obtendrás nada.",
         items: [
-"Best time: Within 48 hours of system installation — enthusiasm is highest",
-          "Second best: Day of first low utility bill — proof triggers gratitude",
-          "Method: Text with a direct link — never just verbal. Remove friction.",
-          "Follow-up once if no review after 5 days — 'Just making sure the link worked'"
+          "El mejor momento: Dentro de las 48 horas posteriores a la instalación del sistema — cuando el entusiasmo es mayor",
+          "El segundo mejor momento: El día de la primera factura de luz baja — la prueba activa la gratitud",
+          "Método: Mensaje de texto con un enlace directo — nunca solo verbal. Elimina la fricción.",
+          "Haz un seguimiento si no hay reseña después de 5 días — 'Solo me aseguraba de que el enlace funcionara'"
         ]
       },
       {
-        title: "The Review Request Message",
+        title: "El Mensaje de Solicitud de Reseña",
         type: "quote",
-        content: "\"Hey [Name], it was a pleasure working with you. If you have 2 minutes, your review would mean the world to me — it helps families in [City] find a trustworthy rep. Here's the direct link: [Google Review Link]. Thanks for trusting me with your home.\""
+        content: "\"Hola [Name], fue un placer trabajar contigo. Si tienes 2 minutos, tu reseña significaría muchísimo para mí — ayuda a las familias en [City] a encontrar un representante de confianza. Aquí está el enlace directo: [Google Review Link]. Gracias por confiar en mí para tu hogar.\""
       }
     ],
     _meta: {
@@ -3819,7 +3789,7 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_6_2_1",
         type: "open_response",
         label: "¿Cómo vas a pedir la reseña de Google a cada cliente? Escribe el mensaje de texto exacto que enviarás:\n\n*Asunto: Reseña de Google — [COMPANY_NAME]*",
@@ -3831,21 +3801,21 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
   mod_6_2a: {
     id: "mod_6_2a",
     title: "Módulo 6.2A: DISCIPLINA DEL CRM Y GESTIÓN DEL PIPELINE 7-7-7",
-    subtitle: "Turn happy clients into a visible, searchable reputation that generates leads.",
+    subtitle: "Convierte a los clientes felices en una reputación visible y buscable que genere prospectos.",
     sections: [
-{
+      {
         title: "Sección 1 — El Marco de Gestión del Pipeline 7-7-7",
         type: "text",
-        content: "El marco 7-7-7 está construido alrededor de un principio simple: la atención de un rep a un trato debe ser proporcional a cuánto tiempo hace que se movió. Los tratos que se movieron recientemente necesitan seguimiento ligero. Los tratos que no se han movido necesitan intervención."
+        content: "El marco 7-7-7 está construido alrededor de un principio simple: la atención de un rep a un trato debe ser proporcional a cuánto tiempo hace que se movió. El siete indica recencia — cualquier trato que no haya avanzado en siete días necesita una acción. El segundo siete es el umbral de estancamiento — un trato estancado por siete semanas sin progreso requiere escalación inmediata. El tercer siete es la cadencia de contacto — mantener al menos siete puntos de contacto en el pipeline de preventa para evitar la pérdida por desconexión."
       },
       {
         title: "El marco:",
         type: "list",
         content: "Cualquier trato que no haya tenido una actualización de estado significativa (del equipo de encuesta, operaciones, o el propietario) en siete días debe recibir un check-in iniciado por el rep con el coordinador del proyecto o el propietario. Siete días de silencio en el pipeline es la señal de advertencia temprana. Un trato atascado en la misma etapa del pipeline por más de siete semanas sin avance está en riesgo elevado de cancelación. Este es el umbral para la escalación al gerente según el marco del Módulo 5.5C. Márcalo, escálalo y documenta qué lo está bloqueando. El modelo de 7 contactos del Módulo 5.5A no es solo para prevenir cancelaciones — es la cadencia mínima viable de gestión del pipeline. Un rep que alcanza los siete contactos tiene una tasa de cancelación dramáticamente más baja que uno que solo hace check-in en momentos de crisis.",
         items: [
-"Best time: Within 48 hours of PTO — the homeowner is officially live, the emotional peak is real, and the experience is fresh.",
-          "Good time: Post-install, when panels are visible and the homeowner is proud.",
-          "Avoid: During pipeline issues, delays, or any moment of friction. A forced review during a bad experience creates a bad review."
+          "El mejor momento: Dentro de las 48 horas de la activación (PTO) — el propietario está oficialmente en vivo, el pico emocional es real y la experiencia está fresca.",
+          "Buen momento: Post-instalación, cuando los paneles son visibles en el techo y el propietario está orgulloso.",
+          "Evitar: Durante problemas de pipeline, retrasos o cualquier momento de fricción. Una reseña forzada durante una mala experiencia genera una reseña negativa."
         ]
       },
       {
@@ -3858,10 +3828,10 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
         type: "list",
         content: "Los reps que rastrean hitos no se llevan sorpresas. Los reps que no rastrean hitos dependen de operaciones para decirles cuando algo está mal — lo cual siempre es demasiado tarde.",
         items: [
-"Google Business Profile: Highest priority. Drives local search visibility and shows in Maps results.",
-          "EnergySage: Industry-specific solar comparison site. High-intent prospects research here.",
-          "Yelp: Secondary. Relevant in some markets.",
-          "Facebook: Useful for local community groups where solar decisions are discussed."
+          "Perfil de Negocio de Google: Máxima prioridad. Impulsa la visibilidad de búsqueda local y se muestra en Google Maps.",
+          "EnergySage: Sitio de comparación solar específico de la industria. Los prospectos con alta intención investigan aquí.",
+          "Yelp: Secundario. Relevante en algunos mercados locales.",
+          "Facebook: Útil para grupos comunitarios locales donde se discuten decisiones sobre energía solar."
         ]
       },
       {
@@ -3869,10 +3839,10 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
         type: "list",
         content: "1. Encuesta completada — Fecha completada, cualquier hallazgo marcado por el equipo de encuesta 2. Diseño aprobado — Fecha finalizada, cualquier cambio de diseño de la propuesta original 3. Permiso presentado — Fecha presentada, jurisdicción, tiempo de procesamiento esperado 4. Permiso aprobado — Fecha aprobada, cualquier corrección requerida antes de la aprobación 5. Instalación programada — Fecha programada, propietario confirmado 6. PTO recibido — Fecha recibida, propietario notificado, check-in de 30 días programado",
         items: [
-"Before/after bill photos (with homeowner permission) — real numbers convert skeptics.",
-          "Video testimonials — 30 seconds at PTO asking 'what was the experience like?' is gold.",
-          "Neighborhood installs map — showing homeowners that their neighbors have already gone solar accelerates decisions.",
-          "Photo of install day — a crew on a roof is powerful visual proof."
+          "Fotos de facturas del antes y después (con permiso del propietario) — los números reales convierten a los escépticos.",
+          "Testimonios en video — 30 segundos en la activación (PTO) preguntando cómo fue la experiencia es oro.",
+          "Mapa de instalaciones en el vecindario — mostrar a los propietarios que sus vecinos ya se cambiaron a solar acelera las decisiones.",
+          "Foto del día de la instalación — una cuadrilla en un techo es una prueba visual poderosa."
         ]
       },
       {
@@ -3880,7 +3850,7 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
         type: "slides",
         content: "Un rep no necesita un sistema sofisticado. Una hoja de cálculo con una fila por trato activo y columnas para cada fecha de hito es suficiente. Lo que importa es que se actualice consistentemente — no que sea elaborada.",
         slides: [
-{
+          {
             title: "Sistemas de Generación de Reseñas y Prueba Social",
             content: "Bienvenido al Módulo 6.2A — Generación de Reseñas y Sistemas de Prueba Social. El noventa por ciento de los propietarios revisa las reseñas de Google antes de devolver la llamada de un asesor solar. Un perfil con cuarenta y siete reseñas de cinco estrellas y un perfil con doce reseñas no son competidores cercanos — están en conversaciones completamente diferentes. Las reseñas no son un problema del equipo de marketing. Son responsabilidad del asesor. Cada propietario satisfecho que no deja una reseña es una oportunidad de generación de prospectos perdida. Este módulo te enseña cuándo pedir, cómo pedir y cómo usar la prueba social activamente en el campo para cerrar tratos que de otra manera no habrías cerrado.",
             image: "/images/social_proof.png"
@@ -3910,75 +3880,46 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_6_2a_1",
         type: "open_response",
         label: "Auditoría 7-7-7",
-        placeholder: "Hey [Name], your system is officially live...",
-        lines: 3
+        placeholder: "Revisa tu CRM y escribe qué tratos tienen más de 7 días sin actualización...",
+        lines: 4
       },
       {
         id: "wb_6_2a_2",
         type: "open_response",
         label: "Reescritura de Notas del CRM",
-        placeholder: "1. Before/after bill photos... 2... 3...",
+        placeholder: "Corrige una nota del CRM que consideres vaga o desactualizada...",
         lines: 3
       }
-    ],
-    quiz: {
-      title: "Module 6.2A Knowledge Check",
-      questions: [
-{
-          id: "kc_6_2a_1",
-          question: "¿Cuál es la plataforma de reseñas de mayor prioridad para un representante solar?",
-          options: [
-"Yelp",
-            "Facebook",
-            "Perfil de Empresa en Google",
-            "EnergySage"
-          ],
-          correctAnswerIndex: 2,
-          explanation: "El Perfil de Empresa en Google impulsa la visibilidad en búsquedas locales y Google Maps."
-        },
-        {
-          id: "kc_6_2a_2",
-          question: "¿Cuál es el mayor error que cometen los representantes al pedir reseñas?",
-          options: [
-"Pedir demasiado temprano.",
-            "No enviar un enlace directo, obligando al propietario a buscar la página él mismo.",
-            "Pedir con demasiada frecuencia.",
-            "Pedir en el PTO en lugar de en el cierre."
-          ],
-          correctAnswerIndex: 1,
-          explanation: "La fricción mata la acción. Un enlace directo elimina las barreras."
-        }
-      ]
-    }
+    ]
   },
   mod_6_3: {
     id: "mod_6_3",
-    title: "Módulo 6.3: FORMATO ESTÁNDAR",
-    subtitle: "Reactivate past customers whose reps left — a goldmine hiding in your company's CRM.",
+    title: "Módulo 6.3: Estrategia de Propietarios Huérfanos",
+    subtitle: "Reactiva clientes del pasado cuyos representantes se fueron — una mina de oro oculta en el CRM.",
     sections: [
-{
-        title: "El Embudo de Rendimiento",
+      {
+        title: "¿Qué es un Propietario Huérfano?",
         type: "text",
-        content: "Los resultados de cada rep comienzan con una métrica en la cima: puertas tocadas. Desde ahí el embudo fluye hacia abajo — conversaciones, citas agendadas, citas realizadas, propuestas presentadas, tratos cerrados. Tu trabajo es conocer tu tasa de conversión en cada paso. Si estás tocando cien puertas y solo teniendo cinco conversaciones, tu apertura necesita trabajo. Si las conversaciones convierten a citas a una tasa baja, tu transición necesita trabajo. Si las citas se muestran a tasas bajas, tu comunicación pre-cita necesita trabajo. Si tu tasa de cierre es baja, el manejo de objeciones necesita trabajo. Conoce tus números y siempre sabrás exactamente qué practicar."
+        content: "Un propietario huérfano es un cliente cuyo representante de ventas original ha dejado la empresa. Tienen una relación existente con nuestra organización pero no tienen un punto de contacto dedicado. Son prospectos calificados — ya dijeron que sí al sistema solar una vez. Tu trabajo es convertirte en su asesor de confianza."
       },
       {
-        title: "The Orphan Owner Outreach Script",
+        title: "Guion de Prospección de Propietarios Huérfanos",
         type: "quote",
-        content: "\"Hi, is this [Name]? My name is [Your Name] — I'm with [Company] and I've been assigned as your new account manager. I wanted to introduce myself, confirm everything is running smoothly with your system, and let you know I'm your point of contact going forward. Do you have 2 minutes?\""
+        content: "\"Hola, ¿se encuentra [Name]? Mi nombre es [Your Name] — llamo de [Company] y he sido asignado como su nuevo gerente de cuenta. Quería presentarme, confirmar que todo esté funcionando perfectamente con su sistema y dejarle saber que soy su punto de contacto de aquí en adelante. ¿Tiene 2 minutos?\""
       },
       {
-        title: "Converting Orphan Owners to Referral Sources",
+        title: "Convertir Propietarios Huérfanos en Fuentes de Referidos",
         type: "list",
-        content: "Once you've re-established trust, an orphan owner becomes one of your best referral assets.",
+        content: "Una vez que has restablecido la confianza, un propietario huérfano se convierte en uno de tus mejores activos para obtener referidos.",
         items: [
-"Schedule a free system performance review — build face time",
-          "Identify any service needs and resolve them — prove your value",
-          "Ask for referrals after resolving any issue — gratitude converts",
-          "Add them to your review request sequence if they haven't left one"
+          "Programa una revisión gratuita del rendimiento del sistema — genera tiempo cara a cara",
+          "Identifica cualquier necesidad de servicio y resuélvela — demuestra tu valor",
+          "Pide referidos después de resolver cualquier problema — la gratitud convierte",
+          "Agrégalos a tu secuencia de solicitud de reseñas si aún no han dejado una"
         ]
       }
     ],
@@ -3989,80 +3930,77 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_6_3_1",
         type: "open_response",
-        label: "*(Completa al final de cada semana de trabajo)*\n\nSemana del: _______________________________\n\n| Métrica | Meta | Real | Diferencia |\n|---|---|---|---|\n| Puertas tocadas | 100–150 | _____ | _____ |\n| Conversaciones | ~40 | _____ | _____ |\n| Citas agendadas | 10–15 | _____ | _____ |\n| Citas realizadas | 8–12 | _____ | _____ |\n| Propuestas presentadas | 5–8 | _____ | _____ |\n| Acuerdos cerrados | 1–3 | _____ | _____ |\n\n¿Dónde está la fuga principal en mi embudo esta semana?",
-        placeholder: "1. [Name] ΓÇö Note: ...",
+        label: "Extrae 5 nombres de propietarios huérfanos del CRM. Escribe sus nombres y una nota personalizada para tu primera llamada de prospección.",
+        placeholder: "1. [Name] — Nota: ...",
         lines: 6
       }
     ]
   },
   mod_6_3a: {
     id: "mod_6_3a",
-    title: "Módulo 6.3A: AUTO-ENTRENAMIENTO A TRAVÉS DE LA REVISIÓN TÉCNICA Y FINANCIERA",
-    subtitle: "Convert existing solar customers abandoned by previous reps into referrals, upgrades, and loyalty.",
+    title: "Módulo 6.3A: Manual de Reactivación de Propietarios Huérfanos",
+    subtitle: "Convierte a los clientes de solar existentes abandonados por asesores anteriores en referidos, actualizaciones y lealtad.",
     sections: [
-{
-        title: "Sección 1 — Por Qué el Auto-Entrenamiento Funciona Mejor que Esperar Retroalimentación",
+      {
+        title: "¿Qué es un Propietario Huérfano?",
         type: "text",
-        content: "El entrenamiento formal es episódico. El auto-entrenamiento es continuo. Un rep que espera la sesión de retroalimentación semanal de su gerente antes de corregir un error en el lenguaje de incentivos ha repetido ese error en cada cita desde la última sesión."
+        content: "Un propietario huérfano es un propietario que compró energía solar a través de tu empresa pero cuyo asesor original ya no está en la organización. Tiene un sistema solar activo, está pagando su factura mensual o préstamo y no tiene una relación de asesor activa. Recibe alertas de monitoreo, preguntas de facturación y ocasionalmente tiene preocupaciones — sin un punto de contacto asignado. Esto es tanto una falla de servicio como una oportunidad de ingresos significativa. Este módulo te enseña cómo reactivar esas relaciones profesionalmente, construir valor genuino y convertir a propietarios huérfanos en fuentes de referidos, clientes de actualización y defensores leales."
       },
       {
-        title: "Las 4 preguntas del hábito de auto-entrenamiento (10 minutos después de cada cita):",
+        title: "Por Qué Importan los Propietarios Huérfanos",
         type: "list",
-        content: "1. ¿Qué pregunta técnica surgió y cómo la respondí? 2. ¿Qué afirmación financiera hice y era precisa y conforme? 3. ¿Usé algún lenguaje del que no estoy seguro? 4. Si pudiera hacer una cosa diferente, ¿qué sería?",
+        content: "Los propietarios huérfanos representan una de las actividades de mayor ROI para un asesor experimentado:",
         items: [
-"They already trust the company enough to have purchased.",
-          "They are likely to refer neighbors if their experience has been positive.",
-          "They are upgrade candidates (battery, EV charger, system expansion).",
-          "They are cancellation risks if they feel ignored — especially during issues.",
-          "Reactivating 5 orphan owners can generate 10–15 referral conversations."
+          "Ya confían en la empresa lo suficiente como para haber comprado.",
+          "Es muy probable que refieran a sus vecinos si su experiencia posterior ha sido positiva.",
+          "Son candidatos para actualizaciones (batería, cargador de EV, expansión del sistema).",
+          "Representan riesgos de cancelación si se sienten ignorados, especialmente durante problemas técnicos.",
+          "Reactivar a 5 propietarios huérfanos puede generar de 10 a 15 conversaciones de referidos."
         ]
       },
       {
-        title: "Sección 2 — Revisión de Errores Técnicos: Errores Comunes en el Campo",
+        title: "El Marco de la Llamada de Reactivación",
         type: "text",
-        content: "Sección 2 — Revisión de Errores Técnicos: Errores Comunes en el Campo"
+        content: "Paso 1 — Preséntate: 'Hola [Name], habla [Your Name] de [Company]. He sido asignado como tu nuevo punto de contacto solar, solo quería llamarte para presentarme personalmente.'\n\nPaso 2 — Reconoce la brecha: 'Sé que es posible que no hayas sabido de nosotros en un tiempo, y quiero asegurarme de que eso cambie de ahora en adelante. Eres nuestro cliente y mereces un soporte constante.'\n\nPaso 3 — Verifica el sistema: '¿Cómo ha estado funcionando tu sistema? ¿Has tenido alguna duda o problema con el que te pueda ayudar?'\n\nPaso 4 — Abre la puerta: 'También me encantaría mantenerte informado sobre cualquier novedad que pueda beneficiarte, como opciones de almacenamiento de baterías o nuevos programas para los que califiques.'"
       },
       {
-        title: "Sección 3 — Revisión de Explicaciones Financieras: Errores Comunes en el Campo",
+        title: "Identificando Oportunidades de Actualización",
         type: "list",
-        content: "Sección 3 — Revisión de Explicaciones Financieras: Errores Comunes en el Campo",
+        content: "Durante la llamada de reactivación, escucha estas señales de actualización:",
         items: [
-"Riesgoso: \"Ahorrarás $200 al mes con este sistema.\"",
-          "Corregido: \"Basado en tu factura actual y estructura tarifaria, los ahorros mensuales estimados son alrededor de $200 — aunque los ahorros reales dependen de tu uso, cambios de tarifa y el diseño final del sistema.\"",
-          "Riesgoso: \"Recibirás el 30% de vuelta del gobierno — eso es básicamente un tercio del sistema gratis.\"",
-          "Corregido: \"Hay programas de incentivos que pueden aplicar a tu situación — el crédito fiscal federal es uno de los más significativos. Cuánto te beneficias depende de tu situación fiscal específica, y tu contador sería la persona correcta para confirmarlo.\"",
-          "Riesgoso: \"Tu período de recuperación de inversión es exactamente 8.3 años.\"",
-          "Corregido: \"Basado en los supuestos con los que estamos trabajando — tu tarifa actual, el diseño del sistema y los términos de financiamiento — el período de recuperación de inversión estimado está en el rango de 8 a 10 años. Si las tarifas del servicio eléctrico continúan la tendencia que hemos visto en esta área, podría ser más corto.\"",
-          "Riesgoso: \"Tus paneles producen energía justo cuando el servicio eléctrico cobra tarifas pico, así que estás ahorrando a la tarifa más alta.\"",
-          "Corregido: \"El solar produce la mayor parte de su energía alrededor del mediodía — que en realidad es antes de la ventana de tarifa pico en la mayoría de los planes TOU. Por eso una batería puede agregar valor financiero real en tu situación.\""
+          "Compra de vehículo eléctrico o interés en uno — abre la conversación sobre baterías y cargadores de EV",
+          "Facturas altas a pesar de tener solar — sub-rendimiento del sistema o nuevas cargas en el hogar",
+          "Preocupación por cortes de energía — oportunidad para respaldo de batería",
+          "Ampliación del hogar o planes de piscina — carga adicional que requerirá expansión del sistema",
+          "'Mi vecino está interesado' — señal inmediata de referido en el pipeline"
         ]
       },
       {
-        title: "La rúbrica de cuatro preguntas:",
+        title: "Presentación del Módulo 6.3A",
         type: "slides",
-        content: "Puntuación propia: 0 (sí, hice afirmaciones no verificables) / 1 (usé lenguaje calificador apropiado) / 2 (me mantuve completamente dentro de datos verificados) Puntuación propia: 0 (sí, usé lenguaje desactualizado) / 1 (no estoy seguro — necesito verificar) / 2 (usé lenguaje actual y preciso en todo momento) Puntuación propia: 0 (sí, adiviné algo de lo que no estaba seguro) / 1 (me cubrí apropiadamente pero no estaba completamente seguro) / 2 (diferí correctamente al equipo de encuesta o dije \"déjame verificar eso\") Puntuación propia: 0 (sí, prometí demasiado) / 1 (califiqué pero podría haber sido más claro) / 2 (presenté con precisión con advertencias apropiadas)",
+        content: "Presentación de diapositivas para el Manual de Reactivación de Propietarios Huérfanos",
         slides: [
-{
+          {
             title: "Manual de Reactivación de Propietarios Huérfanos",
-            content: "Bienvenido al Módulo 6.3A — Manual de Reactivación de Propietarios Huérfanos. Un propietario huérfano es un propietario que compró energía solar a través de tu empresa pero cuyo asesor original ya no está en la organización. Tiene un sistema solar activo, está pagando su factura mensual o préstamo y no tiene una relación de asesor activa. Recibe alertas de monitoreo, preguntas de facturación y ocasionalmente tiene preocupaciones — sin un punto de contacto asignado. Esto es tanto una falla de servicio como una oportunidad de ingresos significativa. Este módulo te enseña cómo reactivar esas relaciones profesionalmente, construir valor genuino y convertir a propietarios huérfanos en fuentes de referidos, clientes de actualización y defensores leales.",
+            content: "Los clientes existentes son tu grupo de prospectos de mayor ROI.",
             image: "/images/orphan_owner.png"
           },
           {
             title: "Por Qué Importan los Propietarios Huérfanos",
-            content: "¿Por qué importan los propietarios huérfanos? Primero, ya confían en la empresa — tomaron una decisión de compra importante y pasaron por todo el proceso de instalación. Segundo, han demostrado que están dispuestos a invertir en su hogar. Tercero, pueden ver los datos de rendimiento de su sistema todos los días — lo que significa que tienen preguntas continuas y puntos de compromiso en los que un buen asesor puede intervenir. Cuarto, sus vecinos pueden ver su sistema. Los propietarios huérfanos viven en vecindarios donde tu empresa ya tiene visibilidad. El asesor que reactiva una relación de propietario huérfano a menudo obtiene acceso a toda una calle de referidos cálidos de alguien que ha estado viviendo con un sistema solar y hablando de él durante años.",
+            content: "La confianza ya existe. La relación solo necesita un representante.",
             image: "/images/orphan_owner.png"
           },
           {
             title: "El Marco de la Llamada de Reactivación",
-            content: "El alcance de reactivación no es una llamada de ventas. Es una llamada de servicio. El enfoque debe ser genuino: \"Hola, soy [tu nombre] con [nombre de la empresa]. Noté que tiene un sistema instalado con nosotros desde hace un par de años y quería comunicarme personalmente — soy el nuevo asesor que cubre su área, y solo quería asegurarme de que está obteniendo todo lo que necesita. ¿Cómo ha estado funcionando el sistema para usted?\" Escucha. Déjales hablar. Si hay preocupaciones, abórdalas o escálalas a operaciones. Si todo está bien, afírmalo: \"Qué bueno escuchar eso — los datos de monitoreo también se ven muy sólidos de su parte.\" Estás construyendo crédito de relación antes de pedir cualquier cosa.",
+            content: "Presentar ➔ Reconocer ➔ Verificar ➔ Abrir la puerta.",
             image: "/images/orphan_owner.png"
           },
           {
             title: "Señales de Actualización a Escuchar",
-            content: "Después de que la relación se restablece, hay tres conversaciones naturales de ventas adicionales. Almacenamiento de baterías — especialmente relevante en mercados NEM 3.0 o áreas con frecuentes interrupciones del servicio. Expansión de paneles — si su consumo ha aumentado debido a un vehículo eléctrico, una adición al hogar o una piscina. Y equipo de carga para vehículos eléctricos — si recientemente compró o está considerando un vehículo eléctrico. En cada caso, lidera con sus datos: \"Mirando su historial de monitoreo, noté que su consumo ha subido aproximadamente un veinte por ciento durante el último año. ¿Ha agregado algo significativo al hogar?\" Esa pregunta abre la conversación naturalmente. Y siempre: pide referidos. \"¿Alguno de sus vecinos le ha preguntado sobre el sistema? Me encantaría ayudarles — y usted obtendría el crédito del referido.\"",
+            content: "EVs, facturas altas, apagones, ampliaciones, interés de vecinos.",
             image: "/images/orphan_owner.png"
           }
         ]
@@ -4075,29 +4013,29 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_6_3a_1",
         type: "open_response",
-        label: "Reconocimiento de Tipos de Error",
-        placeholder: "Hi [Name], this is [Your Name] from [Company]...",
+        label: "Escribe tu guion de apertura para reactivación de propietarios huérfanos — preséntate y reconoce la brecha de comunicación:",
+        placeholder: "Hola [Name], habla [Your Name] de [Company]...",
         lines: 4
       },
       {
         id: "wb_6_3a_2",
         type: "open_response",
-        label: "\"Con solar y una batería, tendrás energía sin importar lo que pase con la red.\"",
-        placeholder: "1. EV interest... 2... 3...",
+        label: "Enumera 3 señales de actualización que escucharás específicamente durante una llamada de reactivación:",
+        placeholder: "1. Interés en EV... 2... 3...",
         lines: 3
       }
     ],
     quiz: {
-      title: "Module 6.3A Knowledge Check",
+      title: "Prueba de Conocimientos del Módulo 6.3A",
       questions: [
-{
+        {
           id: "kc_6_3a_1",
           question: "¿Cuál es la razón principal por la que los propietarios huérfanos son una oportunidad de alto ROI?",
           options: [
-"Son fáciles de vender sin construir una relación.",
+            "Son fáciles de vender sin construir una relación.",
             "Ya confían en la empresa lo suficiente como para haber comprado — la relación solo necesita un representante.",
             "Siempre quieren almacenamiento de baterías.",
             "Es poco probable que cancelen, por lo que no necesitan atención."
@@ -4109,7 +4047,7 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
           id: "kc_6_3a_2",
           question: "Durante una llamada de reactivación, un propietario menciona que acaba de comprar un vehículo eléctrico. Esto es:",
           options: [
-"Irrelevante para la conversación solar.",
+            "Irrelevante para la conversación solar.",
             "Una señal de actualización de batería y cargador de EV — abre esa conversación.",
             "Una razón por la que el propietario querría cancelar la solar.",
             "Algo a notar pero no perseguir en esta llamada."
@@ -4122,34 +4060,34 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
   },
   mod_6_4: {
     id: "mod_6_4",
-    title: "Módulo 6.4: FORMATO ESTÁNDAR",
-    subtitle: "Track what matters, diagnose bottlenecks, and self-coach like a top performer.",
+    title: "Módulo 6.4: Panel de Rendimiento y Disciplina de KPIs",
+    subtitle: "Rastrea lo que importa, diagnostica cuellos de botella y auto-entrénate como un líder.",
     sections: [
-{
-        title: "El Efecto Compuesto de la Reputación",
+      {
+        title: "Los 5 KPIs que Cada Representante Solar Debe Rastrear Diariamente",
         type: "list",
-        content: "Cada interacción que tienes construye o erosiona tu reputación. Cada conversación honesta es un depósito. Cada exageración es un retiro. Los reps que piensan a corto plazo persiguen cualquier trato, sobre-prometen y queman puentes. Los reps que piensan a largo plazo califican agresivamente, construyen relaciones y generan referidos durante años. Veinticinco tratos cerrados significa veinticinco fuentes potenciales de referidos. Cien tratos cerrados significa suficiente negocio entrante para raramente tocar puertas frías. Trata a cada cliente como una relación de cinco años — porque los mejores se convierten exactamente en eso.",
+        content: "Tus resultados son un indicador rezagado de tu actividad. Rastrea estas cinco métricas diariamente para mantener tu pipeline predecible:",
         items: [
-"Doors Knocked — your raw activity input",
-          "Set Rate (Appointments Set / Doors Knocked) — door effectiveness",
-          "Show Rate (Appointments Shown / Set) — follow-up and commitment quality",
-          "Close Rate (Deals Closed / Appointments Shown) — presentation effectiveness",
-          "Average Contract Value — deal quality and upsell skill"
+          "Puertas tocadas — tu volumen de actividad bruto",
+          "Tasa de citas (Citas agendadas / Puertas tocadas) — efectividad en la puerta",
+          "Tasa de asistencia (Citas asistidas / Citas agendadas) — calidad del seguimiento y compromiso",
+          "Tasa de cierre (Tratos cerrados / Citas asistidas) — efectividad de la presentación",
+          "Valor Promedio del Contrato (ACV) — calidad del acuerdo y habilidad de venta adicional"
         ]
       },
       {
-        title: "Diagnosing Your Bottleneck",
+        title: "Diagnóstico de tu Cuello de Botella",
         type: "comparison",
         comparison: {
-          rookie: "Tracks nothing. Guesses at what's wrong. Blames market conditions.",
-          pro: "Reviews KPIs every morning. Identifies the broken ratio. Adjusts that specific behavior that day."
+          rookie: "No rastrea nada. Adivina qué está fallando. Culpa a las condiciones del mercado.",
+          pro: "Revisa sus KPIs cada mañana. Identifica la proporción rota. Ajusta ese comportamiento específico ese mismo día."
         },
-        content: "Find the ratio that breaks first — that's where you focus 80% of your coaching energy."
+        content: "Encuentra la proporción que se rompe primero — ahí es donde debes concentrar el 80% de tu energía de entrenamiento."
       },
       {
-        title: "Your Daily KPI Review Ritual",
+        title: "Tu Ritual Diario de Revisión de KPIs",
         type: "text",
-        content: "Every morning before you leave for the field, spend 5 minutes with your numbers. Ask: 'What was my set rate yesterday? Is it trending up or down? What's one thing I'll do differently at the door today?' This 5-minute habit compounds over a 90-day career into elite performance."
+        content: "Cada mañana, antes de salir al campo, dedica 5 minutos a tus números. Pregúntate: '¿Cuál fue mi tasa de citas agendadas ayer? ¿Está subiendo o bajando? ¿Qué haré diferente hoy al tocar las puertas?' Este hábito de cinco minutos se acumula durante tus primeros noventa días y te acerca a un rendimiento de élite."
       }
     ],
     _meta: {
@@ -4159,90 +4097,78 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_6_4_1",
         type: "checklist",
-        label: "Completa estas oraciones:\n\n*\"En 12 meses, quiero haber cerrado _____ acuerdos y tener _____ clientes que me recomienden activamente.\"*\n\n*\"La forma en que voy a tratar a cada cliente para que me refieran a sus vecinos es:*",
+        label: "Lista de verificación para configuración del rastreador de KPIs:",
         items: [
-"Doors knocked column",
-          "Set rate column",
-          "Show rate column",
-          "Close rate column",
-          "ACV column",
-          "Weekly trend row"
+          "Columna de puertas tocadas configurada",
+          "Fórmula de tasa de agendamiento de citas configurada",
+          "Fórmula de tasa de asistencia establecida",
+          "Fórmula de tasa de cierre integrada",
+          "Columna de valor de contrato promedio (ACV) lista",
+          "Fila de tendencia semanal añadida para comparar el progreso"
         ]
       },
       {
         id: "wb_6_4_2",
         type: "open_response",
-        label: "Escribe tu plan de actividad personal de 90 días para alcanzar tus metas de carrera.",
-        placeholder: "Mes 1: __ | Mes 2: __ | Mes 3: __",
+        label: "Basado en tu última semana de actividad, ¿cuál KPI es tu mayor cuello de botella? ¿Qué acción específica tomarás hoy para solucionarlo?",
+        placeholder: "Mi cuello de botella es... Hoy haré...",
         lines: 4
       }
     ]
   },
   mod_6_4a: {
     id: "mod_6_4a",
-    title: "Módulo 6.4A: PREPARACIÓN PARA EL EXAMEN DE AUTORIDAD TÉCNICA",
-    subtitle: "Track the numbers that drive income and diagnose your own performance bottlenecks.",
+    title: "Módulo 6.4A: Dominio de KPIs y Sistema de Auto-Entrenamiento",
+    subtitle: "Rastrea los números que impulsan tus ingresos y diagnostica tus propios cuellos de botella de rendimiento.",
     sections: [
-{
-        title: "Sección 1 — Los Cinco Dominios de Conocimiento del V2",
+      {
+        title: "Por Qué el Auto-Entrenamiento es la Habilidad de Mayor Apalancamiento",
         type: "text",
-        content: "La evaluación de Autoridad Técnica se basa en cinco dominios. Los reps deben saber qué módulos corresponden a qué dominio y dónde están sus brechas de preparación."
+        content: "Los representantes que construyen carreras a largo plazo en energía solar no siempre son los más talentosos — son los más conscientes de sí mismos. Saben exactamente dónde están muriendo sus tratos. Conocen su tasa de cierre, su tasa de asistencia, su tasa de agendamiento — y saben en cuál trabajar esta semana. Un representante que no puede identificar su propio cuello de botella es un asesor que repetirá los mismos errores indefinidamente y se preguntará por qué los resultados no cambian. Este módulo te da los seis KPIs principales que debes rastrear y un marco semanal de auto-entrenamiento que convierte tus propios datos en tu herramienta de entrenamiento más valiosa."
       },
       {
-        title: "Dominio 1 — Fundamento Técnico Solar",
+        title: "Los Seis KPIs Solares Principales",
         type: "list",
-        content: "Dominio 1 — Fundamento Técnico Solar",
+        content: "Todo representante debe rastrear estos seis KPIs semanalmente sin excepción:",
         items: [
-"Cómo la luz solar se convierte en electricidad; DC vs. AC; la cadena de producción",
-          "Inversores de cadena vs. microinversores; qué hace cada uno y cuándo es apropiado cada uno",
-          "Fundamentos de la batería; qué hace y no hace una batería; expectativas de respaldo",
-          "Conciencia de ingeniería del sitio; techo, panel, eléctrico, sombra, conduit, estructuras separadas"
+          "Puertas tocadas (o leads contactados): Volumen total de actividad. La base de tu embudo.",
+          "Citas agendadas (Tasa de citas): Puertas tocadas ÷ citas agendadas. Parámetro industrial: 1 cita por cada 20–30 puertas.",
+          "Citas asistidas (Tasa de asistencia): Citas agendadas ÷ citas que realmente ocurrieron. Meta: 70% o más.",
+          "Propuestas presentadas (Tasa de presentación): Citas asistidas ÷ propuestas completas entregadas.",
+          "Tratos cerrados (Tasa de cierre): Propuestas presentadas ÷ contratos firmados. Rango industrial estándar: 20–40%.",
+          "Valor Promedio del Contrato (ACV): Ingresos totales ÷ tratos cerrados. Rastra la calidad del trato, no solo el volumen."
         ]
       },
       {
-        title: "Dominio 2 — Fluidez Financiera",
+        title: "Diagnóstico de tu Cuello de Botella",
         type: "text",
-        content: "Dominio 2 — Fluidez Financiera"
+        content: "Analiza tu embudo desde arriba hacia abajo:\n\n- Baja tasa de citas ➔ Problema en la puerta. Guiones, posicionamiento inicial, selección de vecindario.\n- Baja tasa de asistencia ➔ Problema de comunicación pre-cita. Confirmación, rapport, encuadre de valor.\n- Baja tasa de presentación ➔ Problema de posicionamiento en el hogar. Descubrimiento, confianza, control del ambiente.\n- Baja tasa de cierre ➔ Problema de presentación final, manejo de objeciones o confianza financiera.\n- Bajo ACV ➔ Problema de calificación o coincidencia de producto.\n\nCorrige la fuga más grande primero. No disperses tu energía."
       },
       {
-        title: "Dominio 3 — Batería y NEM",
+        title: "El Proceso Semanal de Auto-Revisión",
         type: "list",
-        content: "Dominio 3 — Batería y NEM",
+        content: "Una revisión semanal de 15 minutos que los mejores representantes corren cada domingo o lunes por la mañana:",
         items: [
-"Evolución de la medición neta; NEM 3.0; valor de exportación vs. auto-consumo",
-          "Posicionamiento de la batería centrado en la economía vs. basado en el miedo",
-          "Criterios de ajuste de la batería; cuándo profundizar en el almacenamiento y cuándo ser honesto sobre el ROI limitado",
-          "Qué no prometer sobre la capacidad de respaldo o los créditos de exportación"
+          "Paso 1: Reúne tus números de la semana pasada — puertas, citas agendadas, asistidas, presentadas y cierres.",
+          "Paso 2: Calcula cada tasa de conversión.",
+          "Paso 3: Compara los resultados con tu propio promedio histórico y los promedios de la industria.",
+          "Paso 4: Identifica cuál métrica está más alejada del parámetro objetivo.",
+          "Paso 5: Define una meta de comportamiento específica para la próxima semana orientada a mejorar esa métrica.",
+          "Paso 6: Comparte tu diagnóstico y meta con tu gerente o socio de responsabilidad."
         ]
       },
       {
-        title: "Dominio 4 — Descubrimiento y Conciencia del Sitio",
+        title: "Presentación del Módulo 6.4A",
         type: "slides",
-        content: "Dominio 4 — Descubrimiento y Conciencia del Sitio",
+        content: "Presentación para el Dominio de KPIs y Sistema de Auto-Entrenamiento",
         slides: [
-{
-            title: "Dominio de KPIs y Sistema de Auto-Entrenamiento",
-            content: "Bienvenido al Módulo 6.4A — Dominio de KPIs y Sistema de Auto-Entrenamiento. Los asesores que construyen carreras a largo plazo en energía solar no siempre son los más talentosos — son los más conscientes de sí mismos. Saben exactamente dónde están muriendo sus tratos. Conocen su tasa de cierre, su tasa de asistencia, su tasa de establecimiento — y saben en cuál trabajar esta semana. Un asesor que no puede identificar su propio cuello de botella es un asesor que repetirá los mismos errores indefinidamente y se preguntará por qué los resultados no cambian. Este módulo te da los seis KPIs principales que debes rastrear y un marco semanal de auto-entrenamiento que convierte tus propios datos en tu herramienta de entrenamiento más valiosa.",
-            image: "/images/kpi_dashboard.png"
-          },
-          {
-            title: "Los Seis KPIs Solares Principales",
-            content: "Hay seis KPIs principales que todo asesor solar debe rastrear semanalmente sin excepción. Puertas tocadas — la actividad que inicia todo. Conversaciones — cuántos propietarios se comprometieron realmente más allá de \"no me interesa\". Citas establecidas — cuántos acordaron una hora específica. Citas asistidas — cuántas realmente ocurrieron. Propuestas presentadas — cuántas presentaciones completas se entregaron. Y tratos cerrados — cuántos contratos fueron firmados. Cada proporción entre estas métricas revela una fuga específica en tu proceso. Pocas conversaciones por puerta significa que tu apertura necesita trabajo. Baja tasa de asistencia significa que tu proceso de confirmación está roto. Baja tasa de cierre significa que tu presentación o manejo de objeciones es el eslabón débil. Los números te dicen exactamente qué practicar.",
-            image: "/images/kpi_dashboard.png"
-          },
-          {
-            title: "Diagnosticando tu Cuello de Botella",
-            content: "La sesión semanal de auto-entrenamiento es un ritual de quince minutos los viernes que vale más que la mayoría de los entrenamientos del equipo. Hazte cinco preguntas. ¿Toqué cien puertas esta semana — y si no, qué lo impidió específicamente? ¿Establecí ocho o más citas — y si no, dónde se rompió la conversación? ¿Asistí a cada cita programada — y si no, qué pasó con mi proceso de confirmación? ¿Cerré al menos un trato — y si no, exactamente dónde los perdí? Y: ¿tengo diez o más citas programadas para la próxima semana — y si no, estoy atrasado? Estas cinco preguntas fuerzan una autoevaluación honesta. Reemplazan la narrativa emocional de \"fue una semana difícil\" con datos específicos y accionables.",
-            image: "/images/kpi_dashboard.png"
-          },
-          {
-            title: "El Proceso Semanal de Auto-Revisión",
-            content: "El ejercicio de proyección de ingresos es cómo conectas tus KPIs con tus metas financieras — y haces que la relación entre actividad e ingresos sea concreta y motivadora. Comienza con tu meta de ingresos. Divídela por tu comisión promedio por trato. Eso te da el número de tratos cerrados que necesitas por mes. Divide por tu tasa de cierre para obtener las citas que necesitas. Divide por tu tasa de asistencia para obtener las citas que necesitas establecer. Divide por tu tasa de establecimiento para obtener las conversaciones que necesitas. Divide por tu tasa de conversación para obtener las puertas que necesitas tocar. Cada número en esa cadena es conocible — y controlable. Cuando ves que tu meta de ingresos requiere noventa y siete puertas por semana y tocaste sesenta y dos la semana pasada, la brecha no es motivacional. Es matemática. Y la matemática tiene una solución.*Fin de las Transcripciones ElevenLabs de Módulos V2*\n*17 módulos completos — listos para generación en ElevenLabs*\n*Próximo paso: generar audio por módulo, crear estructura de carpetas en /public/audio/modules/mod_XXXX/*",
-            image: "/images/kpi_dashboard.png"
-          }
+          { title: "Dominio de KPIs y Sistema de Auto-Entrenamiento", content: "Rastrea los números. Adueñate de los resultados.", image: "/images/kpi_dashboard.png" },
+          { title: "Los Seis KPIs Solares Principales", content: "Puertas ➔ Agendadas ➔ Asistidas ➔ Presentadas ➔ Cerradas ➔ ACV", image: "/images/kpi_dashboard.png" },
+          { title: "Diagnosticando tu Cuello de Botella", content: "Baja tasa de citas = problema en puerta.\nBaja tasa de asistencia = problema de confirmación.\nBaja tasa de cierre = problema en discurso/objeciones.", image: "/images/kpi_dashboard.png" },
+          { title: "El Proceso Semanal de Auto-Revisión", content: "15 minutos. Revisa números. Encuentra la fuga. Establece una meta conductual.", image: "/images/kpi_dashboard.png" }
         ]
       }
     ],
@@ -4253,75 +4179,46 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_6_4a_1",
         type: "open_response",
-        label: "Autoevaluación del Dominio",
-        placeholder: "Set rate: __ | Show rate: __ | Close rate: __ | Biggest gap: ...",
+        label: "Usando los números de la semana pasada, calcula tu tasa de agendamiento, tasa de asistencia y tasa de cierre. ¿Cuál es tu brecha más grande?",
+        placeholder: "Tasa de agendamiento: __ | Tasa de asistencia: __ | Tasa de cierre: __ | Mayor brecha: ...",
         lines: 3
       },
       {
         id: "wb_6_4a_2",
         type: "open_response",
-        label: "Sprint de Preguntas de Práctica",
-        placeholder: "This week I will specifically...",
+        label: "Escribe una meta conductual específica para esta semana basada en el diagnóstico de tu cuello de botella:",
+        placeholder: "Esta semana haré específicamente...",
         lines: 2
       }
-    ],
-    quiz: {
-      title: "Module 6.4A Knowledge Check",
-      questions: [
-{
-          id: "kc_6_4a_1",
-          question: "La tasa de cierre de un representante es del 35%, pero su tasa de asistencia (show rate) es de solo el 45%. ¿Dónde deberían enfocarse primero?",
-          options: [
-"Mejorar su tasa de cierre.",
-            "Mejorar su tasa de asistencia — si las citas no ocurren, los cierres son imposibles sin importar la habilidad.",
-            "Tocar más puertas para compensar.",
-            "Aumentar el valor promedio de su contrato."
-          ],
-          correctAnswerIndex: 1,
-          explanation: "Corrige la fuga más grande primero. Si el 55% de tus citas nunca ocurren, ninguna tasa de cierre puede compensar eso."
-        },
-        {
-          id: "kc_6_4a_2",
-          question: "¿Qué indica más probablemente una tasa de agendamiento ('set rate') consistentemente baja?",
-          options: [
-"El representante está cerrando de manera demasiado agresiva.",
-            "La presentación en el hogar necesita trabajo.",
-            "El representante tiene un problema en la puerta — apertura, posicionamiento o selección de prospectos.",
-            "El representante está trabajando en los vecindarios equivocados."
-          ],
-          correctAnswerIndex: 2,
-          explanation: "La tasa de agendamiento es la conversión de puerta a cita. Una tasa baja indica un problema en el primer contacto."
-        }
-      ]
-    }
+    ]
   },
   mod_6_5: {
     id: "mod_6_5",
-    title: "Módulo 6.5: PRÁCTICA DE ESCENARIOS AVANZADOS",
-    subtitle: "Manage the post-sale process so customers trust you through every phase.",
+    title: "Módulo 6.5: Gestión del Ciclo de Vida del Proyecto",
+    subtitle: "Gestiona el proceso post-venta para que los clientes confíen en ti en cada fase.",
     sections: [
-{
-        title: "Escenario A — El Investigador",
+      {
+        title: "Las 7 Fases del Ciclo de Vida de Instalación Solar",
         type: "list",
-        content: "Este propietario ha investigado NEM 3.0, cargos del distribuidor y curvas de degradación antes de que llegaras. Están probando tu experiencia. No repitas lo básico — pregunta qué ya han aprendido y dónde están sus brechas. Usa lenguaje técnico. Admite cuando necesitas confirmar cifras exactas en lugar de simular. Luego pregunta: basado en todo lo que has investigado, ¿cuál es la única cosa que todavía te está deteniendo? Esa pregunta casi siempre saca el obstáculo real — que usualmente no es técnico en absoluto.",
+        content: "Establecer las expectativas correctas antes de cada fase elimina el 80% de las cancelaciones. Los clientes cancelan cuando se sorprenden de forma negativa; se quedan cuando saben exactamente qué viene a continuación.",
         items: [
-"Phase 1 — Contract & Welcome: 24-hour confirmation call. Confirm documents, set expectations.",
-          "Phase 2 — Site Survey: Notify 48 hours before. 'An engineer will visit to measure your roof.'",
-          "Phase 3 — Permitting: 'This takes 3–8 weeks depending on your city. Normal and expected.'",
-          "Phase 4 — Install Scheduled: Excitement call. 'Your install date is confirmed!'",
-          "Phase 5 — Installation Day: Check-in morning of. Be reachable.",
-          "Phase 6 — Inspection & Interconnection: 'Almost there — utility company approves the connection.'",
-          "Phase 7 — PTO & Go-Live: Celebration call. 'Your system is live. Check your monitoring app!'"
+          "Fase 1 — Contrato y Bienvenida: Llamada de confirmación a las 24 horas. Confirma documentos, alinea expectativas.",
+          "Fase 2 — Visita Técnica de Ingeniería: Notificar 48 horas antes. 'Un ingeniero visitará para medir tu techo.'",
+          "Fase 3 — Permisos y Trámites: 'Esto toma de 3 a 8 semanas según tu ciudad. Es un proceso normal y esperado.'",
+          "Fase 4 — Instalación Programada: Llamada de entusiasmo. '¡Tu fecha de instalación está confirmada!'",
+          "Fase 5 — Día de Instalación: Check-in por la mañana del día programado. Mantente localizable.",
+          "Fase 6 — Inspección e Interconexión: 'Ya casi estamos allí — la compañía de servicios públicos aprueba la conexión.'",
+          "Fase 7 — Activación (PTO) y Encendido: Llamada de celebración. 'Tu sistema está en vivo. ¡Revisa tu aplicación!'"
         ]
       },
       {
-        title: "Escenario B — El Enfrentamiento de la Pareja Casada",
+        title: "Simulación: Gestionando un Retraso de Proyecto",
         type: "simulation",
-        scenarioId: "rodriguez_family",
-        content: "El esposo quiere solar. La esposa es escéptica por una experiencia previa con un contratista. Y hay un problema oculto — están planeando vender en cuatro años. Tu trabajo es equilibrar el entusiasmo por el esposo con la construcción de confianza para la esposa, abordar el plazo de cuatro años honestamente — lo que puede significar una descalificación parcial o una conversación honesta sobre estructuras de recuperación de inversión más cortas — y nunca tomar partido. Valida ambas perspectivas. Haz que la esposa se sienta escuchada antes de sentirse vendida. Su confianza es la clave del trato."
+        content: "Maneja a un cliente frustrado cuya instalación se ha retrasado 3 semanas.",
+        scenarioId: "rodriguez_family"
       }
     ],
     _meta: {
@@ -4331,41 +4228,41 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_6_5_1",
         type: "open_response",
-        label: "*(Con compañero o entrenador — 10 minutos por escenario)*\n\nEscenario A — El Investigador:\n¿Cómo salió? ¿Qué hiciste bien? ¿Qué cambiarías?",
-        placeholder: "Hey [Name], quick update on your project...",
+        label: "Escribe un mensaje proactivo de actualización de 2 frases que enviarías a un cliente en la Fase 3 (permisos) para evitar que llame ansioso.",
+        placeholder: "Hola [Name], una actualización rápida de tu proyecto...",
         lines: 3
       }
     ]
   },
   mod_6_6: {
     id: "mod_6_6",
-    title: "Módulo 6.6: EXAMEN DE CERTIFICACIÓN",
-    subtitle: "Build a career that lasts by treating every customer as a long-term relationship.",
+    title: "Módulo 6.6: Reputación Profesional y Ética a Largo Plazo",
+    subtitle: "Construye una carrera duradera tratando a cada cliente como una relación a largo plazo.",
     sections: [
-{
-        title: "Visión General del Examen",
+      {
+        title: "La Ecuación de la Reputación",
         type: "text",
-        content: "El examen de certificación tiene cincuenta preguntas que cubren cinco áreas. Tecnología solar y componentes del sistema — veinte por ciento. Análisis de la factura de servicios públicos y financiamiento — veinte por ciento. Psicología del propietario y el marco BOLT — veinte por ciento. Manejo de objeciones y cierre — veinticinco por ciento. Cumplimiento y ética — quince por ciento. Necesitas un ochenta por ciento o más para pasar. Esta no es una prueba que pases estudiando mucho la noche anterior — es una prueba que pasas estando completamente presente durante los Días Uno al Seis. Si has hecho el trabajo, estás listo."
+        content: "En las ventas de energía solar, tu reputación es tu activo comercial más valioso. Un cierre deshonesto genera una queja, una cancelación, una mala reseña y la pérdida de árboles de referidos que habrían generado más de $50,000 en comisiones futuras. Vender con ética no es solo lo correcto, es lo más rentable."
       },
       {
-        title: "The Integrity Standards of a Certified SeptiVolt Rep",
+        title: "Las Normas de Integridad de un Representante Certificado de SeptiVolt",
         type: "list",
-        content: "These aren't guidelines — they're the non-negotiables of the profession.",
+        content: "Estas no son pautas — son los aspectos no negociables de la profesión.",
         items: [
-"Never misrepresent savings projections — use conservative, honest estimates",
-          "Disclose all contract terms clearly — cancellation windows, escalators, and conditions",
-          "Never pressure a decision — if they need 48 hours, respect it",
-          "If a deal isn't right for the homeowner, walk away — referrals follow integrity",
-          "Report any ethical concerns about team members to your manager immediately"
+          "Nunca distorsiones las proyecciones de ahorro — usa estimaciones conservadoras y honestas",
+          "Revela todos los términos del contrato con claridad — plazos de cancelación, cláusulas de aumento y condiciones",
+          "Nunca presiones una decisión — si necesitan 48 horas, respétalo",
+          "Si un trato no es adecuado para el propietario, retírate — los referidos siguen a la integridad",
+          "Informa de inmediato a tu gerente cualquier inquietud ética sobre los miembros del equipo"
         ]
       },
       {
-        title: "The Long-Term Perspective",
+        title: "La Perspectiva a Largo Plazo",
         type: "quote",
-        content: "\"The rep who manipulates a customer into a bad deal closes one sale and loses a territory. The rep who earns trust closes one sale and gains twenty referrals. Your long-term income is built on reputation, not tricks.\""
+        content: "\"El representante que manipula a un cliente para lograr un mal trato cierra una venta y pierde un territorio. El representante que se gana la confianza cierra una venta y obtiene veinte referidos. Tus ingresos a largo plazo se basan en tu reputación, no en trucos.\""
       }
     ],
     _meta: {
@@ -4375,36 +4272,36 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_6_6_1",
         type: "open_response",
-        label: "Califica tu nivel de preparación en cada área (1–5):\n\n| Área | Mi Nivel (1–5) | Lo que Necesito Repasar |\n|---|---|---|\n| Tecnología solar y componentes | _____ | _________________________ |\n| Análisis de facturas y financiamiento | _____ | _________________________ |\n| Psicología del propietario y BOLT | _____ | _________________________ |\n| Manejo de objeciones y cierre | _____ | _________________________ |\n| Cumplimiento y ética | _____ | _________________________ |\n\nMi área más débil que debo repasar esta noche:",
-        placeholder: "I would walk away if...",
+        label: "Describe una situación donde retirarte de una venta sería la decisión ética correcta. ¿Cómo la manejarías?",
+        placeholder: "Me retiraría del trato si...",
         lines: 4
       }
     ]
   },
   mod_6_7: {
     id: "mod_6_7",
-    title: "Módulo 6.7: CIERRE DEL DÍA 6 Y VISTA PREVIA DEL DÍA 7",
-    subtitle: "Map your trajectory from rep to team leader and beyond.",
+    title: "Módulo 6.7: Trayectoria Profesional y Escalamiento de Ingresos",
+    subtitle: "Traza tu trayectoria desde representante hasta líder de equipo y más allá.",
     sections: [
-{
-        title: "Estás Listo para el Día 7",
+      {
+        title: "La Escalera de Carrera Solar",
         type: "list",
-        content: "Has aprendido más en seis días de lo que la mayoría de los reps de solar aprenden en tres meses. Mañana es diferente — no es un día de aula. Pasarás la mañana acompañando a tu gerente en tres citas en vivo, observando cómo cada habilidad de este programa se desarrolla en un hogar real con propietarios reales. Después del almuerzo, realizas una cita completa tú mismo, con tu gerente observando en silencio. Luego debrief, recibes tu evaluación de campo y te autorizas para vender de forma independiente. Duerme bien. Estás listo.",
+        content: "La industria solar es una de las pocas donde un representante puede pasar de un nivel básico a ingresos de seis cifras en 12 meses, y a roles de liderazgo en 24 meses.",
         items: [
-"Level 1 — Certified Rep (Month 1–3): Building fundamentals, $3K–$8K/mo",
-          "Level 2 — Senior Rep (Month 4–12): Consistent 4+ deals/mo, $10K–$18K/mo",
-          "Level 3 — Lead Rep / Trainer (Month 12–18): Mentoring new reps, override income",
-          "Level 4 — Team Lead / Manager (Year 2+): Team of 5–15, override + personal production",
-          "Level 5 — Regional Director: Multi-team leadership, equity and equity-style comp"
+          "Nivel 1 — Representante Certificado (Meses 1–3): Construyendo fundamentos básicos, ingresos estimados $3K–$8K/mes.",
+          "Nivel 2 — Representante Senior (Meses 4–12): Consistencia de 4 o más acuerdos mensuales, ingresos $10K–$18K/mes.",
+          "Nivel 3 — Representante Líder / Entrenador (Meses 12–18): Mentoría de nuevos representantes, ingresos de comisiones personales + comisiones de supervisión.",
+          "Nivel 4 — Líder de Equipo / Gerente (Año 2+): Gestión de un equipo de 5–15 representantes, comisiones de supervisión grupal + producción personal.",
+          "Nivel 5 — Director Regional: Dirección de múltiples equipos, participación en utilidades y compensación basada en equidad de la empresa."
         ]
       },
       {
-        title: "Writing Your Income Goals",
+        title: "Escribiendo tus Metas de Ingresos",
         type: "text",
-        content: "Goal-setting without specifics is just wishful thinking. Your 1-year, 3-year, and 5-year income goals must be connected to specific activity levels — otherwise they're not goals, they're fantasies."
+        content: "Establecer metas sin detalles específicos es solo una ilusión. Tus metas de ingresos a 1, 3 y 5 años deben estar conectadas con niveles de actividad específicos; de lo contrario, no son metas, son fantasías."
       }
     ],
     _meta: {
@@ -4414,130 +4311,126 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_6_7_1",
         type: "open_response",
-        label: "Reflexiona sobre el Cierre del Día 6 y la Vista Previa del Día 7: ¿Cómo lo aplicarás?",
-        placeholder: "Year 1: $... | Role: ... | Skill: ...",
-        lines: 6
+        label: "Escribe tus metas de ingresos a 1, 3 y 5 años. Para cada una, indica el rol que debes alcanzar y la actividad semanal requerida.",
+        placeholder: "Año 1: Meta de $___ | Rol: ___ | Actividad: ...",
+        lines: 4
       }
     ]
   },
   mod_6_8: {
     id: "mod_6_8",
-    title: "Module 6.8: Day 6 Final Certification Exam",
-    subtitle: "Demonstrate mastery across all six days of the accelerator.",
+    title: "Módulo 6.8: Examen de Certificación Final del Día 6",
+    subtitle: "Demuestra tu dominio en los temas de los primeros seis días del acelerador.",
     sections: [
-{
-        title: "Certification Exam ΓÇö Written Component",
+      {
+        title: "Examen de Certificación — Componente Escrito",
         type: "text",
-        content: "This exam covers all material from Days 1 through 6. You must score 80% or higher to receive the SeptiVolt Sales Rep Certification. You have one retake opportunity if you score below 80% on your first attempt."
+        content: "Este examen cubre todo el material desde el Día 1 hasta el Día 6. Debes obtener un puntaje de 80% o más para recibir la Certificación de Representante de Ventas de SeptiVolt. Tienes una oportunidad de recuperación si obtienes menos del 80% en tu primer intento."
       }
     ],
-    workbookPrompts: [],
-    quiz: {
-      title: "Day 6 Certification Exam",
-      questions: [
-{
-          id: "cert_6_1",
-          question: "What are the three referral trigger moments?",
-          options: [
-"Door knock, appointment set, contract signed",
-            "Post-signature, install complete, first low bill",
-            "Day 1, Day 3, Day 7",
-            "CRM entry, survey, installation"
-          ],
-          correctAnswerIndex: 1,
-          explanation: "The three trigger moments are post-signature euphoria, system install complete, and first low utility bill."
-        },
-        {
-          id: "cert_6_2",
-          question: "Which KPI diagnoses a problem specifically at the door?",
-          options: [
-"Close Rate",
-            "Average Contract Value",
-            "Set Rate",
-            "Show Rate"
-          ],
-          correctAnswerIndex: 2,
-          explanation: "Set rate (appointments set per door knocked) measures door effectiveness directly."
-        },
-        {
-          id: "cert_6_3",
-          question: "What is an 'orphan owner'?",
-          options: [
-"A prospect who has never heard of solar",
-            "A customer who cancelled their contract",
-            "A customer whose original rep left the company",
-            "A homeowner with no utility bill history"
-          ],
-          correctAnswerIndex: 2,
-          explanation: "Orphan owners are existing customers with no active rep ΓÇö they're warm and reachable."
-        },
-        {
-          id: "cert_6_4",
-          question: "When should you first ask for a review?",
-          options: [
-"During the sales presentation",
-            "Within 48 hours of system installation",
-            "After the first utility bill arrives",
-            "At the 6-month check-in"
-          ],
-          correctAnswerIndex: 1,
-          explanation: "Within 48 hours of install ΓÇö enthusiasm is at peak and the experience is fresh."
-        },
-        {
-          id: "cert_6_5",
-          question: "Which of these is an integrity violation?",
-          options: [
-"Disclosing all contract terms clearly",
-            "Using conservative savings estimates",
-            "Pressuring a customer to sign before 48 hours they requested",
-            "Walking away from a bad-fit deal"
-          ],
-          correctAnswerIndex: 2,
-          explanation: "Pressuring a customer who requested time to decide violates professional ethics standards."
-        }
-      ]
-    },
     _meta: {
       requestedLanguage: "es",
-      resolvedLanguage: "en",
+      resolvedLanguage: "es",
       isTextFallback: true,
-      missingFields: [
-"title",
-        "subtitle",
-        "sections"
+      missingFields: []
+    },
+    workbookPrompts: [],
+    quiz: {
+      title: "Examen de Certificación Escrito del Día 6",
+      questions: [
+        {
+          id: "kc_6_8_1",
+          question: "Al explicar el Crédito Fiscal Federal (ITC) a un propietario, ¿cuál afirmación cumple estrictamente con las normas?",
+          options: [
+            "\'Se le garantiza recibir un cheque de reembolso del gobierno por el 30% del costo del sistema.\'",
+            "\'Este es un crédito fiscal del 30% que reduce lo que debe en impuestos federales sobre la renta. Debería verificar con un profesional de impuestos para confirmar cómo se aplica a usted.\'",
+            "\'Todos califican para el reembolso del 30%, e incluso si no paga impuestos, el gobierno le enviará un cheque.\'",
+            "\'El crédito fiscal del 30% expirará a finales de este año, por lo que debe firmar hoy para asegurarlo.\'"
+          ],
+          correctAnswerIndex: 1,
+          explanation: "El cumplimiento exige que presentemos el ITC como un crédito fiscal condicional, nunca como un cheque de reembolso garantizado, y siempre derivando a un profesional fiscal."
+        },
+        {
+          id: "kc_6_8_2",
+          question: "Si un propietario tiene un plan de tarifa de Uso por Tiempo (TOU), ¿cuándo es más valioso un sistema de almacenamiento de batería?",
+          options: [
+            "Solo durante cortes de energía para mantener las luces encendidas.",
+            "Para almacenar energía solar excedente del mediodía y consumirla durante las horas pico de la tarde, evitando comprar energía de la red a tarifas máximas.",
+            "Para exportar la mayor cantidad de energía posible a la red durante el mediodía.",
+            "Solo si el sistema solar no es lo suficientemente grande como para cubrir sus necesidades diarias de energía."
+          ],
+          correctAnswerIndex: 1,
+          explanation: "La batería agrega valor al almacenar energía generada a bajo costo al mediodía para usarla durante las horas pico de tarifa (TOU) en la tarde."
+        },
+        {
+          id: "kc_6_8_3",
+          question: "¿Cuál es el mejor enfoque cuando un cliente presenta una objeción de 'necesito pensarlo' al final de la presentación?",
+          options: [
+            "Presionar para que firmen el contrato de inmediato ofreciendo un descuento por única vez.",
+            "Aceptar la objeción y retirarse rápidamente sin hacer más preguntas.",
+            "Aplicar el marco A.C.A. (Reconocer, Pregunta Calibrada, Transición) para comprender la causa raíz de la duda y mantener la conversación.",
+            "Decirles que el precio subirá mañana si no firman hoy."
+          ],
+          correctAnswerIndex: 2,
+          explanation: "A.C.A. te ayuda a desarmar la presión y entender la verdadera causa de la duda (como miedo al contrato, falta de confianza o confusión) de manera consultiva."
+        },
+        {
+          id: "kc_6_8_4",
+          question: "Bajo la ley federal actual y las directrices de cumplimiento de SeptiVolt, ¿cuál de las siguientes afirmaciones sobre la solar residencial es VERDADERA?",
+          options: [
+            "Los ahorros solares están legalmente garantizados por el distribuidor de servicios públicos local.",
+            "Según la guía federal actual, el crédito residencial de energía limpia aplicaba a propiedades solares residenciales calificadas instaladas hasta el 31 de diciembre de 2025. Nunca prometas un reembolso, cheque o ahorro fiscal garantizado. La elegibilidad depende de la ley vigente.",
+            "El crédito fiscal federal del 30% está garantizado por el gobierno para seguir disponible indefinidamente sin importar la fecha de instalación.",
+            "Los representantes pueden firmar documentos de incentivos en nombre de los clientes para acelerar el proceso."
+          ],
+          correctAnswerIndex: 1,
+          explanation: "Cumplimiento exige precisión sobre los plazos legales y el carácter condicional del incentivo federal de energía limpia."
+        },
+        {
+          id: "kc_6_8_5",
+          question: "¿Cuál de los siguientes es un hito clave que un representante solar debe rastrear en su CRM bajo el marco 7-7-7?",
+          options: [
+            "La fecha de la primera llamada en frío al vecindario.",
+            "Hitos críticos como encuesta completada, aprobación de diseño, permisos, fecha de instalación y fecha de activación (PTO).",
+            "La cantidad de folletos entregados por semana.",
+            "Solo el número de firmas acumuladas sin importar el estado del proyecto."
+          ],
+          correctAnswerIndex: 1,
+          explanation: "Rastrear hitos desde el contrato hasta el PTO permite identificar y resolver cuellos de botella en la instalación de forma proactiva."
+        }
       ]
     }
   },
   mod_7_1: {
     id: "mod_7_1",
     title: "Módulo 7.1: SESIÓN INFORMATIVA PRE-CAMPO",
-    subtitle: "Mental and tactical preparation for your field certification day.",
+    subtitle: "Preparación mental y táctica para tu día de certificación de campo.",
     sections: [
-{
+      {
         title: "Modo Sombra — Qué Observar",
         type: "text",
-        content: "Esta mañana estás en modo sombra. Tu trabajo es observar y tomar notas — no participar a menos que tu gerente te invite. Mientras observas cada cita, enfócate en cinco cosas: cómo se posiciona físicamente tu gerente en el hogar, cómo maneja las interrupciones inesperadas, cómo identifica y se adapta a los tipos de personalidad en tiempo real, cómo frasea las respuestas a las objeciones de manera diferente a cómo estaban escritas en el guión, y cuándo y cómo hace el cierre. Después de cada cita, harás un debrief en el auto. Haz cada pregunta que surgió."
+        content: "Esta mañana estás en modo sombra. Tu trabajo es observar y tomar notas — no participar a menos que tu gerente te invite. Mientras observas cada cita, enfócate en la dinámica de la conversación. Cómo maneja tu gerente la apertura a la puerta. Cómo transicionan del descubrimiento a la mesa de la cocina. Cómo explican las tarifas de uso por tiempo. Qué objeciones surgen y exactamente qué palabras usan para manejarlas. Estás aquí para estudiar a un profesional en acción — toma notas de todo."
       },
       {
-        title: "Your Pre-Field Checklist",
+        title: "Tu Lista de Verificación Pre-Campo",
         type: "list",
-        content: "Before you leave for the field, confirm every item on this list.",
+        content: "Antes de salir al campo, confirma cada elemento de esta lista.",
         items: [
-"Discovery script reviewed and internalized — no cue cards",
-          "Top 10 objections practiced verbally this morning",
-          "Presentation flow memorized — all 6 phases",
-          "Referral ask scripted and ready",
-          "Professional appearance — business casual, clean, prepared",
-          "Phone charged, CRM access confirmed, manager contact saved"
+          "Guion de descubrimiento repasado e internalizado — sin tarjetas de apoyo",
+          "Las 10 objeciones principales practicadas verbalmente esta mañana",
+          "Flujo de presentación memorizado — las 6 fases",
+          "Solicitud de referidos con guion listo",
+          "Apariencia profesional — casual de negocios, limpio, preparado",
+          "Teléfono cargado, acceso al CRM confirmado, contacto del gerente guardado"
         ]
       },
       {
-        title: "The Mindset for Field Day",
+        title: "La Mentalidad para el Día de Campo",
         type: "quote",
-        content: "\"You are not going to observe today — you are going to study. Watch every move your manager makes and ask yourself: why did they do that? What was the customer's reaction? What would I have done differently? Learning never stops, even after you're certified.\""
+        content: "\"Hoy no vas a observar, vas a estudiar. Observa cada movimiento que hace tu gerente y pregúntate: ¿por qué hizo eso? ¿Cuál fue la reacción del cliente? ¿Qué habría hecho yo diferente? El aprendizaje nunca se detiene, incluso después de estar certificado.\""
       }
     ],
     _meta: {
@@ -4547,41 +4440,35 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_7_1_1",
-        type: "checklist",
-        label: "Antes de salir, responde estas preguntas en voz alta con tu gerente:\n\n¿Cuál es la habilidad específica que más quiero observar hoy?",
-        items: [
-"Scripts reviewed",
-          "Objections drilled",
-          "Appearance ready",
-          "Phone charged",
-          "CRM confirmed",
-          "Mindset locked in"
-        ]
+        type: "open_response",
+        label: "Antes de salir, responde estas preguntas en voz alta con tu gerente:\n\n¿Cuál es la habilidad específica que más quiero observar hoy? ¿Cuál es mi plan para mantenerme enfocado y tomar buenas notas sin distraer al cliente?",
+        placeholder: "Hoy quiero enfocarme en...",
+        lines: 3
       }
     ]
   },
   mod_7_2: {
     id: "mod_7_2",
     title: "Módulo 7.2: CITA #1 — SOMBRA Y OBSERVACIÓN",
-    subtitle: "Observe a live appointment and extract specific, actionable lessons.",
+    subtitle: "Observa una cita en vivo y extrae lecciones específicas y accionables.",
     sections: [
-{
+      {
         title: "Debrief Después de la Cita 1",
         type: "text",
         content: "Después de cada cita sombra, el debrief en el auto es tan importante como la cita misma. Tu gerente preguntará qué notaste. Trae observaciones específicas — no pensamientos generales. Luego tu gerente te explicará qué estaban pensando en momentos clave. Por qué desaceleraron cuando la esposa se quedó callada. Por qué eligieron el cierre del resumen en lugar del cierre asuntivo. Por qué preguntaron sobre el vehículo eléctrico en ese punto específico del descubrimiento. Estos momentos de contexto convierten la observación en perspectiva."
       },
       {
-        title: "Shadow Observation Framework",
+        title: "Marco de Observación para Citas de Acompañamiento",
         type: "list",
-        content: "Use this framework for every appointment you shadow today.",
+        content: "Utiliza este marco de referencia para cada cita sombra que acompañes hoy.",
         items: [
-"Opening: How did they establish authority and likability in the first 2 minutes?",
-          "Discovery: Which questions created the biggest emotional response?",
-          "Presentation: Where did the customer lean in vs. check out?",
-          "Objections: Which technique did they use and did it land?",
-          "Close: What specifically triggered the decision?"
+          "Apertura: ¿Cómo estableció autoridad y simpatía en los primeros dos minutos?",
+          "Descubrimiento: ¿Qué preguntas crearon la mayor respuesta emocional?",
+          "Presentación: ¿Dónde se interesó más el cliente frente a cuándo se distrajo?",
+          "Objeciones: ¿Qué técnica de manejo de objeciones usaron y si funcionó?",
+          "Cierre: ¿Qué motivó específicamente la decisión final?"
         ]
       }
     ],
@@ -4592,7 +4479,7 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_7_2_1",
         type: "open_response",
         label: "Reflexiona sobre la Cita #1 — Sombra y Observación: ¿Cómo lo aplicarás?",
@@ -4604,9 +4491,9 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
   mod_7_3: {
     id: "mod_7_3",
     title: "Módulo 7.3: CITA #2 — SOMBRA Y OBSERVACIÓN",
-    subtitle: "Deepen your observation skills and identify repeatable patterns.",
+    subtitle: "Profundiza tus habilidades de observación e identifica patrones repetibles.",
     sections: [
-{
+      {
         title: "Crítica Constructiva",
         type: "text",
         content: "Después de la segunda cita, tu gerente preguntará: ¿qué habrías hecho diferente? Esto no es una prueba — es un ejercicio de reflexión. Piensa en momentos donde la conversación podría haber tomado otra dirección. ¿Cuándo dio el propietario una señal de compra que no fue reconocida inmediatamente? ¿Qué objeción podría haberse manejado con una técnica diferente? Este tipo de crítica constructiva — ya sea en la cita de tu gerente o en la tuya — es cómo los reps de élite se desarrollan más rápido que los promedio."
@@ -4619,7 +4506,7 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_7_3_1",
         type: "open_response",
         label: "Reflexiona sobre la Cita #2 — Sombra y Observación: ¿Cómo lo aplicarás?",
@@ -4631,9 +4518,9 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
   mod_7_4: {
     id: "mod_7_4",
     title: "Módulo 7.4: CITA #3 — SOMBRA Y OBSERVACIÓN",
-    subtitle: "Final observation before you run your own appointment.",
+    subtitle: "Última observación antes de que realices tu propia cita.",
     sections: [
-{
+      {
         title: "Preparando Tu Plan de Juego",
         type: "text",
         content: "Después de la tercera cita sombra, antes del almuerzo, tu gerente preguntará: vas a continuación después del almuerzo — ¿cuál es tu plan de juego? Explica tu enfoque en voz alta. ¿Cómo abrirás? ¿Con qué preguntas de descubrimiento liderarás? ¿Qué tipo de personalidad esperas basado en la información del lead? ¿Qué objeciones podrían surgir? ¿Cómo planeas cerrar? Articular esto en voz alta es una forma de ensayo mental que mejora significativamente la ejecución. Tu gerente dará ajustes de entrenamiento antes de que entres."
@@ -4646,7 +4533,7 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_7_4_1",
         type: "open_response",
         label: "Reflexiona sobre la Cita #3 — Sombra y Observación: ¿Cómo lo aplicarás?",
@@ -4658,18 +4545,18 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
   mod_7_5: {
     id: "mod_7_5",
     title: "Módulo 7.5: MÓDULO 7.5 — PREPARACIÓN PRE-CITA",
-    subtitle: "The 10-minute ritual that separates prepared reps from reactive ones.",
+    subtitle: "El ritual de 10 minutos que separa a los representantes preparados de los reactivos.",
     sections: [
-{
+      {
         title: "Entrenamiento de Último Minuto",
         type: "list",
         content: "En los quince minutos antes de tu cita, tu gerente te hará cinco preguntas. ¿Qué sabes sobre este propietario? ¿Cuál es tu apertura? ¿Qué objeciones esperas? ¿A qué tipo de propietario se parece esto? ¿Y cómo cerrarás? Responde las cinco en voz alta. No adivines — apóyate en tu formación. Luego respira. Has practicado esto durante seis días. Conoces el marco. Conoces las objeciones. Sabes cómo leer el ambiente. Confía en tu preparación y ve a ejecutar.",
         items: [
-"Review the customer's utility bill data and usage history",
-          "Identify 2 likely objections based on what you know about them",
-          "Rehearse your opening 60 seconds out loud — in the car, alone",
-          "Set your intention: 'I am here to help this family make a great decision'",
-          "Deep breath — walk in calm, confident, and present"
+          "Revisa los datos de la factura de electricidad del cliente y su historial de consumo",
+          "Identifica 2 objeciones probables basadas en lo que sabes sobre ellos",
+          "Ensaya tus primeros 60 segundos de apertura en voz alta — solo en el auto",
+          "Establece tu intención: 'Estoy aquí para ayudar a esta familia a tomar una excelente decisión'",
+          "Respira hondo — entra calmado, seguro y presente"
         ]
       }
     ],
@@ -4680,7 +4567,7 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_7_5_1",
         type: "open_response",
         label: "Reflexiona sobre la Preparación Pre-Cita: ¿Cómo lo aplicarás?",
@@ -4692,17 +4579,17 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
   mod_7_6: {
     id: "mod_7_6",
     title: "Módulo 7.6: MÓDULO 7.6 — EL REP REALIZA UNA CITA COMPLETA",
-    subtitle: "Your live certification appointment — run the full process from discovery to close.",
+    subtitle: "Tu cita de certificación en vivo — realiza el proceso completo desde el descubrimiento hasta el cierre.",
     sections: [
-{
+      {
         title: "Realizando la Cita",
         type: "text",
         content: "Este es tu momento. Tu gerente se sentará silenciosamente y observará — no intervendrá a menos que te quedes paralizado o el propietario les haga una pregunta directa. Tu trabajo es realizar la cita completa desde el descubrimiento hasta el cierre como si nadie más estuviera en la habitación. Usa todo del Día Uno al Seis. Controla el entorno. Lee la personalidad. Haz las doce preguntas de descubrimiento. Entrega la pila de valor. Maneja cada objeción con A.C.A. Pide la venta. Y si cierran — pide un referido antes de salir. Esto es real. Haz tu trabajo."
       },
       {
-        title: "Post-Appointment Self-Assessment",
+        title: "Autoevaluación Post-Cita",
         type: "text",
-        content: "Immediately after the appointment, before your manager gives feedback, do your own honest assessment. What went well? Where did you hesitate? What would you change? Self-awareness is the foundation of improvement."
+        content: "Inmediatamente después de la cita, antes de que tu gerente te dé su retroalimentación, realiza tu propia evaluación honesta. ¿Qué salió bien? ¿Dónde dudaste? ¿Qué cambiarías? La autoconciencia es la base del crecimiento."
       }
     ],
     _meta: {
@@ -4712,7 +4599,7 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_7_6_1",
         type: "open_response",
         label: "Reflexiona sobre el Rep Realizando una Cita Completa: ¿Cómo lo aplicarás?",
@@ -4723,35 +4610,35 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
         id: "wb_7_6_2",
         type: "open_response",
         label: "Identifica un área en la presentación donde te hayas sentido dudoso. ¿Cuál es tu plan para dominarla?",
-        placeholder: "Me sentí dudoso en... Mi plan es...",
-        lines: 3
+        placeholder: "Mi mayor duda fue... Mi plan es...",
+        lines: 2
       }
     ]
   },
   mod_7_7: {
     id: "mod_7_7",
     title: "Módulo 7.7: MÓDULO 7.7 — DEBRIEF POST-CITA",
-    subtitle: "Receive your manager's feedback and certification outcome.",
+    subtitle: "Recibe la retroalimentación de tu gerente y el resultado de tu certificación.",
     sections: [
-{
+      {
         title: "Marco de Retroalimentación del Gerente",
         type: "text",
         content: "Tu gerente hará el debrief usando una estructura de tres partes. Primero, qué salió bien — cosas específicas que hiciste bien, con ejemplos de la cita. Segundo, qué mejorar — uno o dos ajustes específicos y accionables para tu próxima cita. Tercero, tu evaluación general: listo para el campo significa que comienzas a programar citas inmediatamente. Casi listo significa un día más de sombra. Necesita más formación significa juego de roles continuo antes de vender de manera independiente. Independientemente del resultado — realizaste una cita real hoy. Eso te pone por delante de donde empezaste hace siete días."
       },
       {
-        title: "Certification Outcomes",
+        title: "Resultados de la Certificación",
         type: "list",
-        content: "There are three possible outcomes from today's field certification.",
+        content: "Hay tres resultados posibles de la certificación de campo de hoy.",
         items: [
-"Certified — You demonstrated readiness across all five assessment criteria. You are cleared for independent field work.",
-          "Provisional Certification — Strong in most areas, one gap identified. Cleared for field with manager check-ins for 2 weeks.",
-          "Extension Recommended — Specific gap requires additional training. A focused 2-day extension plan will be provided."
+          "Certificado — Demostraste estar listo en los cinco criterios de evaluación. Estás aprobado para el trabajo de campo independiente.",
+          "Certificación Provisional — Fuerte en la mayoría de las áreas, se identificó una brecha. Aprobado para el campo con revisiones del gerente por 2 semanas.",
+          "Extensión Recomendada — Una brecha específica requiere capacitación adicional. Se proporcionará un plan de extensión enfocado de 2 días."
         ]
       },
       {
-        title: "Regardless of Outcome",
+        title: "Independientemente del Resultado",
         type: "quote",
-        content: "\"Every rep who goes through this program — regardless of certification outcome on Day 7 — is more prepared than 90% of the reps currently working in the field. Your training doesn't end today. It begins.\""
+        content: "\"Cada representante que pasa por este programa — independientemente del resultado de la certificación en el Día 7 — está más preparado que el 90% de los representantes que trabajan actualmente en el campo. Tu entrenamiento no termina hoy. Comienza.\""
       }
     ],
     _meta: {
@@ -4761,42 +4648,43 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_7_7_1",
         type: "open_response",
         label: "Reflexiona sobre el Debrief Post-Cita: ¿Cómo lo aplicarás?",
-        placeholder: "1. ...",
-        lines: 5
+        placeholder: "Manager feedback points: ...",
+        lines: 3
       },
       {
         id: "wb_7_7_2",
-        type: "rating",
-        label: "Notas de observación de dinámica de cónyuge — ¿cómo cambió la interacción cuando ambos cónyuges se involucraron?",
-        maxRating: 10
+        type: "open_response",
+        label: "Notas de observación de dinámica de cónyuge — ¿cómo cambió la conversación cuando ambos cónyuges estuvieron presentes?",
+        placeholder: "Both spouses present led to...",
+        lines: 2
       }
     ]
   },
   mod_7_8: {
     id: "mod_7_8",
     title: "Módulo 7.8: MÓDULO 7.8 — FIRMA DE CERTIFICACIÓN",
-    subtitle: "You are now a certified solar sales professional. Here is your launch plan.",
+    subtitle: "Ahora eres un profesional certificado en ventas de energía solar. Aquí está tu plan de lanzamiento.",
     sections: [
-{
+      {
         title: "Estás Certificado",
         type: "list",
         content: "Si has aprobado, tu gerente firmará tu formulario de certificación de campo y lo enviará a operaciones. Lo que sucede a continuación: tu CRM se activa con tus asignaciones de territorio, los leads entrantes comienzan a enrutarse a ti, y recibes tus tarjetas de presentación, letreros de jardín y materiales de marketing. Ahora eres un consultor de solar activo. El certificado no es el final — es el comienzo. Cada cita a partir de aquí construye tu habilidad, tu pipeline y tu reputación. Ve a ganártelo.",
         items: [
-"Week 1: 40 doors/day minimum — activity volume builds confidence",
-          "Week 2: 3 appointments set and run — measure all 5 KPIs daily",
-          "Week 3: 1 deal closed — first commission hits differently",
-          "Week 4: Referral system activated — ask at every close",
-          "30-day review with manager: KPI analysis and coaching plan for Month 2"
+          "Semana 1: Mínimo 40 puertas por día — el volumen de actividad genera confianza",
+          "Semana 2: 3 citas agendadas y realizadas — mide las 5 KPIs diariamente",
+          "Semana 3: 1 acuerdo cerrado — la primera comisión se siente diferente",
+          "Semana 4: Sistema de referidos activado — pide referidos en cada cierre",
+          "Revisión de 30 días con el gerente: Análisis de KPIs y plan de entrenamiento para el Mes 2"
         ]
       },
       {
-        title: "You Are Ready",
+        title: "Estás Listo",
         type: "quote",
-        content: "\"Seven days ago, you didn't know how to read a utility bill. Today, you can run a full appointment, handle any objection, close ethically, and build a referral pipeline. That is not a small thing. Go build your career.\""
+        content: "\"Hace siete días, no sabías cómo leer una factura de electricidad. Hoy, puedes realizar una cita completa, manejar cualquier objeción, cerrar éticamente y construir una red de referidos. Eso no es poca cosa. Ve y construye tu carrera.\""
       }
     ],
     _meta: {
@@ -4806,35 +4694,35 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_7_8_1",
         type: "open_response",
         label: "Reflexiona sobre la Firma de Certificación: ¿Cómo lo aplicarás?",
-        placeholder: "In my first 30 days I will...",
-        lines: 4
+        placeholder: "My first 30 days goal: ...",
+        lines: 3
       }
     ]
   },
   mod_7_9: {
     id: "mod_7_9",
     title: "Módulo 7.9: MÓDULO 7.9 — PROSPECCIÓN EN SOLITARIO",
-    subtitle: "Your first independent prospecting session as a certified SeptiVolt rep.",
+    subtitle: "Tu primera sesión de prospección independiente como representante certificado de SeptiVolt.",
     sections: [
-{
+      {
         title: "Tus Primeras Puertas en Solitario",
         type: "text",
         content: "Esta noche tocarás veinte puertas por tu cuenta. Usa tu apertura de treinta segundos, maneja cada rechazo con las técnicas de micro-objeción del Día Dos, e intenta programar al menos una cita para la próxima semana. Envía un mensaje de texto a tu gerente con tus resultados cuando termines — cuántas puertas, cuántas conversaciones, y cuántas citas programadas. Luego descansa. Mañana lo haces de nuevo. Y el día siguiente. Este es el trabajo que construye ingresos. Bienvenido a tu carrera en solar."
       },
       {
-        title: "20-Door Tracker",
+        title: "Seguimiento de las 20 Puertas",
         type: "list",
-        content: "Track each interaction. Data from your first solo session becomes your baseline for measuring improvement.",
+        content: "Realiza un seguimiento de cada interacción. Los datos de tu primera sesión en solitario se convierten en tu punto de partida para medir tu progreso.",
         items: [
-"Doors knocked: __/20",
-          "Contacts made (someone answered): __",
-          "Appointments set: __",
-          "Objections handled: __",
-          "One thing that surprised you: __"
+          "Puertas tocadas: __/20",
+          "Contactos logrados (alguien respondió): __",
+          "Citas agendadas: __",
+          "Objeciones manejadas: __",
+          "Una cosa que te sorprendió: __"
         ]
       }
     ],
@@ -4845,7 +4733,7 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
       missingFields: []
     },
     workbookPrompts: [
-{
+      {
         id: "wb_7_9_1",
         type: "open_response",
         label: "Escribiste tu \"Por Qué\" en el Día 6. Ahora que terminaste el entrenamiento y corriste tu primera cita real, ¿cambió algo en ese \"Por Qué\"? ¿Qué agregarías?",
