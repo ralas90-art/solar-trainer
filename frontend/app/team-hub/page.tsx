@@ -11,13 +11,22 @@ import {
   ChevronRight, CheckCircle, History, Plus, Trash2, Edit, Save, 
   ShieldCheck, Loader2, FileText, Send, UserCheck, Mail, ArrowUpRight, Printer
 } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import Link from "next/link"
+import { useCompanyVerticals } from "@/hooks/use-company-verticals"
+import { getAssignableCurriculumsGrouped } from "@/lib/assignment-curriculums"
 
 export default function ManagerCommandCenterPage() {
   const { user } = useAuth()
   const { isSpanish } = useLanguage()
   const t = (en: string, es: string) => isSpanish ? es : en
+
+  // ── Vertical-aware curriculum options (Sub-Phase 1D) ──
+  const { visibleVerticals } = useCompanyVerticals()
+  const curriculumOptionGroups = useMemo(
+    () => getAssignableCurriculumsGrouped(visibleVerticals),
+    [visibleVerticals]
+  )
 
   // Tabs
   const [activeTab, setActiveTab] = useState<"executive" | "branches" | "teams" | "roster" | "alerts" | "actions" | "templates" | "credentials">("executive")
@@ -1653,8 +1662,15 @@ export default function ManagerCommandCenterPage() {
                     className="w-full bg-[#121212] border border-white/10 rounded-xl p-3 text-xs text-slate-200 outline-none"
                   >
                     <option value="">{t("None", "Ninguno")}</option>
-                    <option value="solar_fundamentals_v1">Solar Fundamentals RAMPER v1</option>
-                    <option value="solar_advanced_v2">Advanced Solar closer Master v2</option>
+                    {curriculumOptionGroups.map((group) => (
+                      <optgroup key={group.categoryId} label={`── ${group.categoryName} ──`}>
+                        {group.options.map((opt) => (
+                          <option key={opt.id} value={opt.id}>
+                            {opt.name}{opt.isPreview ? " 🔒 Preview" : ""}
+                          </option>
+                        ))}
+                      </optgroup>
+                    ))}
                   </select>
                 </div>
 

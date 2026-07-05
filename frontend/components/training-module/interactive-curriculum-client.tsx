@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useMemo, useEffect, useCallback, useRef } from "react"
-import { TrainingModuleView, getTrainingModuleView } from "@/lib/training-module-view"
+import { TrainingModuleView, getTrainingModuleView, getVerticalCatalog } from "@/lib/training-module-view"
 import { GuidedModuleExperience } from "@/components/training-module/guided-module-experience"
 import { loadTrainingModuleProgress, saveTrainingModuleProgress } from "@/lib/training-module-progress"
 import { ModuleCatalogEntry } from "@/components/training-audio/lesson-audio-player"
@@ -13,24 +13,127 @@ import {
   PlayCircle,
   Lock,
   X,
+  Layers,
+  Eye,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/context/AuthContext"
 import { canBypassTrainingLocks } from "@/lib/auth-bypass"
 import { useLanguage } from "@/hooks/use-language"
+import { useCompanyVerticals } from "@/hooks/use-company-verticals"
+import type { VerticalId, CategoryId } from "@/lib/verticals"
+import { VERTICALS, CATEGORIES } from "@/lib/verticals"
+
+// ─── Vertical Selector Component ──────────────────────────────────────────────
+
+function VerticalSelector({
+  visibleVerticals,
+  activeVertical,
+  onSelect,
+  hasPreviewAccess,
+}: {
+  visibleVerticals: VerticalId[]
+  activeVertical: VerticalId
+  onSelect: (id: VerticalId) => void
+  hasPreviewAccess: boolean
+}) {
+  // Group visible verticals by category, preserving the canonical category order
+  const categoryOrder: CategoryId[] = ["core", "energy_smart_home", "home_improvement", "telecom"]
+
+  const groupedCategories = useMemo(() => {
+    const visibleSet = new Set(visibleVerticals)
+    return categoryOrder
+      .map((catId) => {
+        const cat = CATEGORIES[catId]
+        const visibleVerts = cat.verticals.filter((vId) => visibleSet.has(vId))
+        if (visibleVerts.length === 0) return null
+        return { ...cat, visibleVerticals: visibleVerts }
+      })
+      .filter(Boolean) as Array<(typeof CATEGORIES)[CategoryId] & { visibleVerticals: VerticalId[] }>
+  }, [visibleVerticals])
+
+  // If only one vertical is visible (typical solar-only company), don't show selector
+  if (visibleVerticals.length <= 1) return null
+
+  return (
+    <div className="glass-circuit hud-border rounded-[20px] p-4 border border-white/10 bg-gradient-to-r from-white/[0.02] via-[#FF5722]/[0.01] to-white/[0.02] relative overflow-hidden">
+      {/* Top accent line */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#FF5722]/10 via-[#FF5722]/40 to-[#FF5722]/10" />
+
+      <div className="flex items-center gap-2 mb-3">
+        <div className="h-8 w-8 rounded-xl bg-[#FF5722]/10 flex items-center justify-center shrink-0 border border-[#FF5722]/20">
+          <Layers className="h-4 w-4 text-[#FFD54F]" />
+        </div>
+        <h3 className="font-display font-bold text-white text-sm tracking-wide">
+          TRAINING VERTICALS
+        </h3>
+      </div>
+
+      <div className="space-y-3">
+        {groupedCategories.map((cat) => (
+          <div key={cat.id}>
+            <p className="text-[10px] font-black text-[#64748B] uppercase tracking-[0.2em] mb-1.5 pl-1">
+              {cat.name}
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {cat.visibleVerticals.map((verticalId) => {
+                const vertical = VERTICALS[verticalId]
+                const isActive = verticalId === activeVertical
+                const isPreview = vertical.isPreview
+
+                return (
+                  <button
+                    key={verticalId}
+                    onClick={() => onSelect(verticalId)}
+                    className={cn(
+                      "relative flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 border",
+                      isActive
+                        ? "bg-gradient-to-r from-[#FF5722]/20 to-[#FFB300]/20 border-[#FF5722]/40 text-white shadow-[0_0_12px_rgba(255,87,34,0.15)]"
+                        : "bg-white/5 border-white/10 text-[#94A3B8] hover:bg-white/10 hover:text-white hover:border-white/20"
+                    )}
+                  >
+                    {vertical.name}
+                    {isPreview && hasPreviewAccess && (
+                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[8px] font-black bg-purple-500/20 text-purple-300 border border-purple-500/30 uppercase tracking-widest leading-none">
+                        <Eye className="h-2 w-2" />
+                        Preview
+                      </span>
+                    )}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ─── Main Component ───────────────────────────────────────────────────────────
 
 export function InteractiveCurriculumClient({ moduleCatalog: initialCatalog }: { moduleCatalog: TrainingModuleView[] }) {
   const { user } = useAuth()
   const { language, setLanguage, isSpanish } = useLanguage()
   const hasBypass = useMemo(() => canBypassTrainingLocks(user), [user])
+  const { visibleVerticals, hasPreviewAccess, loading: verticalsLoading } = useCompanyVerticals()
 
-  // Resolve dynamic language content for catalog entries on the client
+  // ── Active Vertical State ──
+  const [activeVertical, setActiveVertical] = useState<VerticalId>("solar")
+
+  // ── Vertical-Scoped Catalog ──
+  // For solar, use the server-passed initialCatalog (with i18n).
+  // For other verticals, build from the registry.
   const moduleCatalog = useMemo(() => {
-    return initialCatalog.map((mod) => {
-      const translated = getTrainingModuleView(mod.id, language)
-      return translated || mod
-    })
-  }, [initialCatalog, language])
+    if (activeVertical === "solar") {
+      return initialCatalog.map((mod) => {
+        const translated = getTrainingModuleView(mod.id, language)
+        return translated || mod
+      })
+    }
+    // Build catalog for non-solar vertical
+    return getVerticalCatalog(activeVertical, 50)
+  }, [activeVertical, initialCatalog, language])
 
   // Group modules by day, excluding placeholder noisy modules
   const groupedModules = useMemo(() => {
@@ -90,16 +193,21 @@ export function InteractiveCurriculumClient({ moduleCatalog: initialCatalog }: {
     return firstIncompleteId
   }, [moduleCatalog])
 
+  // Reset state when vertical or catalog changes
   useEffect(() => {
     const firstIncompleteId = refreshProgress()
 
     const initialId = firstIncompleteId || moduleCatalog[0]?.id || ""
     setActiveModuleId(initialId)
 
+    // Reset expanded days for the new vertical
+    const newExpandedDays: Record<string, boolean> = {}
     const activeMod = moduleCatalog.find((m) => m.id === initialId)
     if (activeMod?.dayLabel) {
-      setExpandedDays((prev) => ({ ...prev, [activeMod.dayLabel]: true }))
+      newExpandedDays[activeMod.dayLabel] = true
     }
+    setExpandedDays(newExpandedDays)
+    setIsDropdownOpen(false)
   }, [moduleCatalog, refreshProgress])
 
   const activeModule = useMemo(
@@ -107,23 +215,47 @@ export function InteractiveCurriculumClient({ moduleCatalog: initialCatalog }: {
     [activeModuleId, moduleCatalog]
   )
 
+  // For preview verticals, use a relaxed lock: first module unlocked, rest locked
+  // unless the user has bypass access.
+  const isPreviewVertical = activeVertical !== "solar" && VERTICALS[activeVertical]?.isPreview
+
   const handleModuleSelect = useCallback((moduleId: string) => {
-    // Check locks unless bypassed
     const mod = moduleCatalog.find((m) => m.id === moduleId)
     if (!mod) return
+
     const isCompleted = moduleProgress[mod.id]?.moduleCompleted
+
+    // For preview verticals with bypass, always allow
+    if (isPreviewVertical && hasBypass) {
+      setActiveModuleId(moduleId)
+      setIsDropdownOpen(false)
+      if (mod?.dayLabel) {
+        setExpandedDays((prev) => ({ ...prev, [mod.dayLabel]: true }))
+      }
+      refreshProgress()
+      return
+    }
+
+    // For preview verticals without bypass, only allow first module
+    if (isPreviewVertical && !hasBypass) {
+      const isFirst = moduleCatalog[0]?.id === moduleId
+      if (!isFirst && !isCompleted) {
+        showToast("This module is part of a preview vertical. Complete earlier modules or contact your admin for full access.")
+        return
+      }
+    }
+
+    // Standard lock logic for production verticals
     const isLocked = !hasBypass && !isCompleted && mod.id !== firstIncompleteModuleId
     if (isLocked) return
 
     setActiveModuleId(moduleId)
     setIsDropdownOpen(false)
-    // Ensure the day containing this module is expanded
     if (mod?.dayLabel) {
       setExpandedDays((prev) => ({ ...prev, [mod.dayLabel]: true }))
     }
-    // Refresh progress so new completion states are reflected
     refreshProgress()
-  }, [moduleCatalog, refreshProgress, hasBypass, firstIncompleteModuleId, moduleProgress])
+  }, [moduleCatalog, refreshProgress, hasBypass, firstIncompleteModuleId, moduleProgress, isPreviewVertical, showToast])
 
   const toggleDay = (day: string) => {
     setExpandedDays((prev) => ({ ...prev, [day]: !prev[day] }))
@@ -154,8 +286,32 @@ export function InteractiveCurriculumClient({ moduleCatalog: initialCatalog }: {
     ? `/ai-simulator?moduleId=${activeModule.id}&scenarioId=${activeModule.simulationScenarioIds[0]}`
     : `/ai-simulator?moduleId=${activeModule.id}`
 
+  // Current vertical display name
+  const activeVerticalDef = VERTICALS[activeVertical]
+  const verticalDisplayName = activeVerticalDef?.name || "Solar"
+
   return (
     <div className="flex flex-col gap-6">
+      {/* ── Vertical Selector ── */}
+      {!verticalsLoading && (
+        <VerticalSelector
+          visibleVerticals={visibleVerticals}
+          activeVertical={activeVertical}
+          onSelect={setActiveVertical}
+          hasPreviewAccess={hasPreviewAccess}
+        />
+      )}
+
+      {/* ── Preview Banner (shown when viewing a preview vertical) ── */}
+      {isPreviewVertical && (
+        <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-purple-500/30 bg-purple-500/5">
+          <Eye className="h-4 w-4 text-purple-400 shrink-0" />
+          <p className="text-xs text-purple-300">
+            <span className="font-bold">Preview Mode</span> — {verticalDisplayName} training is in development. Content shown is a curriculum preview and may change before full release.
+          </p>
+        </div>
+      )}
+
       {/* Language Preference Banner / Banner de Preferencia de Idioma */}
       <div className="glass-circuit hud-border rounded-[24px] p-6 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden transition-all duration-300 border border-white/10 bg-gradient-to-r from-white/[0.02] via-[#FF5722]/[0.02] to-white/[0.02]">
         {/* Top orange glowing line */}
@@ -202,7 +358,9 @@ export function InteractiveCurriculumClient({ moduleCatalog: initialCatalog }: {
             <BookOpen className="h-4 w-4" />
           </div>
           <div className="text-left flex-1 sm:flex-none min-w-0">
-            <p className="font-display font-bold truncate">Curriculum Map</p>
+            <p className="font-display font-bold truncate">
+              {verticalDisplayName} Curriculum Map
+            </p>
             <p className="text-xs text-[#94A3B8]">
               {completedModules}/{totalModules} modules complete · {activeModule.title.replace(/^Module\s+\d+(\.\d+)?:\s*/i, "")}
             </p>
@@ -224,7 +382,7 @@ export function InteractiveCurriculumClient({ moduleCatalog: initialCatalog }: {
           <div className="fixed inset-x-4 top-24 max-h-[70vh] z-50 flex flex-col md:absolute md:left-0 md:top-full md:inset-x-auto md:w-full md:max-w-sm md:mt-2 md:max-h-none md:flex-none rounded-[20px] border border-white/10 bg-[rgba(18,18,18,0.98)] p-4 shadow-2xl backdrop-blur-xl">
             {/* Header */}
             <div className="flex items-center justify-between mb-3">
-              <p className="font-display font-bold text-white text-sm">Full Curriculum</p>
+              <p className="font-display font-bold text-white text-sm">{verticalDisplayName} Curriculum</p>
               <button
                 type="button"
                 onClick={() => setIsDropdownOpen(false)}
@@ -308,6 +466,14 @@ export function InteractiveCurriculumClient({ moduleCatalog: initialCatalog }: {
                     </button>
                   </div>
                 </div>
+              ) : isPreviewVertical ? (
+                <div className="flex items-start gap-2">
+                  <Eye className="w-3.5 h-3.5 text-purple-400 mt-0.5 shrink-0" />
+                  <div className="space-y-0.5">
+                    <span className="text-xs font-semibold text-white">Preview Curriculum</span>
+                    <p className="text-[11px] text-[#94A3B8]">This vertical is in preview. The first module is unlocked. Additional modules will unlock as content is finalized.</p>
+                  </div>
+                </div>
               ) : (
                 <div className="flex items-start gap-2">
                   <Lock className="w-3.5 h-3.5 text-[#FFB300] mt-0.5 shrink-0" />
@@ -359,14 +525,29 @@ export function InteractiveCurriculumClient({ moduleCatalog: initialCatalog }: {
                           const isCompleted = moduleProgress[mod.id]?.moduleCompleted
                           const hasAudio = moduleProgress[mod.id]?.audioCompleted
                           const isInProgress = !isCompleted && (isActive || hasAudio)
-                          const isLocked = !hasBypass && !isCompleted && mod.id !== firstIncompleteModuleId
+
+                          // Lock logic varies by vertical type
+                          let isLocked: boolean
+                          if (hasBypass) {
+                            isLocked = false
+                          } else if (isPreviewVertical) {
+                            // Preview: only first module is unlocked unless completed
+                            const isFirst = moduleCatalog[0]?.id === mod.id
+                            isLocked = !isCompleted && !isFirst
+                          } else {
+                            isLocked = !isCompleted && mod.id !== firstIncompleteModuleId
+                          }
 
                           return (
                             <button
                               key={mod.id}
                               onClick={() => {
                                 if (isLocked) {
-                                  showToast("Please complete the previous module first to unlock this lesson!")
+                                  if (isPreviewVertical) {
+                                    showToast("This module is part of a preview vertical. Full curriculum will be available when this vertical is released.")
+                                  } else {
+                                    showToast("Please complete the previous module first to unlock this lesson!")
+                                  }
                                   return
                                 }
                                 handleModuleSelect(mod.id)

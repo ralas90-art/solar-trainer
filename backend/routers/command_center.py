@@ -683,6 +683,87 @@ def scan_and_get_coaching_alerts(
 
 # ─── Endpoint 6: Actions Center (Phase 6) ────────────────────────────────────
 
+# ─── Valid Curriculum IDs Allowlist (Sub-Phase 1D) ─────────────────────────────
+# Only these curriculum IDs may be assigned. Prevents arbitrary ID injection.
+VALID_CURRICULUM_IDS = {
+    "solar_fundamentals_v1",
+    "solar_advanced_v2",
+    "core_sales_foundation_preview",
+    "retail_energy_foundation_preview",
+    "hvac_foundation_preview",
+    "smart_thermostats_foundation_preview",
+    "smart_home_security_foundation_preview",
+    "roofing_foundation_preview",
+    "windows_foundation_preview",
+    "water_purification_foundation_preview",
+    "stucco_foundation_preview",
+    "adu_foundation_preview",
+    "fiber_optics_foundation_preview",
+}
+
+# ─── Curriculum → Vertical Mapping (Sub-Phase 1D.1) ───────────────────────────
+# Maps each assignable curriculum ID to the vertical it belongs to.
+# Used to validate that the company has the vertical enabled before assignment.
+CURRICULUM_VERTICAL_MAP = {
+    "solar_fundamentals_v1": "solar",
+    "solar_advanced_v2": "solar",
+    "core_sales_foundation_preview": "core_sales",
+    "retail_energy_foundation_preview": "retail_energy",
+    "hvac_foundation_preview": "hvac",
+    "smart_thermostats_foundation_preview": "smart_thermostats",
+    "smart_home_security_foundation_preview": "smart_home_security",
+    "roofing_foundation_preview": "roofing",
+    "windows_foundation_preview": "windows",
+    "water_purification_foundation_preview": "water_purification",
+    "stucco_foundation_preview": "stucco",
+    "adu_foundation_preview": "adu",
+    "fiber_optics_foundation_preview": "fiber_optics",
+}
+
+# Demo/test company IDs allowed to bypass vertical restrictions for preview.
+# Must match frontend vertical-access.ts and company_settings.py.
+VERTICAL_PREVIEW_COMPANY_IDS = {"cresca_test", "rival_corp_test"}
+
+
+def _can_bypass_vertical_restriction(user: User) -> bool:
+    """
+    Check if this user/company is allowed to bypass company vertical restrictions.
+    Only super_admin and approved demo/test companies may bypass.
+    Generic admin/dealer_admin in production companies cannot bypass.
+    """
+    # 1. super_admin — unconditional bypass
+    if user.role == UserRole.SUPER_ADMIN:
+        return True
+    if user.username == "super_admin":
+        return True
+    if getattr(user, "is_super_admin", False):
+        return True
+    # 2. Demo/test company — any user in an approved company can bypass
+    if user.company_id and user.company_id in VERTICAL_PREVIEW_COMPANY_IDS:
+        return True
+    return False
+
+
+def _get_company_enabled_verticals(session: Session, company_id: str) -> list:
+    """
+    Load and parse enabled_verticals for a company.
+    Falls back to ["solar"] if company not found or data is malformed.
+    """
+    company = session.get(Company, company_id)
+    if not company:
+        return ["solar"]
+    raw = company.enabled_verticals
+    if not raw:
+        return ["solar"]
+    try:
+        parsed = json.loads(raw) if isinstance(raw, str) else raw
+        if isinstance(parsed, list) and len(parsed) > 0:
+            return parsed
+    except Exception:
+        pass
+    return ["solar"]
+
+
 class AssignRequest(BaseModel):
     target_type: str  # company | branch | team | user
     target_id: str
@@ -700,7 +781,28 @@ def assign_training(
     company_id = user.company_id or "septivolt"
 
     if body.curriculum_id:
-        # Verify Curriculum exists
+        # Step 1: Validate against global allowlist (Sub-Phase 1D)
+        if body.curriculum_id not in VALID_CURRICULUM_IDS:
+            raise HTTPException(
+                status_code=422,
+                detail=f"Unknown curriculum ID: '{body.curriculum_id}'. Allowed: {sorted(VALID_CURRICULUM_IDS)}"
+            )
+
+        # Step 2: Validate company vertical access (Sub-Phase 1D.1)
+        required_vertical = CURRICULUM_VERTICAL_MAP.get(body.curriculum_id)
+        if required_vertical and not _can_bypass_vertical_restriction(user):
+            enabled = _get_company_enabled_verticals(session, company_id)
+            if required_vertical not in enabled:
+                raise HTTPException(
+                    status_code=403,
+                    detail=(
+                        f"Curriculum '{body.curriculum_id}' requires vertical '{required_vertical}', "
+                        f"which is not enabled for this company. "
+                        f"Enabled verticals: {enabled}"
+                    )
+                )
+
+        # Verify Curriculum exists, auto-create if needed
         curr = session.get(Curriculum, body.curriculum_id)
         if not curr:
             curr = Curriculum(id=body.curriculum_id, name=body.curriculum_id.replace("_", " ").title())

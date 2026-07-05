@@ -695,11 +695,18 @@ async def get_company(
         if req_user:
             _require_same_company(req_user, company_id)
 
+    # Parse enabled_verticals safely — fallback to ["solar"] on malformed JSON
+    try:
+        enabled_verticals = json.loads(company.enabled_verticals or '["solar"]')
+    except (json.JSONDecodeError, TypeError):
+        enabled_verticals = ["solar"]
+
     return {
         "id": company.id,
         "name": company.name,
         "plan_tier": company.plan_tier,
         "payment_status": company.payment_status,
+        "enabled_verticals": enabled_verticals,
         "created_at": company.created_at.isoformat(),
     }
 
