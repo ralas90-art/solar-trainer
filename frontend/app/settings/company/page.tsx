@@ -10,11 +10,16 @@ import {
   ShieldAlert, Key, Save, RefreshCw, Lock, SlidersHorizontal,
   Eye, Cpu, Layers, Globe, FileText, Check, AlertTriangle,
   Phone, Video, Trash2, Plus, Edit3, BookOpen, ChevronDown, ChevronUp, Copy,
-  Users, ArrowRight, ChevronLeft
+  Users, ArrowRight, ChevronLeft, Loader2
 } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo, useCallback } from "react"
+import type { VerticalId, CategoryId } from "@/lib/verticals"
+import { VERTICALS, CATEGORIES } from "@/lib/verticals"
 
-type TabType = "setup" | "profile" | "integrations" | "assets"
+type TabType = "setup" | "profile" | "integrations" | "verticals" | "assets"
+
+// ─── Demo Company IDs (must match vertical-access.ts) ────────────────────────
+const DEMO_COMPANY_IDS_FOR_VERTICALS = new Set(["cresca_test", "rival_corp_test"])
 
 interface ProfileData {
   company_id: string
@@ -186,9 +191,89 @@ export default function CompanySettingsPage() {
 
   const isAdmin = user?.role === "admin"
   const isManager = user?.role === "manager"
-  const hasAdminAccess = isAdmin || isManager
+  const isSuperAdmin = user?.role === "super_admin"
+  const hasAdminAccess = isAdmin || isManager || isSuperAdmin
   const hasAccess = user !== null
   const companyId = user?.companyId || "cresca_test"
+
+  // ── Vertical Management State (Sub-Phase 1C) ──
+  const [enabledVerticals, setEnabledVerticals] = useState<VerticalId[]>(["solar"])
+  const [pendingVerticals, setPendingVerticals] = useState<VerticalId[]>(["solar"])
+  const [verticalsLoading, setVerticalsLoading] = useState(true)
+  const [savingVerticals, setSavingVerticals] = useState(false)
+
+  const canEditVerticals = useMemo(() => {
+    if (!user) return false
+    if (isSuperAdmin) return true
+    if ((user.role === "admin" || user.role === "dealer_admin") && DEMO_COMPANY_IDS_FOR_VERTICALS.has(user.companyId)) return true
+    return false
+  }, [user, isSuperAdmin])
+
+  const verticalsDirty = useMemo(() => {
+    if (enabledVerticals.length !== pendingVerticals.length) return true
+    return enabledVerticals.some((v, i) => v !== pendingVerticals[i])
+  }, [enabledVerticals, pendingVerticals])
+
+  // Canonical vertical order from registry
+  const CANONICAL_VERTICAL_ORDER: VerticalId[] = useMemo(() =>
+    Object.keys(VERTICALS) as VerticalId[]
+  , [])
+
+  const toggleVertical = useCallback((vid: VerticalId) => {
+    if (!canEditVerticals) return
+    if (vid === "solar") return // Solar cannot be unchecked
+    setPendingVerticals(prev => {
+      const isEnabled = prev.includes(vid)
+      let next: VerticalId[]
+      if (isEnabled) {
+        next = prev.filter(v => v !== vid)
+      } else {
+        next = [...prev, vid]
+      }
+      // Re-order by canonical order
+      return CANONICAL_VERTICAL_ORDER.filter(v => next.includes(v))
+    })
+  }, [canEditVerticals, CANONICAL_VERTICAL_ORDER])
+
+  const fetchEnabledVerticals = useCallback(async () => {
+    if (!user) return
+    try {
+      setVerticalsLoading(true)
+      const res = await api.get<{ enabled_verticals: VerticalId[] }>(
+        `/api/v1/companies/${companyId}`,
+        { headers: { "X-User-Id": user.username || "" } }
+      )
+      const verts = Array.isArray(res.enabled_verticals) ? res.enabled_verticals as VerticalId[] : ["solar" as VerticalId]
+      setEnabledVerticals(verts)
+      setPendingVerticals(verts)
+    } catch (err) {
+      console.warn("[Verticals] Failed to fetch enabled verticals:", err)
+      setEnabledVerticals(["solar"])
+      setPendingVerticals(["solar"])
+    } finally {
+      setVerticalsLoading(false)
+    }
+  }, [user, companyId])
+
+  const saveVerticals = useCallback(async () => {
+    if (!user || !canEditVerticals || !verticalsDirty) return
+    try {
+      setSavingVerticals(true)
+      const res = await api.patch<{ company_id: string; enabled_verticals: VerticalId[] }>(
+        `/api/v1/companies/${companyId}/enabled-verticals`,
+        { enabled_verticals: pendingVerticals },
+        { headers: { "X-User-Id": user.username || "" } }
+      )
+      setEnabledVerticals(res.enabled_verticals)
+      setPendingVerticals(res.enabled_verticals)
+      setAlert({ type: "success", message: t("Training verticals updated successfully.", "Verticales de entrenamiento actualizados exitosamente.") })
+    } catch (err: any) {
+      console.error("[Verticals] Save failed:", err)
+      setAlert({ type: "error", message: t(`Failed to update verticals: ${err.message}`, `Error al actualizar verticales: ${err.message}`) })
+    } finally {
+      setSavingVerticals(false)
+    }
+  }, [user, canEditVerticals, verticalsDirty, pendingVerticals, companyId, t])
 
   // Redirect sales reps away from /settings/company to their scripts library
   useEffect(() => {
@@ -251,7 +336,7 @@ export default function CompanySettingsPage() {
       const params = new URLSearchParams(window.location.search)
       const tabParam = params.get("tab")
       const stepParam = params.get("step")
-      if (tabParam === "setup" || tabParam === "profile" || tabParam === "integrations" || tabParam === "assets") {
+      if (tabParam === "setup" || tabParam === "profile" || tabParam === "integrations" || tabParam === "verticals" || tabParam === "assets") {
         setActiveTab(tabParam as TabType)
       }
       if (stepParam) {
@@ -340,6 +425,13 @@ export default function CompanySettingsPage() {
       fetchAssets()
     }
   }, [user, activeTab, companyId])
+
+  // Fetch enabled verticals on mount
+  useEffect(() => {
+    if (user) {
+      fetchEnabledVerticals()
+    }
+  }, [user, companyId, fetchEnabledVerticals])
 
   // Save Asset (manual or edit)
   const handleSaveAsset = async (e: React.FormEvent) => {
@@ -1071,6 +1163,19 @@ export default function CompanySettingsPage() {
                 >
                   <Cpu className="h-4 w-4 shrink-0" />
                   {t("Integrations Hub", "Centro de Conexiones")}
+                </button>
+
+                <button
+                  onClick={() => { setActiveTab("verticals"); setAlert(null) }}
+                  className={cn(
+                    "flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 text-left w-full whitespace-nowrap shrink-0",
+                    activeTab === "verticals"
+                      ? "bg-[#FF5722]/10 border border-[#FF5722]/30 text-[#FF5722]"
+                      : "border border-transparent text-[#CBD5E1] hover:bg-white/5 hover:text-white"
+                  )}
+                >
+                  <Layers className="h-4 w-4 shrink-0" />
+                  {t("Training Verticals", "Verticales de Entrenamiento")}
                 </button>
               </>
             )}
@@ -2312,6 +2417,170 @@ export default function CompanySettingsPage() {
                     )}
                   </div>
                 </form>
+              )}
+            </div>
+          )}
+
+          {/* TAB CONTENT: TRAINING VERTICALS (Sub-Phase 1C) */}
+          {activeTab === "verticals" && (
+            <div className="rounded-2xl border border-white/5 bg-[#1A1A1A] p-6 space-y-6">
+              {/* Header */}
+              <div>
+                <h3 className="font-display font-black text-xl text-white flex items-center gap-2">
+                  <Layers className="h-5 w-5 text-[#FF5722]" />
+                  {t("Training Verticals", "Verticales de Entrenamiento")}
+                </h3>
+                <p className="text-xs text-[#94A3B8] mt-1">
+                  {canEditVerticals
+                    ? t(
+                        "Enable or disable training verticals for your company. Solar is always required.",
+                        "Active o desactive verticales de entrenamiento. Solar es siempre requerido."
+                      )
+                    : t(
+                        "Contact your SeptiVolt platform administrator to add more training verticals.",
+                        "Contacte a su administrador de plataforma SeptiVolt para agregar más verticales."
+                      )}
+                </p>
+              </div>
+
+              {/* Loading State */}
+              {verticalsLoading ? (
+                <div className="flex items-center justify-center py-12">
+                  <Loader2 className="h-6 w-6 animate-spin text-[#FF5722]/60" />
+                </div>
+              ) : (
+                <>
+                  {/* Category Groups */}
+                  {(["core", "energy_smart_home", "home_improvement", "telecom"] as CategoryId[]).map((catId) => {
+                    const cat = CATEGORIES[catId]
+                    return (
+                      <div key={catId} className="space-y-2">
+                        {/* Category Header */}
+                        <div className="flex items-center gap-2 pb-1 border-b border-white/5">
+                          <h4 className="text-[10px] font-black text-[#64748B] uppercase tracking-[0.2em]">
+                            {cat.name}
+                          </h4>
+                        </div>
+
+                        {/* Vertical Cards */}
+                        <div className="space-y-1.5">
+                          {cat.verticals.map((vid) => {
+                            const vertical = VERTICALS[vid]
+                            const isChecked = pendingVerticals.includes(vid)
+                            const isSolar = vid === "solar"
+                            const isPreview = vertical.isPreview
+                            const isDisabled = !canEditVerticals || isSolar
+
+                            return (
+                              <label
+                                key={vid}
+                                className={cn(
+                                  "flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-200 cursor-pointer group",
+                                  isChecked
+                                    ? "bg-[#FF5722]/5 border-[#FF5722]/20"
+                                    : "bg-white/[0.02] border-white/5 hover:border-white/10",
+                                  isDisabled && "cursor-default opacity-80"
+                                )}
+                              >
+                                {/* Toggle Checkbox */}
+                                <div className="relative shrink-0">
+                                  <input
+                                    type="checkbox"
+                                    checked={isChecked}
+                                    disabled={isDisabled}
+                                    onChange={() => toggleVertical(vid)}
+                                    className="sr-only peer"
+                                  />
+                                  <div className={cn(
+                                    "h-5 w-5 rounded-md border-2 flex items-center justify-center transition-all",
+                                    isChecked
+                                      ? "bg-[#FF5722] border-[#FF5722]"
+                                      : "border-[#475569] bg-transparent",
+                                    isDisabled && isChecked && "bg-[#FF5722]/60 border-[#FF5722]/60"
+                                  )}>
+                                    {isChecked && <Check className="h-3 w-3 text-white" />}
+                                  </div>
+                                </div>
+
+                                {/* Vertical Info */}
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-2 flex-wrap">
+                                    <span className={cn(
+                                      "text-sm font-semibold",
+                                      isChecked ? "text-white" : "text-[#94A3B8]"
+                                    )}>
+                                      {vertical.name}
+                                    </span>
+                                    {isPreview && (
+                                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[8px] font-black bg-purple-500/20 text-purple-300 border border-purple-500/30 uppercase tracking-widest leading-none">
+                                        <Eye className="h-2 w-2" />
+                                        Preview
+                                      </span>
+                                    )}
+                                    {vertical.isProduction && (
+                                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[8px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 uppercase tracking-widest leading-none">
+                                        Active
+                                      </span>
+                                    )}
+                                    {isSolar && (
+                                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[8px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase tracking-widest leading-none">
+                                        <Lock className="h-2 w-2" />
+                                        Required
+                                      </span>
+                                    )}
+                                  </div>
+                                  <p className="text-[11px] text-[#64748B] mt-0.5 leading-relaxed line-clamp-1">
+                                    {vertical.description}
+                                  </p>
+                                </div>
+                              </label>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    )
+                  })}
+
+                  {/* Save / Read-only Footer */}
+                  <div className="pt-4 border-t border-white/5">
+                    {canEditVerticals ? (
+                      <div className="flex items-center justify-between gap-4">
+                        <p className="text-xs text-[#64748B]">
+                          {verticalsDirty
+                            ? t("You have unsaved changes.", "Tiene cambios sin guardar.")
+                            : t("No changes to save.", "Sin cambios para guardar.")}
+                        </p>
+                        <button
+                          onClick={saveVerticals}
+                          disabled={!verticalsDirty || savingVerticals}
+                          className={cn(
+                            "flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all duration-200",
+                            verticalsDirty && !savingVerticals
+                              ? "bg-[#FF5722] hover:bg-[#E64A19] text-white shadow-[0_0_15px_rgba(249,115,22,0.35)] cursor-pointer"
+                              : "bg-white/5 text-[#475569] border border-white/5 cursor-not-allowed"
+                          )}
+                        >
+                          {savingVerticals ? (
+                            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                          ) : (
+                            <Save className="h-3.5 w-3.5" />
+                          )}
+                          {t("Save Verticals", "Guardar Verticales")}
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-3 p-3 rounded-xl bg-amber-500/5 border border-amber-500/10">
+                        <Lock className="h-4 w-4 text-amber-400 shrink-0" />
+                        <p className="text-xs text-amber-300/80">
+                          {t(
+                            "Contact your SeptiVolt platform administrator to add more training verticals.",
+                            "Contacte a su administrador de plataforma SeptiVolt para agregar más verticales de entrenamiento."
+                          )}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </>
               )}
             </div>
           )}

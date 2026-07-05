@@ -1,5 +1,6 @@
 import { DAY_MODULES, MODULES, MODULE_SCENARIOS, ModuleContent, WorkbookPrompt } from "@/lib/modules"
 import { resolveModuleContent } from "@/lib/i18n-resolver"
+import { resolveModuleById, resolveModuleScenarios } from "@/lib/curriculum/registry"
 
 export type KnowledgeCheckItem = {
   id: string
@@ -288,7 +289,7 @@ function toView(module: ModuleContent): TrainingModuleView {
     visualSlides: extractVisualSlides(module),
     workbookPrompts: module.workbookPrompts ?? [],
     knowledgeChecks: extractKnowledgeChecks(module, keyConcepts),
-    simulationScenarioIds: MODULE_SCENARIOS[module.id] ?? [],
+    simulationScenarioIds: MODULE_SCENARIOS[module.id] ?? resolveModuleScenarios(module.id),
     nextModuleId: nextModule.nextModuleId,
     nextModuleTitle: nextModule.nextModuleTitle,
     _meta: (module as any)._meta,
@@ -303,13 +304,86 @@ export function getInstructorModuleScript(moduleId: string) {
 }
 
 export function getTrainingModuleView(moduleId: string, language: string = "en") {
-  const module = language === "es" ? resolveModuleContent(moduleId, "es") : MODULES[moduleId]
+  // Solar modules resolve through the canonical MODULES map first.
+  // Non-solar module prefixes (core_, roof_, fiber_, etc.) fallback to the curriculum registry.
+  let module: ModuleContent | null = null
+  if (language === "es") {
+    try {
+      module = resolveModuleContent(moduleId, "es")
+    } catch {
+      // Module not found in i18n resolver — try registry
+      module = resolveModuleById(moduleId)
+    }
+  } else {
+    module = MODULES[moduleId] ?? resolveModuleById(moduleId)
+  }
   return module ? toView(module) : null
 }
 
 export function getTrainingModuleCatalog(limit = 12) {
   const modules = Object.values(MODULES)
     .map(toView)
+    .sort((a, b) => a.moduleNumber.localeCompare(b.moduleNumber, undefined, { numeric: true }))
+
+  return modules.slice(0, limit)
+}
+
+/**
+ * Get a curriculum catalog for a specific vertical.
+ * Solar uses the canonical MODULES map; other verticals resolve through the registry.
+ * Sub-Phase 1B: Powers the vertical selector in /my-training.
+ */
+export function getVerticalCatalog(verticalId: string, limit = 50): TrainingModuleView[] {
+  if (verticalId === "solar") {
+    return getTrainingModuleCatalog(limit)
+  }
+
+  // Resolve from curriculum registry
+  const { getCurriculumByVertical } = require("@/lib/curriculum/registry") as typeof import("@/lib/curriculum/registry")
+  const curriculum = getCurriculumByVertical(verticalId as any)
+  if (!curriculum) return []
+
+  // Build MODULE_META equivalent for this vertical's day structure
+  const verticalMeta = new Map<string, DayModuleMeta>()
+  for (const day of curriculum.dayModules) {
+    for (const mod of day.modules) {
+      verticalMeta.set(mod.id, {
+        moduleNumber: mod.moduleNumber,
+        duration: mod.duration,
+        dayLabel: `Day ${day.dayNumber}: ${day.title}`,
+      })
+    }
+  }
+
+  const modules = Object.values(curriculum.modules)
+    .map((mod) => {
+      const meta = verticalMeta.get(mod.id)
+      const moduleNumber = meta?.moduleNumber ?? mod.id.replace(/^[a-z]+_/, "").replaceAll("_", ".")
+      const estimatedTime = meta?.duration ?? "20 min"
+      const dayLabel = meta?.dayLabel ?? "Curriculum Module"
+
+      const keyConcepts = extractKeyConcepts(mod)
+
+      return {
+        id: mod.id,
+        title: mod.title,
+        moduleNumber,
+        dayLabel,
+        estimatedTime,
+        moduleTag: mod.subtitle,
+        lessonOverview: extractLessonOverview(mod),
+        keyConcepts,
+        presentationSummary: extractPresentationSummary(mod),
+        instructionalSegments: extractInstructionalSegments(mod, keyConcepts),
+        visualSlides: extractVisualSlides(mod),
+        workbookPrompts: mod.workbookPrompts ?? [],
+        knowledgeChecks: extractKnowledgeChecks(mod, keyConcepts),
+        simulationScenarioIds: curriculum.moduleScenarios[mod.id] ?? [],
+        nextModuleId: null,
+        nextModuleTitle: null,
+        _meta: (mod as any)._meta,
+      } as TrainingModuleView
+    })
     .sort((a, b) => a.moduleNumber.localeCompare(b.moduleNumber, undefined, { numeric: true }))
 
   return modules.slice(0, limit)
