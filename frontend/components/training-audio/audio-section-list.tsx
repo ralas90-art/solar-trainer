@@ -1,4 +1,5 @@
 import { AudioLessonSection } from "@/lib/training-audio"
+import { cleanSectionTitle } from "@/lib/clean-section-title"
 import { CheckCircle2, PlayCircle } from "lucide-react"
 
 export function AudioSectionList({
@@ -33,7 +34,7 @@ export function AudioSectionList({
                 <p className="font-hud text-[10px] uppercase tracking-[0.14em] text-[#94A3B8]">
                   Section {index + 1}
                 </p>
-                <p className="text-sm text-white">{section.title}</p>
+                <p className="text-sm text-white">{cleanSectionTitle(section.title)}</p>
               </div>
               {completed ? <CheckCircle2 className="h-4 w-4 text-[#FFB300]" /> : <PlayCircle className="h-4 w-4 text-[#FF5722]" />}
             </div>

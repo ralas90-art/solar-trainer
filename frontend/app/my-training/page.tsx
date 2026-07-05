@@ -17,7 +17,7 @@ export default function MyTrainingPage() {
   return (
     <AppShell
       heading="My Training"
-      subheading="Structured lesson flow that prepares you for high-pressure AI simulation reps."
+      subheading="Structured lesson flow that prepares you for high-pressure AI simulations."
     >
       <InteractiveCurriculumClient moduleCatalog={moduleCatalog} />
     </AppShell>

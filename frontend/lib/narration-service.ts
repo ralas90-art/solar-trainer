@@ -34,6 +34,19 @@ function debugLog(label: string, data: Record<string, unknown>) {
   console.log(`[SeptiVolt Audio] ${label}`, data)
 }
 
+// ─── Fallback Warnings (always-on, deduped per session) ──────────────────────
+// Unlike debugLog, these are NOT gated behind the debug flag: QA and production
+// monitoring must see exactly which sections are audio-degraded. Deduped per
+// module/section/tier so preview verticals (no static audio) don't flood the
+// console on every replay.
+const warnedFallbackKeys = new Set<string>()
+function warnFallbackOnce(key: string, message: string) {
+  if (typeof window === "undefined") return
+  if (warnedFallbackKeys.has(key)) return
+  warnedFallbackKeys.add(key)
+  console.warn(message)
+}
+
 // ─── Manifest Lookup ──────────────────────────────────────────────────────────
 /**
  * Checks if a given audio section exists in the static manifest.
@@ -101,6 +114,10 @@ export async function resolveNarrationSource(request: NarrationRequest): Promise
       sectionId,
       reason: "Spanish asset not in manifest",
     })
+    warnFallbackOnce(
+      `${moduleId}/${sectionId}/es/manifest`,
+      `[SeptiVolt Audio] FALLBACK: ${moduleId}/${sectionId} — no Spanish static MP3 in manifest. Trying ElevenLabs API.`
+    )
 
     // Step 2: Spanish real-time TTS with Alberto Rodriguez voice
     const spanishGeneratedSrc = await tryGeneratedNarration(request.text, SPANISH_VOICE_ID)
@@ -114,6 +131,10 @@ export async function resolveNarrationSource(request: NarrationRequest): Promise
     }
 
     debugLog("Spanish TTS failed — showing unavailable state", { sectionId })
+    warnFallbackOnce(
+      `${moduleId}/${sectionId}/es/elevenlabs`,
+      `[SeptiVolt Audio] FALLBACK: ${moduleId}/${sectionId} — Spanish ElevenLabs failed. Spanish audio unavailable.`
+    )
 
     // Step 3: Explicit unavailable state — NO automatic English fallback
     // The user must manually choose to switch to English
@@ -146,6 +167,10 @@ export async function resolveNarrationSource(request: NarrationRequest): Promise
     sectionId,
     reason: "English asset not in manifest either",
   })
+  warnFallbackOnce(
+    `${moduleId}/${sectionId}/en/manifest`,
+    `[SeptiVolt Audio] FALLBACK: ${moduleId}/${sectionId} — no English static MP3 in manifest. Trying ElevenLabs API.`
+  )
 
   // Step 2: ElevenLabs generated narration (real-time API with Tom voice)
   const generatedSrc = await tryGeneratedNarration(request.text, request.voiceId)
@@ -160,6 +185,10 @@ export async function resolveNarrationSource(request: NarrationRequest): Promise
 
   // Step 3: Browser speech synthesis (last resort)
   debugLog("Fallback to browser speech synthesis", { fallback: false })
+  warnFallbackOnce(
+    `${moduleId}/${sectionId}/en/elevenlabs`,
+    `[SeptiVolt Audio] FALLBACK: ${moduleId}/${sectionId} — ElevenLabs API failed. Falling back to browser TTS.`
+  )
   return {
     mode: "speech_synthesis",
     error: "Narration is loading via your browser. Press Play to begin.",

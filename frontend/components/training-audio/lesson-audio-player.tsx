@@ -1,11 +1,13 @@
 "use client"
 
 import { useEffect, useMemo, useRef, useState } from "react"
+import { createPortal } from "react-dom"
 import { AudioSectionList } from "@/components/training-audio/audio-section-list"
 import { AudioProgressBar } from "@/components/training-audio/audio-progress-bar"
 import { NarrationStatusCard } from "@/components/training-audio/narration-status-card"
 import { AudioLessonSection, ModuleAudioLesson } from "@/lib/training-audio"
 import { resolveNarrationSource } from "@/lib/narration-service"
+import { cleanSectionTitle } from "@/lib/clean-section-title"
 import { AudioLessonProgress, loadAudioProgress, saveAudioProgress } from "@/lib/audio-progress-storage"
 import { cn } from "@/lib/utils"
 import { useLanguage } from "@/hooks/use-language"
@@ -92,6 +94,15 @@ export function LessonAudioPlayer({
   const [expandedTab, setExpandedTab] = useState<"now_playing" | "curriculum">("now_playing")
   // Expanded day groups in curriculum tab
   const [expandedDays, setExpandedDays] = useState<Record<string, boolean>>({})
+  // SSR-safe portal mount guard — the mini dock UI portals to document.body so
+  // its fixed bar/overlay escape ancestor stacking contexts (z-10 wrappers were
+  // trapping the old z-[60] overlay below the curriculum map's z-40 row).
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+  // Expanded-overlay dialog element, for focus management
+  const dialogRef = useRef<HTMLDivElement | null>(null)
 
   const sectionIndex = Math.max(0, lesson.sections.findIndex((section) => section.id === activeSectionId))
   const activeSection = lesson.sections[sectionIndex] ?? lesson.sections[0]
@@ -148,6 +159,13 @@ export function LessonAudioPlayer({
       ...partial,
     }
     saveAudioProgress(payload)
+  }
+
+  const formatTime = (totalSeconds: number) => {
+    const safe = Math.max(0, Math.round(totalSeconds))
+    const minutes = Math.floor(safe / 60)
+    const seconds = safe % 60
+    return `${minutes}:${String(seconds).padStart(2, "0")}`
   }
 
   const stopTtsTimer = () => {
@@ -408,6 +426,45 @@ export function LessonAudioPlayer({
     }
   }, [playbackRate])
 
+  // Modal hygiene for the expanded dock overlay: body scroll lock, Escape to
+  // close, focus trap, and focus restoration to the trigger on close.
+  // Playback state is untouched — the <audio> element lives outside this UI.
+  useEffect(() => {
+    if (!isExpanded || typeof document === "undefined") return
+    const previouslyFocused = document.activeElement as HTMLElement | null
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    dialogRef.current?.focus()
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsExpanded(false)
+        return
+      }
+      if (event.key === "Tab" && dialogRef.current) {
+        const focusables = dialogRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+        if (focusables.length === 0) return
+        const first = focusables[0]
+        const last = focusables[focusables.length - 1]
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault()
+          last.focus()
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault()
+          first.focus()
+        }
+      }
+    }
+    document.addEventListener("keydown", onKeyDown)
+    return () => {
+      document.removeEventListener("keydown", onKeyDown)
+      document.body.style.overflow = previousOverflow
+      previouslyFocused?.focus?.()
+    }
+  }, [isExpanded])
+
   useEffect(() => {
     if (lessonCompleted && onLessonComplete) {
       onLessonComplete()
@@ -580,7 +637,7 @@ export function LessonAudioPlayer({
             Lesson Audio
           </h3>
           <p className="mt-1 text-sm text-[#94A3B8]">
-            {activeSection?.title ?? "Section"} - {Math.round(overallProgress)}% complete
+            {cleanSectionTitle(activeSection?.title ?? "Section")}
           </p>
         </div>
         {variant === "compact" ? (
@@ -608,14 +665,14 @@ export function LessonAudioPlayer({
 
       <NarrationStatusCard
         isPlaying={isPlaying}
-        currentSectionTitle={activeSection?.title ?? "Section"}
+        currentSectionTitle={cleanSectionTitle(activeSection?.title ?? "Section")}
         sourceMode={sourceMode}
         completedCount={completedCount}
         totalCount={lesson.sections.length}
         errorMessage={audioError}
       />
 
-      <AudioProgressBar progressPercent={overallProgress} label="Lesson progress" />
+      <AudioProgressBar progressPercent={overallProgress} label={`Module progress · ${completedCount}/${lesson.sections.length} sections`} />
 
       <div className="flex flex-wrap gap-2">
         <button
@@ -689,7 +746,7 @@ export function LessonAudioPlayer({
 
   const renderMiniDockPlayer = () => (
     <>
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#FF5722]/20 bg-[rgba(18,18,18,0.97)] px-3 py-2 backdrop-blur-md sm:px-4">
+      <div className="fixed inset-x-0 bottom-0 z-[200] border-t border-[#FF5722]/20 bg-[rgba(18,18,18,0.97)] px-3 py-2 backdrop-blur-md sm:px-4">
         <div className="mx-auto max-w-5xl space-y-2">
           <div className="flex items-center gap-2 justify-between">
             <div className="flex items-center gap-2">
@@ -722,7 +779,7 @@ export function LessonAudioPlayer({
             <div className="hidden sm:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
               <p className="font-display font-bold text-white tracking-wide truncate max-w-xs">{moduleTitle ?? "Lesson Audio"}</p>
               <div className="flex items-center justify-center gap-1.5 mt-0.5">
-                <p className="text-[10px] text-[#FFD54F] font-hud uppercase tracking-widest">{activeSection?.title ?? "Section"}</p>
+                <p className="text-[10px] text-[#FFD54F] font-hud uppercase tracking-widest">{cleanSectionTitle(activeSection?.title ?? "Section")}</p>
                 {language === "es" && isLanguageFallback && (
                   <span className="rounded-full bg-amber-500/10 border border-amber-500/25 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-amber-400">
                     Audio en inglés
@@ -777,16 +834,21 @@ export function LessonAudioPlayer({
       </div>
 
       {isExpanded ? (
-        <div className="fixed inset-0 z-[60] flex items-end bg-black/60 px-2 pb-0 sm:px-4" onClick={() => setIsExpanded(false)}>
+        <div className="fixed inset-0 z-[210] flex items-end bg-black/60 backdrop-blur-sm px-2 pb-0 sm:px-4" onClick={() => setIsExpanded(false)}>
           <div
-            className="glass-circuit hud-border mx-auto w-full max-w-5xl rounded-t-2xl p-4 sm:p-5 md:max-w-3xl lg:max-w-4xl"
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Lesson audio player"
+            tabIndex={-1}
+            className="glass-circuit hud-border mx-auto w-full max-w-5xl rounded-t-2xl p-4 sm:p-5 md:max-w-3xl lg:max-w-4xl focus:outline-none"
             onClick={(event) => event.stopPropagation()}
           >
             {/* Header row */}
             <div className="mb-3 flex items-start justify-between gap-3">
               <div>
                 <p className="font-display text-lg font-black text-white">Lesson Audio</p>
-                <p className="text-xs text-[#94A3B8]">{activeSection?.title ?? "Section"}</p>
+                <p className="text-xs text-[#94A3B8]">{cleanSectionTitle(activeSection?.title ?? "Section")}</p>
               </div>
               <div className="flex items-center gap-2">
                 {/* Seamless toggle */}
@@ -845,7 +907,7 @@ export function LessonAudioPlayer({
 
             <NarrationStatusCard
               isPlaying={isPlaying}
-              currentSectionTitle={activeSection?.title ?? "Section"}
+              currentSectionTitle={cleanSectionTitle(activeSection?.title ?? "Section")}
               sourceMode={sourceMode}
               completedCount={completedCount}
               totalCount={lesson.sections.length}
@@ -853,7 +915,7 @@ export function LessonAudioPlayer({
             />
 
             <div className="mt-3 space-y-2">
-              <AudioProgressBar progressPercent={overallProgress} label="Lesson progress" />
+              <AudioProgressBar progressPercent={overallProgress} label={`Module progress · ${completedCount}/${lesson.sections.length} sections`} />
               <input
                 type="range"
                 min={0}
@@ -861,11 +923,14 @@ export function LessonAudioPlayer({
                 value={Math.min(sectionElapsedSec, sectionDurationSec)}
                 onChange={(event) => handleSeek(Number(event.target.value))}
                 disabled={sourceMode === "speech_synthesis"}
+                aria-label="Seek within current section"
                 className="w-full accent-[#FF5722] disabled:opacity-40"
               />
               <div className="flex items-center justify-between text-xs text-[#94A3B8]">
-                <span>{Math.round(sectionElapsedSec)}s</span>
-                <span>{Math.round(sectionDurationSec)}s</span>
+                <span className="font-hud text-[10px] uppercase tracking-[0.14em]">Section playback</span>
+                <span className="tabular-nums">
+                  {formatTime(sectionElapsedSec)} / {formatTime(sectionDurationSec)}
+                </span>
               </div>
             </div>
 
@@ -899,16 +964,20 @@ export function LessonAudioPlayer({
               >
                 Restart
               </button>
-              <select
-                value={String(playbackRate)}
-                onChange={(event) => setPlaybackRate(Number(event.target.value))}
-                className="rounded-lg border border-white/10 bg-white/5 px-2 py-2 text-xs text-[#CBD5E1]"
-              >
-                <option value="0.75">0.75x</option>
-                <option value="1">1.0x</option>
-                <option value="1.25">1.25x</option>
-                <option value="1.5">1.5x</option>
-              </select>
+              <div className="relative">
+                <select
+                  value={String(playbackRate)}
+                  onChange={(event) => setPlaybackRate(Number(event.target.value))}
+                  aria-label="Playback speed"
+                  className="w-full appearance-none rounded-lg border border-white/10 bg-white/5 py-2 pl-3 pr-7 text-xs text-[#CBD5E1] transition-colors hover:border-[#FF5722]/30 focus:border-[#FF5722]/50 focus:outline-none [&>option]:bg-[#121212]"
+                >
+                  <option value="0.75">0.75x</option>
+                  <option value="1">1.0x</option>
+                  <option value="1.25">1.25x</option>
+                  <option value="1.5">1.5x</option>
+                </select>
+                <ChevronDown className="pointer-events-none absolute right-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#94A3B8]" />
+              </div>
             </div>
 
             {/* Tabs: Now Playing / Curriculum */}
@@ -961,9 +1030,17 @@ export function LessonAudioPlayer({
     </>
   )
 
+  // The mini dock UI (bar + expanded overlay) portals to document.body so its
+  // fixed positioning escapes ancestor stacking contexts. The <audio> element
+  // stays mounted HERE — outside the portal — so expanding/closing the overlay
+  // never unmounts it and playback is never interrupted.
   return (
     <>
-      {variant === "mini_dock" ? renderMiniDockPlayer() : renderMainPlayer()}
+      {variant === "mini_dock"
+        ? mounted
+          ? createPortal(renderMiniDockPlayer(), document.body)
+          : null
+        : renderMainPlayer()}
       <audio ref={audioRef} className="hidden" />
     </>
   )
