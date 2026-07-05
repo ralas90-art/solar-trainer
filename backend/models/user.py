@@ -36,6 +36,9 @@ class Company(SQLModel, table=True):
     stripe_customer_id: Optional[str] = Field(default=None)
     stripe_subscription_id: Optional[str] = Field(default=None)
     payment_status: str = Field(default="pending")  # pending, active, past_due, canceled
+    # JSON-encoded list of vertical IDs this company has access to.
+    # Defaults to ["solar"] — all existing companies remain solar-only.
+    enabled_verticals: str = Field(default='["solar"]')
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 

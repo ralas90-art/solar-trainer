@@ -147,6 +147,8 @@ def run_migration():
         add_col(conn, "company", "stripe_subscription_id", "TEXT", "NULL")
         add_col(conn, "company", "payment_status", "TEXT", "'pending'")
         add_col(conn, "company", "created_at", "TIMESTAMP", "NULL")
+        # company table — Multi-vertical expansion (Sub-Phase 1A)
+        add_col(conn, "company", "enabled_verticals", "TEXT", "'[\"solar\"]'")
 
         # certifications table — Phase 7 expiration policy columns
         add_col(conn, "certifications", "expiration_policy", "TEXT", "'never'")

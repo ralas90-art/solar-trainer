@@ -46,6 +46,123 @@ def _is_super_admin(user: User) -> bool:
     return user.username == "super_admin" or getattr(user, "is_super_admin", False) or user.role == "super_admin"
 
 
+# ─── Vertical Management Constants ───────────────────────────────────────────
+# Sub-Phase 1C: Approved vertical IDs and demo company allowlist.
+
+VALID_VERTICAL_IDS = [
+    "core_sales",
+    "solar",
+    "retail_energy",
+    "hvac",
+    "smart_thermostats",
+    "smart_home_security",
+    "roofing",
+    "windows",
+    "water_purification",
+    "stucco",
+    "adu",
+    "fiber_optics",
+]
+
+# Demo/test company IDs that may have admin-level vertical management access.
+# Matches the frontend vertical-access.ts DEMO_COMPANY_IDS.
+VERTICAL_DEMO_COMPANY_IDS = {"cresca_test", "rival_corp_test"}
+
+
+# ─── Vertical Management Endpoint ────────────────────────────────────────────
+
+class EnabledVerticalsRequest(BaseModel):
+    enabled_verticals: List[str]
+
+
+@router.patch("/api/v1/companies/{company_id}/enabled-verticals")
+def update_enabled_verticals(
+    company_id: str,
+    body: EnabledVerticalsRequest,
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session),
+):
+    """
+    Update the enabled training verticals for a company.
+    
+    Authorization:
+    - super_admin: always allowed
+    - admin/dealer_admin in a demo/test company: allowed
+    - all others: 403 Forbidden
+    
+    Validation:
+    - Must include at least one vertical
+    - Must include "solar" (required for all companies)
+    - All IDs must be from the approved registry
+    - Duplicates are removed and order is canonicalized
+    """
+    user = _require_auth_user(session, x_user_id)
+
+    # Tenant isolation: super_admin can update any company, others must match
+    if not _is_super_admin(user):
+        _require_same_company(user, company_id)
+
+    # ── Authorization ──
+    is_sa = _is_super_admin(user)
+    is_demo_admin = (
+        user.role in (UserRole.ADMIN, UserRole.DEALER_ADMIN)
+        and user.company_id in VERTICAL_DEMO_COMPANY_IDS
+    )
+
+    if not is_sa and not is_demo_admin:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Insufficient permissions. Only platform administrators can modify enabled verticals."
+        )
+
+    # ── Validation: non-empty ──
+    requested = body.enabled_verticals
+    if not requested or len(requested) == 0:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="At least one vertical must be enabled."
+        )
+
+    # ── Validation: all IDs must be known ──
+    unknown = [v for v in requested if v not in VALID_VERTICAL_IDS]
+    if unknown:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f"Unknown vertical IDs: {', '.join(unknown)}. Allowed: {', '.join(VALID_VERTICAL_IDS)}"
+        )
+
+    # ── Validation: solar must be included ──
+    if "solar" not in requested:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Solar must remain enabled. It is a required vertical for all companies."
+        )
+
+    # ── Deduplicate and canonicalize order ──
+    seen = set()
+    canonical = []
+    for vid in VALID_VERTICAL_IDS:
+        if vid in requested and vid not in seen:
+            canonical.append(vid)
+            seen.add(vid)
+
+    # ── Persist ──
+    company = session.get(Company, company_id)
+    if not company:
+        raise HTTPException(status_code=404, detail="Company not found.")
+
+    company.enabled_verticals = json.dumps(canonical)
+    session.add(company)
+    session.commit()
+    session.refresh(company)
+
+    return {
+        "company_id": company.id,
+        "enabled_verticals": canonical,
+    }
+
+
+
 # ─── Pydantic Request Models ──────────────────────────────────────────────────
 
 class CompanyProfileRequest(BaseModel):
