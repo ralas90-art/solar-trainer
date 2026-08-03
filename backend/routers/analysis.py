@@ -1,4 +1,5 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Request
+from rate_limiter import check_rate_limit, validate_transcript_limits
 from pydantic import BaseModel
 from typing import List, Optional
 from sqlmodel import Session
@@ -50,7 +51,11 @@ async def simulation_health():
 
 
 @router.post("/api/v1/simulation/turn", response_model=SimulationTurnResponse)
-async def simulation_turn(request: SimulationTurnRequest):
+async def simulation_turn(request: SimulationTurnRequest, req: Request):
+    check_rate_limit(req, key_prefix="simulation_turn", max_requests=30, window_seconds=60)
+    validate_transcript_limits(request.transcript)
+    if len(request.latest_rep_message) > 2000:
+        raise HTTPException(status_code=400, detail="latest_rep_message exceeds 2000 characters.")
     scenario = SCENARIOS.get(request.scenario_id)
 
     if not scenario:
@@ -167,7 +172,9 @@ class SuccessCheckResponse(BaseModel):
     should_end_call: bool
 
 @router.post("/api/v1/check-success", response_model=SuccessCheckResponse)
-async def check_conversation_success(request: SuccessCheckRequest):
+async def check_conversation_success(request: SuccessCheckRequest, req: Request):
+    check_rate_limit(req, key_prefix="check_success", max_requests=30, window_seconds=60)
+    validate_transcript_limits(request.messages)
     """
     Analyze conversation in real-time to detect successful objection handling
     and topic transitions that indicate the salesperson achieved the objective.
@@ -408,7 +415,9 @@ class SimulationAnalysisResponse(BaseModel):
     tone_feedback: Optional[str] = None # Specific feedback on tone
 
 @router.post("/api/v1/analyze-simulation", response_model=SimulationAnalysisResponse)
-async def analyze_simulation(request: SimulationAnalysisRequest, session: Session = Depends(get_session)):
+async def analyze_simulation(request: SimulationAnalysisRequest, req: Request, session: Session = Depends(get_session)):
+    check_rate_limit(req, key_prefix="analyze_simulation", max_requests=20, window_seconds=60)
+    validate_transcript_limits(request.transcript)
     """
     Comprehensive post-call analysis with AI-powered feedback.
     """

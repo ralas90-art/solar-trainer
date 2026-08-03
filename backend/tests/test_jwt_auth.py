@@ -3,6 +3,7 @@ from fastapi.testclient import TestClient
 from sqlmodel import Session, SQLModel, create_engine
 from sqlmodel.pool import StaticPool
 
+import models
 import main
 from database import get_session
 from models.user import User, UserRole, Company, PlanTier
@@ -19,11 +20,11 @@ def override_get_session():
     with Session(engine) as session:
         yield session
 
-main.app.dependency_overrides[get_session] = override_get_session
 client = TestClient(main.app)
 
 @pytest.fixture(name="session", autouse=True)
 def setup_db():
+    main.app.dependency_overrides[get_session] = override_get_session
     SQLModel.metadata.create_all(engine)
     with Session(engine) as session:
         # Seed test companies
@@ -49,7 +50,7 @@ def setup_db():
         )
         super_admin_user = User(
             username="super_admin_user",
-            email="sa@septivolt.test",
+            email="super@septivolt.com",
             password="hashed_password",
             role=UserRole.SUPER_ADMIN,
             company_id="septivolt"
@@ -68,6 +69,7 @@ def setup_db():
         session.commit()
     yield
     SQLModel.metadata.drop_all(engine)
+    main.app.dependency_overrides.clear()
 
 # ─── PHASE 1A TESTS ───────────────────────────────────────────────────────────
 

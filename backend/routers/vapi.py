@@ -1,9 +1,10 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Request
 from pydantic import BaseModel
 import os
 from typing import Optional
 from sqlmodel import Session
 from database import get_session
+from rate_limiter import check_rate_limit
 
 router = APIRouter()
 
@@ -17,11 +18,21 @@ class VapiAssistantRequest(BaseModel):
     company_id: Optional[str] = None
 
 @router.post("/api/v1/vapi/assistant")
-async def create_vapi_assistant(request: VapiAssistantRequest, session: Session = Depends(get_session)):
+async def create_vapi_assistant(
+    request: VapiAssistantRequest,
+    req: Request,
+    session: Session = Depends(get_session)
+):
     """
     Returns a configured Assistant JSON that the Frontend can pass to Vapi.start()
     This allows us to keep the system prompt hidden/dynamic on the server.
+    Protected by rate limits and string length bounds.
     """
+    check_rate_limit(req, key_prefix="vapi_assistant", max_requests=20, window_seconds=60)
+
+    if len(request.system_prompt) > 10000:
+        raise HTTPException(status_code=400, detail="system_prompt exceeds maximum allowed length of 10000 characters.")
+
     final_prompt = request.system_prompt
     if request.company_id:
         from services.profile_service import ProfileService
@@ -32,7 +43,6 @@ async def create_vapi_assistant(request: VapiAssistantRequest, session: Session 
         )
 
     # Construct the ephemeral assistant config
-    # Vapi allows passing this entire object to the start() method in the SDK
     assistant_config = {
         "model": {
             "provider": request.model_provider,

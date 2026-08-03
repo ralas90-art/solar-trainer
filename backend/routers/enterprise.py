@@ -1,16 +1,17 @@
-from fastapi import APIRouter, Depends, HTTPException, Header, status
+from fastapi import APIRouter, Depends, HTTPException, Header, Request, status
 from sqlmodel import Session, select
 from models import EnterpriseInquiry
 from models.user import User, UserRole
 from database import get_session
 from services.filtering import FilteringService
 from pydantic import BaseModel
-from datetime import datetime
-import os
+from datetime import datetime, timedelta
 from typing import Optional
+import os
 import tempfile
 
 from auth_utils import get_current_user
+from rate_limiter import check_rate_limit, validate_email_format
 
 router = APIRouter(prefix="/enterprise", tags=["enterprise"])
 filter_service = FilteringService()
@@ -21,24 +22,62 @@ class InquiryCreate(BaseModel):
     company: str
     teamSize: int
     useCase: str
+    website: Optional[str] = None  # Honeypot field for bot detection
 
 # Enterprise router instance
 
 @router.post("/inquiry")
-async def create_inquiry(data: InquiryCreate, session: Session = Depends(get_session)):
-    # 1. Create entry in DB
+async def create_inquiry(
+    data: InquiryCreate,
+    req: Request,
+    session: Session = Depends(get_session)
+):
+    # 1. Rate limiting: 5 inquiries per 10 minutes per IP
+    check_rate_limit(req, key_prefix="enterprise_inquiry", max_requests=5, window_seconds=600)
+
+    # 2. Honeypot check (bots fill out invisible website field)
+    if data.website:
+        print("[SPAM BLOCKED] Honeypot field filled.")
+        return {"status": "received", "id": 0}
+
+    # 3. Email format validation
+    if not validate_email_format(data.email):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid email address format."
+        )
+
+    # 4. Anti-spam input validation
+    if len(data.name) > 100 or "<script" in data.name.lower():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid name payload."
+        )
+
+    # 5. Duplicate inquiry window protection (5 minutes)
+    cutoff = datetime.utcnow() - timedelta(minutes=5)
+    existing = session.exec(
+        select(EnterpriseInquiry)
+        .where(EnterpriseInquiry.email == data.email.strip().lower())
+        .where(EnterpriseInquiry.created_at >= cutoff)
+    ).first()
+
+    if existing:
+        print(f"[DUPLICATE PREVENTED] Duplicate inquiry within 5m for {data.email}")
+        return {"status": "received", "id": existing.id}
+
+    # 6. Create entry in DB
     inquiry = EnterpriseInquiry(
-        name=data.name,
-        email=data.email,
-        company=data.company,
+        name=data.name.strip(),
+        email=data.email.strip().lower(),
+        company=data.company.strip(),
         team_size=data.teamSize,
-        use_case=data.useCase
+        use_case=data.useCase.strip()
     )
     session.add(inquiry)
     session.commit()
     session.refresh(inquiry)
 
-    # 2. Logic for AI Scoring & Research (Simulated for Now)
     print(f"New Inquiry received: {inquiry.id}. Triggering AI Filtering...")
 
     inquiry.status = "ai_processing"
