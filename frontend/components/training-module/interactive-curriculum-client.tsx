@@ -31,11 +31,13 @@ function VerticalSelector({
   activeVertical,
   onSelect,
   hasPreviewAccess,
+  isSpanish,
 }: {
   visibleVerticals: VerticalId[]
   activeVertical: VerticalId
   onSelect: (id: VerticalId) => void
   hasPreviewAccess: boolean
+  isSpanish?: boolean
 }) {
   // Group visible verticals by category, preserving the canonical category order
   const categoryOrder: CategoryId[] = ["core", "energy_smart_home", "home_improvement", "telecom"]
@@ -65,7 +67,7 @@ function VerticalSelector({
           <Layers className="h-4 w-4 text-[#FFD54F]" />
         </div>
         <h3 className="font-display font-bold text-white text-sm tracking-wide">
-          TRAINING VERTICALS
+          {isSpanish ? "VERTICALES DE ENTRENAMIENTO" : "TRAINING VERTICALS"}
         </h3>
       </div>
 
@@ -73,7 +75,7 @@ function VerticalSelector({
         {groupedCategories.map((cat) => (
           <div key={cat.id}>
             <p className="text-[10px] font-black text-[#64748B] uppercase tracking-[0.2em] mb-1.5 pl-1">
-              {cat.name}
+              {isSpanish ? (cat.nameEs || cat.name) : cat.name}
             </p>
             <div className="flex flex-wrap gap-1.5">
               {cat.visibleVerticals.map((verticalId) => {
@@ -92,11 +94,11 @@ function VerticalSelector({
                         : "bg-white/5 border-white/10 text-[#94A3B8] hover:bg-white/10 hover:text-white hover:border-white/20"
                     )}
                   >
-                    {vertical.name}
+                    {isSpanish ? (vertical.nameEs || vertical.name) : vertical.name}
                     {isPreview && hasPreviewAccess && (
                       <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[8px] font-black bg-purple-500/20 text-purple-300 border border-purple-500/30 uppercase tracking-widest leading-none">
                         <Eye className="h-2 w-2" />
-                        Preview
+                        {isSpanish ? "Vista Previa" : "Preview"}
                       </span>
                     )}
                   </button>
@@ -299,6 +301,7 @@ export function InteractiveCurriculumClient({ moduleCatalog: initialCatalog }: {
           activeVertical={activeVertical}
           onSelect={setActiveVertical}
           hasPreviewAccess={hasPreviewAccess}
+          isSpanish={isSpanish}
         />
       )}
 
@@ -307,7 +310,13 @@ export function InteractiveCurriculumClient({ moduleCatalog: initialCatalog }: {
         <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-purple-500/30 bg-purple-500/5">
           <Eye className="h-4 w-4 text-purple-400 shrink-0" />
           <p className="text-xs text-purple-300">
-            <span className="font-bold">Preview Mode</span> — {verticalDisplayName} training is in development. Content shown is a curriculum preview and may change before full release.
+            <span className="font-bold">
+              {isSpanish ? "Vista Previa del Currículo" : "Preview Curriculum"}
+            </span>
+            {" — "}
+            {isSpanish
+              ? "Este contenido está disponible para revisión interna y pruebas piloto."
+              : "This content is available for internal review and pilot testing."}
           </p>
         </div>
       )}
@@ -470,8 +479,14 @@ export function InteractiveCurriculumClient({ moduleCatalog: initialCatalog }: {
                 <div className="flex items-start gap-2">
                   <Eye className="w-3.5 h-3.5 text-purple-400 mt-0.5 shrink-0" />
                   <div className="space-y-0.5">
-                    <span className="text-xs font-semibold text-white">Preview Curriculum</span>
-                    <p className="text-[11px] text-[#94A3B8]">This vertical is in preview. The first module is unlocked. Additional modules will unlock as content is finalized.</p>
+                    <span className="text-xs font-semibold text-white">
+                      {isSpanish ? "Vista Previa del Currículo" : "Preview Curriculum"}
+                    </span>
+                    <p className="text-[11px] text-[#94A3B8]">
+                      {isSpanish
+                        ? "Este contenido está disponible para revisión interna y pruebas piloto."
+                        : "This content is available for internal review and pilot testing."}
+                    </p>
                   </div>
                 </div>
               ) : (

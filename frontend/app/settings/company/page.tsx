@@ -2458,7 +2458,7 @@ export default function CompanySettingsPage() {
                         {/* Category Header */}
                         <div className="flex items-center gap-2 pb-1 border-b border-white/5">
                           <h4 className="text-[10px] font-black text-[#64748B] uppercase tracking-[0.2em]">
-                            {cat.name}
+                            {isSpanish ? (cat.nameEs || cat.name) : cat.name}
                           </h4>
                         </div>
 
@@ -2509,23 +2509,23 @@ export default function CompanySettingsPage() {
                                       "text-sm font-semibold",
                                       isChecked ? "text-white" : "text-[#94A3B8]"
                                     )}>
-                                      {vertical.name}
+                                      {isSpanish ? (vertical.nameEs || vertical.name) : vertical.name}
                                     </span>
                                     {isPreview && (
                                       <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[8px] font-black bg-purple-500/20 text-purple-300 border border-purple-500/30 uppercase tracking-widest leading-none">
                                         <Eye className="h-2 w-2" />
-                                        Preview
+                                        {isSpanish ? "Vista Previa" : "Preview"}
                                       </span>
                                     )}
                                     {vertical.isProduction && (
                                       <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[8px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 uppercase tracking-widest leading-none">
-                                        Active
+                                        {isSpanish ? "Activo" : "Active"}
                                       </span>
                                     )}
                                     {isSolar && (
                                       <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[8px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase tracking-widest leading-none">
                                         <Lock className="h-2 w-2" />
-                                        Required
+                                        {isSpanish ? "Requerido" : "Required"}
                                       </span>
                                     )}
                                   </div>

@@ -42,41 +42,41 @@ export interface CurriculumOptionGroup {
 
 const ASSIGNMENT_CURRICULUM_MAP: Record<VerticalId, AssignableCurriculum[]> = {
   core_sales: [
-    { id: "core_sales_foundation_preview", name: "Core Sales Foundation", verticalId: "core_sales", isPreview: true },
+    { id: "core_sales_foundation_preview", name: "Core Sales Foundation Preview", verticalId: "core_sales", isPreview: true },
   ],
   solar: [
     { id: "solar_fundamentals_v1", name: "Solar Fundamentals RAMPER v1", verticalId: "solar", isPreview: false },
     { id: "solar_advanced_v2", name: "Advanced Solar Closer Master v2", verticalId: "solar", isPreview: false },
   ],
   retail_energy: [
-    { id: "retail_energy_foundation_preview", name: "Retail Energy Foundation", verticalId: "retail_energy", isPreview: true },
+    { id: "retail_energy_foundation_preview", name: "Retail Energy Foundation Preview", verticalId: "retail_energy", isPreview: true },
   ],
   hvac: [
-    { id: "hvac_foundation_preview", name: "HVAC Foundation", verticalId: "hvac", isPreview: true },
+    { id: "hvac_foundation_preview", name: "HVAC Foundation Preview", verticalId: "hvac", isPreview: true },
   ],
   smart_thermostats: [
-    { id: "smart_thermostats_foundation_preview", name: "Smart Thermostats Foundation", verticalId: "smart_thermostats", isPreview: true },
+    { id: "smart_thermostats_foundation_preview", name: "Smart Thermostats Foundation Preview", verticalId: "smart_thermostats", isPreview: true },
   ],
   smart_home_security: [
-    { id: "smart_home_security_foundation_preview", name: "Smart Home Security Foundation", verticalId: "smart_home_security", isPreview: true },
+    { id: "smart_home_security_foundation_preview", name: "Smart Home Security Foundation Preview", verticalId: "smart_home_security", isPreview: true },
   ],
   roofing: [
-    { id: "roofing_foundation_preview", name: "Roofing Foundation", verticalId: "roofing", isPreview: true },
+    { id: "roofing_foundation_preview", name: "Roofing Foundation Preview", verticalId: "roofing", isPreview: true },
   ],
   windows: [
-    { id: "windows_foundation_preview", name: "Windows Foundation", verticalId: "windows", isPreview: true },
+    { id: "windows_foundation_preview", name: "Windows Foundation Preview", verticalId: "windows", isPreview: true },
   ],
   water_purification: [
-    { id: "water_purification_foundation_preview", name: "Water Purification Foundation", verticalId: "water_purification", isPreview: true },
+    { id: "water_purification_foundation_preview", name: "Water Purification Foundation Preview", verticalId: "water_purification", isPreview: true },
   ],
   stucco: [
-    { id: "stucco_foundation_preview", name: "Stucco Foundation", verticalId: "stucco", isPreview: true },
+    { id: "stucco_foundation_preview", name: "Stucco Foundation Preview", verticalId: "stucco", isPreview: true },
   ],
   adu: [
-    { id: "adu_foundation_preview", name: "ADU Foundation", verticalId: "adu", isPreview: true },
+    { id: "adu_foundation_preview", name: "ADU Foundation Preview", verticalId: "adu", isPreview: true },
   ],
   fiber_optics: [
-    { id: "fiber_optics_foundation_preview", name: "Fiber Optic Internet Foundation", verticalId: "fiber_optics", isPreview: true },
+    { id: "fiber_optics_foundation_preview", name: "Fiber Optic Internet Foundation Preview", verticalId: "fiber_optics", isPreview: true },
   ],
 }
 

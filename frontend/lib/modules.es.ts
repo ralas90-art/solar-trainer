@@ -4334,7 +4334,7 @@ export const MODULES_ES: Record<string, ModuleContentES> = {
     _meta: {
       requestedLanguage: "es",
       resolvedLanguage: "es",
-      isTextFallback: true,
+      isTextFallback: false,
       missingFields: []
     },
     workbookPrompts: [],

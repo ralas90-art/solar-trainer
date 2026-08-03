@@ -1666,7 +1666,7 @@ export default function ManagerCommandCenterPage() {
                       <optgroup key={group.categoryId} label={`── ${group.categoryName} ──`}>
                         {group.options.map((opt) => (
                           <option key={opt.id} value={opt.id}>
-                            {opt.name}{opt.isPreview ? " 🔒 Preview" : ""}
+                            {opt.name}
                           </option>
                         ))}
                       </optgroup>
