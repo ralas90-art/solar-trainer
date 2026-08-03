@@ -14,7 +14,8 @@ from sqlmodel import Session, select
 from data import SCENARIOS
 from database import get_session
 from models import UserStats
-from models.user import User
+from models.user import User, UserRole
+from auth_utils import get_current_user
 from models.kpi import KPIDefinition, KPIEntry
 from routers.kpis import get_analytics
 
@@ -240,16 +241,24 @@ async def get_analytics_snapshot(
     time_range: str = "weekly",
     scenario_type: str = "all",
     skill_category: str = "all",
+    current_user: User = Depends(get_current_user),
     session: Session = Depends(get_session),
 ):
     """
     Canonical analytics snapshot for the rep performance analytics dashboard.
+    Requires verified Bearer JWT authentication.
     """
-    stats = session.get(UserStats, user_id)
+    manager_roles = {UserRole.SUPER_ADMIN, UserRole.DEALER_ADMIN, UserRole.BRANCH_MANAGER, UserRole.TRAINER, UserRole.ADMIN, UserRole.MANAGER}
+    if current_user.role in manager_roles and user_id != "trainee":
+        target_user_id = user_id
+    else:
+        target_user_id = current_user.username
+
+    stats = session.get(UserStats, target_user_id)
 
     # ── Company-scoped leaderboard (tenant isolation) ──────────────────────────
     # Resolve the requesting user's company_id from the DB, not from query params.
-    requesting_user = session.exec(select(User).where(User.username == user_id)).first()
+    requesting_user = current_user
     company_id = requesting_user.company_id if requesting_user else None
 
     if company_id:
@@ -691,6 +700,7 @@ async def get_analytics_snapshot(
         recommendations.append(rec)
 
     payload = {
+        "userId": target_user_id,
         "overallPerformanceScore": overall_score,
         "simulationsCompleted": total_sims,
         "averageSimulationScore": avg_score,

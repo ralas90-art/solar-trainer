@@ -23,7 +23,7 @@ import os
 import json
 from datetime import datetime, timedelta
 
-from auth_utils import pwd_context, generate_signed_token
+from auth_utils import pwd_context, generate_signed_token, get_current_user
 
 
 @asynccontextmanager
@@ -374,17 +374,11 @@ def speak_endpoint(request: SpeakRequest):
 
 @app.get("/api/v1/admin/integration-status")
 def get_admin_integration_status(
-    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    user: User = Depends(get_current_user),
     session: Session = Depends(get_session)
 ):
-    if not x_user_id:
-        raise HTTPException(status_code=401, detail="Missing authentication credentials")
-    
-    user = session.exec(select(User).where(User.username == x_user_id)).first()
-    if not user:
-        raise HTTPException(status_code=401, detail="Invalid user session")
-        
-    if user.role != UserRole.ADMIN:
+    allowed_roles = {UserRole.SUPER_ADMIN, UserRole.DEALER_ADMIN, UserRole.ADMIN}
+    if user.role not in allowed_roles:
         raise HTTPException(status_code=403, detail="Access denied: Admin only")
         
     elevenlabs_status = "configured" if os.getenv("ELEVENLABS_API_KEY") else "not-set"

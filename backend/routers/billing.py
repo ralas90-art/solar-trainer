@@ -2,7 +2,8 @@ import os
 import stripe
 from fastapi import APIRouter, Header, Request, HTTPException, Depends
 from sqlmodel import Session, select
-from models.user import Company, PlanTier
+from models.user import Company, PlanTier, User, UserRole
+from auth_utils import get_current_user
 from database import get_session
 from typing import Optional
 
@@ -29,8 +30,14 @@ async def create_checkout_session(
     company_id: str,
     tier: PlanTier,
     rep_count: int = 1, # Default to 1 if not specified
+    user: User = Depends(get_current_user),
     session: Session = Depends(get_session)
 ):
+    if user.role != UserRole.SUPER_ADMIN and user.company_id != company_id:
+        raise HTTPException(
+            status_code=403,
+            detail="Access denied: Cannot create checkout session for another company."
+        )
     company = session.get(Company, company_id)
     if not company:
         raise HTTPException(status_code=404, detail="Company not found")

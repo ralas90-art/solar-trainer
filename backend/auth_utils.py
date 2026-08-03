@@ -9,6 +9,7 @@ import logging
 from typing import Optional, Dict, Any
 from fastapi import Header, HTTPException, status, Depends
 from sqlmodel import Session, select
+from database import get_session
 
 logger = logging.getLogger("auth_utils")
 
@@ -145,16 +146,12 @@ def verify_signed_token(token: str) -> Optional[str]:
 
 def get_current_user(
     authorization: Optional[str] = Header(None, alias="Authorization"),
-    session: Session = Depends()
+    session: Session = Depends(get_session)
 ):
     """
     Dependency: Authenticates the user via Bearer JWT token in Authorization header.
     Validates token signature, expiration, and loads verified user record from DB.
     """
-    from database import get_session
-    if not isinstance(session, Session):
-        with Session(get_session().__next__()) as s:
-            return _resolve_user_from_auth_header(authorization, s)
     return _resolve_user_from_auth_header(authorization, session)
 
 def _resolve_user_from_auth_header(

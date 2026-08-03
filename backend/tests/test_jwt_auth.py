@@ -54,9 +54,17 @@ def setup_db():
             role=UserRole.SUPER_ADMIN,
             company_id="septivolt"
         )
+        rep_user = User(
+            username="cresca_rep",
+            email="rep@cresca.test",
+            password="hashed_password",
+            role=UserRole.SALES_REP,
+            company_id="cresca_test"
+        )
         session.add(admin_user)
         session.add(rival_user)
         session.add(super_admin_user)
+        session.add(rep_user)
         session.commit()
     yield
     SQLModel.metadata.drop_all(engine)
@@ -327,4 +335,142 @@ def test_certifications_same_company_jwt_allowed():
 def test_certifications_public_verify_hash_endpoint():
     res = client.get("/api/v1/certifications/verify/non_existent_hash")
     # Public endpoint returns 404 for missing hash, NOT 401 unauthorized
+    assert res.status_code == 404
+
+# ─── PHASE 2 TESTS (CLEANUP: ADMIN, ENTERPRISE, BILLING, ANALYTICS SNAPSHOT) ──
+
+def test_admin_integration_status_missing_token_returns_401():
+    res = client.get("/api/v1/admin/integration-status")
+    assert res.status_code == 401
+
+
+def test_admin_integration_status_spoofed_x_user_id_returns_401():
+    res = client.get(
+        "/api/v1/admin/integration-status",
+        headers={"X-User-Id": "cresca_admin"}
+    )
+    assert res.status_code == 401
+
+
+def test_admin_integration_status_super_admin_jwt_allowed():
+    token = generate_signed_token("super_admin_user", role="super_admin", company_id="septivolt")
+    res = client.get(
+        "/api/v1/admin/integration-status",
+        headers={"Authorization": f"Bearer {token}"}
+    )
+    assert res.status_code == 200
+
+
+def test_enterprise_leads_missing_token_returns_401():
+    res = client.get("/enterprise/leads")
+    assert res.status_code == 401
+
+
+def test_enterprise_leads_spoofed_x_user_id_returns_401():
+    res = client.get(
+        "/enterprise/leads",
+        headers={"X-User-Id": "cresca_admin"}
+    )
+    assert res.status_code == 401
+
+
+def test_enterprise_leads_super_admin_jwt_allowed():
+    token = generate_signed_token("super_admin_user", role="super_admin", company_id="septivolt")
+    res = client.get(
+        "/enterprise/leads",
+        headers={"Authorization": f"Bearer {token}"}
+    )
+    assert res.status_code == 200
+
+
+def test_billing_checkout_missing_token_returns_401():
+    res = client.post("/billing/create-checkout-session?company_id=cresca_test&tier=growth")
+    assert res.status_code == 401
+
+
+def test_billing_checkout_spoofed_x_user_id_returns_401():
+    res = client.post(
+        "/billing/create-checkout-session?company_id=cresca_test&tier=growth",
+        headers={"X-User-Id": "cresca_admin"}
+    )
+    assert res.status_code == 401
+
+
+def test_billing_checkout_same_company_jwt_allowed():
+    token = generate_signed_token("cresca_admin", role="admin", company_id="cresca_test")
+    res = client.post(
+        "/billing/create-checkout-session?company_id=cresca_test&tier=growth",
+        headers={"Authorization": f"Bearer {token}"}
+    )
+    # 400 is expected because price IDs are unconfigured in test env, but NOT 401/403
+    assert res.status_code in (200, 400)
+
+
+def test_billing_checkout_wrong_company_returns_403():
+    token = generate_signed_token("rival_admin", role="admin", company_id="rival_corp_test")
+    res = client.post(
+        "/billing/create-checkout-session?company_id=cresca_test&tier=growth",
+        headers={"Authorization": f"Bearer {token}"}
+    )
+    assert res.status_code == 403
+
+
+def test_analytics_snapshot_missing_token_returns_401():
+    res = client.get("/api/v1/analytics/snapshot")
+    assert res.status_code == 401
+
+
+def test_analytics_snapshot_spoofed_x_user_id_returns_401():
+    res = client.get(
+        "/api/v1/analytics/snapshot",
+        headers={"X-User-Id": "cresca_admin"}
+    )
+    assert res.status_code == 401
+
+
+def test_analytics_snapshot_valid_jwt_allowed():
+    token = generate_signed_token("cresca_admin", role="admin", company_id="cresca_test")
+    res = client.get(
+        "/api/v1/analytics/snapshot",
+        headers={"Authorization": f"Bearer {token}"}
+    )
+    assert res.status_code == 200
+    assert res.json()["userId"] == "cresca_admin"
+
+
+def test_analytics_snapshot_regular_user_impersonation_enforced_to_self():
+    token = generate_signed_token("cresca_rep", role="sales_rep", company_id="cresca_test")
+    res = client.get(
+        "/api/v1/analytics/snapshot?user_id=cresca_admin",
+        headers={"Authorization": f"Bearer {token}"}
+    )
+    assert res.status_code == 200
+    # Regular rep cannot impersonate admin; response is scoped to cresca_rep
+    assert res.json()["userId"] == "cresca_rep"
+
+
+def test_enterprise_update_ai_missing_internal_secret_returns_401():
+    res = client.post(
+        "/enterprise/inquiry/1/update-ai",
+        json={"score": 90, "priority": "high", "research": "Great lead"}
+    )
+    assert res.status_code == 401
+
+
+def test_enterprise_update_ai_wrong_internal_secret_returns_401():
+    res = client.post(
+        "/enterprise/inquiry/1/update-ai",
+        headers={"X-Internal-Secret": "wrong_secret"},
+        json={"score": 90, "priority": "high", "research": "Great lead"}
+    )
+    assert res.status_code == 401
+
+
+def test_enterprise_update_ai_valid_internal_secret_allowed():
+    res = client.post(
+        "/enterprise/inquiry/1/update-ai",
+        headers={"X-Internal-Secret": "septivolt_ai_internal_secret_2026"},
+        json={"score": 90, "priority": "high", "research": "Great lead"}
+    )
+    # 404 is expected because inquiry 1 is not in test DB, but NOT 401 unauthorized
     assert res.status_code == 404
