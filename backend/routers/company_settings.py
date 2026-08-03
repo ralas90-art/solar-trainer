@@ -7,6 +7,7 @@ from pydantic import BaseModel
 from sqlmodel import Session, select
 
 from database import get_session
+from auth_utils import verify_signed_token_payload
 from models.user import User, UserRole, Company
 from models.company_settings import CompanyProfile, CompanyIntegration, CompanySalesAsset, CompanySetupState
 from services.integration_service import IntegrationService
@@ -17,20 +18,49 @@ router = APIRouter(tags=["company_settings"])
 
 # ─── Auth helpers ─────────────────────────────────────────────────────────────
 
-def _require_auth_user(session: Session, username: str) -> User:
-    """Validate user context exists in the DB (prevent header spoofing)."""
-    if not username:
+def _require_auth_user(
+    session: Session,
+    authorization: Optional[str] = None,
+    x_user_id: Optional[str] = None,
+    require_jwt: bool = True
+) -> User:
+    """Validate user authentication via Bearer JWT token."""
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization[len("Bearer "):].strip()
+        payload = verify_signed_token_payload(token)
+        if not payload or not payload.get("sub"):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid or expired authentication token.",
+                headers={"WWW-Authenticate": "Bearer"}
+            )
+        username = str(payload["sub"])
+        user = session.exec(select(User).where(User.username == username)).first()
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Authenticated user no longer exists."
+            )
+        return user
+
+    if require_jwt:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Missing authentication credentials."
+            detail="Authentication failed. Valid Bearer JWT token required.",
+            headers={"WWW-Authenticate": "Bearer"}
         )
-    user = session.exec(select(User).where(User.username == username)).first()
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid user session."
-        )
-    return user
+
+    STAGING_AUTH_FALLBACK = os.getenv("STAGING_AUTH_FALLBACK", "false").lower() == "true"
+    if STAGING_AUTH_FALLBACK and x_user_id:
+        user = session.exec(select(User).where(User.username == x_user_id)).first()
+        if user:
+            return user
+
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Missing authentication credentials.",
+        headers={"WWW-Authenticate": "Bearer"}
+    )
 
 def _require_same_company(user: User, target_company_id: str) -> None:
     """Ensure user belongs to the target company (tenant isolation)."""
@@ -79,6 +109,7 @@ class EnabledVerticalsRequest(BaseModel):
 def update_enabled_verticals(
     company_id: str,
     body: EnabledVerticalsRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -96,7 +127,7 @@ def update_enabled_verticals(
     - All IDs must be from the approved registry
     - Duplicates are removed and order is canonicalized
     """
-    user = _require_auth_user(session, x_user_id)
+    user = _require_auth_user(session, authorization=authorization, x_user_id=x_user_id)
 
     # Tenant isolation: super_admin can update any company, others must match
     if not _is_super_admin(user):
@@ -262,12 +293,13 @@ MOCK_DEMO_INTEGRATIONS = [
 @router.get("/api/v1/companies/{company_id}/profile")
 def get_company_profile(
     company_id: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
     """Retrieve the company intelligence profile."""
     # Enforce safe user authentication
-    user = _require_auth_user(session, x_user_id)
+    user = _require_auth_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_same_company(user, company_id)
 
     # Demo Mode check
@@ -326,11 +358,12 @@ def get_company_profile(
 def save_company_profile(
     company_id: str,
     body: CompanyProfileRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
     """Save or update company intelligence profile details."""
-    user = _require_auth_user(session, x_user_id)
+    user = _require_auth_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_same_company(user, company_id)
 
     # Edit permissions guard: admin or manager only
@@ -398,11 +431,12 @@ def save_company_profile(
 @router.get("/api/v1/companies/{company_id}/profile/preview-context")
 def get_company_profile_preview(
     company_id: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
     """Generates a text summary preview of the Company Training Context."""
-    user = _require_auth_user(session, x_user_id)
+    user = _require_auth_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_same_company(user, company_id)
 
     # All company members (including reps) can preview, but admins/managers can edit
@@ -415,11 +449,12 @@ def get_company_profile_preview(
 @router.get("/api/v1/companies/{company_id}/integrations")
 def get_company_integrations(
     company_id: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
     """Retrieve integration configurations for a company."""
-    user = _require_auth_user(session, x_user_id)
+    user = _require_auth_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_same_company(user, company_id)
 
     # Role guard: reps are completely blocked
@@ -480,11 +515,12 @@ def get_company_integrations(
 def create_company_integration(
     company_id: str,
     body: CompanyIntegrationRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
     """Configure a new company integration connection."""
-    user = _require_auth_user(session, x_user_id)
+    user = _require_auth_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_same_company(user, company_id)
 
     # Only admin can manage integrations
@@ -542,11 +578,12 @@ def update_company_integration(
     company_id: str,
     integration_id: int,
     body: CompanyIntegrationRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
     """Update an existing company integration connection."""
-    user = _require_auth_user(session, x_user_id)
+    user = _require_auth_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_same_company(user, company_id)
 
     # Only admin can manage integrations
@@ -603,11 +640,12 @@ def update_company_integration(
 def test_company_integration_endpoint(
     company_id: str,
     integration_id: int,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
     """Triggers the integration connection test."""
-    user = _require_auth_user(session, x_user_id)
+    user = _require_auth_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_same_company(user, company_id)
 
     # Only admin can test connections
@@ -666,11 +704,12 @@ class AssetGenerationRequest(BaseModel):
 @router.get("/api/v1/companies/{company_id}/assets")
 def get_company_assets(
     company_id: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
     """Retrieve company sales assets (scripts/rebuttals) with role-based access control."""
-    user = _require_auth_user(session, x_user_id)
+    user = _require_auth_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_same_company(user, company_id)
 
     # Demo mode check
@@ -716,11 +755,12 @@ def get_company_assets(
 def create_company_asset(
     company_id: str,
     body: CompanySalesAssetRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
     """Manually create a new company sales asset."""
-    user = _require_auth_user(session, x_user_id)
+    user = _require_auth_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_same_company(user, company_id)
 
     # Only admin/manager can create
@@ -752,11 +792,12 @@ def update_company_asset(
     company_id: str,
     asset_id: int,
     body: CompanySalesAssetRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
     """Modify/Approve/Archive an existing sales asset."""
-    user = _require_auth_user(session, x_user_id)
+    user = _require_auth_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_same_company(user, company_id)
 
     if user.role not in (UserRole.ADMIN, UserRole.MANAGER):
@@ -795,11 +836,12 @@ def update_company_asset(
 def delete_company_asset(
     company_id: str,
     asset_id: int,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
     """Remove or archive a sales asset."""
-    user = _require_auth_user(session, x_user_id)
+    user = _require_auth_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_same_company(user, company_id)
 
     if user.role not in (UserRole.ADMIN, UserRole.MANAGER):
@@ -830,11 +872,12 @@ def delete_company_asset(
 def generate_company_asset(
     company_id: str,
     body: AssetGenerationRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
     """Auto-generate a personalized sales script based on the Company Profile context."""
-    user = _require_auth_user(session, x_user_id)
+    user = _require_auth_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_same_company(user, company_id)
 
     if user.role not in (UserRole.ADMIN, UserRole.MANAGER):
@@ -1176,11 +1219,12 @@ async def get_company_readiness(
 @router.get("/api/v1/companies/{company_id}/assets/approved")
 async def get_company_assets_approved(
     company_id: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
     """Retrieve only approved company sales assets. Visible to anyone in company (reps included)."""
-    user = _require_auth_user(session, x_user_id)
+    user = _require_auth_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_same_company(user, company_id)
 
     query = select(CompanySalesAsset).where(

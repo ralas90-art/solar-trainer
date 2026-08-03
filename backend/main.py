@@ -148,7 +148,7 @@ def signup(user_data: UserAuth, session: Session = Depends(get_session)):
         "username": user.username,
         "role": user.role,
         "company_id": user.company_id,
-        "token": generate_signed_token(user.username)
+        "token": generate_signed_token(user.username, role=str(user.role), company_id=user.company_id)
     }
 
 @app.post("/login")
@@ -192,7 +192,7 @@ def login(login_data: LoginAuth, session: Session = Depends(get_session)):
         "plan_tier": plan_tier,
         "company_id": user.company_id,
         "temporary_password_required": getattr(user, "temporary_password_required", False),
-        "token": generate_signed_token(user.username)
+        "token": generate_signed_token(user.username, role=str(user.role), company_id=user.company_id)
     }
 
 @app.get("/billing/calculate")
