@@ -3,6 +3,7 @@ from sqlmodel import Session, select
 from pydantic import BaseModel, EmailStr
 from typing import List, Optional
 from database import get_session
+from auth_utils import verify_signed_token_payload, require_same_company
 from models.user import User, UserRole, Company
 from models.enterprise_hierarchy import Branch
 from models.user_invitations import UserInvitation, InvitationStatus, InvitationAuditLog
@@ -40,19 +41,48 @@ class AcceptRequest(BaseModel):
 
 # --- Permission / Helper Guards ---
 
-def _get_requesting_user(session: Session, x_user_id: str) -> User:
-    if not x_user_id:
+def _get_requesting_user(
+    session: Session,
+    authorization: Optional[str] = None,
+    x_user_id: Optional[str] = None,
+    require_jwt: bool = True
+) -> User:
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization[len("Bearer "):].strip()
+        payload = verify_signed_token_payload(token)
+        if not payload or not payload.get("sub"):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid or expired authentication token.",
+                headers={"WWW-Authenticate": "Bearer"}
+            )
+        username = str(payload["sub"])
+        user = session.exec(select(User).where(User.username == username)).first()
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Authenticated user no longer exists."
+            )
+        return user
+
+    if require_jwt:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Missing authentication header 'X-User-Id'."
+            detail="Authentication failed. Valid Bearer JWT token required.",
+            headers={"WWW-Authenticate": "Bearer"}
         )
-    user = session.exec(select(User).where(User.username == x_user_id)).first()
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Session user not found."
-        )
-    return user
+
+    STAGING_AUTH_FALLBACK = os.getenv("STAGING_AUTH_FALLBACK", "false").lower() == "true"
+    if STAGING_AUTH_FALLBACK and x_user_id:
+        user = session.exec(select(User).where(User.username == x_user_id)).first()
+        if user:
+            return user
+
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Missing authentication header 'Authorization'.",
+        headers={"WWW-Authenticate": "Bearer"}
+    )
 
 def _verify_can_invite(inviter: User, target_role: str):
     """
@@ -110,10 +140,11 @@ def _verify_can_invite(inviter: User, target_role: str):
 def create_single_invitation(
     body: InvitationRequest,
     request: Request,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    inviter = _get_requesting_user(session, x_user_id)
+    inviter = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _verify_can_invite(inviter, body.role)
 
     # Tenant constraint check
@@ -153,10 +184,11 @@ def create_single_invitation(
 def create_bulk_invitations(
     body: BulkInvitationRequest,
     request: Request,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    inviter = _get_requesting_user(session, x_user_id)
+    inviter = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     
     # Enforce basic manager role constraint for bulk invitations
     if inviter.role in [UserRole.SALES_REP, UserRole.OBSERVER]:
@@ -248,10 +280,11 @@ def accept_invitation_token(
 
 @router.get("/branches")
 def list_company_branches(
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     stmt = select(Branch)
     if user.role != UserRole.SUPER_ADMIN:
         stmt = stmt.where(Branch.company_id == user.company_id)
@@ -261,10 +294,11 @@ def list_company_branches(
 @router.get("")
 def list_invitations(
     status_filter: Optional[str] = None,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     if user.role in [UserRole.SALES_REP, UserRole.OBSERVER]:
         raise HTTPException(status_code=403, detail="Reps/Observers cannot list invitations.")
 
@@ -282,10 +316,11 @@ def list_invitations(
 def resend_invitation(
     invite_id: str,
     request: Request,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     
     invite = session.get(UserInvitation, invite_id)
     if not invite:
@@ -344,10 +379,11 @@ def resend_invitation(
 def revoke_invitation(
     invite_id: str,
     request: Request,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     
     invite = session.get(UserInvitation, invite_id)
     if not invite:

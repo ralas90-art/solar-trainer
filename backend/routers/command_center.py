@@ -13,6 +13,7 @@ from pydantic import BaseModel, EmailStr
 from sqlmodel import Session, select, func
 
 from database import get_session
+from auth_utils import verify_signed_token_payload, require_same_company
 from models.user import (
     User, UserStats, UserRole, Company, Team,
     SimulationSession, Debrief, CoachingFlag
@@ -43,19 +44,48 @@ def get_company_thresholds(session: Session, company_id: str) -> dict:
 
 # ─── Auth & Tenant Security Guards ───────────────────────────────────────────
 
-def _get_requesting_user(session: Session, x_user_id: str) -> User:
-    if not x_user_id:
+def _get_requesting_user(
+    session: Session,
+    authorization: Optional[str] = None,
+    x_user_id: Optional[str] = None,
+    require_jwt: bool = True
+) -> User:
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization[len("Bearer "):].strip()
+        payload = verify_signed_token_payload(token)
+        if not payload or not payload.get("sub"):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid or expired authentication token.",
+                headers={"WWW-Authenticate": "Bearer"}
+            )
+        username = str(payload["sub"])
+        user = session.exec(select(User).where(User.username == username)).first()
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Authenticated user no longer exists."
+            )
+        return user
+
+    if require_jwt:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Missing authentication header 'X-User-Id'."
+            detail="Authentication failed. Valid Bearer JWT token required.",
+            headers={"WWW-Authenticate": "Bearer"}
         )
-    user = session.exec(select(User).where(User.username == x_user_id)).first()
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Session user not found."
-        )
-    return user
+
+    STAGING_AUTH_FALLBACK = os.getenv("STAGING_AUTH_FALLBACK", "false").lower() == "true"
+    if STAGING_AUTH_FALLBACK and x_user_id:
+        user = session.exec(select(User).where(User.username == x_user_id)).first()
+        if user:
+            return user
+
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Missing authentication header 'Authorization'.",
+        headers={"WWW-Authenticate": "Bearer"}
+    )
 
 def _require_manager_or_admin(user: User):
     # Admins and managers only
@@ -80,10 +110,11 @@ def _safe_json_parse(raw: Optional[str], fallback: Any) -> Any:
 
 @router.get("/executive")
 def get_executive_summary(
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(user)
     company_id = user.company_id or "septivolt"
 
@@ -201,10 +232,11 @@ def get_executive_summary(
 
 @router.get("/branches")
 def get_branch_performance(
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(user)
     company_id = user.company_id or "septivolt"
 
@@ -288,10 +320,11 @@ def get_branch_performance(
 
 @router.get("/teams")
 def get_team_performance(
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(user)
     company_id = user.company_id or "septivolt"
 
@@ -366,10 +399,11 @@ def get_reps_performance(
     branch_id: Optional[str] = None,
     team_id: Optional[str] = None,
     filter_type: Optional[str] = None,  # needs_coaching | certification_ready | inactive | top_performers
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(user)
     company_id = user.company_id or "septivolt"
     thresholds = get_company_thresholds(session, company_id)
@@ -492,13 +526,14 @@ def get_reps_performance(
 
 @router.get("/coaching")
 def scan_and_get_coaching_alerts(
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
     """
     Evaluates rules dynamically, creates database alerts/flags, and returns active flags.
     """
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(user)
     company_id = user.company_id or "septivolt"
     thresholds = get_company_thresholds(session, company_id)
@@ -773,10 +808,11 @@ class AssignRequest(BaseModel):
 @router.post("/actions/assign")
 def assign_training(
     body: AssignRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(user)
     company_id = user.company_id or "septivolt"
 
@@ -901,10 +937,11 @@ class RemindRequest(BaseModel):
 @router.post("/actions/remind")
 def send_reminder_nudge(
     body: RemindRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(user)
     company_id = user.company_id or "septivolt"
 
@@ -931,10 +968,11 @@ def send_reminder_nudge(
 @router.get("/reports/export")
 def export_command_center_report(
     report_type: str,  # roster | branches | teams
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(user)
     company_id = user.company_id or "septivolt"
 
