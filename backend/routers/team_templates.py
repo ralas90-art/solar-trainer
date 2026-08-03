@@ -6,6 +6,7 @@ from datetime import datetime
 import uuid
 
 from database import get_session
+from auth_utils import verify_signed_token_payload, require_same_company
 from models.user import User, UserRole, Company
 from models.team_template import (
     TeamTemplate,
@@ -50,19 +51,48 @@ class ApplyRequest(BaseModel):
 
 # --- Helper Guards ---
 
-def _get_requesting_user(session: Session, x_user_id: str) -> User:
-    if not x_user_id:
+def _get_requesting_user(
+    session: Session,
+    authorization: Optional[str] = None,
+    x_user_id: Optional[str] = None,
+    require_jwt: bool = True
+) -> User:
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization[len("Bearer "):].strip()
+        payload = verify_signed_token_payload(token)
+        if not payload or not payload.get("sub"):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid or expired authentication token.",
+                headers={"WWW-Authenticate": "Bearer"}
+            )
+        username = str(payload["sub"])
+        user = session.exec(select(User).where(User.username == username)).first()
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Authenticated user no longer exists."
+            )
+        return user
+
+    if require_jwt:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Missing authentication header 'X-User-Id'."
+            detail="Authentication failed. Valid Bearer JWT token required.",
+            headers={"WWW-Authenticate": "Bearer"}
         )
-    user = session.exec(select(User).where(User.username == x_user_id)).first()
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Session user not found."
-        )
-    return user
+
+    STAGING_AUTH_FALLBACK = os.getenv("STAGING_AUTH_FALLBACK", "false").lower() == "true"
+    if STAGING_AUTH_FALLBACK and x_user_id:
+        user = session.exec(select(User).where(User.username == x_user_id)).first()
+        if user:
+            return user
+
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Missing authentication header 'Authorization'.",
+        headers={"WWW-Authenticate": "Bearer"}
+    )
 
 def _require_manager_or_admin(user: User):
     allowed = {
@@ -83,10 +113,11 @@ def _require_manager_or_admin(user: User):
 
 @router.get("", response_model=List[Dict[str, Any]])
 def list_templates(
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(user)
     company_id = user.company_id or "septivolt"
 
@@ -133,10 +164,11 @@ def list_templates(
 @router.post("", status_code=201)
 def create_template(
     body: TemplateCreateRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(user)
     company_id = user.company_id or "septivolt"
 
@@ -219,10 +251,11 @@ def create_template(
 @router.get("/{id}", response_model=Dict[str, Any])
 def get_template_details(
     id: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(user)
     company_id = user.company_id or "septivolt"
 
@@ -263,10 +296,11 @@ def get_template_details(
 def update_template(
     id: str,
     body: TemplateCreateRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(user)
     company_id = user.company_id or "septivolt"
 
@@ -322,10 +356,11 @@ def update_template(
 @router.delete("/{id}")
 def delete_template(
     id: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(user)
     company_id = user.company_id or "septivolt"
 
@@ -351,10 +386,11 @@ def delete_template(
 def preview_template_apply(
     id: str,
     body: ApplyRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(user)
     company_id = user.company_id or "septivolt"
 
@@ -389,10 +425,11 @@ def preview_template_apply(
 def apply_template(
     id: str,
     body: ApplyRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session)
 ):
-    user = _get_requesting_user(session, x_user_id)
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(user)
     company_id = user.company_id or "septivolt"
 

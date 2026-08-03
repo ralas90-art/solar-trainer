@@ -18,6 +18,7 @@ from fastapi import APIRouter, Depends, Header, HTTPException, status
 from pydantic import BaseModel, validator
 from sqlmodel import Session, select
 from database import get_session
+from auth_utils import verify_signed_token_payload
 from auth_utils import pwd_context
 
 from models.user import (
@@ -43,6 +44,51 @@ DEMO_COMPANY_IDS = {"sales_accelerator_demo"}
 
 
 # ─── Auth helpers ─────────────────────────────────────────────────────────────
+
+
+def _require_auth_user(
+    session: Session,
+    authorization: Optional[str] = None,
+    x_user_id: Optional[str] = None,
+    require_jwt: bool = True
+) -> User:
+    """Validate requesting user via Bearer JWT token."""
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization[len("Bearer "):].strip()
+        payload = verify_signed_token_payload(token)
+        if not payload or not payload.get("sub"):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid or expired authentication token.",
+                headers={"WWW-Authenticate": "Bearer"}
+            )
+        username = str(payload["sub"])
+        user = session.exec(select(User).where(User.username == username)).first()
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Authenticated user no longer exists."
+            )
+        return user
+
+    if require_jwt:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authentication failed. Valid Bearer JWT token required.",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+
+    STAGING_AUTH_FALLBACK = os.getenv("STAGING_AUTH_FALLBACK", "false").lower() == "true"
+    if STAGING_AUTH_FALLBACK and x_user_id:
+        user = session.exec(select(User).where(User.username == x_user_id)).first()
+        if user:
+            return user
+
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Missing authentication header 'Authorization'.",
+        headers={"WWW-Authenticate": "Bearer"}
+    )
 
 def _get_user_or_404(session: Session, username: str) -> User:
     user = session.exec(select(User).where(User.username == username)).first()
@@ -239,6 +285,7 @@ class TeamAssignRequest(BaseModel):
 async def create_debrief(
     username: str,
     body: DebriefCreateRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -251,8 +298,11 @@ async def create_debrief(
     user = _get_user_or_404(session, username)
     company_id = user.company_id or "septivolt"
 
-    # Role guard — rep can only submit for themselves
-    if requesting_username and requesting_username != username:
+    req_user = _require_auth_user(session, authorization=authorization, x_user_id=requesting_username)
+    if req_user.username != username and not _is_super_admin(req_user):
+        _require_same_company(req_user, company_id)
+        if req_user.role == UserRole.SALES_REP:
+            raise HTTPException(status_code=403, detail="Reps may only submit their own debriefs.")
         req_user = session.exec(select(User).where(User.username == requesting_username)).first()
         if req_user and req_user.role == UserRole.SALES_REP:
             raise HTTPException(status_code=403, detail="Reps may only submit their own debriefs.")
@@ -342,6 +392,7 @@ async def create_debrief(
 @router.get("/api/v1/user/{username}/debriefs", response_model=List[DebriefResponse])
 async def list_debriefs(
     username: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     limit: int = 50,
     session: Session = Depends(get_session),
@@ -384,6 +435,7 @@ async def list_debriefs(
 async def get_debrief(
     username: str,
     debrief_id: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -461,6 +513,7 @@ async def get_onboarding(
 async def update_onboarding(
     username: str,
     body: OnboardingUpdateRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -493,6 +546,7 @@ async def update_onboarding(
 async def update_language_preference(
     username: str,
     body: LanguagePreferenceRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -531,6 +585,7 @@ async def update_language_preference(
 async def save_coaching_note(
     username: str,
     body: CoachingNoteRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -541,11 +596,10 @@ async def save_coaching_note(
     user = _get_user_or_404(session, username)
     company_id = user.company_id or "septivolt"
 
-    if requesting_username:
-        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
-        if req_user:
-            _require_manager_or_admin(req_user)
-            _require_same_company(req_user, company_id)
+    req_user = _require_auth_user(session, authorization=authorization, x_user_id=requesting_username)
+    if not _is_super_admin(req_user):
+        _require_manager_or_admin(req_user)
+        _require_same_company(req_user, company_id)
 
     stats = session.get(UserStats, username)
     if not stats:
@@ -562,6 +616,7 @@ async def save_coaching_note(
 @router.get("/api/v1/user/{username}/coaching-flags")
 async def get_coaching_flags(
     username: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -569,11 +624,10 @@ async def get_coaching_flags(
     user = _get_user_or_404(session, username)
     company_id = user.company_id or "septivolt"
 
-    if requesting_username:
-        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
-        if req_user:
-            _require_manager_or_admin(req_user)
-            _require_same_company(req_user, company_id)
+    req_user = _require_auth_user(session, authorization=authorization, x_user_id=requesting_username)
+    if not _is_super_admin(req_user):
+        _require_manager_or_admin(req_user)
+        _require_same_company(req_user, company_id)
 
     flags = session.exec(
         select(CoachingFlag).where(
@@ -590,6 +644,7 @@ async def get_coaching_flags(
 async def create_coaching_flag(
     username: str,
     body: CoachingFlagCreateRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -597,11 +652,10 @@ async def create_coaching_flag(
     user = _get_user_or_404(session, username)
     company_id = user.company_id or "septivolt"
 
-    if requesting_username:
-        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
-        if req_user:
-            _require_manager_or_admin(req_user)
-            _require_same_company(req_user, company_id)
+    req_user = _require_auth_user(session, authorization=authorization, x_user_id=requesting_username)
+    if not _is_super_admin(req_user):
+        _require_manager_or_admin(req_user)
+        _require_same_company(req_user, company_id)
 
     flag = CoachingFlag(
         user_id=username,
@@ -626,6 +680,7 @@ async def create_coaching_flag(
 async def update_coaching_flag(
     flag_id: str,
     body: CoachingFlagUpdateRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -682,6 +737,7 @@ def _flag_to_dict(flag: CoachingFlag) -> Dict[str, Any]:
 @router.get("/api/v1/companies/{company_id}")
 async def get_company(
     company_id: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -714,6 +770,7 @@ async def get_company(
 @router.post("/api/v1/companies")
 async def create_company(
     body: CompanyCreateRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -742,6 +799,7 @@ async def create_company(
 @router.get("/api/v1/companies/{company_id}/roster")
 async def get_roster(
     company_id: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -749,11 +807,10 @@ async def get_roster(
     if not company:
         raise HTTPException(status_code=404, detail="Company not found.")
 
-    if requesting_username:
-        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
-        if req_user:
-            _require_manager_or_admin(req_user)
-            _require_same_company(req_user, company_id)
+    req_user = _require_auth_user(session, authorization=authorization, x_user_id=requesting_username)
+    if not _is_super_admin(req_user):
+        _require_manager_or_admin(req_user)
+        _require_same_company(req_user, company_id)
 
     members = session.exec(
         select(User).where(User.company_id == company_id, User.is_active == True)
@@ -808,6 +865,7 @@ async def get_roster(
 @router.get("/api/v1/companies/{company_id}/members")
 async def get_members_alias(
     company_id: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -819,6 +877,7 @@ async def get_members_alias(
 async def add_or_create_member(
     company_id: str,
     body: MemberCreateRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -941,6 +1000,7 @@ async def update_member(
     company_id: str,
     username: str,
     body: MemberUpdateRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -999,15 +1059,15 @@ async def update_member(
 @router.get("/api/v1/companies/{company_id}/teams")
 async def list_teams(
     company_id: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
     """List teams within a company. Manager/Admin only."""
-    if requesting_username:
-        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
-        if req_user:
-            _require_manager_or_admin(req_user)
-            _require_same_company(req_user, company_id)
+    req_user = _require_auth_user(session, authorization=authorization, x_user_id=requesting_username)
+    if not _is_super_admin(req_user):
+        _require_manager_or_admin(req_user)
+        _require_same_company(req_user, company_id)
 
     teams = session.exec(select(Team).where(Team.company_id == company_id)).all()
     
@@ -1055,6 +1115,7 @@ async def list_teams(
 async def create_team(
     company_id: str,
     body: TeamCreateRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -1063,11 +1124,10 @@ async def create_team(
     if not company:
         raise HTTPException(status_code=404, detail="Company not found.")
 
-    if requesting_username:
-        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
-        if req_user:
-            _require_manager_or_admin(req_user)
-            _require_same_company(req_user, company_id)
+    req_user = _require_auth_user(session, authorization=authorization, x_user_id=requesting_username)
+    if not _is_super_admin(req_user):
+        _require_manager_or_admin(req_user)
+        _require_same_company(req_user, company_id)
 
     if _is_demo(requesting_username or "", company_id):
         print(f"[DEMO] Skip database write for creating team '{body.name}'")
@@ -1086,6 +1146,7 @@ async def update_team(
     company_id: str,
     team_id: str,
     body: TeamUpdateRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -1094,11 +1155,10 @@ async def update_team(
     if not company:
         raise HTTPException(status_code=404, detail="Company not found.")
 
-    if requesting_username:
-        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
-        if req_user:
-            _require_manager_or_admin(req_user)
-            _require_same_company(req_user, company_id)
+    req_user = _require_auth_user(session, authorization=authorization, x_user_id=requesting_username)
+    if not _is_super_admin(req_user):
+        _require_manager_or_admin(req_user)
+        _require_same_company(req_user, company_id)
 
     if _is_demo(requesting_username or "", company_id):
         print(f"[DEMO] Skip database write for updating team '{team_id}'")
@@ -1129,6 +1189,7 @@ async def update_team(
 async def assign_team(
     username: str,
     body: TeamAssignRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -1136,11 +1197,10 @@ async def assign_team(
     user = _get_user_or_404(session, username)
     company_id = user.company_id or "septivolt"
 
-    if requesting_username:
-        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
-        if req_user:
-            _require_manager_or_admin(req_user)
-            _require_same_company(req_user, company_id)
+    req_user = _require_auth_user(session, authorization=authorization, x_user_id=requesting_username)
+    if not _is_super_admin(req_user):
+        _require_manager_or_admin(req_user)
+        _require_same_company(req_user, company_id)
 
     # Validate team belongs to the same company
     team = session.get(Team, body.team_id)
@@ -1156,6 +1216,7 @@ async def assign_team(
 async def delete_team(
     company_id: str,
     team_id: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     requesting_username: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -1164,11 +1225,10 @@ async def delete_team(
     if not company:
         raise HTTPException(status_code=404, detail="Company not found.")
 
-    if requesting_username:
-        req_user = session.exec(select(User).where(User.username == requesting_username)).first()
-        if req_user:
-            _require_manager_or_admin(req_user)
-            _require_same_company(req_user, company_id)
+    req_user = _require_auth_user(session, authorization=authorization, x_user_id=requesting_username)
+    if not _is_super_admin(req_user):
+        _require_manager_or_admin(req_user)
+        _require_same_company(req_user, company_id)
 
     if _is_demo(requesting_username or "", company_id):
         print(f"[DEMO] Skip database write for deleting team '{team_id}'")
