@@ -2,7 +2,7 @@
 KPI Tracker API Router
 Handles all KPI-related endpoints
 """
-from fastapi import APIRouter, HTTPException, Depends, Header
+from fastapi import APIRouter, HTTPException, Depends, Header, status
 from sqlmodel import Session, select
 from typing import List, Optional
 from datetime import date, datetime, timedelta
@@ -15,14 +15,67 @@ from models.kpi import (
     KPIAnalytics, TemplateResponse
 )
 from database import get_session
+from auth_utils import verify_signed_token_payload
+from models.user import User
+import os
+from auth_utils import get_current_user
+from models.user import User
 
 router = APIRouter()
 
 
 # Helper function to get user_id from header or default
-async def get_user_id(x_user_id: Optional[str] = Header(None)) -> str:
-    """Get user ID from header or use default for testing"""
-    return x_user_id or "test_user"
+def _require_auth_user(
+    session: Session,
+    authorization: Optional[str] = None,
+    x_user_id: Optional[str] = None,
+    require_jwt: bool = True
+) -> User:
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization[len("Bearer "):].strip()
+        payload = verify_signed_token_payload(token)
+        if not payload or not payload.get("sub"):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid or expired authentication token.",
+                headers={"WWW-Authenticate": "Bearer"}
+            )
+        username = str(payload["sub"])
+        user = session.exec(select(User).where(User.username == username)).first()
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Authenticated user no longer exists."
+            )
+        return user
+
+    if require_jwt:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authentication failed. Valid Bearer JWT token required.",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+
+    STAGING_AUTH_FALLBACK = os.getenv("STAGING_AUTH_FALLBACK", "false").lower() == "true"
+    if STAGING_AUTH_FALLBACK and x_user_id:
+        user = session.exec(select(User).where(User.username == x_user_id)).first()
+        if user:
+            return user
+
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Missing authentication header 'Authorization'.",
+        headers={"WWW-Authenticate": "Bearer"}
+    )
+
+async def get_user_id(
+    authorization: Optional[str] = Header(None, alias="Authorization"),
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    session: Session = Depends(get_session)
+) -> str:
+    """Get authenticated username via Bearer JWT token."""
+    user = _require_auth_user(session, authorization=authorization, x_user_id=x_user_id)
+    return user.username
 
 
 # ============================================================================

@@ -16,6 +16,7 @@ from pydantic import BaseModel
 from sqlmodel import Session, select, func
 
 from database import get_session
+from auth_utils import verify_signed_token_payload, require_same_company
 from models import UserStats
 from models.certifications import Certification, UserCertification
 from models.user import User, UserRole
@@ -38,13 +39,48 @@ def _clamp(min_value: int, value: int, max_value: int) -> int:
     return max(min_value, min(value, max_value))
 
 
-def _get_requesting_user(session: Session, x_user_id: Optional[str]) -> User:
-    if not x_user_id:
-        raise HTTPException(status_code=401, detail="Missing authentication header 'X-User-Id'.")
-    user = session.exec(select(User).where(User.username == x_user_id)).first()
-    if not user:
-        raise HTTPException(status_code=401, detail="Session user not found.")
-    return user
+def _get_requesting_user(
+    session: Session,
+    authorization: Optional[str] = None,
+    x_user_id: Optional[str] = None,
+    require_jwt: bool = True
+) -> User:
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization[len("Bearer "):].strip()
+        payload = verify_signed_token_payload(token)
+        if not payload or not payload.get("sub"):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid or expired authentication token.",
+                headers={"WWW-Authenticate": "Bearer"}
+            )
+        username = str(payload["sub"])
+        user = session.exec(select(User).where(User.username == username)).first()
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Authenticated user no longer exists."
+            )
+        return user
+
+    if require_jwt:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authentication failed. Valid Bearer JWT token required.",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+
+    STAGING_AUTH_FALLBACK = os.getenv("STAGING_AUTH_FALLBACK", "false").lower() == "true"
+    if STAGING_AUTH_FALLBACK and x_user_id:
+        user = session.exec(select(User).where(User.username == x_user_id)).first()
+        if user:
+            return user
+
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Missing authentication header 'Authorization'.",
+        headers={"WWW-Authenticate": "Bearer"}
+    )
 
 
 def _require_manager_or_admin(user: User):
@@ -328,9 +364,12 @@ def _derive_team_progress(leaderboard: List[UserStats]) -> List[Dict[str, Any]]:
 
 @router.get("/api/v1/certifications/snapshot")
 async def get_certification_snapshot(
-    user_id: str = "trainee",
+    authorization: Optional[str] = Header(None, alias="Authorization"),
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
+    user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
+    user_id = user.username
     """
     Canonical certification snapshot for frontend dashboard/detail pages.
     """
@@ -437,13 +476,14 @@ async def list_certifications(
     filter_status: Optional[str] = None,  # ACTIVE | EXPIRED | REVOKED | PENDING_APPROVAL
     filter_username: Optional[str] = None,
     filter_branch_id: Optional[str] = None,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
     """
     Company-scoped list of all issued credentials. Manager/Admin only.
     """
-    manager = _get_requesting_user(session, x_user_id)
+    manager = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(manager)
     company_id = manager.company_id or "septivolt"
 
@@ -505,6 +545,7 @@ class ApprovalRequest(BaseModel):
 async def approve_certification(
     cert_record_id: str,
     body: ApprovalRequest = ApprovalRequest(),
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -512,7 +553,7 @@ async def approve_certification(
     Approve a PENDING_APPROVAL certification. Manager/Admin only, same company.
     Triggers GHL tag sync with certification_status:active.
     """
-    manager = _get_requesting_user(session, x_user_id)
+    manager = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(manager)
 
     uc = session.get(UserCertification, cert_record_id)
@@ -586,6 +627,7 @@ class RevocationRequest(BaseModel):
 async def revoke_certification(
     cert_record_id: str,
     body: RevocationRequest,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -593,7 +635,7 @@ async def revoke_certification(
     Revoke an ACTIVE certification. Manager/Admin only, same company.
     Triggers GHL tag sync with certification_status:revoked.
     """
-    manager = _get_requesting_user(session, x_user_id)
+    manager = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(manager)
 
     uc = session.get(UserCertification, cert_record_id)
@@ -650,6 +692,7 @@ async def revoke_certification(
 @router.post("/api/v1/certifications/{cert_record_id}/renew")
 async def renew_certification(
     cert_record_id: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -658,7 +701,7 @@ async def renew_certification(
     Resets status to ACTIVE and extends expiration date.
     Triggers GHL tag sync.
     """
-    manager = _get_requesting_user(session, x_user_id)
+    manager = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager_or_admin(manager)
 
     uc = session.get(UserCertification, cert_record_id)
@@ -725,6 +768,7 @@ async def renew_certification(
 @router.post("/api/v1/certifications/cron/check-expirations")
 async def check_expirations(
     x_cron_secret: Optional[str] = Header(None, alias="X-Cron-Secret"),
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -741,7 +785,7 @@ async def check_expirations(
         is_authorized = True
     elif x_user_id:
         try:
-            user = _get_requesting_user(session, x_user_id)
+            user = _get_requesting_user(session, authorization=authorization, x_user_id=x_user_id)
             if user.role == UserRole.SUPER_ADMIN:
                 is_authorized = True
         except Exception:

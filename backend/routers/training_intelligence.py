@@ -21,6 +21,7 @@ from pydantic import BaseModel
 from sqlmodel import Session, select, func
 
 from database import get_session
+from auth_utils import verify_signed_token_payload, require_same_company
 from models.user import User, UserRole, Company
 from models.training_predictions import (
     TrainingPrediction, PredictionAuditLog,
@@ -33,13 +34,48 @@ router = APIRouter(prefix="/api/v1/training-intelligence", tags=["training-intel
 
 # ─── Auth Guards ──────────────────────────────────────────────────────────────
 
-def _get_user(session: Session, x_user_id: Optional[str]) -> User:
-    if not x_user_id:
-        raise HTTPException(status_code=401, detail="Missing authentication header 'X-User-Id'.")
-    user = session.exec(select(User).where(User.username == x_user_id)).first()
-    if not user:
-        raise HTTPException(status_code=401, detail="Session user not found.")
-    return user
+def _get_user(
+    session: Session,
+    authorization: Optional[str] = None,
+    x_user_id: Optional[str] = None,
+    require_jwt: bool = True
+) -> User:
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization[len("Bearer "):].strip()
+        payload = verify_signed_token_payload(token)
+        if not payload or not payload.get("sub"):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid or expired authentication token.",
+                headers={"WWW-Authenticate": "Bearer"}
+            )
+        username = str(payload["sub"])
+        user = session.exec(select(User).where(User.username == username)).first()
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Authenticated user no longer exists."
+            )
+        return user
+
+    if require_jwt:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authentication failed. Valid Bearer JWT token required.",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+
+    STAGING_AUTH_FALLBACK = os.getenv("STAGING_AUTH_FALLBACK", "false").lower() == "true"
+    if STAGING_AUTH_FALLBACK and x_user_id:
+        user = session.exec(select(User).where(User.username == x_user_id)).first()
+        if user:
+            return user
+
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Missing authentication header 'Authorization'.",
+        headers={"WWW-Authenticate": "Bearer"}
+    )
 
 
 def _require_manager(user: User):
@@ -99,6 +135,7 @@ def list_predictions(
     team_id: Optional[str] = None,
     user_id: Optional[str] = None,
     limit: int = 100,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -106,7 +143,7 @@ def list_predictions(
     List predictions scoped to the requesting manager's company.
     Supports filters by type, severity, status, branch, team, and rep.
     """
-    manager = _get_user(session, x_user_id)
+    manager = _get_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager(manager)
     company_id = manager.company_id or "septivolt"
 
@@ -146,6 +183,7 @@ def list_predictions(
 
 @router.get("/summary")
 def get_prediction_summary(
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -153,7 +191,7 @@ def get_prediction_summary(
     Executive-level prediction summary for the manager's company.
     Returns counts by type, severity, and trending team/branch risk.
     """
-    manager = _get_user(session, x_user_id)
+    manager = _get_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager(manager)
     company_id = manager.company_id or "septivolt"
 
@@ -219,6 +257,7 @@ def get_prediction_summary(
 
 @router.post("/refresh")
 def refresh_predictions_endpoint(
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -226,7 +265,7 @@ def refresh_predictions_endpoint(
     Triggers prediction refresh for the requesting manager's company scope.
     Idempotent — safe to call multiple times.
     """
-    manager = _get_user(session, x_user_id)
+    manager = _get_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager(manager)
     company_id = manager.company_id or "septivolt"
 
@@ -251,10 +290,11 @@ class DismissRequest(BaseModel):
 def dismiss_prediction_endpoint(
     prediction_id: str,
     body: DismissRequest = DismissRequest(),
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
-    manager = _get_user(session, x_user_id)
+    manager = _get_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager(manager)
 
     pred = session.get(TrainingPrediction, prediction_id)
@@ -286,10 +326,11 @@ class ResolveRequest(BaseModel):
 def resolve_prediction_endpoint(
     prediction_id: str,
     body: ResolveRequest = ResolveRequest(),
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
-    manager = _get_user(session, x_user_id)
+    manager = _get_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager(manager)
 
     pred = session.get(TrainingPrediction, prediction_id)
@@ -317,11 +358,12 @@ def resolve_prediction_endpoint(
 @router.post("/{prediction_id}/sync-ghl")
 def sync_ghl_endpoint(
     prediction_id: str,
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
     """Manually push a prediction to GHL (for medium/low severity where auto-sync is skipped)."""
-    manager = _get_user(session, x_user_id)
+    manager = _get_user(session, authorization=authorization, x_user_id=x_user_id)
     _require_manager(manager)
 
     pred = session.get(TrainingPrediction, prediction_id)
@@ -353,6 +395,7 @@ def sync_ghl_endpoint(
 @router.post("/cron/refresh")
 def cron_refresh_endpoint(
     x_cron_secret: Optional[str] = Header(None, alias="X-Cron-Secret"),
+    authorization: Optional[str] = Header(None, alias="Authorization"),
     x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
     session: Session = Depends(get_session),
 ):
@@ -368,7 +411,7 @@ def cron_refresh_endpoint(
         is_authorized = True
     elif x_user_id:
         try:
-            user = _get_user(session, x_user_id)
+            user = _get_user(session, authorization=authorization, x_user_id=x_user_id)
             if user.role == UserRole.SUPER_ADMIN:
                 is_authorized = True
         except Exception:

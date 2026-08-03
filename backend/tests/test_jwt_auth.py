@@ -202,7 +202,7 @@ def test_team_templates_super_admin_allowed():
     )
     assert res.status_code == 200
 
-# ─── PHASE 1C TESTS (INVITATIONS & COMMAND CENTER) ───────────────────────────
+# ─── PHASE 1C TESTS ───────────────────────────────────────────────────────────
 
 def test_invitations_missing_token_returns_401():
     res = client.get("/api/v1/invitations")
@@ -255,3 +255,76 @@ def test_command_center_super_admin_allowed():
         headers={"Authorization": f"Bearer {token}"}
     )
     assert res.status_code == 200
+
+# ─── PHASE 1D TESTS (TRAINING INTELLIGENCE, KPIS, CERTIFICATIONS) ────────────
+
+def test_training_intelligence_missing_token_returns_401():
+    res = client.get("/api/v1/training-intelligence/predictions")
+    assert res.status_code == 401
+
+
+def test_training_intelligence_spoofed_x_user_id_returns_401():
+    res = client.get(
+        "/api/v1/training-intelligence/predictions",
+        headers={"X-User-Id": "cresca_admin"}
+    )
+    assert res.status_code == 401
+
+
+def test_training_intelligence_same_company_jwt_allowed():
+    token = generate_signed_token("cresca_admin", role="admin", company_id="cresca_test")
+    res = client.get(
+        "/api/v1/training-intelligence/predictions",
+        headers={"Authorization": f"Bearer {token}"}
+    )
+    assert res.status_code == 200
+
+
+def test_kpis_missing_token_returns_401():
+    res = client.get("/api/v1/kpis/definitions")
+    assert res.status_code == 401
+
+
+def test_kpis_spoofed_x_user_id_returns_401():
+    res = client.get(
+        "/api/v1/kpis/definitions",
+        headers={"X-User-Id": "cresca_admin"}
+    )
+    assert res.status_code == 401
+
+
+def test_kpis_same_company_jwt_allowed():
+    token = generate_signed_token("cresca_admin", role="admin", company_id="cresca_test")
+    res = client.get(
+        "/api/v1/kpis/definitions",
+        headers={"Authorization": f"Bearer {token}"}
+    )
+    assert res.status_code == 200
+
+
+def test_certifications_missing_token_returns_401():
+    res = client.get("/api/v1/certifications/snapshot")
+    assert res.status_code == 401
+
+
+def test_certifications_spoofed_x_user_id_returns_401():
+    res = client.get(
+        "/api/v1/certifications/snapshot",
+        headers={"X-User-Id": "cresca_admin"}
+    )
+    assert res.status_code == 401
+
+
+def test_certifications_same_company_jwt_allowed():
+    token = generate_signed_token("cresca_admin", role="admin", company_id="cresca_test")
+    res = client.get(
+        "/api/v1/certifications/snapshot",
+        headers={"Authorization": f"Bearer {token}"}
+    )
+    assert res.status_code == 200
+
+
+def test_certifications_public_verify_hash_endpoint():
+    res = client.get("/api/v1/certifications/verify/non_existent_hash")
+    # Public endpoint returns 404 for missing hash, NOT 401 unauthorized
+    assert res.status_code == 404
